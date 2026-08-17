@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ─── Clean base + a fuller accent palette than plain mono-green ─── */
+  --void:    #0A0A0A;
+  --void-2:  #0F0F10;
+  --void-3:  #131314;
+  --ink:     #FFFFFF;
+  --muted:   #9a9a9a;
+  --muted2:  #6a6a6a;
+
+  --green:   #00FFB2;   /* signature — primary */
+  --magenta: #FF4FA3;
+  --yellow:  #FFD84A;
+  --violet:  #B084F5;
+  --orange:  #FF9159;
+  --cyan:    #4FD8FF;
+
+  --border: rgba(255,255,255,0.09);
+  --border-bright: rgba(255,255,255,0.16);
+
+  --display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+  --body:    'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+  --bg:    var(--void);
+  --bg2:   var(--void-2);
+  --bg3:   var(--void-3);
+  --text:  var(--ink);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+button { font-family: inherit; }
+
+/* ─── Shared nav (used by all three pages) ─── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,10,.78);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 18px; color: var(--ink); }
+.nav-logo span { color: var(--green); }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+
+.section-label {
+  display: inline-block;
+  font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--green);
+}
+
+@keyframes vp-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes vp-pulse   { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes vp-blink   { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes vp-glow    { 0%,100% { opacity: .5; } 50% { opacity: .9; } }
+@keyframes vp-line-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes vp-pop     { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes vp-notif-in { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes vp-notif-out{ from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+
+.vp-root *, .vp-legal *, .vp-status * { box-sizing: border-box; }
+.vp-root h1, .vp-root h2, .vp-root h3, .vp-root p, .vp-root span, .vp-root a, .vp-root div, .vp-root button {
+  font-family: var(--display);
+}
+
+.vp-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.vp-card:hover { transform: translateY(-3px); }
+
+.vp-link { transition: color .15s ease; text-decoration: none; }
+.vp-link:hover { color: var(--ink) !important; }
+
+.vp-expand:hover { background: rgba(255,255,255,.04) !important; }
+
+.vp-copy-btn { transition: all .15s ease; }
+.vp-copy-btn:hover { border-color: var(--green) !important; color: var(--ink) !important; }
+
+.vp-btn { transition: transform .15s ease, box-shadow .15s ease; }
+.vp-btn:hover { transform: translateY(-2px); }
+
+@media (max-width: 900px) {
+  .vp-hero { grid-template-columns: 1fr !important; padding: 48px 20px 40px !important; }
+  .vp-hero-art { display: none !important; }
+  .vp-grid3 { grid-template-columns: 1fr !important; }
+  .vp-grid2 { grid-template-columns: 1fr !important; }
+  .vp-how { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .vp-foot-grid { grid-template-columns: 1fr 1fr !important; }
+  .nav-links-desktop { display: none !important; }
+  .vp-table-wrap { overflow-x: auto; }
+  .vp-notif { display: none !important; }
+  .vp-legal-body { padding: 6rem 1.3rem 4rem !important; }
+}
