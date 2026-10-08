@@ -1,299 +1,183 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import './index.css';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Nav, Footer, Pixels } from './ui.jsx';
+import { SPRITES, useRelayStatus } from './data.js';
 
-const RELAY_WS = 'wss://relay.voxelport.in/ws';
-const MONO = "'JetBrains Mono', ui-monospace, monospace";
-const GREEN = '#00FFB2';
-const MAGENTA = '#FF4FA3';
-const YELLOW = '#FFD84A';
-const VIOLET = '#B084F5';
-const VOID = '#0A0A0A';
+// Both public ways into the same relay. Hosts on app ≥1.3.1 try
+// direct first and fall back to the Cloudflare route.
+const ENDPOINTS = [
+  { key: 'direct', name: 'DIRECT ROUTE', host: 'wss://direct.voxelport.in:26499', url: 'https://direct.voxelport.in:26499/api/status', sprite: 'bolt', note: 'Used first by the app (1.3.1+)' },
+  { key: 'cdn', name: 'CLOUDFLARE ROUTE', host: 'wss://relay.voxelport.in', url: 'https://relay.voxelport.in/api/status', sprite: 'signal', note: 'Fallback route · older versions' },
+];
 
-// ── Ping helpers (unchanged logic) ─────────────────────────────────────────────
-function pingRelay() {
-  return new Promise((resolve) => {
-    const start = Date.now();
-    let ws;
-    try { ws = new WebSocket(RELAY_WS); } catch { resolve({ online: false, latency: null }); return; }
-    const timer = setTimeout(() => { try { ws.close(); } catch {} resolve({ online: false, latency: null }); }, 8000);
-    ws.onopen = () => {
-      clearTimeout(timer);
-      const latency = Date.now() - start;
-      try { ws.close(); } catch {}
-      resolve({ online: true, latency });
-    };
-    ws.onerror = () => { clearTimeout(timer); resolve({ online: false, latency: null }); };
-  });
+/** Warm round-trip time: one request to open the connection, then the best of three. */
+async function measure(url) {
+  const once = async () => {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 8000);
+    const start = performance.now();
+    try {
+      const r = await fetch(url, { cache: 'no-store', signal: ctl.signal });
+      await r.json();
+      return performance.now() - start;
+    } finally { clearTimeout(t); }
+  };
+  try {
+    await once();
+    const samples = [];
+    for (let i = 0; i < 3; i++) samples.push(await once());
+    return Math.round(Math.min(...samples));
+  } catch {
+    return null;
+  }
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
-function StatusBadge({ status }) {
-  const cfg = {
-    operational: { color: GREEN,   label: 'OPERATIONAL' },
-    degraded:    { color: YELLOW,  label: 'DEGRADED' },
-    down:        { color: MAGENTA, label: 'DOWN' },
-    checking:    { color: '#8a8a8a', label: 'CHECKING…' },
-  }[status] || { color: '#8a8a8a', label: 'UNKNOWN' };
+function grade(ms) {
+  if (ms === null || ms === undefined) return { label: 'DOWN', color: 'var(--red)' };
+  if (ms < 60) return { label: 'EXCELLENT', color: 'var(--grass)' };
+  if (ms < 120) return { label: 'GOOD', color: 'var(--grass)' };
+  if (ms < 220) return { label: 'FAIR', color: 'var(--gold)' };
+  return { label: 'HIGH', color: 'var(--red)' };
+}
 
+function EndpointCard({ ep, ms, loading, i }) {
+  const g = grade(ms);
   return (
-    <span style={{
-      fontFamily: MONO, fontSize: '0.62rem', letterSpacing: '0.12em',
-      color: cfg.color, background: `${cfg.color}14`, padding: '0.25rem 0.7rem', textTransform: 'uppercase',
-      border: `1px solid ${cfg.color}55`, borderRadius: 100, display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-    }}>
-      <span style={{ width: 6, height: 6, borderRadius: '50%', background: cfg.color, flexShrink: 0, animation: status === 'operational' ? 'vp-pulse 2s ease-in-out infinite' : 'none' }} />
-      {cfg.label}
-    </span>
-  );
-}
-
-function relayStatus(ms) {
-  if (ms === null || ms === undefined) return 'down';
-  if (ms < 150) return 'operational';
-  if (ms < 350) return 'degraded';
-  return 'down';
-}
-
-function LatencyBar({ ms }) {
-  if (ms === null) return <span style={{ fontFamily: MONO, fontSize: '0.72rem', color: '#6a6a6a' }}>—</span>;
-  const color = ms < 120 ? GREEN : ms < 280 ? YELLOW : MAGENTA;
-  return (
-    <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 650, fontSize: '2rem', color, lineHeight: 1 }}>
-      {ms}<span style={{ fontSize: '0.8rem', fontFamily: MONO, color: '#9a9a9a', marginLeft: 3 }}>ms</span>
-    </span>
-  );
-}
-
-function ServiceCard({ icon, name, desc, status, latency, extra, loading, accent }) {
-  return (
-    <div style={{
-      background: 'rgba(255,255,255,.012)', padding: '1.8rem', display: 'flex', flexDirection: 'column', gap: '1.4rem',
-      border: '1px solid var(--border)', borderRadius: 16, borderLeft: `2px solid ${accent}`,
-      transition: 'transform 0.15s ease, border-color 0.15s ease',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
-        <div style={{ width: 38, height: 38, background: `${accent}12`, border: `1px solid ${accent}44`, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', flexShrink: 0 }}>{icon}</div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: MONO, fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.04em', marginBottom: 2 }}>{name}</div>
-          <div style={{ fontFamily: MONO, fontSize: '0.62rem', color: '#6a6a6a', fontWeight: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{desc}</div>
+    <div className="panel" style={{ padding: '22px 22px 24px', transform: `rotate(${i ? .8 : -.8}deg)`, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <Pixels rows={SPRITES[ep.sprite]} size={4} />
+        <div style={{ minWidth: 0 }}>
+          <div className="h-display" style={{ fontSize: 30 }}>{ep.name}</div>
+          <div className="typewriter" style={{ fontSize: 13, color: 'var(--muted)', overflowWrap: 'anywhere' }}>{ep.host}</div>
         </div>
       </div>
-      <div><StatusBadge status={loading ? 'checking' : status} /></div>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
         <div>
-          <div style={{ fontFamily: MONO, fontSize: '0.55rem', color: '#6a6a6a', letterSpacing: '0.1em', marginBottom: 6 }}>LATENCY</div>
-          <LatencyBar ms={latency} />
+          <div className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>PING FROM YOU</div>
+          <div className="h-display" style={{ fontSize: 58, lineHeight: 1 }}>{loading ? '…' : ms === null ? '—' : `${ms} MS`}</div>
         </div>
-        {extra && <div style={{ textAlign: 'right', flexShrink: 0 }}>{extra}</div>}
+        <span className="sticker" style={{ background: loading ? 'var(--paper-2)' : g.color, color: g.color === 'var(--red)' && !loading ? 'var(--card)' : 'var(--ink)', transform: 'rotate(3deg)' }}>
+          {loading ? 'CHECKING…' : g.label}
+        </span>
       </div>
+      <div className="typewriter" style={{ fontSize: 13, color: 'var(--ink-2)' }}>{ep.note}</div>
     </div>
   );
 }
 
-// ── Main Status Page ──────────────────────────────────────────────────────────
 export default function StatusPage({ onBack }) {
-  const [relay, setRelay] = useState({ status: 'checking', latency: null });
-  const [lastChecked, setLastChecked] = useState(null);
+  const relay = useRelayStatus(15000);
+  const [ms, setMs] = useState({ direct: null, cdn: null });
   const [loading, setLoading] = useState(true);
+  const [checkedAt, setCheckedAt] = useState(null);
   const [history, setHistory] = useState([]);
-  const intervalRef = useRef(null);
+  const timer = useRef(null);
 
+  // `loading` starts true, so the automatic checks don't need to set it;
+  // only the manual "Check now" button flips it back on first.
   const check = useCallback(async () => {
-    setLoading(true);
-    const relayResult = await pingRelay();
-    const rs = relayResult.online ? relayStatus(relayResult.latency) : 'down';
-    setRelay({ status: rs, latency: relayResult.latency });
-    setLastChecked(new Date());
-    setHistory(prev => [...prev.slice(-19), { time: new Date().toLocaleTimeString(), relayMs: relayResult.latency }]);
+    const [direct, cdn] = await Promise.all(ENDPOINTS.map((e) => measure(e.url)));
+    setMs({ direct, cdn });
+    setCheckedAt(new Date());
+    setHistory((h) => [...h.slice(-23), { t: new Date().toLocaleTimeString(), direct, cdn }]);
     setLoading(false);
   }, []);
 
   useEffect(() => {
-    check();
-    intervalRef.current = setInterval(check, 30000);
-    return () => clearInterval(intervalRef.current);
+    window.scrollTo(0, 0);
+    const first = setTimeout(check, 0);
+    timer.current = setInterval(check, 30000);
+    return () => { clearTimeout(first); clearInterval(timer.current); };
   }, [check]);
 
-  const overallStatus = () => {
-    if (loading) return 'checking';
-    if (relay.status === 'down') return 'down';
-    if (relay.status === 'degraded') return 'degraded';
-    return 'operational';
-  };
-  const overall = overallStatus();
-  const overallColor = overall === 'operational' ? GREEN : overall === 'down' ? MAGENTA : YELLOW;
+  const anyUp = ms.direct !== null || ms.cdn !== null;
+  const overall = loading && !checkedAt ? 'checking' : relay.state === 'offline' && !anyUp ? 'down' : ms.direct === null || ms.cdn === null ? 'partial' : 'ok';
+  const banner = {
+    checking: ['RUNNING CHECKS…', 'Pinging the relay from your browser.', 'var(--paper-2)'],
+    ok: ['ALL SYSTEMS GO!', 'The relay is up on both routes. Host away.', 'var(--grass)'],
+    partial: ['ONE ROUTE IS DOWN', 'Hosting still works — VoxelPort falls back to the route that’s up.', 'var(--gold)'],
+    down: ['RELAY UNREACHABLE', 'Hosting and joining won’t work right now. Check back soon.', 'var(--red)'],
+  }[overall];
+  const maxMs = Math.max(200, ...history.flatMap((h) => [h.direct || 0, h.cdn || 0]));
+
+  const back = (e) => { e?.preventDefault(); onBack(e); };
 
   return (
-    <div className="vp-status" style={{ background: VOID, minHeight: '100vh', color: '#E8E8E8', fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
-      <nav className="nav">
-        <a href="#" className="nav-logo" onClick={onBack}>
-          <span style={{ display: 'inline-block', width: 22, height: 22, border: `1.5px solid ${GREEN}`, borderRadius: 5, boxShadow: '0 0 14px rgba(0,255,178,.4)' }} />
-          VOXEL<span>PORT</span>
-        </a>
-        <ul className="nav-links">
-          <li>
-            <button onClick={onBack} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: MONO, fontSize: '0.72rem', color: '#9a9a9a', letterSpacing: '0.06em' }}>
-              ← BACK TO SITE
-            </button>
-          </li>
-        </ul>
-      </nav>
+    <div className="zine">
+      <Nav links={[['← Back to site', '#', back]]} relay={null} onLogo={back} />
 
-      <div className="vp-legal-body" style={{ maxWidth: 960, margin: '0 auto', padding: '8rem 2.5rem 6rem' }}>
-
-        {/* Header */}
-        <div style={{ marginBottom: '4rem' }}>
-          <div className="section-label" style={{ marginBottom: '1rem' }}>LIVE MONITORING</div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem' }}>
-            <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.9, letterSpacing: '-0.02em', color: '#fff' }}>
-              SYSTEM<br /><span style={{ color: GREEN, textShadow: '0 0 44px rgba(0,255,178,.35)' }}>STATUS</span>
-            </h1>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.6rem' }}>
-              <StatusBadge status={loading ? 'checking' : overall} />
-              <span style={{ fontFamily: MONO, fontSize: '0.6rem', color: '#6a6a6a', letterSpacing: '0.08em' }}>
-                {lastChecked ? `CHECKED ${lastChecked.toLocaleTimeString()}` : 'CHECKING…'}
-              </span>
-              <button
-                onClick={check}
-                disabled={loading}
-                style={{
-                  fontFamily: MONO, fontSize: '0.65rem', background: 'none',
-                  border: '1px solid var(--border-bright)', color: loading ? '#6a6a6a' : GREEN,
-                  padding: '0.4rem 1rem', borderRadius: 8, cursor: loading ? 'not-allowed' : 'pointer',
-                  letterSpacing: '0.08em', textTransform: 'uppercase',
-                }}
-              >
-                {loading ? 'CHECKING…' : '↺ CHECK NOW'}
-              </button>
-            </div>
-          </div>
-
-          {/* Overall banner */}
-          <div style={{
-            marginTop: '2rem', padding: '1.2rem 1.6rem', background: `${overallColor}0d`,
-            border: `1px solid ${overallColor}55`, borderRadius: 12, display: 'flex', alignItems: 'center', gap: '1rem',
-          }}>
-            <span style={{ fontSize: '1.4rem', color: overallColor }}>{overall === 'operational' ? '✓' : overall === 'down' ? '✕' : '~'}</span>
-            <div>
-              <div style={{ fontFamily: MONO, fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.06em', color: overallColor }}>
-                {overall === 'operational' ? 'ALL SYSTEMS OPERATIONAL' : overall === 'down' ? 'SERVICE DISRUPTION DETECTED' : overall === 'checking' ? 'RUNNING CHECKS…' : 'DEGRADED PERFORMANCE'}
-              </div>
-              <div style={{ fontSize: '0.82rem', color: '#9a9a9a', fontWeight: 300, marginTop: 2 }}>
-                {overall === 'operational' ? 'Relay is reachable. You can host and join sessions.'
-                  : overall === 'down' ? 'The relay is unreachable. Hosting and joining may not work.'
-                  : overall === 'checking' ? 'Pinging services from your browser location…'
-                  : 'Some services are slower than normal. Sessions may be laggy.'}
-              </div>
-            </div>
+      <main className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
+        <span className="kicker">Live monitoring · special edition</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap', marginTop: 10 }}>
+          <h1 style={{ fontSize: 'clamp(64px, 11vw, 132px)', fontWeight: 400, lineHeight: .95 }}>
+            <span className="c-title" data-text="RELAY">RELAY</span><br />
+            <span className="c-title green" data-text="STATUS">STATUS</span>
+          </h1>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+            <span className="typewriter" style={{ fontSize: 13, color: 'var(--muted)' }}>{checkedAt ? `Checked ${checkedAt.toLocaleTimeString()}` : 'Checking…'}</span>
+            <button className="btn sm cream" onClick={() => { setLoading(true); check(); }} disabled={loading}>{loading ? 'CHECKING…' : '↻ CHECK NOW'}</button>
           </div>
         </div>
 
-        {/* Service cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
-          <ServiceCard
-            icon="📡" name="Relay Server" desc="wss://relay.voxelport.in"
-            status={relay.status} latency={relay.latency} loading={loading} accent={GREEN}
-            extra={
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: MONO, fontSize: '0.58rem', color: '#6a6a6a', letterSpacing: '0.1em', marginBottom: 4 }}>LOCATION</div>
-                <div style={{ fontFamily: MONO, fontSize: '0.72rem', color: '#9a9a9a' }}>India 🇮🇳</div>
-              </div>
-            }
-          />
-          <ServiceCard
-            icon="🌐" name="Website" desc="www.voxelport.in"
-            status="operational" latency={null} loading={false} accent={MAGENTA}
-            extra={
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: MONO, fontSize: '0.58rem', color: '#6a6a6a', letterSpacing: '0.1em', marginBottom: 4 }}>NOTE</div>
-                <div style={{ fontFamily: MONO, fontSize: '0.68rem', color: '#9a9a9a' }}>You're on it</div>
-              </div>
-            }
-          />
+        <div className="panel" style={{ marginTop: 34, padding: '18px 22px', background: banner[2], color: overall === 'down' ? 'var(--card)' : 'var(--ink)', display: 'flex', alignItems: 'center', gap: 16, transform: 'rotate(-.5deg)' }}>
+          <span className="h-display" style={{ fontSize: 36 }}>{banner[0]}</span>
+          <span style={{ fontWeight: 600 }}>{banner[1]}</span>
         </div>
 
-        {/* Ping from your location */}
-        <div style={{ border: '1px solid var(--border)', borderRadius: 16, background: 'rgba(255,255,255,.012)', padding: '2rem', marginBottom: '3rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-            <div>
-              <div style={{ fontFamily: MONO, fontSize: '0.68rem', color: GREEN, letterSpacing: '0.12em', marginBottom: 4 }}>YOUR LOCATION → RELAY</div>
-              <div style={{ fontSize: '0.88rem', color: '#9a9a9a', fontWeight: 300 }}>
-                Real WebSocket ping measured from your browser to the India relay. This is the overhead VoxelPort adds to your Minecraft connection.
+        <div className="grid-3" style={{ marginTop: 36 }}>
+          {[
+            ['HOSTS ONLINE', relay.tunnels, 'grass'],
+            ['PLAYERS CONNECTED', relay.players, 'head1'],
+            ['RELAY LOCATION', 'INDIA', 'house'],
+          ].map(([label, value, sprite], i) => (
+            <div key={label} className="panel" style={{ padding: '18px 20px', transform: `rotate(${[-1, .6, -.4][i]}deg)` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span className="pixel" style={{ fontSize: 12, color: 'var(--muted)' }}>{label}</span>
+                <Pixels rows={SPRITES[sprite]} size={3} />
               </div>
+              <div className="h-display" style={{ fontSize: 56, marginTop: 6 }}>{value ?? (relay.state === 'loading' ? '…' : '—')}</div>
             </div>
-            {relay.latency !== null && (
-              <div style={{ textAlign: 'center' }}>
-                <LatencyBar ms={relay.latency} />
-                <div style={{ fontFamily: MONO, fontSize: '0.58rem', color: '#8a8a8a', letterSpacing: '0.08em', marginTop: 4 }}>
-                  {relay.latency < 80 ? '🟢 EXCELLENT' : relay.latency < 150 ? '🟢 GOOD' : relay.latency < 250 ? '🟡 FAIR' : relay.latency < 400 ? '🟠 HIGH' : '🔴 VERY HIGH'}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Latency guide */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 1, background: 'var(--border)', border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden' }}>
-            {[
-              { range: '< 80ms', label: 'EXCELLENT', color: GREEN, note: 'South Asia, Southeast Asia' },
-              { range: '80–150ms', label: 'GOOD', color: '#7FFF00', note: 'Middle East, East Asia' },
-              { range: '150–250ms', label: 'FAIR', color: YELLOW, note: 'Europe, Central Asia' },
-              { range: '250–400ms', label: 'HIGH', color: '#FF8C00', note: 'North America' },
-              { range: '> 400ms', label: 'VERY HIGH', color: MAGENTA, note: 'South America, Australia' },
-            ].map((t, i) => (
-              <div key={i} style={{ background: VOID, padding: '1rem 0.8rem', borderTop: `2px solid ${t.color}` }}>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 650, fontSize: '1rem', color: t.color }}>{t.range}</div>
-                <div style={{ fontFamily: MONO, fontSize: '0.6rem', color: t.color, letterSpacing: '0.08em', margin: '0.2rem 0' }}>{t.label}</div>
-                <div style={{ fontSize: '0.72rem', color: '#6a6a6a', fontWeight: 300, lineHeight: 1.4 }}>{t.note}</div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#6a6a6a', fontWeight: 300 }}>
-            ℹ The relay currently runs on a single server in India. High latency for your region is expected — we plan to add nodes in Europe and North America if the project grows.
-            {' '}<a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer" style={{ color: GREEN }}>Support the project →</a>
-          </div>
+          ))}
         </div>
 
-        {/* Ping history chart */}
+        <div className="grid-2" style={{ marginTop: 36 }}>
+          {ENDPOINTS.map((ep, i) => <EndpointCard key={ep.key} ep={ep} ms={ms[ep.key]} loading={loading && !checkedAt} i={i} />)}
+        </div>
+
         {history.length > 1 && (
-          <div style={{ border: '1px solid var(--border)', borderRadius: 16, background: 'rgba(255,255,255,.012)', padding: '2rem', marginBottom: '3rem' }}>
-            <div style={{ fontFamily: MONO, fontSize: '0.68rem', color: GREEN, letterSpacing: '0.12em', marginBottom: '1.5rem' }}>
-              RELAY PING HISTORY (THIS SESSION)
+          <div className="panel" style={{ marginTop: 40, padding: '22px 22px 18px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
+              <span className="kicker">Ping history · this visit</span>
+              <span className="typewriter" style={{ fontSize: 13 }}>
+                <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--grass)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> direct&nbsp;&nbsp;
+                <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--diamond)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> cloudflare
+              </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', height: 80 }}>
-              {history.map((h, i) => {
-                const ms = h.relayMs;
-                const maxMs = Math.max(...history.map(x => x.relayMs || 0), 400);
-                const pct = ms ? Math.min((ms / maxMs) * 100, 100) : 100;
-                const color = !ms ? MAGENTA : ms < 120 ? GREEN : ms < 280 ? YELLOW : MAGENTA;
-                return (
-                  <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                    <div style={{ width: '100%', height: `${pct}%`, background: color, borderRadius: '2px 2px 0 0', opacity: i === history.length - 1 ? 1 : 0.4, minHeight: 2, transition: 'height 0.4s' }} title={ms ? `${ms}ms at ${h.time}` : `offline at ${h.time}`} />
-                  </div>
-                );
-              })}
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 120, marginTop: 18, borderBottom: '3px solid var(--ink)' }}>
+              {history.map((h, i) => (
+                <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: 2, height: '100%' }} title={`${h.t} · direct ${h.direct ?? '—'} ms · cloudflare ${h.cdn ?? '—'} ms`}>
+                  {[[h.direct, 'var(--grass)'], [h.cdn, 'var(--diamond)']].map(([v, c], j) => (
+                    <div key={j} style={{ flex: 1, height: v === null ? '100%' : `${Math.max(4, (v / maxMs) * 100)}%`, background: v === null ? 'var(--red)' : c, border: '2px solid var(--ink)', borderBottom: 'none' }} />
+                  ))}
+                </div>
+              ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6, fontFamily: MONO, fontSize: '0.55rem', color: '#6a6a6a' }}>
-              <span>{history[0]?.time}</span>
-              <span>AUTO-REFRESHES EVERY 30S</span>
-              <span>{history[history.length - 1]?.time}</span>
+            <div className="typewriter" style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--muted)', marginTop: 8 }}>
+              <span>{history[0].t}</span><span>refreshes every 30s</span><span>{history[history.length - 1].t}</span>
             </div>
           </div>
         )}
 
-        {/* Auto-refresh note */}
-        <div style={{ fontFamily: MONO, fontSize: '0.62rem', color: '#6a6a6a', letterSpacing: '0.08em', textAlign: 'center' }}>
-          PINGS MEASURED FROM YOUR BROWSER · AUTO-REFRESH EVERY 30 SECONDS · RELAY LOCATION: INDIA 🇮🇳
+        <div className="bubble tail-b" style={{ marginTop: 50, maxWidth: 720 }}>
+          <span className="kicker">About these numbers</span>
+          <p style={{ marginTop: 8, lineHeight: 1.65 }}>
+            Pings are measured from <b>your browser</b> to the relay, which runs on a single server in India. Close to India you should see
+            tens of milliseconds; from Europe or the Americas expect 150 ms or more. The direct route skips the Cloudflare hop, which some ISPs
+            send through another country. Players connect to <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> directly either way.
+          </p>
         </div>
-      </div>
+      </main>
 
-      {/* Footer strip */}
-      <div style={{ borderTop: '1px solid var(--border)', padding: '2rem 2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <span style={{ fontFamily: MONO, fontSize: '0.62rem', color: '#6a6a6a', letterSpacing: '0.06em' }}>© 2026 VOXELPORT · BUILT BY TRAZHUB</span>
-        <button onClick={onBack} style={{ fontFamily: MONO, fontSize: '0.68rem', background: 'none', border: '1px solid var(--border-bright)', color: '#9a9a9a', padding: '0.4rem 1rem', borderRadius: 8, cursor: 'pointer', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          ← BACK TO SITE
-        </button>
-      </div>
+      <Footer />
     </div>
   );
 }

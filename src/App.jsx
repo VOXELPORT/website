@@ -34,6 +34,16 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
+  // Arriving on the landing page with a section anchor (e.g. #features from
+  // another page's footer): scroll there once it has rendered.
+  useEffect(() => {
+    if (page !== 'home') return;
+    const h = window.location.hash;
+    if (h.length > 1 && !h.startsWith('#/')) {
+      setTimeout(() => document.querySelector(h)?.scrollIntoView(), 30);
+    }
+  }, [page]);
+
   const goHome = (e) => {
     if (e) e.preventDefault();
     window.location.hash = '';
@@ -43,5 +53,5 @@ export default function App() {
 
   if (page === 'legal')  return <LegalPage onBack={goHome} />;
   if (page === 'status') return <StatusPage onBack={goHome} />;
-  return <Landing onNavigate={setPage} />;
+  return <Landing />;
 }

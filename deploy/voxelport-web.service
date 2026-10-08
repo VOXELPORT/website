@@ -1,0 +1,30 @@
+[Unit]
+Description=VoxelPort Website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=voxelport
+Group=voxelport
+WorkingDirectory=/opt/voxelport-web
+# Loopback only — public traffic comes in through the Cloudflare Tunnel
+# (voxelport.in / www.voxelport.in -> http://127.0.0.1:2527).
+ExecStart=/opt/voxelport-web/voxelport-web -listen 127.0.0.1:2527 -root /opt/voxelport-web/www
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictNamespaces=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
