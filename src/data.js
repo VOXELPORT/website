@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
-export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe';
-export const DL_WIN_PORTABLE = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Portable.exe';
 export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz';
 
 export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';

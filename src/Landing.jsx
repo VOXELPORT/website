@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_WIN, DL_WIN_PORTABLE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
+  DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
 } from './data.js';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
@@ -416,8 +416,6 @@ export default function Landing() {
             <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
               <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
-              <a className="btn cream sm" href={DL_WIN}>WINDOWS .EXE</a>
-              <a className="btn cream sm" href={DL_WIN_PORTABLE}>PORTABLE .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
