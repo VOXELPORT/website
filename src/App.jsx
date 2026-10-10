@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import LegalPage from './LegalPage.jsx';
 import StatusPage from './StatusPage.jsx';
 import ServersPage from './ServersPage.jsx';
+import GuidesPage from './GuidesPage.jsx';
 import Landing from './Landing.jsx';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
@@ -31,6 +32,9 @@ function routeFromPath() {
   if (p === '/legal') return 'legal';
   if (p === '/status') return 'status';
   if (p === '/servers') return 'servers';
+  if (p === '/guides') return 'guides';
+  const m = p.match(/^\/guides\/([\w-]+)$/);
+  if (m) return 'guide:' + m[1];
   return 'home';
 }
 
@@ -65,5 +69,6 @@ export default function App() {
   if (page === 'legal')  return <LegalPage onBack={goHome} />;
   if (page === 'status') return <StatusPage onBack={goHome} />;
   if (page === 'servers') return <ServersPage onBack={goHome} />;
+  if (page === 'guides' || page.startsWith('guide:')) return <GuidesPage slug={page.startsWith('guide:') ? page.slice(6) : null} onBack={goHome} />;
   return <Landing />;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PAL, DL_STORE, DL_LINUX, GITHUB_APP, GITHUB_ORG } from './data.js';
 import { navigate } from './seo.js';
+import { GUIDES, guidePath } from './guides.js';
 
 /** Click handler for same-site links: client-side navigation for paths ("/servers"). */
 function internal(href) {
@@ -70,6 +71,7 @@ export function Nav({ links, relay, onLogo }) {
 
 const FOOTER_COLS = [
   { title: 'Product', links: [['Features', '#features'], ['How it works', '#how'], ['Direct routing', '#direct'], ['Compare', '#compare'], ['FAQ', '#faq']] },
+  { title: 'Guides', links: GUIDES.map((g) => [g.short, guidePath(g)]).concat([['All guides', '/guides']]) },
   { title: 'Get it', links: [['Microsoft Store', DL_STORE], ['Linux app', DL_LINUX]] },
   { title: 'Project', links: [['App source', GITHUB_APP], ['All repos', GITHUB_ORG], ['Server list', '/servers'], ['Relay status', '/status'], ['Donate (UPI)', '#support']] },
   { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks']] },

@@ -5,6 +5,7 @@ import {
   DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
+import { GuideGrid } from './GuidesPage.jsx';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -201,8 +202,8 @@ export default function Landing() {
   const scrollTo = (hash) => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
 
   const navLinks = [
-    ['Features', '#features'], ['How it works', '#how'], ['Direct routing', '#direct'],
-    ['Compare', '#compare'], ['Servers', '/servers'], ['Download', '#download'], ['Donate', '#support'],
+    ['Features', '#features'], ['How it works', '#how'],
+    ['Compare', '#compare'], ['Servers', '/servers'], ['Guides', '/guides'], ['Download', '#download'], ['Donate', '#support'],
   ];
 
   return (
@@ -454,6 +455,17 @@ export default function Landing() {
               </details>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══ GUIDES ═══ */}
+      <section className="section" id="guides">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">Field manual · Free guides</span>
+            <h2 className="h-display h-section">LEARN THE ROPES.</h2>
+          </div>
+          <GuideGrid />
         </div>
       </section>
 

@@ -1,6 +1,8 @@
 // Per-page SEO data, shared by the app (runtime <title>/meta updates) and by
 // scripts/prerender.mjs (static HTML for each route, sitemap). Plain ESM, no JSX.
 
+import { GUIDES_INDEX, findGuide, guidePath } from './guides.js';
+
 export const SITE = 'https://voxelport.in';
 export const OG_IMAGE = `${SITE}/og-image.png`;
 export const STORE_URL = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
@@ -118,9 +120,20 @@ function setMeta(selector, attr, value) {
   if (el) el.setAttribute(attr, value);
 }
 
+/** Title, description and path for a route key ('home', 'guides', 'guide:<slug>', …). */
+export function pageMeta(page) {
+  if (page === 'guides') return GUIDES_INDEX;
+  if (page.startsWith('guide:')) {
+    const g = findGuide(page.slice(6));
+    if (g) return { path: guidePath(g), title: g.title, description: g.description };
+    return GUIDES_INDEX;
+  }
+  return PAGES[page] || PAGES.home;
+}
+
 /** Updates <title> and the page-specific meta tags after a client-side route change. */
 export function applyPageMeta(page) {
-  const p = PAGES[page] || PAGES.home;
+  const p = pageMeta(page);
   const url = SITE + p.path;
   document.title = p.title;
   setMeta('meta[name="description"]', 'content', p.description);
