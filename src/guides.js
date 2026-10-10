@@ -3,7 +3,7 @@
 // engines see the full text. `html` is trusted, hand-written markup: <h2 id>,
 // <p>, <ul>/<ol>, <table>, <code>, <div class="tip">, and site links.
 
-export const GUIDES_UPDATED = '2026-10-10';
+export const GUIDES_UPDATED = '2026-10-11';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
@@ -335,12 +335,269 @@ ${GET_APP}
 <h2 id="lag">The server doesn’t crash but lags</h2>
 <p>Check the server’s TPS (ticks per second). 20 is perfect; below about 15 players will notice. Lower the view distance, limit farms with many entities, and use Paper instead of Vanilla for better performance. VoxelPort shows CPU, RAM and TPS live while the server runs.</p>`,
   },
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-school-college-friends',
+    title: 'How to Make a Minecraft Server for Your School or College Friends (Free)',
+    short: 'School & college friends',
+    description: 'Play Minecraft with classmates and hostel friends for free: host from home or your laptop, share one address, keep strangers out with a whitelist, and what to do when campus Wi-Fi blocks you.',
+    kicker: 'Friends · Free',
+    blurb: 'A free server for your class or hostel: setup, whitelist, and campus Wi-Fi problems.',
+    faq: [
+      { q: 'Can I host a Minecraft server on college Wi-Fi?', a: 'Often yes, because VoxelPort only makes an outgoing connection, like a website. Some campus networks block games or unusual ports. If it doesn’t work, host from home or use a mobile hotspot, and follow your college’s network rules.' },
+      { q: 'Why can’t my friends in the same hostel see my LAN world?', a: 'Many hostel and campus networks use “client isolation”, which stops devices on the Wi-Fi from talking to each other. LAN worlds can’t be seen there. Putting the server online with an address gets around it.' },
+      { q: 'How many friends can join a free server?', a: 'It depends on your PC and upload speed, not on VoxelPort. A normal laptop giving the server 4 GB handles about 5–10 players on Paper; a desktop handles more.' },
+      { q: 'Do my friends need to pay or sign up?', a: 'No. They need their own copy of Minecraft. Nobody needs a VoxelPort account, and only the host installs VoxelPort.' },
+    ],
+    html: `
+<p>Realms costs money every month, and “Open to LAN” stops working as soon as someone goes home. If you want one Minecraft world for your class, batch or hostel, the cheapest way is to host it yourself and share an address. It takes about five minutes and costs nothing.</p>
+
+<h2 id="plan">Who should host</h2>
+<p>The world lives on the host’s PC, so it’s only online while that PC is on. Pick the person who:</p>
+<ul>
+  <li>has the <b>best PC or laptop</b> (8 GB of RAM or more is comfortable),</li>
+  <li>has <b>home broadband</b> (Jio Fiber, Airtel and similar are fine, even with CGNAT),</li>
+  <li>and is happy to keep it running in the evenings or at weekends when you all play.</li>
+</ul>
+<div class="tip">Want two hosts? Take turns: zip the server folder, share it, and the other person uses <b>Import Existing Server</b>. Only run it on one PC at a time, or the world splits into two copies.</div>
+
+<h2 id="setup">Set up the server</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b> and pick <b>Survival SMP</b>. If some friends play on phones, pick <b>Java + Bedrock</b> instead.</li>
+  <li>Give it 3–4 GB of RAM, agree to the Minecraft EULA, and click <b>Install &amp; start</b>.</li>
+  <li>When it says <b>Online</b>, click <b>Make public</b>.</li>
+  <li>Claim a free name such as <code>ourclass.voxelport.in</code> under <b>Get a custom address — free</b>, so the address never changes.</li>
+  <li>Post the address in your class or hostel group chat. Friends add it under <b>Multiplayer → Add Server</b>.</li>
+</ol>
+
+<h2 id="whitelist">Keep strangers out: the whitelist</h2>
+<p>Anyone who sees a public address can try to join. If the server is only for your group, turn on the whitelist:</p>
+<ol>
+  <li>In VoxelPort, open the server’s <b>Settings</b> and turn on <b>white-list</b>.</li>
+  <li>In the console, add each friend by their Minecraft name: <code>whitelist add Name</code>.</li>
+  <li>Make yourself an operator with <code>op YourName</code> so you can manage the game from inside Minecraft.</li>
+</ol>
+<p>Players who aren’t on the list see “You are not whitelisted on this server” and can’t join.</p>
+
+<h2 id="campus">Campus and hostel Wi-Fi problems</h2>
+<table>
+  <thead><tr><th>Problem</th><th>Why</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Friends in the same hostel can’t see your LAN world</td><td>Campus Wi-Fi isolates devices from each other</td><td>Use the public address instead of LAN</td></tr>
+    <tr><td>A friend on campus Wi-Fi gets “Connection timed out”</td><td>The network blocks game ports</td><td>That friend joins from mobile data or a hotspot</td></tr>
+    <tr><td>The host can’t go public from campus</td><td>The network blocks the connection to the relay</td><td>Host from home, or from a phone hotspot (watch the data)</td></tr>
+  </tbody>
+</table>
+<div class="tip">Campus networks have rules. Don’t try to get around blocks your college has put in place on purpose; host from home instead.</div>
+
+<h2 id="ideas">Ideas for a class server</h2>
+<ul>
+  <li><b>Batch SMP:</b> plain survival where everyone builds a town together. The <b>Survival SMP</b> template is made for this.</li>
+  <li><b>Build project:</b> recreate your school or campus on a <b>Creative Flat</b> server.</li>
+  <li><b>Hardcore event:</b> one life each, over a weekend. Use the <b>Hardcore</b> template.</li>
+  <li><b>Mixed devices:</b> PC and phone players together with the <b>Java + Bedrock</b> template. See <a href="/guides/minecraft-bedrock-server-phone-players">the phone players guide</a>.</li>
+</ul>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'play-minecraft-modpack-with-friends-free',
+    title: 'How to Play a Minecraft Modpack With Friends for Free',
+    short: 'Modpacks with friends',
+    description: 'Host a CurseForge or Modrinth modpack from your own PC and play it with friends for free: get the server pack, give it enough RAM, put it online without port forwarding, and fix common modpack errors.',
+    kicker: 'Mods · Modpacks',
+    blurb: 'Host a CurseForge or Modrinth modpack for free and get friends connected.',
+    faq: [
+      { q: 'Do my friends need the modpack installed?', a: 'Yes. Everyone joining a modded server needs the same modpack, at the same version, installed through the CurseForge app, the Modrinth app or a launcher such as Prism Launcher.' },
+      { q: 'How much RAM does a modpack server need?', a: 'Light packs run on 4–6 GB. Big kitchen-sink packs (All the Mods, large tech packs) need 8–10 GB for the server alone, so the host PC needs 16 GB or more in total.' },
+      { q: 'Can Bedrock players join a modpack server?', a: 'Usually not. Bedrock players can’t load Java mods, so modpacks are Java-only.' },
+      { q: 'Where do I get the server files for a modpack?', a: 'On the modpack’s CurseForge page, open Files and download the Server Pack. On Modrinth, many packs offer a server pack too; otherwise you can put the pack’s mods on a Fabric server yourself.' },
+    ],
+    html: `
+<p>Modpacks are more fun with friends, but modpack hosting costs money and free hosts often don’t have enough RAM for big packs. If you have a decent PC, you can host the pack yourself for free. Your friends only need the same modpack installed.</p>
+
+<h2 id="before">Before you start</h2>
+<ul>
+  <li><b>RAM:</b> the server needs its own memory, on top of your game if you play on the same PC. See the table below.</li>
+  <li><b>Same version for everyone:</b> the server and every player must use exactly the same modpack version.</li>
+  <li><b>Java version:</b> modpacks for Minecraft 1.20.5–1.21.x need Java 21; newer ones need Java 25; older ones (1.18–1.20.4) need Java 17.</li>
+</ul>
+<table>
+  <thead><tr><th>Modpack size</th><th>Server RAM</th><th>Host PC total RAM</th></tr></thead>
+  <tbody>
+    <tr><td>Light (under 100 mods)</td><td>4–6 GB</td><td>12 GB or more</td></tr>
+    <tr><td>Medium (100–250 mods)</td><td>6–8 GB</td><td>16 GB or more</td></tr>
+    <tr><td>Heavy (250+ mods, e.g. All the Mods)</td><td>8–10 GB</td><td>16–32 GB</td></tr>
+  </tbody>
+</table>
+
+<h2 id="server-pack">Step 1: get the modpack’s server files</h2>
+<ol>
+  <li>Open the modpack’s page on <b>CurseForge</b> or <b>Modrinth</b> and go to <b>Files</b> or <b>Versions</b>.</li>
+  <li>Download the <b>Server Pack</b> (sometimes called “Server Files”) for the same version your friends will play.</li>
+  <li>Unzip it into a normal folder such as <code>Documents\\MyPackServer</code> (not inside OneDrive, and not in Downloads).</li>
+  <li>Run the pack’s start file: usually <code>start.bat</code>, <code>run.bat</code> or <code>startserver.bat</code>. The first run downloads the mod loader (Forge, NeoForge or Fabric) and can take a few minutes.</li>
+  <li>If it stops and asks you to accept the EULA, open <code>eula.txt</code>, change it to <code>eula=true</code>, and run the start file again.</li>
+  <li>To give it more RAM, edit <code>user_jvm_args.txt</code> (Forge and NeoForge) or the <code>-Xmx</code> value in the start file, for example <code>-Xmx8G</code>.</li>
+</ol>
+<p>Wait until the console says <code>Done</code>. The server is now running on your PC, on port 25565.</p>
+
+<h2 id="online">Step 2: put it online for friends</h2>
+${GET_APP}
+<ol>
+  <li>In VoxelPort, click <b>Tunnel a server I already run elsewhere</b>.</li>
+  <li>Enter the port (<code>25565</code> unless you changed <code>server-port</code>) and click <b>Start hosting</b>.</li>
+  <li>Copy the address it shows, or claim a free name such as <code>ourpack.voxelport.in</code>.</li>
+  <li>Friends launch the same modpack, go to <b>Multiplayer → Add Server</b>, and paste the address.</li>
+</ol>
+<div class="tip"><b>Making your own pack instead?</b> For a small Fabric pack, use VoxelPort’s <b>Modded (Fabric)</b> template, then drop mods into its <code>mods</code> folder and give friends the same mods. Client-only mods (shaders, minimaps, Sodium) stay on players’ PCs, not on the server.</div>
+
+<h2 id="friends">How friends install the modpack</h2>
+<ul>
+  <li><b>CurseForge app:</b> search for the modpack, install the same version as the server, and press Play.</li>
+  <li><b>Modrinth app or Prism Launcher:</b> same idea; pick the matching version.</li>
+  <li>Give the pack at least 4–6 GB of RAM in the launcher settings, or it may freeze while loading.</li>
+</ul>
+
+<h2 id="errors">Common modpack errors</h2>
+<table>
+  <thead><tr><th>Error</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>“Mod rejections” or “Mismatched mod channel list”</td><td>A friend has a different modpack version or extra mods. Everyone installs exactly the server’s version.</td></tr>
+    <tr><td>“Connection timed out” while joining</td><td>Big packs take a while to start. Wait for <code>Done</code> in the server console and try again.</td></tr>
+    <tr><td>Server closes with OutOfMemoryError</td><td>Give the server more RAM in <code>user_jvm_args.txt</code>.</td></tr>
+    <tr><td>“UnsupportedClassVersionError”</td><td>Wrong Java version. See <a href="/guides/minecraft-server-crash-fixes">the crash fixes guide</a>.</td></tr>
+    <tr><td>Server crashes on start after you added a mod</td><td>It’s probably client-only. Remove shaders, minimaps and similar mods from the server’s <code>mods</code> folder.</td></tr>
+  </tbody>
+</table>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'aternos-alternative-no-queue',
+    title: 'Free Aternos Alternative With No Queue: Host Minecraft on Your Own PC',
+    short: 'Aternos alternative',
+    description: 'Tired of waiting in a queue? Compare free Minecraft hosting options and host on your own PC instead: no queue, no idle shutdown, your own RAM, free and without port forwarding.',
+    kicker: 'Free hosting · Compared',
+    blurb: 'Free hosting compared, and how to host with no queue on your own PC.',
+    faq: [
+      { q: 'Why is there a queue on Aternos?', a: 'Aternos is free for everyone, so at busy times there aren’t enough free servers for everyone who wants to start one, and you wait for a slot.' },
+      { q: 'Is hosting on my own PC really free?', a: 'Yes. The server software is free, and VoxelPort puts it online for free with no account. You only use the electricity and internet you already pay for.' },
+      { q: 'Can I move my Aternos world to my own PC?', a: 'Yes. Download your world from the Worlds page in Aternos, unzip it into your new server folder, and name the folder world.' },
+      { q: 'When is Aternos the better choice?', a: 'If you don’t have a PC that can stay on while people play, or your PC has little RAM, a host like Aternos is still a good option, because it runs the server for you.' },
+    ],
+    html: `
+<p>Aternos is a popular free Minecraft host, and a good one. But at busy times you may wait in a queue just to start your server, it shuts down when nobody is online, and free servers get limited resources. If you have a PC, you can host on it instead: no queue, no idle shutdown, and as much RAM as your PC can spare.</p>
+
+<h2 id="compare">Free Minecraft hosting compared</h2>
+<table>
+  <thead><tr><th>Option</th><th>Queue</th><th>Runs while your PC is off?</th><th>RAM</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr><td>Aternos</td><td>At busy times</td><td>Yes, while players are online</td><td>Set by the host</td><td>Free, with ads</td></tr>
+    <tr><td>Other free hosts</td><td>Sometimes</td><td>Usually, with limits</td><td>Small on free plans</td><td>Free tier, paid upgrades</td></tr>
+    <tr><td>Your own PC + VoxelPort</td><td>None</td><td>No</td><td>As much as your PC has</td><td>Free</td></tr>
+    <tr><td>Paid hosting</td><td>None</td><td>Yes, 24/7</td><td>What you pay for</td><td>Monthly</td></tr>
+  </tbody>
+</table>
+
+<h2 id="why">Why host on your own PC</h2>
+<ul>
+  <li><b>No queue:</b> the server starts in seconds, whenever you want.</li>
+  <li><b>No idle shutdown:</b> it keeps running until you stop it, even with nobody online.</li>
+  <li><b>Your RAM:</b> a PC with 16 GB can give a server 6–8 GB, enough for bigger modpacks.</li>
+  <li><b>Full control:</b> any plugin, mod, datapack or world file, and direct access to the folder.</li>
+  <li><b>Low ping in India:</b> VoxelPort’s relay is in India.</li>
+</ul>
+<p>The catch: <b>your PC has to be on</b> while people play. If that doesn’t work for your group, stay with Aternos or a paid host.</p>
+
+<h2 id="steps">Set it up</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>. Pick a template, or choose Vanilla, Paper or Fabric and a version.</li>
+  <li>Choose the RAM, agree to the EULA, and click <b>Install &amp; start</b>. VoxelPort installs the right Java too.</li>
+  <li>Click <b>Make public</b>. You don’t need to forward ports, even on Jio or Airtel.</li>
+  <li>Claim a free address like <code>yourname.voxelport.in</code>.</li>
+  <li>Share it. Friends join under <b>Multiplayer → Add Server</b>.</li>
+</ol>
+
+<h2 id="move-world">Move your world from Aternos</h2>
+<ol>
+  <li>In Aternos, open <b>Worlds</b> and download your world.</li>
+  <li>In VoxelPort, stop the server and open its folder.</li>
+  <li>Rename the new <code>world</code> folder (for example to <code>world-old</code>), then unzip your Aternos world there and name it <code>world</code>.</li>
+  <li>Start the server. Use the same Minecraft version as on Aternos, or newer.</li>
+</ol>
+<div class="tip">Using plugins on Aternos? Install the same plugins on your new Paper server; most plugin config files can be copied across as they are.</div>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-bedrock-server-phone-players',
+    title: 'How to Make a Minecraft Server Your Friends Can Join From Their Phones',
+    short: 'Server for phone players',
+    description: 'Let friends on Android and iPhone (Minecraft Bedrock, once Pocket Edition) join your server for free. Set up the server on your PC, add it on the phone step by step, and fix “Unable to connect to world”.',
+    kicker: 'Bedrock · Android · iPhone',
+    blurb: 'A server friends can join from Android and iPhone, and how to add it on the phone.',
+    faq: [
+      { q: 'Can I host the server on my phone?', a: 'Not with VoxelPort. The server runs on a Windows or Linux PC. Your friends, and you, can then play on phones.' },
+      { q: 'Do phone players need Minecraft Java?', a: 'No. They play the normal Minecraft app on their phone. The server uses Geyser and Floodgate to let them in, and Floodgate means they only need their Microsoft (Xbox) account.' },
+      { q: 'Does the host need to buy Minecraft Java Edition?', a: 'No. Running the server doesn’t require owning Java Edition. You only need it if you also want to play Java on the PC.' },
+      { q: 'Why does my phone say “Unable to connect to world”?', a: 'Usually the port is wrong or missing, the server isn’t public yet, or Geyser needs an update for a new Minecraft version. The fixes are in this guide.' },
+    ],
+    html: `
+<p>Most of your friends play Minecraft on their phones? You can still have your own server. You run it on a PC, and friends join from the Minecraft app on Android or iPhone (the Bedrock edition, once called Pocket Edition). PC players can join too.</p>
+
+<h2 id="how">How it works</h2>
+<p>VoxelPort runs a Java server with two free add-ons: <b>Geyser</b>, which lets the phone version talk to a Java server, and <b>Floodgate</b>, which lets phone players log in with just their Microsoft account. The relay carries the phone traffic too, so you don’t forward any ports.</p>
+<div class="tip">You need a <b>PC</b> to host (Windows 10/11 or Linux), and it must stay on while people play. The phones only play.</div>
+
+<h2 id="setup">Set up the server on your PC</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b> and choose the <b>Java + Bedrock</b> template. Geyser and Floodgate are installed for you.</li>
+  <li>Agree to the EULA and click <b>Install &amp; start</b>.</li>
+  <li>When it’s <b>Online</b>, click <b>Make public</b>.</li>
+  <li>Find the <b>Bedrock</b> line. It shows a <b>server address</b> and a <b>port</b>, for example <code>play.voxelport.in</code> and <code>26137</code>. Send both to your friends.</li>
+</ol>
+
+<h2 id="phone">Add the server on the phone</h2>
+<ol>
+  <li>Open Minecraft on the phone and tap <b>Play</b>.</li>
+  <li>Open the <b>Servers</b> tab and scroll to the bottom.</li>
+  <li>Tap <b>Add Server</b>.</li>
+  <li><b>Server Name:</b> anything, for example “Our SMP”.</li>
+  <li><b>Server Address:</b> the address from the Bedrock line, without the port.</li>
+  <li><b>Port:</b> the number from the Bedrock line, in place of the default 19132.</li>
+  <li>Tap <b>Save</b>, then tap the server to join.</li>
+</ol>
+<p>Players may be asked to sign in to their Microsoft account the first time. Phone players show up with a dot before their name, like <code>.Steve</code>.</p>
+
+<h2 id="fix">“Unable to connect to world” and other problems</h2>
+<table>
+  <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>Unable to connect to world</td><td>Check that the port is the one on VoxelPort’s Bedrock line, not 19132, and that the server is public.</td></tr>
+    <tr><td>“Outdated server” or “Outdated client”</td><td>Update Minecraft on the phone. If the phone is newer than Geyser, turn <b>Let Bedrock players join</b> off and on in Settings to get the latest Geyser.</td></tr>
+    <tr><td>It worked yesterday, not today</td><td>A Minecraft update probably came out. Update Geyser as above.</td></tr>
+    <tr><td>Works on Wi-Fi but not mobile data (or the other way round)</td><td>Restart the Minecraft app, and turn off any VPN or data saver on the phone.</td></tr>
+    <tr><td>“You are not whitelisted”</td><td>Phone players need the dot: <code>whitelist add .Steve</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="tips">Tips for phone-heavy servers</h2>
+<ul>
+  <li><b>Keep the view distance at 8 or below</b> in Settings. Phones show less anyway, and it saves server power.</li>
+  <li><b>Claim a free name</b> like <code>oursmp.voxelport.in</code> so the address is easy to type on a phone. Phone players still enter the port.</li>
+  <li><b>Consoles</b> (Xbox, PlayStation, Switch) can’t add servers directly. See <a href="/guides/minecraft-java-bedrock-crossplay-server">the crossplay guide</a> for what console players can do.</li>
+</ul>`,
+  },
 ];
 
 export const GUIDES_INDEX = {
   path: '/guides',
   title: 'Minecraft Server Guides — Hosting, Crossplay and Fixes | VoxelPort',
-  description: 'Free guides for hosting a Minecraft server from home: without port forwarding, on Jio and Airtel, with Java + Bedrock crossplay, a free custom address, and fixes for common crashes.',
+  description: 'Free guides for hosting a Minecraft server from home: without port forwarding, on Jio and Airtel, for school friends, modpacks and phone players, Java + Bedrock crossplay, an Aternos alternative with no queue, and fixes for common crashes.',
 };
 
 export const guidePath = (g) => `/guides/${g.slug}`;
