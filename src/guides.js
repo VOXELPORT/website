@@ -335,6 +335,55 @@ ${GET_APP}
 <h2 id="lag">The server doesn’t crash but lags</h2>
 <p>Check the server’s TPS (ticks per second). 20 is perfect; below about 15 players will notice. Lower the view distance, limit farms with many entities, and use Paper instead of Vanilla for better performance. VoxelPort shows CPU, RAM and TPS live while the server runs.</p>`,
   },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-linux-raspberry-pi',
+    title: 'Host a Minecraft Server on Linux, a Raspberry Pi or a Mac Without Port Forwarding',
+    short: 'Linux, Pi & Mac (CLI)',
+    description: 'Put a Minecraft server on a VPS, Raspberry Pi, home server, Docker or Mac online with one command: free, open source, no port forwarding, Java and Bedrock.',
+    kicker: 'Command line',
+    blurb: 'The VoxelPort CLI: one command for headless servers, Raspberry Pi, Docker and macOS.',
+    faq: [
+      { q: 'Does the VoxelPort CLI work on a Raspberry Pi?', a: 'Yes. There are builds for 64-bit Raspberry Pi OS (ARM64) and older 32-bit Pis (ARMv7). The install script picks the right one.' },
+      { q: 'Can I use it with Pterodactyl, Pelican or Docker?', a: 'Yes. Run the Docker image next to your server and point it at the server with --host, or run the CLI on the machine and give it the server’s port.' },
+      { q: 'Is there a Windows version?', a: 'On Windows, use the VoxelPort app from the Microsoft Store. It does the same thing, and also sets up the server and Java for you.' },
+    ],
+    html: `
+<p>No desktop? No problem. The <b>VoxelPort CLI</b> is a single small program that puts a Minecraft server online from a VPS, a Raspberry Pi, a home server, a Docker container or a Mac, without port forwarding. It uses the same free relay as the VoxelPort app, so it works behind CGNAT and keeps your IP hidden.</p>
+
+<h2 id="install">Install</h2>
+<p>On Linux (x86-64, ARM64, Raspberry Pi) or macOS, run:</p>
+<p><code>curl -fsSL https://voxelport.in/install.sh | sh</code></p>
+<p>The script downloads the right build from <a href="https://github.com/VOXELPORT/cli/releases">GitHub</a>, checks its checksum, and installs the <code>voxelport</code> command.</p>
+
+<h2 id="share">Share your server</h2>
+<ol>
+  <li>Start your Minecraft server as usual (Vanilla, Paper, Fabric, Forge, a modpack: anything).</li>
+  <li>Run <code>voxelport up</code> (or <code>voxelport up 25570</code> if it isn't on port 25565).</li>
+  <li>The CLI prints an address like <code>play.voxelport.in:26137</code>. Friends paste it into <b>Multiplayer → Add Server</b>.</li>
+</ol>
+<table>
+  <thead><tr><th>Add this</th><th>To get</th></tr></thead>
+  <tbody>
+    <tr><td><code>--name traz</code></td><td>The free address <code>traz.voxelport.in</code> (no port for Java players)</td></tr>
+    <tr><td><code>--bedrock</code></td><td>Bedrock players too (needs Geyser on UDP 19132)</td></tr>
+    <tr><td><code>--list --mode survival</code></td><td>A spot on <a href="/servers">voxelport.in/servers</a>, with live player count</td></tr>
+    <tr><td><code>--host mc</code></td><td>A server on another machine or Docker container</td></tr>
+  </tbody>
+</table>
+
+<h2 id="boot">Keep it running</h2>
+<p>Run <code>voxelport service install</code> with the same options to start VoxelPort at boot (systemd on Linux, launchd on macOS). It reconnects by itself after network drops. On Linux, run <code>sudo loginctl enable-linger $USER</code> once so it keeps running when you log out.</p>
+
+<h2 id="docker">Docker</h2>
+<p><code>docker run -d --network host -v voxelport:/data ghcr.io/voxelport/cli up 25565</code></p>
+<p>The volume keeps your identity, and with it your address. In Docker Compose, put VoxelPort next to your server container and use <code>--host</code> with the server's service name. The <a href="https://github.com/VOXELPORT/cli#docker">README</a> has a full example.</p>
+
+<h2 id="identity">Your address belongs to your identity file</h2>
+<p>On first run the CLI creates <code>~/.config/voxelport/token</code>. Your port and custom address are tied to it, so keep it, and don't run two machines with the same file. If you delete it you get a new address.</p>
+<div class="tip">Hosting from a Windows PC? Use the <a href="https://apps.microsoft.com/detail/9NGRX9CFNBD6">VoxelPort app</a> instead. It also installs the server and Java for you. See <a href="/guides/minecraft-server-without-port-forwarding">the step-by-step guide</a>.</div>`,
+  },
 ];
 
 export const GUIDES_INDEX = {
