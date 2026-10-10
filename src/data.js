@@ -11,6 +11,10 @@ export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';
 export const SERVERS_URL = 'https://relay.voxelport.in/api/servers';
 export const EXAMPLE_ADDR = 'play.voxelport.in:26137';
 
+// Donations (UPI, India). The QR in public/upi-qr.svg encodes UPI_LINK.
+export const UPI_ID = 'trazhub@upi';
+export const UPI_LINK = 'upi://pay?pa=trazhub@upi&pn=VoxelPort&cu=INR&tn=Support%20VoxelPort';
+
 // ─── Live data ────────────────────────────────────────────────────────────────
 
 /** Polls the relay's public status endpoint. state: 'loading' | 'online' | 'offline'. */

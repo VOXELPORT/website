@@ -241,6 +241,18 @@ button { font-family: inherit; }
 .faq-item p { padding: 0 20px 20px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
 @media (max-width: 760px) { .faq-grid { grid-template-columns: 1fr; } }
 
+/* Support / donate */
+.support { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+.support-copy { min-width: 0; }
+.support-points { margin-top: 20px; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; font-size: 17px; color: var(--ink-2); }
+.support-card { padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 360px; width: 100%; justify-self: center; }
+.support-qr { display: block; width: 220px; max-width: 100%; height: auto; border: 3px solid var(--ink); image-rendering: pixelated; }
+.support-id { display: flex; gap: 8px; width: 100%; }
+.support-id .addr { flex: 1; min-width: 0; font-size: 16px; padding: 10px 12px; overflow-x: auto; white-space: nowrap; }
+.support-pay { width: 100%; text-align: center; }
+.support-note { font-size: 13px; color: var(--muted); text-align: center; }
+@media (max-width: 760px) { .support { grid-template-columns: 1fr; gap: 32px; } }
+
 /* Grids */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 34px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
+  DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 
@@ -157,6 +157,44 @@ function AppMock() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+function Support() {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard?.writeText(UPI_ID).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return (
+    <section className="section" id="support">
+      <div className="wrap support">
+        <div className="support-copy">
+          <span className="kicker">Tip jar · Keep it free</span>
+          <h2 className="h-display h-section">SUPPORT VOXELPORT</h2>
+          <p className="lede" style={{ marginTop: 14 }}>
+            VoxelPort has no ads, no accounts and no paid plan. The relay runs on a server I pay for myself.
+            If it saved you a fight with your router, a small tip helps keep it online.
+          </p>
+          <ul className="support-points">
+            <li>Any amount helps, even ₹20</li>
+            <li>Goes to the relay's power, internet and hardware</li>
+            <li>UPI works from any Indian bank app: GPay, PhonePe, Paytm, BHIM</li>
+          </ul>
+        </div>
+        <div className="panel support-card tilt-r1">
+          <img src="/upi-qr.svg" width="220" height="220" alt={`UPI QR code for ${UPI_ID}`} className="support-qr" />
+          <span className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>SCAN WITH ANY UPI APP</span>
+          <div className="support-id">
+            <span className="addr">{UPI_ID}</span>
+            <button className="btn sm cream" onClick={copy}>{copied ? 'COPIED!' : 'COPY'}</button>
+          </div>
+          <a className="btn green sm support-pay" href={UPI_LINK}>PAY WITH UPI</a>
+          <span className="support-note">“Pay with UPI” opens your UPI app on a phone.</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Landing() {
   const relay = useRelayStatus();
   const rel = useLatestReleases();
@@ -164,7 +202,7 @@ export default function Landing() {
 
   const navLinks = [
     ['Features', '#features'], ['How it works', '#how'], ['Direct routing', '#direct'],
-    ['Compare', '#compare'], ['Servers', '/servers'], ['Download', '#download'],
+    ['Compare', '#compare'], ['Servers', '/servers'], ['Download', '#download'], ['Donate', '#support'],
   ];
 
   return (
@@ -451,6 +489,9 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ═══ SUPPORT ═══ */}
+      <Support />
 
       <Footer onHome={(hash) => scrollTo(hash)} />
     </div>
