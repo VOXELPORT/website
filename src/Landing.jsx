@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_WIN, DL_WIN_PORTABLE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
+  DL_STORE, DL_WIN, DL_WIN_PORTABLE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
 } from './data.js';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
@@ -14,7 +14,7 @@ const PATHS = [
     tag: 'New server', color: 'green', sprite: 'grass', title: 'START FROM SCRATCH',
     desc: 'Pick Vanilla, Paper or Fabric and a version. VoxelPort downloads the server, installs the right Java and starts it for you.',
     points: ['Right Java version installed automatically', 'Official, checksum-verified downloads', 'Live console, players & ping'],
-    cta: ['DOWNLOAD FOR WINDOWS', DL_WIN],
+    cta: ['GET IT ON MICROSOFT STORE', DL_STORE],
   },
   {
     tag: 'Your server', color: 'gold', sprite: 'diamond', title: 'BRING YOUR OWN',
@@ -319,7 +319,7 @@ export default function Landing() {
                 </p>
               </div>
               <div style={{ marginTop: 50, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <a className="btn green" href={DL_WIN}>GET THE APP</a>
+                <a className="btn green" href={DL_STORE} target="_blank" rel="noreferrer">GET THE APP</a>
                 <a className="btn cream" href={GITHUB_APP} target="_blank" rel="noreferrer">READ THE CODE</a>
               </div>
             </div>
@@ -409,12 +409,14 @@ export default function Landing() {
           <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, textAlign: 'left', maxWidth: 640, marginInline: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span className="kicker" style={{ color: 'var(--grass-dk)' }}>Desktop app</span>
+              <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>NOW ON MICROSOFT STORE</span>
               <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
             </div>
             <h3 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>HOST ANY SERVER</h3>
             <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
-              <a className="btn green sm" href={DL_WIN}>WINDOWS</a>
+              <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
+              <a className="btn cream sm" href={DL_WIN}>WINDOWS .EXE</a>
               <a className="btn cream sm" href={DL_WIN_PORTABLE}>PORTABLE .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
