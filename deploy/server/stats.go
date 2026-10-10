@@ -4,8 +4,8 @@ package main
 // and no IP address is ever stored: a visitor is a hash of (daily random salt,
 // IP, user agent) held in memory for one day only, used just to count unique
 // visitors and who's active right now. What's saved to disk is plain counts per
-// day: page loads, unique visitors, pages, referring sites, countries and
-// search-engine crawler hits.
+// day, kept forever: page loads, unique visitors, pages, referring sites,
+// countries and search-engine crawler hits.
 
 import (
 	"crypto/rand"
@@ -26,9 +26,8 @@ import (
 )
 
 const (
-	statsKeepDays = 90
-	liveWindow    = 5 * time.Minute
-	maxKeys       = 200 // per map per day, so junk referrers can't grow the file forever
+	liveWindow = 5 * time.Minute
+	maxKeys    = 200 // per map per day, so junk referrers can't grow the file forever
 )
 
 type dayStats struct {
@@ -79,12 +78,6 @@ func (s *siteStats) rollLocked(day string) {
 	s.live = map[uint64]time.Time{}
 	if s.days[day] == nil {
 		s.days[day] = newDay()
-	}
-	cutoff := time.Now().UTC().AddDate(0, 0, -statsKeepDays).Format("2006-01-02")
-	for d := range s.days {
-		if d < cutoff {
-			delete(s.days, d)
-		}
 	}
 }
 
