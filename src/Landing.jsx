@@ -4,6 +4,7 @@ import {
   SPRITES, useRelayStatus, useLatestReleases,
   DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR,
 } from './data.js';
+import { navigate, FAQ } from './seo.js';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -163,7 +164,7 @@ export default function Landing() {
 
   const navLinks = [
     ['Features', '#features'], ['How it works', '#how'], ['Direct routing', '#direct'],
-    ['Compare', '#compare'], ['Servers', '#/servers'], ['Download', '#download'],
+    ['Compare', '#compare'], ['Servers', '/servers'], ['Download', '#download'],
   ];
 
   return (
@@ -181,8 +182,9 @@ export default function Landing() {
           </span>
         </div>
 
-        <h1 className="hero-title" aria-label="VoxelPort">
-          <Title>VOXEL</Title><Title className="green">PORT</Title>
+        <h1 className="hero-title">
+          <span className="sr-only">VoxelPort — free Minecraft server hosting from your PC, no port forwarding</span>
+          <span aria-hidden="true"><Title>VOXEL</Title><Title className="green">PORT</Title></span>
         </h1>
 
         <div className="hero-grid">
@@ -222,7 +224,7 @@ export default function Landing() {
               <span className="chip tilt-r1">OPEN SOURCE</span>
               <span className="chip tilt-l1">FREE</span>
             </div>
-            <a href="#/status" className="panel" style={{ display: 'block', marginTop: 22, padding: '12px 16px', textDecoration: 'none', boxShadow: 'var(--shadow-sm)' }}>
+            <a href="/status" onClick={(e) => { e.preventDefault(); navigate('/status'); }} className="panel" style={{ display: 'block', marginTop: 22, padding: '12px 16px', textDecoration: 'none', boxShadow: 'var(--shadow-sm)' }}>
               <div className="typewriter" style={{ fontSize: 14, lineHeight: 1.6 }}>
                 <span style={{ color: 'var(--red)', fontWeight: 700 }}>RELAY LOG: </span>
                 {relay.state === 'loading' && 'checking the relay…'}
@@ -395,6 +397,24 @@ export default function Landing() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ FAQ ═══ */}
+      <section className="section" id="faq">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">Letters page · Your questions</span>
+            <h2 className="h-display h-section">MINECRAFT HOSTING, ANSWERED.</h2>
+          </div>
+          <div className="faq-grid">
+            {FAQ.map((f, i) => (
+              <details key={f.q} className="panel faq-item" style={{ transform: `rotate(${[-.5, .4, -.3, .5][i % 4]}deg)` }} open={i < 2}>
+                <summary><h3>{f.q}</h3></summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

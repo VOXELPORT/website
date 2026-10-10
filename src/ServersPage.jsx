@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import { SPRITES, SERVERS_URL, DL_STORE } from './data.js';
+import { navigate } from './seo.js';
 
 const MODES = [
   ['all', 'All'], ['survival', 'Survival'], ['creative', 'Creative'], ['hardcore', 'Hardcore'], ['modded', 'Modded'], ['bedrock', 'Bedrock'],
@@ -128,7 +129,7 @@ export default function ServersPage({ onBack }) {
         {error && !servers.length ? (
           <div className="panel" style={{ marginTop: 34, padding: 24, background: 'var(--gold)' }}>
             <span className="h-display" style={{ fontSize: 30 }}>CAN’T REACH THE RELAY</span>
-            <p style={{ marginTop: 6 }}>The list will come back on its own — check the <a href="#/status">relay status</a>.</p>
+            <p style={{ marginTop: 6 }}>The list will come back on its own — check the <a href="/status" onClick={(e) => { e.preventDefault(); navigate('/status'); }}>relay status</a>.</p>
           </div>
         ) : !loading && !shown.length ? (
           <div className="panel" style={{ marginTop: 34, padding: '30px 26px', display: 'flex', gap: 22, alignItems: 'center', flexWrap: 'wrap' }}>

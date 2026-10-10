@@ -1,12 +1,14 @@
 // Minimal static file server for the VoxelPort website.
 //
 // Serves the Vite build output (dist/) on a loopback address; public traffic
-// arrives through the Cloudflare Tunnel, which terminates TLS. The site uses
-// hash routing, so no SPA rewrite is needed — unknown paths get index.html
-// anyway as a safety net for old links.
+// arrives through the Cloudflare Tunnel, which terminates TLS. Each route has
+// its own prerendered page (dist/servers/index.html, …), served at /servers
+// without a redirect. Unknown paths get the app shell with a 404 status, so
+// search engines don't index them as copies of the home page.
 package main
 
 import (
+	"bytes"
 	"flag"
 	"log"
 	"net/http"
@@ -45,10 +47,26 @@ func main() {
 		}
 
 		clean := filepath.Join(*root, filepath.FromSlash(filepath.Clean("/"+r.URL.Path)))
-		if st, err := os.Stat(clean); err != nil || st.IsDir() && r.URL.Path != "/" {
-			// Fall back to the app shell rather than a 404 or a directory listing.
+		st, err := os.Stat(clean)
+		if err == nil && st.IsDir() && r.URL.Path != "/" {
+			// A route like /servers: serve its own page directly (no /servers/ redirect).
+			if b, err := os.ReadFile(filepath.Join(clean, "index.html")); err == nil {
+				h.Set("Cache-Control", "no-cache")
+				h.Set("Content-Type", "text/html; charset=utf-8")
+				http.ServeContent(w, r, "index.html", st.ModTime(), bytes.NewReader(b))
+				return
+			}
+		}
+		if err != nil || st.IsDir() && r.URL.Path != "/" {
+			// Unknown path: the app shell (it shows the home page), but a real 404.
 			h.Set("Cache-Control", "no-cache")
-			http.ServeFile(w, r, index)
+			h.Set("Content-Type", "text/html; charset=utf-8")
+			w.WriteHeader(http.StatusNotFound)
+			if r.Method == http.MethodGet {
+				if b, err := os.ReadFile(index); err == nil {
+					w.Write(b)
+				}
+			}
 			return
 		}
 		if r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html") {

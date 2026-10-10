@@ -17,9 +17,9 @@ function jump(id) {
 }
 
 export default function LegalPage({ onBack }) {
-  // Deep links look like #/legal#privacy-notice.
+  // Deep links look like /legal#privacy-notice.
   useEffect(() => {
-    const target = window.location.hash.split('#')[2];
+    const target = window.location.hash.slice(1);
     if (target) setTimeout(() => jump(target), 50);
     else window.scrollTo(0, 0);
   }, []);
