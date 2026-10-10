@@ -491,7 +491,7 @@ export default function Landing() {
               <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
-              <a className="btn cream sm" href="/guides/minecraft-server-linux-raspberry-pi" onClick={(e) => { e.preventDefault(); navigate('/guides/minecraft-server-linux-raspberry-pi'); window.scrollTo(0, 0); }}>MAC · PI · CLI</a>
+              <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
           </div>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 44 }}>
