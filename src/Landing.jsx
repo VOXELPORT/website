@@ -7,7 +7,7 @@ import {
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
-const TICKER = ['No port forwarding', 'Vanilla clients', 'Desktop app', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
+const TICKER = ['No port forwarding', 'Your own .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
 
 const PATHS = [
   {
@@ -31,6 +31,9 @@ const FEATURES = [
   { sprite: 'card', title: 'NO SIGNUP', desc: 'No account, no Discord, no token to copy. A private device key is created on first run.' },
   { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Hosts connect straight to the relay for ~10–20 ms pings, and fall back to Cloudflare automatically if a network blocks it.' },
   { sprite: 'heart', title: 'FREE & OPEN', desc: 'MIT-licensed app and relay. Read the code, fork it, or run your own relay.' },
+  { sprite: 'house', title: 'YOUR OWN ADDRESS', desc: 'Claim yourname.voxelport.in for free. Friends join without typing a port number.' },
+  { sprite: 'diamond', title: 'BEDROCK TOO', desc: 'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.' },
+  { sprite: 'head1', title: 'CRASH HELP', desc: 'If your server stops, VoxelPort says why in plain words — and offers the fix. Plus live CPU, RAM and TPS.' },
 ];
 
 const STEPS = [
@@ -160,7 +163,7 @@ export default function Landing() {
 
   const navLinks = [
     ['Features', '#features'], ['How it works', '#how'], ['Direct routing', '#direct'],
-    ['Compare', '#compare'], ['Download', '#download'],
+    ['Compare', '#compare'], ['Servers', '#/servers'], ['Download', '#download'],
   ];
 
   return (
@@ -279,7 +282,7 @@ export default function Landing() {
           </div>
           <div className="grid-3">
             {FEATURES.map((f, i) => (
-              <article key={f.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7][i]}deg)` }}>
+              <article key={f.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7, -.5, .9, -.8][i]}deg)` }}>
                 <span className="sticker red feat-num" style={{ transform: 'rotate(4deg)' }}>#{String(i + 1).padStart(2, '0')}</span>
                 <div style={{ height: 56, display: 'flex', alignItems: 'center' }}><Pixels rows={SPRITES[f.sprite]} size={4.4} /></div>
                 <h3>{f.title}</h3>

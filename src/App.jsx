@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import LegalPage from './LegalPage.jsx';
 import StatusPage from './StatusPage.jsx';
+import ServersPage from './ServersPage.jsx';
 import Landing from './Landing.jsx';
 import './index.css';
 
@@ -21,6 +22,7 @@ function routeFromHash() {
   const h = window.location.hash;
   if (h.startsWith('#/legal'))  return 'legal';
   if (h.startsWith('#/status')) return 'status';
+  if (h.startsWith('#/servers')) return 'servers';
   return 'home';
 }
 
@@ -53,5 +55,6 @@ export default function App() {
 
   if (page === 'legal')  return <LegalPage onBack={goHome} />;
   if (page === 'status') return <StatusPage onBack={goHome} />;
+  if (page === 'servers') return <ServersPage onBack={goHome} />;
   return <Landing />;
 }

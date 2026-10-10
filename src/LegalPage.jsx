@@ -97,8 +97,10 @@ export default function LegalPage({ onBack }) {
           <Table rows={[
             ['When', 'Data', 'Why'],
             ['You start hosting', 'Your device token', `Registers your host; the relay assigns a public address like ${EXAMPLE_ADDR}`],
-            ['A player joins', 'Minecraft game traffic', 'The relay passes bytes between the player and your server. It does not read or store packet contents.'],
+            ['A player joins', 'Minecraft game traffic (Java, and Bedrock if you turned it on)', 'The relay passes bytes between the player and your server. It does not read or store packet contents.'],
             ['While hosting', 'A periodic ping', 'Keeps the connection alive and measures relay ping'],
+            ['You claim a custom address', 'The name you pick, linked to a one-way hash of your device token', 'Publishes yourname.voxelport.in in public DNS. Kept until you remove it, or after 60 days unused.'],
+            ['You list your server (opt-in)', 'Server name, description, version, game mode, player count', 'Shown publicly on voxelport.in/servers only while your server is public. Never stored.'],
           ]} />
 
           <Sub color="var(--red)">What the relay logs</Sub>
@@ -205,6 +207,8 @@ export default function LegalPage({ onBack }) {
             ['Minecraft', 'Mojang AB / Microsoft', 'To describe what VoxelPort is for. VoxelPort ships no Minecraft code or assets.'],
             ['Fabric', 'The Fabric Project', 'A server type the app can set up for you.'],
             ['Java', 'Oracle', 'The runtime Minecraft servers use.'],
+            ['Geyser, Floodgate', 'GeyserMC', 'Installed on request so Bedrock players can join.'],
+            ['Modrinth', 'Rinth, Inc.', 'Where Fabric versions of Geyser, Floodgate and Fabric API are downloaded from.'],
             ['GitHub', 'Microsoft', 'Where the source code and downloads are hosted.'],
             ['Cloudflare', 'Cloudflare, Inc.', 'Network provider for the website and the fallback relay route.'],
           ]} />
