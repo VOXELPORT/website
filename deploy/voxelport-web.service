@@ -10,7 +10,11 @@ Group=voxelport
 WorkingDirectory=/opt/voxelport-web
 # Loopback only — public traffic comes in through the Cloudflare Tunnel
 # (voxelport.in / www.voxelport.in -> http://127.0.0.1:2527).
-ExecStart=/opt/voxelport-web/voxelport-web -listen 127.0.0.1:2527 -root /opt/voxelport-web/www
+# Page-load counts for the operator dashboard: loopback only, token-gated.
+EnvironmentFile=-/etc/voxelport/admin.env
+StateDirectory=voxelport-web
+StateDirectoryMode=0750
+ExecStart=/opt/voxelport-web/voxelport-web -listen 127.0.0.1:2527 -root /opt/voxelport-web/www -stats-listen 127.0.0.1:2529 -stats-file /var/lib/voxelport-web/stats.json
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true

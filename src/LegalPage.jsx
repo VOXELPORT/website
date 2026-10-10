@@ -115,7 +115,7 @@ export default function LegalPage({ onBack }) {
             'Passwords, emails or accounts of any kind',
             'Minecraft chat, inventories, worlds or other game data',
             'Location, device fingerprints or hardware IDs',
-            'Analytics, telemetry or crash reports',
+            'Analytics, telemetry or crash reports from the app',
           ]} />
 
           <Sub color="var(--red)">IP addresses</Sub>
@@ -127,7 +127,10 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">This website</Sub>
           <p>
-            No cookies, no analytics, no ad trackers. Fonts are served from this site. Your browser fetches the relay’s public
+            No cookies and no ad trackers. The site counts page loads per day: which page, the site you came from, and your
+            country as reported by Cloudflare, so we can see which guides help. Your IP address is never stored. To count unique
+            visitors it is mixed with a random key that changes every day, and that result stays in memory only until the day
+            ends. Fonts are served from this site. Your browser fetches the relay’s public
             status and the latest release numbers from GitHub’s public API to show them on the page. The site itself is delivered
             through Cloudflare.
           </p>

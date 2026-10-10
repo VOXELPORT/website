@@ -5,6 +5,9 @@
 // its own prerendered page (dist/servers/index.html, …), served at /servers
 // without a redirect. Unknown paths get the app shell with a 404 status, so
 // search engines don't index them as copies of the home page.
+//
+// With -stats-listen it also counts page loads (see stats.go) and serves the
+// counts to the operator dashboard on a separate loopback listener.
 package main
 
 import (
@@ -13,15 +16,37 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 )
 
 func main() {
 	listen := flag.String("listen", "127.0.0.1:2527", "listen address")
 	root := flag.String("root", "/opt/voxelport-web/www", "directory containing the built site")
+	statsListen := flag.String("stats-listen", "", "loopback address serving page-load counts to the dashboard (token from $VOXELPORT_ADMIN_TOKEN); empty disables counting")
+	statsFile := flag.String("stats-file", "", "where daily counts are saved (e.g. /var/lib/voxelport-web/stats.json)")
 	flag.Parse()
+
+	var stats *siteStats
+	token := os.Getenv("VOXELPORT_ADMIN_TOKEN")
+	if *statsListen != "" && (len(token) < 24 || !strings.HasPrefix(*statsListen, "127.0.0.1:")) {
+		// Never take the website down over stats: just run without them.
+		log.Printf("stats disabled: -stats-listen must be a 127.0.0.1 address and needs $VOXELPORT_ADMIN_TOKEN (24+ characters)")
+	} else if *statsListen != "" {
+		stats = newSiteStats(*statsFile, "voxelport.in")
+		go stats.saveLoop()
+		go func() {
+			ss := &http.Server{Addr: *statsListen, Handler: stats.handler(token), ReadHeaderTimeout: 5 * time.Second}
+			log.Printf("stats on %s", *statsListen)
+			log.Printf("stats listener stopped: %v", ss.ListenAndServe())
+		}()
+		sig := make(chan os.Signal, 1)
+		signal.Notify(sig, syscall.SIGTERM, os.Interrupt)
+		go func() { <-sig; stats.save(); os.Exit(0) }()
+	}
 
 	index := filepath.Join(*root, "index.html")
 	if _, err := os.Stat(index); err != nil {
@@ -53,6 +78,7 @@ func main() {
 			if b, err := os.ReadFile(filepath.Join(clean, "index.html")); err == nil {
 				h.Set("Cache-Control", "no-cache")
 				h.Set("Content-Type", "text/html; charset=utf-8")
+				stats.pageLoad(r, strings.TrimSuffix(r.URL.Path, "/"))
 				http.ServeContent(w, r, "index.html", st.ModTime(), bytes.NewReader(b))
 				return
 			}
@@ -68,6 +94,9 @@ func main() {
 				}
 			}
 			return
+		}
+		if r.URL.Path == "/" {
+			stats.pageLoad(r, "/")
 		}
 		if r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html") {
 			h.Set("Cache-Control", "no-cache")
