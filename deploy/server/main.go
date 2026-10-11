@@ -23,6 +23,9 @@ import (
 	"time"
 )
 
+// canonicalHost is the one public address of the site; www. and http redirect here.
+const canonicalHost = "voxelport.in"
+
 func main() {
 	listen := flag.String("listen", "127.0.0.1:2527", "listen address")
 	root := flag.String("root", "/opt/voxelport-web/www", "directory containing the built site")
@@ -60,6 +63,17 @@ func main() {
 			return
 		}
 		h := w.Header()
+		// One canonical site: through Cloudflare, send www. and plain http
+		// to https://voxelport.in with a permanent redirect (search engines
+		// otherwise index the same pages twice). Local requests are untouched.
+		if r.Header.Get("Cf-Ray") != "" {
+			host := strings.ToLower(strings.Split(r.Host, ":")[0])
+			if host != canonicalHost || r.Header.Get("X-Forwarded-Proto") == "http" {
+				http.Redirect(w, r, "https://"+canonicalHost+r.URL.RequestURI(), http.StatusMovedPermanently)
+				return
+			}
+			h.Set("Strict-Transport-Security", "max-age=31536000")
+		}
 		h.Set("X-Content-Type-Options", "nosniff")
 		h.Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		h.Set("X-Frame-Options", "DENY")
