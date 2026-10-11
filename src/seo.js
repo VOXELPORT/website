@@ -11,7 +11,7 @@ export const PAGES = {
   home: {
     path: '/',
     title: 'VoxelPort: Free Minecraft Server Hosting, No Port Forwarding',
-    description: 'Host a Minecraft server from your own PC and let friends join in seconds. No port forwarding, no signup, free custom address, Java + Bedrock crossplay. Free & open source.',
+    description: 'Free Minecraft server hosting on your own PC: no sleep, no queue, no RAM cap and no port forwarding. Friends join in seconds, Java + Bedrock crossplay. Free & open source.',
     heading: 'Host a Minecraft server from your PC — no port forwarding',
     summary: [
       'VoxelPort is a free, open-source desktop app for Windows and Linux. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',

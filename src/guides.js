@@ -3,13 +3,73 @@
 // engines see the full text. `html` is trusted, hand-written markup: <h2 id>,
 // <p>, <ul>/<ol>, <table>, <code>, <div class="tip">, and site links.
 
-export const GUIDES_UPDATED = '2026-10-11';
+export const GUIDES_UPDATED = '2026-10-12';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
 const GET_APP = `<p>Get VoxelPort from the <a href="${STORE}">Microsoft Store</a> (Windows 10 and 11) or download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free, open source, and needs no account.</p>`;
 
 export const GUIDES = [
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'free-minecraft-server-hosting',
+    title: 'Free Minecraft Server Hosting With No Sleep, No Queue and No RAM Limit (2026)',
+    short: 'Free Minecraft hosting',
+    description: 'Free Minecraft server hosting compared: Aternos, Minehut, Falix and hosting on your own PC with VoxelPort. What each free plan limits (sleep, queues, RAM, ads), and which to pick for your group.',
+    kicker: 'Free hosting · 2026',
+    blurb: 'Aternos, Minehut, Falix and your own PC compared: sleep, queues, RAM and the catch with each.',
+    faq: [
+      { q: 'What is the best free Minecraft server hosting?', a: 'It depends on your PC. If you have a PC that can stay on while people play, hosting on it with VoxelPort is free with no sleep, no queue and no RAM cap. If you don’t, a cloud host like Aternos, Minehut or Falix runs the server for you, with limits on the free plan.' },
+      { q: 'Is there free Minecraft hosting that doesn’t sleep?', a: 'Free cloud hosts usually stop or sleep the server when nobody is online, to save resources. A server on your own PC doesn’t: with VoxelPort it stays online until you stop it, as long as the PC is on.' },
+      { q: 'Is VoxelPort really free?', a: 'Yes. The app and the relay are free and open source, with no account, no ads and no paid tier. You use your own PC’s power and internet.' },
+      { q: 'How much RAM do free Minecraft hosts give?', a: 'Free plans are usually around 1–4 GB, depending on the host. On your own PC you choose: a PC with 16 GB of RAM can give a server 6–8 GB, enough for most modpacks.' },
+      { q: 'Can Bedrock and phone players join a free server?', a: 'On VoxelPort, yes: turn on Bedrock players for a Paper or Fabric server and Java and Bedrock (phone, console, Windows) players join the same world. Several cloud hosts support this too, sometimes only on paid plans.' },
+    ],
+    html: `
+<p>“Free Minecraft hosting” usually means a cloud host that runs your server on their machines for free, with limits: the server sleeps when nobody is online, you may wait in a queue to start it, and RAM is capped. There is another free option: <b>host on your own PC</b> and let a relay put it online. Here is how they compare, and the honest catch with each.</p>
+
+<h2 id="compare">Free Minecraft server hosting compared</h2>
+<table>
+  <thead><tr><th></th><th>Aternos</th><th>Minehut (free)</th><th>Falix (free)</th><th>VoxelPort (your PC)</th></tr></thead>
+  <tbody>
+    <tr><td>Where it runs</td><td>Their servers</td><td>Their servers</td><td>Their servers</td><td>Your PC</td></tr>
+    <tr><td>Sleeps when empty</td><td>Yes, after a few minutes</td><td>Yes</td><td>Idle limits and a session timer</td><td><b>No</b></td></tr>
+    <tr><td>Queue to start</td><td>At busy times</td><td>Short wake-up delay</td><td>No</td><td><b>No</b></td></tr>
+    <tr><td>RAM</td><td>Set by the host</td><td>About 1 GB</td><td>About 2.5–4 GB</td><td><b>As much as your PC can spare</b></td></tr>
+    <tr><td>Players</td><td>Depends on resources</td><td>About 10</td><td>Not capped</td><td>As many as your PC and internet handle</td></tr>
+    <tr><td>Mods and plugins</td><td>Yes</td><td>Plugins</td><td>Yes</td><td>Any: Paper, Fabric, modpacks, your own files</td></tr>
+    <tr><td>Ads or account</td><td>Ads, account</td><td>Account</td><td>Ads, account</td><td><b>No ads, no account</b></td></tr>
+    <tr><td>Runs while your PC is off</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+  </tbody>
+</table>
+<p><small>Free plans change often. Figures for other hosts are approximate, from their sites and public reviews in October 2026; check <a href="https://aternos.org">Aternos</a>, <a href="https://minehut.com">Minehut</a> and <a href="https://falixnodes.net">Falix</a> for the current limits.</small></p>
+
+<h2 id="pick">Which one should you pick?</h2>
+<ul>
+  <li><b>You have a PC that’s on while you play:</b> host on it with VoxelPort. No sleep, no queue, your own RAM, no ads, and your world files stay on your PC.</li>
+  <li><b>Nobody in your group has a PC that can stay on:</b> use a cloud host. Aternos is free forever; Minehut and Falix have free plans with paid upgrades.</li>
+  <li><b>You want a big modpack:</b> free cloud plans struggle with heavy modpacks. Your own PC with 8 GB+ to spare, or a paid host, works much better.</li>
+  <li><b>You want it online 24/7 without a PC:</b> that needs paid hosting; no free option does this well.</li>
+</ul>
+
+<h2 id="how">How free hosting on your own PC works</h2>
+<p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
+<p>VoxelPort has relays in India and North America and picks the closest one, so friends nearby get low ping. You can claim a free address like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
+
+<h2 id="steps">Set up a free server in 2 minutes</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>. Pick a template (Survival SMP, Creative, Modded…) or choose Vanilla, Paper or Fabric and a version.</li>
+  <li>Choose how much RAM to give it, agree to the EULA, and click <b>Install &amp; start</b>. VoxelPort downloads the right Java for you.</li>
+  <li>Click <b>Make public</b> and claim your free address.</li>
+  <li>Share it. Friends add it under <b>Multiplayer → Add Server</b>. Turn on <b>Bedrock players</b> in Settings so phone and console players can join too.</li>
+</ol>
+<div class="tip">Moving from a cloud host? Download your world from it, put it in your new server’s folder as <code>world</code>, and start the server. See <a href="/guides/aternos-alternative-no-queue#move-world">moving a world from Aternos</a>.</div>
+
+<h2 id="catch">The catch</h2>
+<p>Your PC has to be on while people play, and it uses your internet: each player needs roughly 0.1–0.5 Mbps of upload. Most home connections handle a group of friends easily. If that doesn’t suit your group, a free cloud host is the better choice, and that’s fine.</p>`,
+  },
+
   // ───────────────────────────────────────────────────────────────────────────
   {
     slug: 'host-minecraft-server-jio-airtel',
@@ -597,7 +657,7 @@ ${GET_APP}
 export const GUIDES_INDEX = {
   path: '/guides',
   title: 'Minecraft Server Guides — Hosting, Crossplay and Fixes | VoxelPort',
-  description: 'Free guides for hosting a Minecraft server from home: without port forwarding, on Jio and Airtel, for school friends, modpacks and phone players, Java + Bedrock crossplay, an Aternos alternative with no queue, and fixes for common crashes.',
+  description: 'Free guides for hosting a Minecraft server from home: free Minecraft hosting compared (no sleep, no queue), without port forwarding, on Jio and Airtel, for school friends, modpacks and phone players, Java + Bedrock crossplay, an Aternos alternative with no queue, and fixes for common crashes.',
 };
 
 export const guidePath = (g) => `/guides/${g.slug}`;
