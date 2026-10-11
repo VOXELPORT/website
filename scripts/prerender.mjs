@@ -19,7 +19,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 function fallback(key, page) {
   const parts = [`<main class="prerender">`, `<h1>${esc(page.heading)}</h1>`];
@@ -111,7 +111,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '- Relays in India (play.voxelport.in) and North America (play-na.voxelport.in); the app picks the closest automatically.',
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
-  '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6) or GitHub (https://github.com/VOXELPORT/VoxelPort-App/releases/latest).',
+  '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6), the Windows installer directly (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe) or GitHub releases incl. Linux (https://github.com/VOXELPORT/VoxelPort-App/releases/latest).',
   '',
   '## Guides',
   '',

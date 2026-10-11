@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_STORE, DL_WIN, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 import { GuideGrid } from './GuidesPage.jsx';
@@ -489,10 +489,15 @@ export default function Landing() {
             <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
               <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
+              <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
+            <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
+              The direct .exe is the newest version, before the Store updates. It isn’t code-signed yet, so Windows may say
+              “Windows protected your PC”: click <b>More info → Run anyway</b>. It updates itself after that.
+            </p>
           </div>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 44 }}>
             {['No signup', 'Open source · MIT', 'Vanilla clients join'].map((b, i) => (

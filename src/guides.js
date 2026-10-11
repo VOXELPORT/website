@@ -7,7 +7,7 @@ export const GUIDES_UPDATED = '2026-10-12';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
-const GET_APP = `<p>Get VoxelPort from the <a href="${STORE}">Microsoft Store</a> (Windows 10 and 11) or download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free, open source, and needs no account.</p>`;
+const GET_APP = `<p>Get VoxelPort from the <a href="${STORE}">Microsoft Store</a> (Windows 10 and 11), download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe">Windows installer directly</a> (if Windows warns, click More info → Run anyway), or get the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free, open source, and needs no account.</p>`;
 
 export const GUIDES = [
   // ───────────────────────────────────────────────────────────────────────────
