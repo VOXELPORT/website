@@ -101,8 +101,8 @@ export function homeJsonLd() {
       isAccessibleForFree: true,
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${SITE}/`, logo: `${SITE}/logo.png` },
-      sameAs: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App'],
+      publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${SITE}/`, logo: `${SITE}/logo.png`, sameAs: ['https://www.instagram.com/voxelport.in/'] },
+      sameAs: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App', 'https://www.instagram.com/voxelport.in/'],
     },
     { '@context': 'https://schema.org', '@type': 'WebSite', name: 'VoxelPort', url: `${SITE}/` },
     {

@@ -19,7 +19,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6']];
+const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 function fallback(key, page) {
   const parts = [`<main class="prerender">`, `<h1>${esc(page.heading)}</h1>`];

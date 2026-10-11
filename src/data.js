@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 // ─── Links ────────────────────────────────────────────────────────────────────
 export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
+export const INSTAGRAM = 'https://www.instagram.com/voxelport.in/';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz';
