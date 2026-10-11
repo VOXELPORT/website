@@ -331,7 +331,7 @@ button { font-family: inherit; }
 .footer a { color: var(--paper); text-decoration: none; }
 .footer a:hover { color: var(--gold); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr repeat(5, 1fr); gap: 32px; }
-.footer h4 { font-family: var(--type); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 700; }
+.footer h4, .footer .footer-title { font-family: var(--type); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 700; }
 .footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
 .footer-base { margin-top: 54px; padding-top: 22px; border-top: 2px dashed rgba(243, 235, 220, .25); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--type); font-size: 13px; color: rgba(243, 235, 220, .65); }
 

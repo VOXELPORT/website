@@ -30,7 +30,7 @@ export const GUIDES = [
 
 <h2 id="compare">Free Minecraft server hosting compared</h2>
 <table>
-  <thead><tr><th></th><th>Aternos</th><th>Minehut (free)</th><th>Falix (free)</th><th>VoxelPort (your PC)</th></tr></thead>
+  <thead><tr><th>Feature</th><th>Aternos</th><th>Minehut (free)</th><th>Falix (free)</th><th>VoxelPort (your PC)</th></tr></thead>
   <tbody>
     <tr><td>Where it runs</td><td>Their servers</td><td>Their servers</td><td>Their servers</td><td>Your PC</td></tr>
     <tr><td>Sleeps when empty</td><td>Yes, after a few minutes</td><td>Yes</td><td>Idle limits and a session timer</td><td><b>No</b></td></tr>

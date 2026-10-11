@@ -114,6 +114,11 @@ func main() {
 		}
 		if r.URL.Path == "/" || strings.HasSuffix(r.URL.Path, ".html") {
 			h.Set("Cache-Control", "no-cache")
+		} else if strings.HasPrefix(r.URL.Path, "/fonts/") {
+			// Font files never change under the same name (a new font gets a new file).
+			h.Set("Cache-Control", "public, max-age=31536000, immutable")
+		} else if strings.HasSuffix(r.URL.Path, ".svg") || strings.HasSuffix(r.URL.Path, ".png") || strings.HasSuffix(r.URL.Path, ".ico") || r.URL.Path == "/fonts.css" {
+			h.Set("Cache-Control", "public, max-age=604800")
 		} else {
 			h.Set("Cache-Control", "public, max-age=3600")
 		}
