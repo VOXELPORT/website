@@ -424,6 +424,9 @@ button { font-family: inherit; }
 
 /* Static text version of each page (scripts/prerender.mjs), shown only until React loads. */
 .prerender { max-width: 760px; margin: 0 auto; padding: 48px 20px; font-family: var(--body, system-ui); line-height: 1.6; }
+/* Crawlers read it from the HTML; people see the app. If the app hasn't loaded after 3 s, show the text anyway. */
+.js .prerender { visibility: hidden; animation: prerender-show 0s 3s forwards; }
+@keyframes prerender-show { to { visibility: visible; } }
 .prerender h1 { font-size: 34px; margin-bottom: 12px; }
 .prerender h2 { font-size: 24px; margin: 28px 0 8px; }
 .prerender h3 { font-size: 18px; margin: 16px 0 4px; }

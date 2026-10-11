@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- With JavaScript, the static text copy (.prerender) stays hidden until React replaces it, so it can't shift as fonts load. -->
+    <script>document.documentElement.classList.add('js')</script>
     <!-- Page-specific tags below are rewritten for each route by scripts/prerender.mjs. -->
     <title>VoxelPort: Free Minecraft Server Hosting, No Port Forwarding</title>
     <meta name="description" content="Free Minecraft server hosting on your own PC: no sleep, no queue, no RAM cap and no port forwarding. Friends join in seconds, Java + Bedrock crossplay. Free &amp; open source." />
