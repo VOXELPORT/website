@@ -96,8 +96,22 @@ export function homeJsonLd() {
       image: OG_IMAGE,
       description: PAGES.home.description,
       applicationCategory: 'UtilitiesApplication',
+      applicationSubCategory: 'Minecraft server hosting',
       operatingSystem: 'Windows 10, Windows 11, Linux',
-      downloadUrl: STORE_URL,
+      softwareVersion: '1.5.0',
+      downloadUrl: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
+      featureList: [
+        'Host a Minecraft server on your own PC without port forwarding',
+        'Works behind CGNAT (Jio, Airtel, mobile data)',
+        'No sleep, no queue, no RAM cap',
+        'Free custom address: yourname.voxelport.in',
+        'Java + Bedrock crossplay (Geyser + Floodgate)',
+        'Vanilla, Paper, Fabric and modpacks',
+        'Relays in India and North America',
+        'Automatic Java install',
+        'Live CPU, RAM and TPS, plain-English crash help',
+      ],
+      keywords: 'free minecraft server hosting, minecraft server without port forwarding, aternos alternative, minecraft server india, java bedrock crossplay',
       isAccessibleForFree: true,
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -125,7 +139,7 @@ export function pageMeta(page) {
   if (page === 'guides') return GUIDES_INDEX;
   if (page.startsWith('guide:')) {
     const g = findGuide(page.slice(6));
-    if (g) return { path: guidePath(g), title: g.title, description: g.description };
+    if (g) return { path: guidePath(g), title: g.title, description: g.description, lang: g.lang };
     return GUIDES_INDEX;
   }
   return PAGES[page] || PAGES.home;
@@ -136,6 +150,7 @@ export function applyPageMeta(page) {
   const p = pageMeta(page);
   const url = SITE + p.path;
   document.title = p.title;
+  document.documentElement.lang = p.lang || 'en';
   setMeta('meta[name="description"]', 'content', p.description);
   setMeta('link[rel="canonical"]', 'href', url);
   setMeta('meta[property="og:url"]', 'content', url);

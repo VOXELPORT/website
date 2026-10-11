@@ -72,6 +72,181 @@ ${GET_APP}
 
   // ───────────────────────────────────────────────────────────────────────────
   {
+    slug: 'how-to-make-a-minecraft-server',
+    title: 'How to Make a Minecraft Server for Free (Java + Bedrock, 2026)',
+    short: 'Make a Minecraft server',
+    description: 'Step-by-step: make a free Minecraft server on your PC and let friends join from anywhere, without port forwarding. Vanilla, Paper or Fabric, Java and Bedrock, with the RAM and Java settings explained.',
+    kicker: 'Beginner · Step by step',
+    blurb: 'From nothing to friends joining: server type, RAM, Java, and putting it online.',
+    faq: [
+      { q: 'How do I make a Minecraft server for free?', a: 'Install VoxelPort, click + Add Server, choose a server type and version, and click Install & start. Then click Make public to get an address your friends can join. It’s free, needs no account, and needs no port forwarding.' },
+      { q: 'How much RAM does a Minecraft server need?', a: 'About 2 GB for a small vanilla or Paper server with a few friends, 4 GB for more players or a big world, and 6–8 GB for most modpacks. Leave at least 4 GB for Windows and your own game.' },
+      { q: 'Should I use Vanilla, Paper or Fabric?', a: 'Paper for a normal survival server with plugins (it’s faster than vanilla), Fabric for mods and modpacks, and Vanilla if you want it exactly like the official game.' },
+      { q: 'Can my friends join from a different house or city?', a: 'Yes. Once the server is public, anyone with the address can join from anywhere, as long as your PC and the server are on.' },
+      { q: 'Can phone (Bedrock) players join a Java server?', a: 'Yes, on a Paper or Fabric server: turn on Bedrock players in VoxelPort’s server settings. It installs Geyser and Floodgate so Bedrock players join the same world.' },
+    ],
+    html: `
+<p>Making your own Minecraft server takes about two minutes and costs nothing. This guide covers the choices that matter (server type, RAM, Java) and the part that usually goes wrong: letting friends outside your home join.</p>
+
+<h2 id="need">What you need</h2>
+<ul>
+  <li>A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable).</li>
+  <li>A normal home internet connection. Jio, Airtel and mobile data are fine.</li>
+  <li>Minecraft: Java Edition for you and your friends (Bedrock players can join too, see below).</li>
+</ul>
+
+<h2 id="type">Choose a server type</h2>
+<table>
+  <thead><tr><th>Type</th><th>Best for</th></tr></thead>
+  <tbody>
+    <tr><td><b>Paper</b></td><td>Survival with friends, plugins (EssentialsX, LuckPerms…). Faster than vanilla. The usual choice.</td></tr>
+    <tr><td><b>Fabric</b></td><td>Mods and modpacks (and performance mods like Lithium).</td></tr>
+    <tr><td><b>Vanilla</b></td><td>Exactly the official game, no add-ons.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="ram">How much RAM to give it</h2>
+<table>
+  <thead><tr><th>Server</th><th>RAM</th></tr></thead>
+  <tbody>
+    <tr><td>Paper or vanilla, 2–5 friends</td><td>2–3 GB</td></tr>
+    <tr><td>Paper, 5–15 players or a large world</td><td>4–6 GB</td></tr>
+    <tr><td>Modpack (Fabric)</td><td>6–8 GB</td></tr>
+  </tbody>
+</table>
+<p>More isn’t always better: leave at least 4 GB for Windows and the game you play on the same PC.</p>
+
+<h2 id="steps">Make the server</h2>
+${GET_APP}
+<ol>
+  <li>Open VoxelPort and click <b>+ Add Server</b>.</li>
+  <li>Pick a template (Survival SMP, Creative, Modded…) or choose the type and Minecraft version yourself.</li>
+  <li>Set the RAM, agree to Minecraft’s EULA, and click <b>Install &amp; start</b>. VoxelPort downloads the server and the right Java version for you.</li>
+  <li>When it says <b>Online</b>, you can join it yourself at <code>localhost</code>.</li>
+</ol>
+
+<h2 id="online">Let friends join from anywhere</h2>
+<p>The classic way is port forwarding, which doesn’t work on most Indian connections and many others (CGNAT). VoxelPort skips it:</p>
+<ol>
+  <li>Click <b>Make public</b>. You get an address like <code>play.voxelport.in:26137</code>.</li>
+  <li>Optionally claim a free name, like <code>yourname.voxelport.in</code>, so friends don’t need the port.</li>
+  <li>Friends open <b>Multiplayer → Add Server</b>, paste the address and join.</li>
+</ol>
+<div class="tip">Want phone and console players too? Open the server’s <b>Settings</b> and turn on <b>Bedrock players</b>. They join with the same address and port as Java players. See the <a href="/guides/minecraft-java-bedrock-crossplay-server">crossplay guide</a>.</div>
+
+<h2 id="next">Next steps</h2>
+<ul>
+  <li>Turn on the whitelist so only your friends can join: <code>whitelist on</code>, then <code>whitelist add Name</code> in the console.</li>
+  <li>Make yourself an operator: <code>op YourName</code>.</li>
+  <li>Something broke? See <a href="/guides/minecraft-server-crash-fixes">fixes for common crashes</a>.</li>
+</ul>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-kaise-banaye',
+    lang: 'hi-Latn',
+    title: 'Minecraft Server Kaise Banaye — Free, Bina Port Forwarding (Jio/Airtel)',
+    short: 'Server kaise banaye',
+    description: 'Apne PC pe free Minecraft server kaise banaye aur dosto ko kaise join karaye, bina port forwarding ke. Jio, Airtel aur mobile data pe bhi chalta hai. Java + Bedrock dono.',
+    kicker: 'Hinglish · Step by step',
+    blurb: 'Free server banao, dosto ko join karao. Jio/Airtel pe bhi, bina port forwarding.',
+    faq: [
+      { q: 'Minecraft server free mein kaise banaye?', a: 'VoxelPort app install karo, + Add Server dabao, server type aur version chuno, aur Install & start karo. Phir Make public dabao, tumhe ek address milega jo dosto ko bhej sakte ho. Sab free hai, account nahi chahiye.' },
+      { q: 'Jio Fiber pe port forwarding kyu nahi chalta?', a: 'Jio aur Airtel ke zyada tar connection CGNAT pe hote hain, matlab tumhare router ko public IP nahi milta. Isliye port forward karne se bhi bahar se koi connect nahi kar pata. VoxelPort relay se connect karta hai, toh port forwarding ki zarurat hi nahi.' },
+      { q: 'Kitni RAM chahiye?', a: '2–5 dosto ke liye 2–3 GB kaafi hai. Zyada players ya bada world ho toh 4–6 GB, aur modpack ke liye 6–8 GB. PC mein kam se kam 4 GB Windows ke liye chhod do.' },
+      { q: 'Kya phone wale dost (Bedrock) bhi join kar sakte hain?', a: 'Haan. Paper ya Fabric server ki Settings mein Bedrock players on karo. Java aur Bedrock dono ek hi world mein khel sakte hain.' },
+      { q: 'Kya PC band hone pe server chalega?', a: 'Nahi. Server tumhare PC pe chalta hai, toh jab tak dost khel rahe hain, PC on rehna chahiye.' },
+    ],
+    html: `
+<p>Dosto ke saath apna Minecraft server chahiye, par Aternos pe queue lagti hai aur port forwarding Jio pe chalta hi nahi? Koi baat nahi. Is guide mein seekho apne PC pe <b>free server kaise banaye</b> aur dosto ko kahin se bhi join kaise karaye, bina router settings chhede.</p>
+
+<h2 id="kya-chahiye">Kya chahiye</h2>
+<ul>
+  <li>Windows 10/11 ya Linux PC, kam se kam 8 GB RAM.</li>
+  <li>Normal internet: Jio Fiber, AirFiber, Airtel, ya mobile hotspot bhi chalega.</li>
+  <li>Minecraft Java Edition (phone wale dost Bedrock se bhi aa sakte hain).</li>
+</ul>
+
+<h2 id="port-forwarding">Port forwarding kyu fail hota hai</h2>
+<p>India mein zyada tar ISP <b>CGNAT</b> use karte hain: ek public IP bahut saare ghar share karte hain. Tumhare router ko asli public IP milta hi nahi, isliye 25565 port forward karne ke baad bhi dost connect nahi kar paate. VoxelPort ulta kaam karta hai: tumhara PC khud relay se connect hota hai, aur dost relay ke address pe join karte hain. Router mein kuch change nahi karna.</p>
+
+<h2 id="steps">Server banao (2 minute)</h2>
+${GET_APP}
+<ol>
+  <li>VoxelPort kholo aur <b>+ Add Server</b> dabao.</li>
+  <li>Template chuno (Survival SMP, Creative, Modded…) ya khud type chuno: <b>Paper</b> (plugins, sabse common), <b>Fabric</b> (mods) ya <b>Vanilla</b>.</li>
+  <li>RAM set karo (2–3 GB dosto ke liye kaafi hai), EULA accept karo, aur <b>Install &amp; start</b> dabao. Sahi Java bhi app khud download kar leta hai.</li>
+  <li><b>Online</b> dikhe toh <b>Make public</b> dabao. Address milega, jaise <code>play.voxelport.in:26137</code>.</li>
+  <li>Free naam claim karo, jaise <code>tumharanaam.voxelport.in</code>, taaki port yaad na rakhna pade.</li>
+  <li>Dosto ko bhejo. Woh <b>Multiplayer → Add Server</b> mein address daal ke join karenge.</li>
+</ol>
+<div class="tip">Phone wale dost bhi chahiye? Server ki <b>Settings</b> mein <b>Bedrock players</b> on karo. Wahi address use karke Bedrock se join kar sakte hain.</div>
+
+<h2 id="safe">Server safe rakho</h2>
+<ul>
+  <li>Sirf apne dosto ko allow karo: console mein <code>whitelist on</code>, phir <code>whitelist add DostKaNaam</code>.</li>
+  <li>Khud ko admin banao: <code>op TumharaNaam</code>.</li>
+</ul>
+
+<h2 id="tips">Tips</h2>
+<ul>
+  <li><b>Lag ho raha hai?</b> RAM thodi badhao, ya Paper use karo. App mein CPU, RAM aur TPS live dikhta hai.</li>
+  <li><b>Server crash hua?</b> App simple bhasha mein batata hai kya hua aur kaise theek karein. <a href="/guides/minecraft-server-crash-fixes">Crash fixes guide</a> bhi dekho.</li>
+  <li><b>Hostel Wi-Fi pe dost join nahi kar pa rahe?</b> Mobile data se try karo. <a href="/guides/minecraft-server-school-college-friends">College friends guide</a> dekho.</li>
+</ul>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'playit-gg-ngrok-hamachi-alternative',
+    title: 'Playit.gg, Ngrok and Hamachi Alternative for Minecraft (Free, No Port Forwarding)',
+    short: 'Playit / ngrok / Hamachi alternative',
+    description: 'Comparing ways to put a home Minecraft server online without port forwarding: playit.gg, ngrok, Hamachi, e4mc and VoxelPort. What each needs from you and your friends, and which is simplest.',
+    kicker: 'Tunnels · Compared',
+    blurb: 'Playit.gg, ngrok, Hamachi and e4mc compared with VoxelPort: setup, addresses and limits.',
+    faq: [
+      { q: 'What is the best alternative to Hamachi for Minecraft?', a: 'A tunnel or relay, so your friends don’t install anything. With VoxelPort your friends join with plain Minecraft using an address, and there is no member limit.' },
+      { q: 'Does ngrok work for Minecraft for free?', a: 'It can, but ngrok’s free plan asks you to add a credit or debit card before TCP endpoints work, and the address changes when you restart. VoxelPort needs no card and keeps your address.' },
+      { q: 'Is VoxelPort like playit.gg?', a: 'Both put a home server online without port forwarding. VoxelPort is also a server manager: it installs and runs the server, Java and Bedrock support for you, and the free custom address (yourname.voxelport.in) is free.' },
+      { q: 'Do my friends need to install anything?', a: 'Not with VoxelPort, playit.gg or ngrok: they join with normal Minecraft. With Hamachi everyone installs Hamachi, and with mods like e4mc or Essential the host (and with Essential, often friends) needs the mod.' },
+    ],
+    html: `
+<p>If port forwarding doesn’t work for you (CGNAT, a locked router, hostel Wi-Fi), you need something that connects your server <i>out</i> to the internet instead. There are several tools for this. Here is how they compare for a group of friends playing Minecraft.</p>
+
+<h2 id="compare">Compared</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Friends install</th><th>Address</th><th>Watch out for</th></tr></thead>
+  <tbody>
+    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; free <code>name.voxelport.in</code></td><td>Windows and Linux app; relays in India and North America</td></tr>
+    <tr><td>playit.gg</td><td>Nothing</td><td>Generated address; custom domains on the paid plan</td><td>Free plan limits change; check their site</td></tr>
+    <tr><td>ngrok</td><td>Nothing</td><td>Changes on restart (free)</td><td>Free TCP needs a credit/debit card on your account; bandwidth cap</td></tr>
+    <tr><td>Hamachi</td><td>Hamachi, for everyone</td><td>Hamachi IP</td><td>About 5 people on the free plan; a VPN running on every PC</td></tr>
+    <tr><td>e4mc / Essential (mods)</td><td>Nothing / Essential mod</td><td>Changes each session</td><td>Shares a singleplayer world: only while you’re playing, limited server control</td></tr>
+  </tbody>
+</table>
+<p><small>Based on each tool’s public docs and reviews in October 2026. Free plans change, so check the tool’s own site.</small></p>
+
+<h2 id="different">What VoxelPort does differently</h2>
+<ul>
+  <li><b>It runs the server too.</b> You don’t install Java, download a server jar and then set up a tunnel: VoxelPort does all of it, with Vanilla, Paper, Fabric and modpack templates.</li>
+  <li><b>A permanent, free address.</b> Your port and your <code>yourname.voxelport.in</code> belong to your install, so friends save the server once.</li>
+  <li><b>Java + Bedrock.</b> One switch adds Geyser and Floodgate, and Bedrock traffic (UDP) goes through the same relay.</li>
+  <li><b>No account, no card, open source.</b> The app and the relay are MIT-licensed.</li>
+</ul>
+
+<h2 id="switch">Switch in two minutes</h2>
+${GET_APP}
+<ol>
+  <li>Already have a server folder? Click <b>Import Existing Server</b> and pick it. Otherwise click <b>+ Add Server</b>.</li>
+  <li>Click <b>Start</b>, then <b>Make public</b>.</li>
+  <li>Claim a free address and send it to friends. Stop your old tunnel (playit agent, ngrok, Hamachi) — you don’t need it any more.</li>
+</ol>
+<div class="tip">Running a server outside VoxelPort (a Docker container, another panel)? Use <b>Tunnel a server I already run elsewhere</b> on the start screen: it puts any local port online the same way.</div>`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
     slug: 'host-minecraft-server-jio-airtel',
     title: 'How to Host a Minecraft Server on Jio or Airtel Without Port Forwarding',
     short: 'Host on Jio or Airtel',
@@ -560,6 +735,7 @@ ${GET_APP}
     <tr><td>Paid hosting</td><td>None</td><td>Yes, 24/7</td><td>What you pay for</td><td>Monthly</td></tr>
   </tbody>
 </table>
+<p>For Aternos, Minehut and Falix side by side, see <a href="/guides/free-minecraft-server-hosting">free Minecraft server hosting compared</a>.</p>
 
 <h2 id="why">Why host on your own PC</h2>
 <ul>
@@ -675,7 +851,7 @@ export function guideJsonLd(g, site) {
     {
       '@context': 'https://schema.org', '@type': 'Article',
       headline: g.title, description: g.description, url, mainEntityOfPage: url,
-      image: `${site}/og-image.png`, datePublished: GUIDES_UPDATED, dateModified: GUIDES_UPDATED, inLanguage: 'en',
+      image: `${site}/og-image.png`, datePublished: GUIDES_UPDATED, dateModified: GUIDES_UPDATED, inLanguage: g.lang || 'en',
       author: { '@type': 'Organization', name: 'VoxelPort', url: `${site}/` },
       publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${site}/`, logo: { '@type': 'ImageObject', url: `${site}/logo.png` } },
     },

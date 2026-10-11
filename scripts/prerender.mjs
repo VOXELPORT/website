@@ -40,6 +40,7 @@ function render(key) {
 function renderPage(page, jsonLd, body) {
   const url = SITE + page.path;
   let html = template;
+  if (page.lang) html = replaceOnce(html, /<html lang="en">/, `<html lang="${page.lang}">`);
   html = replaceOnce(html, /<title>[^<]*<\/title>/, `<title>${esc(page.title)}</title>`);
   html = replaceOnce(html, /<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(page.description)}" />`);
   html = replaceOnce(html, /<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`);
@@ -80,7 +81,7 @@ const indexLd = [{
 }];
 write(GUIDES_INDEX.path, renderPage(GUIDES_INDEX, indexLd, guidesIndexBody()));
 for (const g of GUIDES) {
-  write(guidePath(g), renderPage({ path: guidePath(g), title: g.title, description: g.description }, guideJsonLd(g, SITE), guideBody(g)));
+  write(guidePath(g), renderPage({ path: guidePath(g), title: g.title, description: g.description, lang: g.lang },guideJsonLd(g, SITE), guideBody(g)));
 }
 
 const today = new Date().toISOString().slice(0, 10);
@@ -96,4 +97,36 @@ fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
 ].join('\n'));
 fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
-console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages, sitemap.xml, robots.txt`);
+// llms.txt (llmstxt.org): a plain-Markdown summary for AI assistants and
+// answer engines, built from the same data as the pages.
+fs.writeFileSync(path.join(dist, 'llms.txt'), [
+  '# VoxelPort',
+  '',
+  `> ${PAGES.home.description}`,
+  '',
+  'VoxelPort is a free, open-source (MIT) desktop app for Windows and Linux that creates or imports a Minecraft: Java Edition server on your own PC and puts it online through a VoxelPort relay, so friends can join without port forwarding, even behind CGNAT (common on Jio, Airtel and mobile data). There is no account, no ads and no paid tier.',
+  '',
+  'Key facts:',
+  '- Players join with plain Minecraft at an address like play.voxelport.in:26137, or a free custom address like yourname.voxelport.in (no port).',
+  '- Relays in India (play.voxelport.in) and North America (play-na.voxelport.in); the app picks the closest automatically.',
+  '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
+  '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
+  '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6) or GitHub (https://github.com/VOXELPORT/VoxelPort-App/releases/latest).',
+  '',
+  '## Guides',
+  '',
+  ...GUIDES.map((g) => `- [${g.title}](${SITE}${guidePath(g)}): ${g.description}`),
+  '',
+  '## FAQ',
+  '',
+  ...FAQ.flatMap(({ q, a }) => [`### ${q}`, '', a, '']),
+  '## Other pages',
+  '',
+  `- [Public server list](${SITE}/servers): Minecraft servers hosted with VoxelPort that are online now.`,
+  `- [Relay status](${SITE}/status): live status and ping of the relays.`,
+  `- [License, privacy and terms](${SITE}/legal)`,
+  '- [Source code](https://github.com/VOXELPORT)',
+  '',
+].join('\n'));
+
+console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages, sitemap.xml, robots.txt, llms.txt`);
