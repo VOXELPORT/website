@@ -22,7 +22,7 @@ export const GUIDES = [
       { q: 'Why doesn’t port forwarding work on Jio Fiber?', a: 'Most Jio Fiber and AirFiber connections are behind CGNAT: your router doesn’t get a public IPv4 address, so a forwarded port on your router can’t be reached from the internet. A relay such as VoxelPort avoids the problem because your PC connects out to it.' },
       { q: 'Does this work on Airtel Xstream Fiber?', a: 'Yes. Whether or not your Airtel connection has a public IP, VoxelPort only needs an outgoing connection, so it works the same way on Airtel, Jio, ACT, BSNL and other ISPs.' },
       { q: 'Can I host from a mobile hotspot?', a: 'Yes, it works on a Jio or Airtel mobile hotspot, because no incoming connections are needed. Watch your data: every player’s traffic goes through your connection.' },
-      { q: 'Will my friends get good ping?', a: 'VoxelPort’s relay is in India, so friends in India usually get low ping. Friends abroad connect through India too, so their ping will be higher.' },
+      { q: 'Will my friends get good ping?', a: 'VoxelPort has relays in India and North America, and the app picks the one closest to you. Friends near that relay get low ping; friends far away will see more.' },
     ],
     html: `
 <p>You set up a Minecraft server, forwarded port 25565 on your Jio or Airtel router, and your friends still can’t join. You probably did nothing wrong. Most Indian home connections are behind <b>CGNAT</b>, which makes port forwarding impossible. This guide shows how to check, and how to host anyway, without changing any router settings.</p>
@@ -507,7 +507,7 @@ ${GET_APP}
   <li><b>No idle shutdown:</b> it keeps running until you stop it, even with nobody online.</li>
   <li><b>Your RAM:</b> a PC with 16 GB can give a server 6–8 GB, enough for bigger modpacks.</li>
   <li><b>Full control:</b> any plugin, mod, datapack or world file, and direct access to the folder.</li>
-  <li><b>Low ping in India:</b> VoxelPort’s relay is in India.</li>
+  <li><b>Low ping in India:</b> VoxelPort has a relay in India (and one in North America).</li>
 </ul>
 <p>The catch: <b>your PC has to be on</b> while people play. If that doesn’t work for your group, stay with Aternos or a paid host.</p>
 

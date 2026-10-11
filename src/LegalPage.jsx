@@ -91,8 +91,12 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">Sent to the relay</Sub>
           <p>
-            Hosts connect to <Code>wss://direct.voxelport.in:26499</Code> first and fall back to <Code>wss://relay.voxelport.in</Code>
-            (routed through Cloudflare) if that fails. Players connect to <Code>play.voxelport.in:&lt;port&gt;</Code>.
+            The app picks a relay region (closest by default, or the one you choose). On the India relay, hosts connect to{' '}
+            <Code>wss://direct.voxelport.in:26499</Code> first and fall back to <Code>wss://relay.voxelport.in</Code> (routed
+            through Cloudflare) if that fails, and players connect to <Code>play.voxelport.in:&lt;port&gt;</Code>. On the North
+            America relay, hosts connect to <Code>wss://na.voxelport.in</Code> and players to{' '}
+            <Code>play-na.voxelport.in:&lt;port&gt;</Code>. To pick the closest region, the app briefly requests each relay’s
+            public status page and times the answer.
           </p>
           <Table rows={[
             ['When', 'Data', 'Why'],
@@ -135,11 +139,12 @@ export default function LegalPage({ onBack }) {
             through Cloudflare.
           </p>
 
-          <Sub color="var(--red)">Where the relay is</Sub>
+          <Sub color="var(--red)">Where the relays are</Sub>
           <p>
-            There is <b>one relay, in India</b> — VoxelPort is free and self-funded, so that’s what we can run. Hosts and players
-            near India get the best ping (often under 50 ms); Europe and the Americas typically see 150–250 ms of relay overhead.
-            More regions may come if the project grows — support it on{' '}
+            There are <b>two relays</b>: one <b>in India</b>, run on our own hardware, and one in <b>North America</b> (Virginia,
+            USA), run on Amazon Web Services. Your hosting traffic goes through the region your app uses, and the log lines
+            described above are kept on that relay. Both run the same open-source code under the same rules. More regions may come
+            if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
           </p>
 
@@ -214,6 +219,7 @@ export default function LegalPage({ onBack }) {
             ['Modrinth', 'Rinth, Inc.', 'Where Fabric versions of Geyser, Floodgate and Fabric API are downloaded from.'],
             ['GitHub', 'Microsoft', 'Where the source code and downloads are hosted.'],
             ['Cloudflare', 'Cloudflare, Inc.', 'Network provider for the website and the fallback relay route.'],
+            ['Amazon Web Services', 'Amazon.com, Inc.', 'Hosts the North America relay.'],
           ]} />
           <p>
             The VoxelPort name, logo and relay infrastructure belong to trazhub (Garv Verma). The code is MIT-licensed, but the name and

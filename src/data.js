@@ -8,8 +8,13 @@ export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz';
 
+// One relay per region; the app picks the closest. Counts and the server
+// list combine both.
+export const RELAYS = [
+  { id: 'in', label: 'India', base: 'https://relay.voxelport.in' },
+  { id: 'na', label: 'North America', base: 'https://na.voxelport.in' },
+];
 export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';
-export const SERVERS_URL = 'https://relay.voxelport.in/api/servers';
 export const EXAMPLE_ADDR = 'play.voxelport.in:26137';
 
 // Donations (UPI, India). The QR in public/upi-qr.svg encodes UPI_LINK.
@@ -25,12 +30,20 @@ export function useRelayStatus(intervalMs = 20000) {
     let alive = true;
     const load = async () => {
       try {
-        const ctl = new AbortController();
-        const t = setTimeout(() => ctl.abort(), 8000);
-        const r = await fetch(RELAY_STATUS_URL, { signal: ctl.signal, cache: 'no-store' });
-        clearTimeout(t);
-        const j = await r.json();
-        if (alive) setS({ state: j.online ? 'online' : 'offline', tunnels: j.tunnels ?? 0, players: j.players ?? 0 });
+        const all = await Promise.all(RELAYS.map(async (relay) => {
+          const ctl = new AbortController();
+          const t = setTimeout(() => ctl.abort(), 8000);
+          try {
+            const r = await fetch(relay.base + '/api/status', { signal: ctl.signal, cache: 'no-store' });
+            return await r.json();
+          } catch {
+            return null;
+          } finally { clearTimeout(t); }
+        }));
+        const up = all.filter((j) => j && j.online);
+        if (!up.length) throw new Error('no relay reachable');
+        const sum = (k) => up.reduce((n, j) => n + (j[k] ?? 0), 0);
+        if (alive) setS({ state: 'online', tunnels: sum('tunnels'), players: sum('players') });
       } catch {
         if (alive) setS((p) => ({ ...p, state: 'offline' }));
       }

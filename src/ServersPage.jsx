@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
-import { SPRITES, SERVERS_URL, DL_STORE } from './data.js';
+import { SPRITES, RELAYS, DL_STORE } from './data.js';
 import { navigate } from './seo.js';
 
 const MODES = [
@@ -13,12 +13,21 @@ function useServers() {
   const [state, setState] = useState({ loading: true, error: false, servers: [], at: null });
   const load = useCallback(async () => {
     try {
-      const ctl = new AbortController();
-      const t = setTimeout(() => ctl.abort(), 8000);
-      const r = await fetch(SERVERS_URL, { cache: 'no-store', signal: ctl.signal });
-      clearTimeout(t);
-      const j = await r.json();
-      setState({ loading: false, error: false, servers: Array.isArray(j.servers) ? j.servers : [], at: new Date() });
+      // Each region's relay lists its own servers; show them together.
+      const lists = await Promise.all(RELAYS.map(async (relay) => {
+        const ctl = new AbortController();
+        const t = setTimeout(() => ctl.abort(), 8000);
+        try {
+          const r = await fetch(relay.base + '/api/servers', { cache: 'no-store', signal: ctl.signal });
+          const j = await r.json();
+          return Array.isArray(j.servers) ? j.servers.map((s) => ({ ...s, region: relay.label })) : [];
+        } catch {
+          return null;
+        } finally { clearTimeout(t); }
+      }));
+      if (lists.every((l) => l === null)) throw new Error('no relay reachable');
+      const servers = lists.flatMap((l) => l || []).sort((a, b) => (b.players - a.players) || ((b.uptime_minutes || 0) - (a.uptime_minutes || 0)));
+      setState({ loading: false, error: false, servers, at: new Date() });
     } catch {
       setState((s) => ({ ...s, loading: false, error: true, at: new Date() }));
     }
@@ -49,6 +58,7 @@ function ServerCard({ s, i }) {
       <div className={`panel ${MODE_COLOR[mode] || ''}`} style={{ margin: -3, marginBottom: 0, boxShadow: 'none', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
         <span className="pixel" style={{ fontSize: 11 }}>{(mode || 'minecraft').toUpperCase()}{s.version ? ` · ${s.version}` : ''}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {s.region === 'North America' && <span className="sticker" title="Hosted on the North America relay" style={{ background: 'var(--card)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-2deg)' }}>NA</span>}
           {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
           <Pixels rows={SPRITES[SPRITE_FOR[mode] || 'grass']} size={2.4} />
         </span>
