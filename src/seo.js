@@ -107,7 +107,6 @@ export function homeJsonLd() {
         'Free custom address: yourname.voxelport.in',
         'Java + Bedrock crossplay (Geyser + Floodgate)',
         'Vanilla, Paper, Fabric and modpacks',
-        'Relays in India and North America',
         'Automatic Java install',
         'Live CPU, RAM and TPS, plain-English crash help',
       ],

@@ -14,7 +14,6 @@ export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/lat
 // list combine both.
 export const RELAYS = [
   { id: 'in', label: 'India', base: 'https://relay.voxelport.in' },
-  { id: 'na', label: 'North America', base: 'https://na.voxelport.in' },
 ];
 export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';
 export const EXAMPLE_ADDR = 'play.voxelport.in:26137';

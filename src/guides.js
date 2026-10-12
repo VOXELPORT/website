@@ -54,7 +54,7 @@ export const GUIDES = [
 
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
-<p>VoxelPort has relays in India and North America and picks the closest one, so friends nearby get low ping. You can claim a free address like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
+<p>VoxelPort’s relay is in India, so friends in India get low ping. You can claim a free address like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
 
 <h2 id="steps">Set up a free server in 2 minutes</h2>
 ${GET_APP}
@@ -218,7 +218,7 @@ ${GET_APP}
 <table>
   <thead><tr><th>Tool</th><th>Friends install</th><th>Address</th><th>Watch out for</th></tr></thead>
   <tbody>
-    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; free <code>name.voxelport.in</code></td><td>Windows and Linux app; relays in India and North America</td></tr>
+    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; free <code>name.voxelport.in</code></td><td>Windows and Linux app; relay in India</td></tr>
     <tr><td>playit.gg</td><td>Nothing</td><td>Generated address; custom domains on the paid plan</td><td>Free plan limits change; check their site</td></tr>
     <tr><td>ngrok</td><td>Nothing</td><td>Changes on restart (free)</td><td>Free TCP needs a credit/debit card on your account; bandwidth cap</td></tr>
     <tr><td>Hamachi</td><td>Hamachi, for everyone</td><td>Hamachi IP</td><td>About 5 people on the free plan; a VPN running on every PC</td></tr>
@@ -257,7 +257,7 @@ ${GET_APP}
       { q: 'Why doesn’t port forwarding work on Jio Fiber?', a: 'Most Jio Fiber and AirFiber connections are behind CGNAT: your router doesn’t get a public IPv4 address, so a forwarded port on your router can’t be reached from the internet. A relay such as VoxelPort avoids the problem because your PC connects out to it.' },
       { q: 'Does this work on Airtel Xstream Fiber?', a: 'Yes. Whether or not your Airtel connection has a public IP, VoxelPort only needs an outgoing connection, so it works the same way on Airtel, Jio, ACT, BSNL and other ISPs.' },
       { q: 'Can I host from a mobile hotspot?', a: 'Yes, it works on a Jio or Airtel mobile hotspot, because no incoming connections are needed. Watch your data: every player’s traffic goes through your connection.' },
-      { q: 'Will my friends get good ping?', a: 'VoxelPort has relays in India and North America, and the app picks the one closest to you. Friends near that relay get low ping; friends far away will see more.' },
+      { q: 'Will my friends get good ping?', a: 'VoxelPort’s relay is in India, so friends in India usually get low ping. Friends abroad connect through India too, so their ping will be higher.' },
     ],
     html: `
 <p>You set up a Minecraft server, forwarded port 25565 on your Jio or Airtel router, and your friends still can’t join. You probably did nothing wrong. Most Indian home connections are behind <b>CGNAT</b>, which makes port forwarding impossible. This guide shows how to check, and how to host anyway, without changing any router settings.</p>
@@ -743,7 +743,7 @@ ${GET_APP}
   <li><b>No idle shutdown:</b> it keeps running until you stop it, even with nobody online.</li>
   <li><b>Your RAM:</b> a PC with 16 GB can give a server 6–8 GB, enough for bigger modpacks.</li>
   <li><b>Full control:</b> any plugin, mod, datapack or world file, and direct access to the folder.</li>
-  <li><b>Low ping in India:</b> VoxelPort has a relay in India (and one in North America).</li>
+  <li><b>Low ping in India:</b> VoxelPort’s relay is in India.</li>
 </ul>
 <p>The catch: <b>your PC has to be on</b> while people play. If that doesn’t work for your group, stay with Aternos or a paid host.</p>
 

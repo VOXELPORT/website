@@ -58,7 +58,6 @@ function ServerCard({ s, i }) {
       <div className={`panel ${MODE_COLOR[mode] || ''}`} style={{ margin: -3, marginBottom: 0, boxShadow: 'none', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
         <span className="pixel" style={{ fontSize: 11 }}>{(mode || 'minecraft').toUpperCase()}{s.version ? ` · ${s.version}` : ''}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {s.region === 'North America' && <span className="sticker" title="Hosted on the North America relay" style={{ background: 'var(--card)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-2deg)' }}>NA</span>}
           {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
           <Pixels rows={SPRITES[SPRITE_FOR[mode] || 'grass']} size={2.4} />
         </span>
