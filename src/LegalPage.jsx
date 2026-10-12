@@ -154,7 +154,7 @@ export default function LegalPage({ onBack }) {
             folder, or delete <Code>config/voxelport/</Code> from your Minecraft folder. A new token is created next time you host.
           </p>
 
-          <Callout color="var(--red)">Questions about data? Email <Code>garv@trazz.art</Code>.</Callout>
+          <Callout color="var(--red)">Questions about data? Email <Code>traz@voxelport.in</Code>.</Callout>
           <Updated />
         </Section>
 
@@ -200,7 +200,7 @@ export default function LegalPage({ onBack }) {
             you accept it.
           </p>
 
-          <Callout color="var(--gold)">Questions about these terms? Email <Code>garv@trazz.art</Code>.</Callout>
+          <Callout color="var(--gold)">Questions about these terms? Email <Code>traz@voxelport.in</Code>.</Callout>
           <Updated />
         </Section>
 
@@ -226,7 +226,7 @@ export default function LegalPage({ onBack }) {
             branding may not be used for unofficial forks without permission. You need your own legitimate copy of Minecraft and must
             accept the <a href="https://www.minecraft.net/eula" target="_blank" rel="noreferrer">Minecraft EULA</a> to run a server.
           </p>
-          <Callout color="var(--diamond)">Think we’re misusing a trademark you own? Email <Code>garv@trazz.art</Code> and we’ll fix it.</Callout>
+          <Callout color="var(--diamond)">Think we’re misusing a trademark you own? Email <Code>traz@voxelport.in</Code> and we’ll fix it.</Callout>
           <Updated />
         </Section>
       </main>

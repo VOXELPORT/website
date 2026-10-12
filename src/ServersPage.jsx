@@ -162,7 +162,7 @@ export default function ServersPage({ onBack }) {
           <span className="kicker">How this list works</span>
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
             Only servers whose owners switched on <b>Show on voxelport.in/servers</b> appear here, and only while they’re online — nothing is
-            stored. Player counts come from the server itself. Something inappropriate? Email <span className="typewriter">garv@trazz.art</span> and we’ll take it down.
+            stored. Player counts come from the server itself. Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down.
           </p>
         </div>
       </main>
