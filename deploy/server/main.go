@@ -100,6 +100,10 @@ func main() {
 			// Short edge cache + Last-Modified revalidation: the download keeps one stable
 			// URL, and a new APK reaches everyone within minutes without a manual purge.
 			h.Set("Cache-Control", "public, max-age=600")
+			if strings.HasSuffix(name, ".json") {
+				// The Android app's update manifest: always fresh, never from a cache.
+				h.Set("Cache-Control", "no-cache, max-age=0")
+			}
 			http.ServeFile(w, r, p)
 			return
 		}
