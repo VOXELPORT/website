@@ -80,7 +80,7 @@ func main() {
 		h.Set("X-Frame-Options", "DENY")
 
 		// Large downloads (the Android APK) live outside the site dir so a deploy
-		// doesn't wipe them. Long immutable cache so Cloudflare serves it from the
+		// doesn't wipe them. Cloudflare caches them briefly, so downloads come from the
 		// edge and the home connection (which also runs the game relay) is spared.
 		if strings.HasPrefix(r.URL.Path, "/dl/") {
 			name := filepath.Base(filepath.Clean("/" + r.URL.Path))
@@ -97,7 +97,9 @@ func main() {
 			if strings.HasSuffix(name, ".apk") {
 				h.Set("Content-Type", "application/vnd.android.package-archive")
 			}
-			h.Set("Cache-Control", "public, max-age=31536000, immutable")
+			// Short edge cache + Last-Modified revalidation: the download keeps one stable
+			// URL, and a new APK reaches everyone within minutes without a manual purge.
+			h.Set("Cache-Control", "public, max-age=600")
 			http.ServeFile(w, r, p)
 			return
 		}
