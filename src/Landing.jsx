@@ -39,7 +39,7 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { n: '1', title: 'INSTALL', desc: 'Grab the desktop app for Windows or Linux. No account needed.', sprite: 'grass' },
+  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows, Linux or Android. No account needed.', sprite: 'grass' },
   { n: '2', title: 'HIT START', desc: 'Create or import a server and press Start. Java is handled for you.', sprite: 'bolt' },
   { n: '3', title: 'COPY ADDRESS', desc: `VoxelPort hands you an address like ${EXAMPLE_ADDR}.`, sprite: 'card' },
   { n: '4', title: 'FRIENDS JOIN', desc: 'They paste it into Multiplayer → Add Server. That’s it.', sprite: 'heart' },
@@ -222,7 +222,7 @@ export default function Landing() {
         </div>
 
         <h1 className="hero-title">
-          <span className="sr-only">VoxelPort — free Minecraft server hosting from your PC, no port forwarding</span>
+          <span className="sr-only">VoxelPort — free Minecraft server hosting from your PC or Android phone, no port forwarding</span>
           <span aria-hidden="true"><Title>VOXEL</Title><Title className="green">PORT</Title></span>
         </h1>
 
@@ -258,7 +258,7 @@ export default function Landing() {
               </p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 22 }}>
-              <span className="chip tilt-l1">DESKTOP APP</span>
+              <span className="chip tilt-l1">PC + ANDROID</span>
               <span className="chip tilt-r1">AUTO JAVA</span>
               <span className="chip tilt-r1">OPEN SOURCE</span>
               <span className="chip tilt-l1">FREE</span>
@@ -477,11 +477,11 @@ export default function Landing() {
             <Title>GET IT!</Title>
           </h2>
           <p className="lede" style={{ margin: '22px auto 0' }}>
-            One desktop app hosts any Minecraft Java server. Players always join with vanilla Minecraft.
+            One app — on your PC or your Android phone — hosts any Minecraft Java server. Players always join with vanilla Minecraft.
           </p>
           <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, textAlign: 'left', maxWidth: 640, marginInline: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="kicker" style={{ color: 'var(--grass-dk)' }}>Desktop app</span>
+              <span className="kicker" style={{ color: 'var(--grass-dk)' }}>PC &amp; Android app</span>
               <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>NOW ON MICROSOFT STORE</span>
               <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
             </div>

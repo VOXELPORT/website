@@ -11,10 +11,10 @@ export const PAGES = {
   home: {
     path: '/',
     title: 'VoxelPort: Free Minecraft Server Hosting, No Port Forwarding',
-    description: 'Free Minecraft server hosting on your own PC: no sleep, no queue, no RAM cap and no port forwarding. Friends join in seconds, Java + Bedrock crossplay. Free & open source.',
-    heading: 'Host a Minecraft server from your PC — no port forwarding',
+    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Friends join in seconds, Java + Bedrock crossplay. Free & open source.',
+    heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
     summary: [
-      'VoxelPort is a free, open-source desktop app for Windows and Linux. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
+      'VoxelPort is a free, open-source app for Windows, Linux and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
       'Friends join with plain Minecraft using an address like play.voxelport.in:26137, or your own free address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
     ],
     points: [
@@ -24,6 +24,7 @@ export const PAGES = {
       'Vanilla, Paper, Fabric and modpacks',
       'Automatic Java install (Java 25 for Minecraft 26.1+)',
       'Live CPU, RAM and TPS, plus plain-English crash help',
+      'Host from a Windows or Linux PC, or an Android phone',
       'No account, no Discord, free and MIT-licensed',
     ],
   },
@@ -97,11 +98,11 @@ export function homeJsonLd() {
       description: PAGES.home.description,
       applicationCategory: 'UtilitiesApplication',
       applicationSubCategory: 'Minecraft server hosting',
-      operatingSystem: 'Windows 10, Windows 11, Linux',
+      operatingSystem: 'Windows 10, Windows 11, Linux, Android',
       softwareVersion: '1.5.0',
       downloadUrl: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
       featureList: [
-        'Host a Minecraft server on your own PC without port forwarding',
+        'Host a Minecraft server on a Windows/Linux PC or an Android phone, without port forwarding',
         'Works behind CGNAT (Jio, Airtel, mobile data)',
         'No sleep, no queue, no RAM cap',
         'Free custom address: yourname.voxelport.in',
