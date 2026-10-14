@@ -23,6 +23,8 @@ export const GUIDES = [
       { q: 'Do my friends need Android or the app?', a: 'No. You (the host) run the app; friends join with normal Minecraft on any device — PC, phone or console. Turn on Bedrock players and phone/console players can join too.' },
       { q: 'Why is it an APK and not on the Play Store?', a: 'The app is in beta and distributed as a direct APK for now. A Play Store listing is planned. Sideloading is safe here — it’s the same open project as the desktop app.' },
       { q: 'Will it drain my battery or data?', a: 'Hosting uses CPU and keeps the screen-off server awake, so keep the phone on a charger for long sessions. Every player’s traffic goes through your connection, so Wi‑Fi is best; mobile data works but watch your data cap.' },
+      { q: 'Can friends without a paid Minecraft account join?', a: 'Yes, if you turn on "Allow cracked players" in the app (it sets online-mode to false). The trade-off is security: with the account check off, anyone can join under any name, including an admin’s, so use the whitelist or the one-tap login plugin (AuthMe) the app offers. Switching also changes players’ IDs, so existing inventories and ops won’t carry over.' },
+      { q: 'Will it run well on my phone?', a: 'The app checks your phone and picks a performance level (Low-end, Balanced or High-end) that sets the view distance, mob limits, memory use and background threads to suit it. A phone with 4 GB of RAM can host a few friends on Low-end; 8 GB or more runs comfortably. You can change the level in Settings.' },
       { q: 'Does it work on Jio/Airtel or mobile data?', a: 'Yes. Like the desktop app, the phone connects out to the VoxelPort relay, so there’s no port forwarding and CGNAT (Jio, Airtel, mobile data) is not a problem.' },
     ],
     html: `
@@ -53,6 +55,12 @@ export const GUIDES = [
 
 <h2 id="addons">Add plugins and mods in one tap</h2>
 <p>Tap <b>Add plugins</b> to browse <a href="https://modrinth.com">Modrinth</a> from inside the app: search, tap <b>Install</b>, and the plugin (plus anything it needs) goes straight into your server. Restart to load it. Want mods instead? Under <b>Version → Change</b>, switch the server software from <b>Paper</b> (plugins) to <b>Fabric</b> (mods) and the same button browses Fabric mods. <b>Settings</b> changes the game mode, difficulty, max players, whitelist and more, and <b>Files</b> lets you browse the server folder or import your own jars.</p>
+
+<h2 id="cracked">Friends without a Minecraft account (cracked)</h2>
+<p>Under <b>Player accounts</b>, switch on <b>Allow cracked players</b> and restart. This turns off Minecraft’s account check, so people without a paid account can join. The catch: anyone can then join under <i>any</i> name, even yours. Turn on the whitelist in Settings, or tap <b>Add login protection</b> to install AuthMe, so players have to <code>/register</code> and <code>/login</code>. Switching the mode changes every player’s ID, so inventories, ops and whitelist entries from before won’t match.</p>
+
+<h2 id="performance">Made for phones</h2>
+<p>VoxelPort checks your phone’s memory and cores and picks a <b>Performance</b> level (Settings): <b>Low-end</b> for 4 GB phones, <b>Balanced</b> for most, <b>High-end</b> for 10 GB+. It sets view distance, mob limits, the garbage collector and background threads, suggests a safe amount of RAM, and warns you if the phone is hot or the battery is low. The app also stops polling when it’s in the background to save battery.</p>
 
 <h2 id="tips">Keep it running smoothly</h2>
 <ul>
