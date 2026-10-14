@@ -26,7 +26,7 @@ function useServers() {
         } finally { clearTimeout(t); }
       }));
       if (lists.every((l) => l === null)) throw new Error('no relay reachable');
-      const servers = lists.flatMap((l) => l || []).sort((a, b) => (b.players - a.players) || ((b.uptime_minutes || 0) - (a.uptime_minutes || 0)));
+      const servers = lists.flatMap((l) => l || []).sort((a, b) => (Number(!!b.supporter) - Number(!!a.supporter)) || (b.players - a.players) || ((b.uptime_minutes || 0) - (a.uptime_minutes || 0)));
       setState({ loading: false, error: false, servers, at: new Date() });
     } catch {
       setState((s) => ({ ...s, loading: false, error: true, at: new Date() }));
@@ -58,6 +58,7 @@ function ServerCard({ s, i }) {
       <div className={`panel ${MODE_COLOR[mode] || ''}`} style={{ margin: -3, marginBottom: 0, boxShadow: 'none', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
         <span className="pixel" style={{ fontSize: 11 }}>{(mode || 'minecraft').toUpperCase()}{s.version ? ` · ${s.version}` : ''}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {s.supporter && <span className="sticker" title="This host supports VoxelPort" style={{ background: 'var(--gold)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-3deg)' }}>★ SUPPORTER</span>}
           {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
           <Pixels rows={SPRITES[SPRITE_FOR[mode] || 'grass']} size={2.4} />
         </span>
@@ -161,7 +162,9 @@ export default function ServersPage({ onBack }) {
           <span className="kicker">How this list works</span>
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
             Only servers whose owners switched on <b>Show on voxelport.in/servers</b> appear here, and only while they’re online — nothing is
-            stored. Player counts come from the server itself. Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down.
+            stored. Player counts come from the server itself. Servers marked <b>★ SUPPORTER</b> belong to people who chip in to keep VoxelPort running;
+            they’re shown first (<a href="/#supporters">how that works</a>), and everything else about the list is the same for everyone.
+            Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down.
           </p>
         </div>
       </main>

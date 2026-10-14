@@ -6,6 +6,7 @@ import {
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 import { GuideGrid } from './GuidesPage.jsx';
+import { SUPPORTER } from './support.js';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -172,8 +173,9 @@ function Support() {
           <span className="kicker">Tip jar · Keep it free</span>
           <h2 className="h-display h-section">SUPPORT VOXELPORT</h2>
           <p className="lede" style={{ marginTop: 14 }}>
-            VoxelPort has no ads, no accounts and no paid plan. The relay runs on a server I pay for myself.
-            If it saved you a fight with your router, a small tip helps keep it online.
+            VoxelPort has no ads, no accounts and no paid plan: hosting, custom addresses and the server list are free for everyone.
+            The relay runs on a server I pay for myself. If it saved you a fight with your router, a small tip helps keep it online,
+            and <a href="#supporters">supporters get a badge and a few extras</a> as a thank-you.
           </p>
           <ul className="support-points">
             <li>Any amount helps, even ₹20</li>
@@ -191,6 +193,27 @@ function Support() {
           <a className="btn green sm support-pay" href={UPI_LINK}>PAY WITH UPI</a>
           <span className="support-note">“Pay with UPI” opens your UPI app on a phone.</span>
         </div>
+      </div>
+
+      <div className="wrap" id="supporters" style={{ marginTop: 56 }}>
+        <span className="kicker">Optional · a thank-you</span>
+        <h3 className="h-display" style={{ fontSize: 'clamp(30px, 4vw, 44px)', marginTop: 6 }}>SUPPORTER PERKS</h3>
+        <p className="lede" style={{ marginTop: 10, maxWidth: 720 }}>{SUPPORTER.intro}</p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 22 }}>
+          {SUPPORTER.tiers.map((t) => (
+            <div key={t.name} className="panel" style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--card)' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10 }}>
+                <span className="h-display" style={{ fontSize: 28 }}>{t.name.toUpperCase()}</span>
+                <span className="pixel" style={{ fontSize: 13 }}>₹{t.inr}+</span>
+              </div>
+              <ul style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 6, color: 'var(--ink-2)' }}>
+                {t.perks.map((p) => <li key={p}>{p}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p style={{ marginTop: 18, maxWidth: 760, lineHeight: 1.6 }}><b>How:</b> {SUPPORTER.how}</p>
+        <p style={{ marginTop: 8, maxWidth: 760, fontSize: 14, color: 'var(--muted)' }}>{SUPPORTER.fine}</p>
       </div>
     </section>
   );

@@ -96,7 +96,7 @@ export const GUIDES = [
     faq: [
       { q: 'What is the best free Minecraft server hosting?', a: 'It depends on your PC. If you have a PC that can stay on while people play, hosting on it with VoxelPort is free with no sleep, no queue and no RAM cap. If you don’t, a cloud host like Aternos, Minehut or Falix runs the server for you, with limits on the free plan.' },
       { q: 'Is there free Minecraft hosting that doesn’t sleep?', a: 'Free cloud hosts usually stop or sleep the server when nobody is online, to save resources. A server on your own PC doesn’t: with VoxelPort it stays online until you stop it, as long as the PC is on.' },
-      { q: 'Is VoxelPort really free?', a: 'Yes. The app and the relay are free and open source, with no account, no ads and no paid tier. You use your own PC’s power and internet.' },
+      { q: 'Is VoxelPort really free?', a: 'Yes. The app and the relay are free and open source, with no account, no ads and no paid tier. You use your own PC’s power and internet. (Tips are optional; supporters get a badge and a few extras as a thank-you, and nothing free is ever taken away.)' },
       { q: 'How much RAM do free Minecraft hosts give?', a: 'Free plans are usually around 1–4 GB, depending on the host. On your own PC you choose: a PC with 16 GB of RAM can give a server 6–8 GB, enough for most modpacks.' },
       { q: 'Can Bedrock and phone players join a free server?', a: 'On VoxelPort, yes: turn on Bedrock players for a Paper or Fabric server and Java and Bedrock (phone, console, Windows) players join the same world. Several cloud hosts support this too, sometimes only on paid plans.' },
     ],

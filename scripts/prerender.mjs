@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGES, FAQ, SITE, homeJsonLd } from '../src/seo.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
+import { SUPPORT } from '../src/support.js';
 
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
@@ -95,6 +96,8 @@ fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   ...GUIDES.map((g) => `  <url><loc>${SITE}${guidePath(g)}</loc><lastmod>${GUIDES_UPDATED}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
   '</urlset>', '',
 ].join('\n'));
+// support.json: what the desktop and Android apps read for the Support screen (supporter perks, hosting links).
+fs.writeFileSync(path.join(dist, 'support.json'), JSON.stringify(SUPPORT, null, 2) + '\n');
 fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 // llms.txt (llmstxt.org): a plain-Markdown summary for AI assistants and
@@ -129,4 +132,4 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '',
 ].join('\n'));
 
-console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages, sitemap.xml, robots.txt, llms.txt`);
+console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages, sitemap.xml, robots.txt, llms.txt, support.json`);
