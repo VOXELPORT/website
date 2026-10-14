@@ -29,6 +29,7 @@ const canonicalHost = "voxelport.in"
 func main() {
 	listen := flag.String("listen", "127.0.0.1:2527", "listen address")
 	root := flag.String("root", "/opt/voxelport-web/www", "directory containing the built site")
+	dlDir := flag.String("dl-dir", "/opt/voxelport-web/files", "directory served at /dl/ for large downloads (the Android APK); kept outside the site dir so deploys don't touch it")
 	statsListen := flag.String("stats-listen", "", "loopback address serving page-load counts to the dashboard (token from $VOXELPORT_ADMIN_TOKEN); empty disables counting")
 	statsFile := flag.String("stats-file", "", "where daily counts are saved (e.g. /var/lib/voxelport-web/stats.json)")
 	flag.Parse()
@@ -77,6 +78,29 @@ func main() {
 		h.Set("X-Content-Type-Options", "nosniff")
 		h.Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		h.Set("X-Frame-Options", "DENY")
+
+		// Large downloads (the Android APK) live outside the site dir so a deploy
+		// doesn't wipe them. Long immutable cache so Cloudflare serves it from the
+		// edge and the home connection (which also runs the game relay) is spared.
+		if strings.HasPrefix(r.URL.Path, "/dl/") {
+			name := filepath.Base(filepath.Clean("/" + r.URL.Path))
+			if name == "." || name == "/" || strings.HasPrefix(name, ".") {
+				http.NotFound(w, r)
+				return
+			}
+			p := filepath.Join(*dlDir, name)
+			st, err := os.Stat(p)
+			if err != nil || st.IsDir() {
+				http.NotFound(w, r)
+				return
+			}
+			if strings.HasSuffix(name, ".apk") {
+				h.Set("Content-Type", "application/vnd.android.package-archive")
+			}
+			h.Set("Cache-Control", "public, max-age=31536000, immutable")
+			http.ServeFile(w, r, p)
+			return
+		}
 
 		// Vite emits content-hashed filenames under /assets/, safe to cache forever.
 		if strings.HasPrefix(r.URL.Path, "/assets/") {
