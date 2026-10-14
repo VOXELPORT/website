@@ -32,7 +32,7 @@ export const GUIDES = [
 
 <h2 id="install">Install the app</h2>
 <ol>
-  <li>On your phone, <a href="/dl/VoxelPort.apk" download><b>download the VoxelPort APK</b></a> (about 53 MB).</li>
+  <li>On your phone, <a href="/dl/VoxelPort-0.2.0.apk" download><b>download the VoxelPort APK</b></a> (about 53 MB).</li>
   <li>Open the downloaded <code>VoxelPort.apk</code>. Android will ask to <b>allow installing from this source</b> — turn it on for your browser, then tap <b>Install</b>.</li>
   <li>If Play Protect warns about an unknown app, tap <b>More details → Install anyway</b>. It’s the same open-source project as the desktop app.</li>
 </ol>
