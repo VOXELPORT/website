@@ -22,7 +22,8 @@ export const GUIDES = [
       { q: 'Can my Android phone really run a Minecraft server?', a: 'Yes. VoxelPort for Android runs a full Paper (Java Edition) server on the phone, with a real Java 25 runtime bundled in. A phone with 6–8 GB of RAM comfortably hosts a few friends.' },
       { q: 'Do my friends need Android or the app?', a: 'No. You (the host) run the app; friends join with normal Minecraft on any device — PC, phone or console. Turn on Bedrock players and phone/console players can join too.' },
       { q: 'Why is it an APK and not on the Play Store?', a: 'The app is in beta and distributed as a direct APK for now. A Play Store listing is planned. Sideloading is safe here — it’s the same open project as the desktop app.' },
-      { q: 'Will it drain my battery or data?', a: 'Hosting uses CPU and keeps the screen-off server awake, so keep the phone on a charger for long sessions. Every player’s traffic goes through your connection, so Wi‑Fi is best; mobile data works but watch your data cap.' },
+      { q: 'Will it drain my battery or data?', a: 'Hosting uses CPU and keeps the screen-off server awake, so keep the phone on a charger for long sessions. Every player’s traffic goes through your connection, so Wi‑Fi is best. On mobile data the app counts what it uses, warns you before big downloads, stops sharing at a daily limit you choose (500 MB by default), and has a Data saver mode that sends each player less.' },
+      { q: 'How much mobile data does hosting use?', a: 'Roughly 10–50 MB per hour for each player online while they build or mine, and a lot more while they explore new land or fly, because new world has to be sent to them. Setting up the server downloads about 110 MB once. On a 1 GB-per-day plan that is a few players for a few hours, so host on Wi‑Fi when you can. The app shows what it used today and stops sharing at your limit.' },
       { q: 'Can friends without a paid Minecraft account join?', a: 'Yes, if you turn on "Allow cracked players" in the app (it sets online-mode to false). The trade-off is security: with the account check off, anyone can join under any name, including an admin’s, so use the whitelist or the one-tap login plugin (AuthMe) the app offers. Switching also changes players’ IDs, so existing inventories and ops won’t carry over.' },
       { q: 'Will it run well on my phone?', a: 'The app checks your phone and picks a performance level (Low-end, Balanced or High-end) that sets the view distance, mob limits, memory use and background threads to suit it. A phone with 4 GB of RAM can host a few friends on Low-end; 8 GB or more runs comfortably. You can change the level in Settings.' },
       { q: 'Does it work on Jio/Airtel or mobile data?', a: 'Yes. Like the desktop app, the phone connects out to the VoxelPort relay, so there’s no port forwarding and CGNAT (Jio, Airtel, mobile data) is not a problem.' },
@@ -43,7 +44,7 @@ export const GUIDES = [
 <ol>
   <li>Open VoxelPort and allow the notification it asks for.</li>
   <li>Under <b>Server</b>: tick <b>I agree to the Minecraft EULA</b>, leave <b>Bedrock players</b> on if you want phone/console friends to join, and pick the RAM to give it (2 GB is a safe start).</li>
-  <li>Tap <b>Install</b> — it downloads Paper and the Java runtime (about 60 MB, so use Wi‑Fi). Then tap <b>Start</b>. The first start generates the world and can take a few minutes; watch the console for <code>Done!</code>.</li>
+  <li>Tap <b>Install</b> — it downloads the server (about 110 MB; Java is already inside the app), so <b>use Wi‑Fi</b>. On mobile data the app asks before it starts. Then tap <b>Start</b>. The first start generates the world and can take a few minutes; watch the console for <code>Done!</code>.</li>
 </ol>
 
 <h2 id="public">Let friends join</h2>
@@ -62,10 +63,21 @@ export const GUIDES = [
 <h2 id="performance">Made for phones</h2>
 <p>VoxelPort checks your phone’s memory and cores and picks a <b>Performance</b> level (Settings): <b>Low-end</b> for 4 GB phones, <b>Balanced</b> for most, <b>High-end</b> for 10 GB+. It sets view distance, mob limits, the garbage collector and background threads, suggests a safe amount of RAM, and warns you if the phone is hot or the battery is low. The app also stops polling when it’s in the background to save battery.</p>
 
+<h2 id="data">Don’t burn through your mobile data</h2>
+<p>When friends play on your server, their game travels through your phone’s connection. On Wi‑Fi that costs nothing; on a mobile plan (say 1 GB a day) it adds up, so the app looks after it for you:</p>
+<ul>
+  <li><b>Wi‑Fi is recommended.</b> A yellow card tells you when you’re on mobile data, with a shortcut to your Wi‑Fi settings, and <b>Make Public</b> asks first.</li>
+  <li><b>It counts what it uses.</b> The <b>Data use</b> panel shows today’s mobile and Wi‑Fi use. The numbers are an estimate; Android’s own <i>App data usage</i> screen has the exact figure.</li>
+  <li><b>A daily limit.</b> Choose <b>Wi‑Fi only</b>, 250 MB, 500 MB (the default), 1 GB, 2 GB or no limit. Near the limit you get a notification; at the limit the app stops sharing (the server keeps running on your phone) until you’re on Wi‑Fi or add more for the day.</li>
+  <li><b>Data saver.</b> Gives each player a smaller world around them and fewer far-away updates, so each one uses much less data. Turn it on in <b>Data use</b>, then restart the server.</li>
+  <li><b>Big downloads ask first.</b> Setting up the server (about 110 MB), app updates (about 50 MB) and large plugins or mods ask before using mobile data. Plugin pictures are hidden on mobile data too.</li>
+</ul>
+<p>As a rough guide, each player online uses about 10–50 MB an hour, and much more while exploring new land. If you only have a small daily allowance, host on Wi‑Fi, use Data saver, and keep the player count low.</p>
+
 <h2 id="tips">Keep it running smoothly</h2>
 <ul>
   <li><b>Keep the phone charged.</b> Hosting is steady CPU work; plug it in for long sessions.</li>
-  <li><b>Wi‑Fi beats mobile data.</b> Every player’s traffic flows through your connection. On mobile data, watch your cap.</li>
+  <li><b>Wi‑Fi beats mobile data.</b> Every player’s traffic flows through your connection. On mobile data, keep an eye on the <b>Data use</b> panel.</li>
   <li><b>Don’t force-close the app.</b> The server runs in a foreground service with a notification; leave it there while you play.</li>
   <li><b>Use the console.</b> Make yourself admin with <code>op YourName</code>, or whitelist friends with <code>whitelist on</code> then <code>whitelist add Name</code>.</li>
 </ul>
