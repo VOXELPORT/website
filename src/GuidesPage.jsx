@@ -10,7 +10,8 @@ const SPRITE_FOR = ['grass', 'diamond', 'heart', 'bolt', 'tower', 'grass'];
 function onArticleClick(e) {
   const a = e.target.closest('a');
   const href = a?.getAttribute('href');
-  if (!href || !href.startsWith('/') || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  // /dl/ is a real file download served by the web server, not an app route.
+  if (!href || !href.startsWith('/') || href.startsWith('/dl/') || a.hasAttribute('download') || e.metaKey || e.ctrlKey || e.shiftKey) return;
   e.preventDefault();
   navigate(href);
   window.scrollTo(0, 0);

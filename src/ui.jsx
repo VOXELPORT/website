@@ -5,7 +5,8 @@ import { GUIDES, guidePath } from './guides.js';
 
 /** Click handler for same-site links: client-side navigation for paths ("/servers"). */
 function internal(href) {
-  return href.startsWith('/') ? (e) => { e.preventDefault(); navigate(href); } : undefined;
+  // /dl/ paths are real file downloads (served by the web server), not routes.
+  return href.startsWith('/') && !href.startsWith('/dl/') ? (e) => { e.preventDefault(); navigate(href); } : undefined;
 }
 
 // ─── Pixel art ────────────────────────────────────────────────────────────────
@@ -79,6 +80,7 @@ const FOOTER_COLS = [
 
 export function Footer({ onHome }) {
   const go = (href) => (e) => {
+    if (href.startsWith('/dl/')) return; // real file download, let the browser handle it
     if (href.startsWith('/')) { e.preventDefault(); navigate(href); return; }
     // A section of the landing page: scroll there, or go home first.
     if (href.startsWith('#')) {
