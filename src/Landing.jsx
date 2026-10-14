@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_WIN, DL_LINUX, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 import { GuideGrid } from './GuidesPage.jsx';
@@ -491,12 +491,15 @@ export default function Landing() {
               <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
               <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
+              <a className="btn gold sm" href={DL_ANDROID}>ANDROID · APK</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
             <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
               The direct .exe is the newest version, before the Store updates. It isn’t code-signed yet, so Windows may say
               “Windows protected your PC”: click <b>More info → Run anyway</b>. It updates itself after that.
+              <br /><b>Android:</b> host a server from your phone. The APK is sideloaded — open it, allow install from your
+              browser, and tap through the Play Protect prompt. See the <a href="/guides/host-minecraft-server-android-phone" style={{ color: 'inherit' }}>Android guide</a>.
             </p>
           </div>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 44 }}>

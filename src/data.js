@@ -9,6 +9,9 @@ export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 // Direct Windows installer from GitHub (not code-signed yet, so SmartScreen warns once).
 export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe';
 export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz';
+// Android app (host a server from the phone). Points to the install guide,
+// which links the sideload APK on GitHub Releases (sideloading needs the steps).
+export const DL_ANDROID = '/guides/host-minecraft-server-android-phone';
 
 // One relay per region; the app picks the closest. Counts and the server
 // list combine both.

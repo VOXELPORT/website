@@ -19,7 +19,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 function fallback(key, page) {
   const parts = [`<main class="prerender">`, `<h1>${esc(page.heading)}</h1>`];
@@ -111,7 +111,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '- Players join at play.voxelport.in; the relay is in India.',
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
-  '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6), the Windows installer directly (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe) or GitHub releases incl. Linux (https://github.com/VOXELPORT/VoxelPort-App/releases/latest).',
+  '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6), the Windows installer directly (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe) or GitHub releases incl. Linux (https://github.com/VOXELPORT/VoxelPort-App/releases/latest). Android app (host from a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',
   '',
   '## Guides',
   '',
