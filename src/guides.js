@@ -32,7 +32,7 @@ export const GUIDES = [
 
 <h2 id="install">Install the app</h2>
 <ol>
-  <li>On your phone, <a href="/dl/VoxelPort-0.2.0.apk" download><b>download the VoxelPort APK</b></a> (about 53 MB).</li>
+  <li>On your phone, <a href="/dl/VoxelPort-0.3.0.apk" download><b>download the VoxelPort APK</b></a> (about 53 MB).</li>
   <li>Open the downloaded <code>VoxelPort.apk</code>. Android will ask to <b>allow installing from this source</b> — turn it on for your browser, then tap <b>Install</b>.</li>
   <li>If Play Protect warns about an unknown app, tap <b>More details → Install anyway</b>. It’s the same open-source project as the desktop app.</li>
 </ol>
@@ -50,6 +50,9 @@ export const GUIDES = [
   <li>Copy the address it shows (like <code>play.voxelport.in:26137</code>), or claim a free <code>yourname.voxelport.in</code>.</li>
   <li>Share it. Friends open <b>Multiplayer → Add Server</b> and paste it. Bedrock (phone/console) players use the same address.</li>
 </ol>
+
+<h2 id="addons">Add plugins and mods in one tap</h2>
+<p>Tap <b>Add plugins</b> to browse <a href="https://modrinth.com">Modrinth</a> from inside the app: search, tap <b>Install</b>, and the plugin (plus anything it needs) goes straight into your server. Restart to load it. Want mods instead? Under <b>Version → Change</b>, switch the server software from <b>Paper</b> (plugins) to <b>Fabric</b> (mods) and the same button browses Fabric mods. <b>Settings</b> changes the game mode, difficulty, max players, whitelist and more, and <b>Files</b> lets you browse the server folder or import your own jars.</p>
 
 <h2 id="tips">Keep it running smoothly</h2>
 <ul>
