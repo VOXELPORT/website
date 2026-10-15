@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
-import { SPRITES, useRelayStatus } from './data.js';
+import { SITE_NAV } from './content.js';
+import { SPRITES, useRelayStatus, DISCORD } from './data.js';
 
 // Both public ways into the same relay. Hosts on app ≥1.3.1 try
 // direct first and fall back to the Cloudflare route.
@@ -103,7 +104,7 @@ export default function StatusPage({ onBack }) {
 
   return (
     <div className="zine">
-      <Nav links={[['← Back to site', '#', back]]} relay={null} onLogo={back} />
+      <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
       <main className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
         <span className="kicker">Live monitoring · special edition</span>
@@ -172,7 +173,7 @@ export default function StatusPage({ onBack }) {
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
             Pings are measured from <b>your browser</b> to the relay, which runs on a single server in India. Close to India you should see
             tens of milliseconds; from Europe or the Americas expect 150 ms or more. The direct route skips the Cloudflare hop, which some ISPs
-            send through another country. Players connect to <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> directly either way.
+            send through another country. Players connect to <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> directly either way. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
           </p>
         </div>
       </main>

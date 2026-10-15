@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
-import { SPRITES, RELAYS, DL_STORE } from './data.js';
+import { SITE_NAV } from './content.js';
+import { SPRITES, RELAYS, DL_STORE, DISCORD } from './data.js';
 import { navigate } from './seo.js';
 
 const MODES = [
@@ -108,7 +109,7 @@ export default function ServersPage({ onBack }) {
 
   return (
     <div className="zine">
-      <Nav links={[['← Back to site', '#', back]]} relay={null} onLogo={back} />
+      <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
       <main className="wrap" style={{ paddingTop: 60, paddingBottom: 100 }}>
         <span className="kicker">Powered by VoxelPort · live directory</span>
@@ -163,8 +164,8 @@ export default function ServersPage({ onBack }) {
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
             Only servers whose owners switched on <b>Show on voxelport.in/servers</b> appear here, and only while they’re online — nothing is
             stored. Player counts come from the server itself. Servers marked <b>★ SUPPORTER</b> belong to people who chip in to keep VoxelPort running;
-            they’re shown first (<a href="/#supporters">how that works</a>), and everything else about the list is the same for everyone.
-            Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down.
+            they’re shown first (<a href="/support#supporters" onClick={(e) => { e.preventDefault(); navigate('/support#supporters'); }}>how that works</a>), and everything else about the list is the same for everyone.
+            Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down. Want people to find your server? Share it in <b>#showcase</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.
           </p>
         </div>
       </main>

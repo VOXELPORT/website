@@ -6,7 +6,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PAGES, FAQ, SITE, homeJsonLd } from '../src/seo.js';
+import { PAGES, FAQ, SITE, homeJsonLd, faqJsonLd } from '../src/seo.js';
+import { DISCORD, DISCORD_PERKS } from '../src/community.js';
+import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
 import { SUPPORT } from '../src/support.js';
 
@@ -20,22 +22,48 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+
+const cell = (c) => c.t;
+/** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
+const EXTRA = {
+  home: () => [
+    '<h2>How it works</h2><ol>' + STEPS.map((x) => `<li><b>${esc(x.title)}</b>: ${esc(x.desc)}</li>`).join('') + '</ol>',
+    '<p><a href="/features">All features</a> · <a href="/faq">FAQ</a> · <a href="/compare">Compare</a> · <a href="/download">Download</a></p>',
+    `<p>Questions? <a href="${DISCORD}">Join the VoxelPort Discord</a>.</p>`,
+  ],
+  features: () => ['<h2>Features</h2>' + FEATURES.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join('')],
+  compare: () => [
+    RIVALS.map((r) => `<h2>${esc(r.name)}</h2><p>${esc(r.note)}</p>`).join(''),
+    '<table><thead><tr><th>Feature</th><th>VoxelPort</th><th>playit.gg</th><th>ngrok</th><th>Port forwarding</th></tr></thead><tbody>' +
+      TABLE.map(([feat, ...cells]) => `<tr><td>${esc(feat)}</td>${cells.map((c) => `<td>${esc(cell(c))}</td>`).join('')}</tr>`).join('') + '</tbody></table>',
+  ],
+  faq: () => FAQ.map((f) => `<h2>${esc(f.q)}</h2><p>${esc(f.a)}</p>`),
+  download: () => [
+    '<ul>' + [
+      ['Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'],
+      ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'],
+      ['Linux', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz'],
+      ['Android (install guide)', '/guides/host-minecraft-server-android-phone'],
+    ].map(([l, h]) => `<li><a href="${h}">${esc(l)}</a></li>`).join('') + '</ul>',
+  ],
+  community: () => [
+    '<h2>What is inside</h2>' + DISCORD_PERKS.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join(''),
+    `<p><a href="${DISCORD}">Join the VoxelPort Discord</a></p>`,
+  ],
+};
 
 function fallback(key, page) {
   const parts = [`<main class="prerender">`, `<h1>${esc(page.heading)}</h1>`];
   for (const p of page.summary) parts.push(`<p>${esc(p)}</p>`);
   if (page.points) parts.push(`<ul>${page.points.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`);
-  if (key === 'home') {
-    parts.push('<h2>Frequently asked questions</h2>');
-    for (const f of FAQ) parts.push(`<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`);
-  }
+  if (EXTRA[key]) parts.push(...EXTRA[key]());
   parts.push(`<nav>${NAV.map(([l, h]) => `<a href="${h}">${esc(l)}</a>`).join(' · ')}</nav>`, '</main>');
   return parts.join('');
 }
 
 function render(key) {
-  return renderPage(PAGES[key], key === 'home' ? homeJsonLd() : null, fallback(key, PAGES[key]));
+  return renderPage(PAGES[key], key === 'home' ? homeJsonLd() : key === 'faq' ? faqJsonLd() : null, fallback(key, PAGES[key]));
 }
 
 function renderPage(page, jsonLd, body) {
@@ -86,8 +114,8 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', servers: '0.8', status: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', servers: 'hourly', status: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', support: '0.5', status: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -125,6 +153,12 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   ...FAQ.flatMap(({ q, a }) => [`### ${q}`, '', a, '']),
   '## Other pages',
   '',
+  `- [Features](${SITE}/features): everything the app does, and direct routing.`,
+  `- [Compare](${SITE}/compare): VoxelPort next to playit.gg, ngrok and port forwarding.`,
+  `- [FAQ](${SITE}/faq)`,
+  `- [Download](${SITE}/download): Microsoft Store, Windows installer, Linux and Android.`,
+  `- [Support](${SITE}/support): tip jar and supporter perks.`,
+  `- [Community](${SITE}/community): the VoxelPort Discord (${DISCORD}), for help, showing servers and release news.`,
   `- [Public server list](${SITE}/servers): Minecraft servers hosted with VoxelPort that are online now.`,
   `- [Relay status](${SITE}/status): live status and ping of the relays.`,
   `- [License, privacy and terms](${SITE}/legal)`,

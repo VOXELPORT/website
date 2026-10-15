@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
 export const INSTAGRAM = 'https://www.instagram.com/voxelport.in/';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
+export { DISCORD } from './community.js';
 export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 // Direct Windows installer from GitHub (not code-signed yet, so SmartScreen warns once).
 export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe';

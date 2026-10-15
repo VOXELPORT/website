@@ -5,6 +5,7 @@ import StatusPage from './StatusPage.jsx';
 import ServersPage from './ServersPage.jsx';
 import GuidesPage from './GuidesPage.jsx';
 import Landing from './Landing.jsx';
+import { FeaturesPage, ComparePage, FaqPage, DownloadPage, SupportPage, CommunityPage } from './MorePages.jsx';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
 
@@ -26,13 +27,27 @@ if (typeof window !== 'undefined' && window.location.hash.startsWith('#/')) {
   window.history.replaceState(null, '', route + (anchor ? '#' + anchor : ''));
 }
 
+// The home page used to hold all of these as sections. Apps and posts out there still link to
+// voxelport.in/#support, /#supporters and so on, so those old anchors go to the page they moved to.
+const MOVED_SECTIONS = {
+  '#features': '/features', '#paths': '/features#paths', '#direct': '/features#direct',
+  '#compare': '/compare', '#faq': '/faq', '#guides': '/guides',
+  '#support': '/support', '#supporters': '/support#supporters',
+};
+if (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '' && MOVED_SECTIONS[window.location.hash]) {
+  window.history.replaceState(null, '', MOVED_SECTIONS[window.location.hash]);
+}
+
+const SIMPLE_ROUTES = {
+  '/legal': 'legal', '/status': 'status', '/servers': 'servers', '/guides': 'guides',
+  '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
+  '/support': 'support', '/community': 'community',
+};
+
 function routeFromPath() {
   if (typeof window === 'undefined') return 'home';
   const p = window.location.pathname.replace(/\/+$/, '');
-  if (p === '/legal') return 'legal';
-  if (p === '/status') return 'status';
-  if (p === '/servers') return 'servers';
-  if (p === '/guides') return 'guides';
+  if (SIMPLE_ROUTES[p]) return SIMPLE_ROUTES[p];
   const m = p.match(/^\/guides\/([\w-]+)$/);
   if (m) return 'guide:' + m[1];
   return 'home';
@@ -66,6 +81,12 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  if (page === 'features') return <FeaturesPage onBack={goHome} />;
+  if (page === 'compare') return <ComparePage onBack={goHome} />;
+  if (page === 'faq') return <FaqPage onBack={goHome} />;
+  if (page === 'download') return <DownloadPage onBack={goHome} />;
+  if (page === 'support') return <SupportPage onBack={goHome} />;
+  if (page === 'community') return <CommunityPage onBack={goHome} />;
   if (page === 'legal')  return <LegalPage onBack={goHome} />;
   if (page === 'status') return <StatusPage onBack={goHome} />;
   if (page === 'servers') return <ServersPage onBack={goHome} />;

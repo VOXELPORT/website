@@ -237,7 +237,7 @@ button { font-family: inherit; }
   background: var(--gold); border: 3px solid var(--ink);
 }
 .faq-item[open] summary::after { content: '–'; background: var(--grass); }
-.faq-item h3 { font-family: var(--display); font-weight: 400; font-size: 25px; line-height: 1.05; letter-spacing: .02em; }
+.faq-item h2, .faq-item h3 { font-family: var(--display); font-weight: 400; font-size: 25px; line-height: 1.05; letter-spacing: .02em; }
 .faq-item p { padding: 0 20px 20px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
 @media (max-width: 760px) { .faq-grid { grid-template-columns: 1fr; } }
 
@@ -436,3 +436,67 @@ button { font-family: inherit; }
 .prerender th, .prerender td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; vertical-align: top; }
 .prerender ol { padding-left: 20px; margin: 12px 0; }
 .prerender .tip { border-left: 4px solid #5FAE3B; padding: 8px 12px; margin: 12px 0; }
+
+/* ─── Discord ──────────────────────────────────────────────────────────── */
+:root { --blurple: #5865F2; --blurple-dk: #4752C4; }
+
+.btn.discord { background: var(--blurple); color: #fff; }
+.btn.discord:hover { background: var(--blurple-dk); }
+.btn.cream svg { color: var(--blurple); }
+
+/* The pill in the nav: always there, on every page. */
+.nav-links a.nav-discord {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px 6px;
+  background: var(--blurple); color: #fff; border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.nav-links a.nav-discord:hover { color: #fff; background: var(--blurple-dk); border-bottom-color: var(--ink); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.nav-links a.nav-discord:focus-visible { outline: 3px dashed var(--ink); outline-offset: 3px; }
+
+/* The band above the footer. White on #5865F2 is 4.6:1, so the text stays white. */
+.discord-band {
+  background: var(--halftone-light), var(--blurple); color: #fff;
+  border-top: var(--line) solid var(--ink); padding: 54px 0;
+}
+:root { --halftone-light: radial-gradient(rgba(255, 255, 255, .16) 1.1px, transparent 1.4px) 0 0 / 13px 13px; }
+.discord-inner { display: flex; align-items: center; justify-content: space-between; gap: 34px; flex-wrap: wrap; }
+.discord-copy { flex: 1 1 420px; min-width: 0; }
+.discord-copy .kicker { color: #fff; opacity: .9; }
+.discord-copy h2 { color: #fff; font-size: clamp(44px, 6vw, 78px); margin-top: 8px; }
+.discord-copy p { margin-top: 14px; max-width: 580px; font-size: 18px; line-height: 1.6; }
+.discord-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.discord-more { color: #fff; font-family: var(--type); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-underline-offset: 4px; }
+.discord-more:hover { color: var(--gold); }
+@media (max-width: 760px) {
+  .discord-band { padding: 40px 0; }
+  .discord-actions, .discord-actions .btn { width: 100%; }
+  .nav-links .nav-cta { width: 100%; }
+}
+
+/* Footer: the Discord button sits on the dark footer, so its text must stay white */
+.footer a.btn.discord, .footer a.btn.discord:hover { color: #fff; }
+
+/* ─── Sub pages ────────────────────────────────────────────────────────── */
+.page-hero { padding-top: 6px; }
+.page-hero h1 { font-size: clamp(60px, 10vw, 124px); font-weight: 400; line-height: .95; margin-top: 10px; }
+.page-hero .lede { margin-top: 18px; }
+.page-section { margin-top: 84px; }
+.page-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+/* "Explore" tiles on the home page */
+.explore-card { transition: transform .15s ease, box-shadow .15s ease; }
+.explore-card h3 { font-size: 34px; line-height: 1; }
+
+/* Numbered steps (how to join the Discord, install notes) */
+.note-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+.note-list .panel { padding: 20px 20px 22px; background: var(--card); }
+.note-list h3 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1; }
+.note-list p { margin-top: 8px; font-size: 15.5px; line-height: 1.6; color: var(--ink-2); }
+.note-list a { color: var(--red-dk); font-weight: 600; }
+
+/* The nav now has a Discord button too, so tighten it on mid-size screens before it collapses. */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .nav-links { gap: 16px; }
+  .nav-links a, .nav-links button { font-size: 12px; letter-spacing: .08em; }
+  .logo-word { font-size: 26px; }
+}

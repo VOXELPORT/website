@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from 'react';
-import { Nav, Footer, Pixels } from './ui.jsx';
+import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
+import { SITE_NAV } from './content.js';
 import { SPRITES, DL_STORE } from './data.js';
 import { navigate } from './seo.js';
 import { GUIDES, findGuide, guidePath, guideToc } from './guides.js';
@@ -85,6 +86,10 @@ function GuideArticle({ g }) {
               {g.faq.map((f) => (<div key={f.q}><h3>{f.q}</h3><p>{f.a}</p></div>))}
             </section>
           )}
+          <div className="panel" style={{ marginTop: 36, padding: '18px 20px', display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap', background: 'var(--card)' }}>
+            <p style={{ flex: '1 1 260px', fontSize: 16, lineHeight: 1.55, color: 'var(--ink-2)' }}><b>Still stuck?</b> Ask in <b>#help</b> on the VoxelPort Discord and tell us what you see.</p>
+            <DiscordButton small>ASK ON DISCORD</DiscordButton>
+          </div>
         </div>
       </div>
 
@@ -109,7 +114,7 @@ export default function GuidesPage({ slug, onBack }) {
 
   return (
     <div className="zine">
-      <Nav links={[['All guides', '/guides'], ['← Back to site', '#', back]]} relay={null} onLogo={back} />
+      <Nav links={SITE_NAV} relay={null} onLogo={back} />
       <main className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>
         {g ? <GuideArticle g={g} /> : <GuidesIndex />}
       </main>

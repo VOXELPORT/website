@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Nav, Footer } from './ui.jsx';
+import { SITE_NAV } from './content.js';
 import { EXAMPLE_ADDR } from './data.js';
 
 const SECTIONS = [
@@ -28,7 +29,7 @@ export default function LegalPage({ onBack }) {
 
   return (
     <div className="zine">
-      <Nav links={[['← Back to site', '#', back]]} relay={null} onLogo={back} />
+      <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
       <main className="wrap legal" style={{ maxWidth: 860, paddingTop: 60, paddingBottom: 100 }}>
         <span className="kicker">The fine print</span>
@@ -132,7 +133,8 @@ export default function LegalPage({ onBack }) {
             visitors it is mixed with a random key that changes every day, and that result stays in memory only until the day
             ends. Fonts are served from this site. Your browser fetches the relay’s public
             status and the latest release numbers from GitHub’s public API to show them on the page. The site itself is delivered
-            through Cloudflare.
+            through Cloudflare. Links to Discord, Instagram and GitHub leave this site: once you click one, that service’s own
+            privacy policy applies, and VoxelPort does not see who clicked.
           </p>
 
           <Sub color="var(--red)">Where the relay is</Sub>
@@ -213,6 +215,7 @@ export default function LegalPage({ onBack }) {
             ['Geyser, Floodgate', 'GeyserMC', 'Installed on request so Bedrock players can join.'],
             ['Modrinth', 'Rinth, Inc.', 'Where Fabric versions of Geyser, Floodgate and Fabric API are downloaded from.'],
             ['GitHub', 'Microsoft', 'Where the source code and downloads are hosted.'],
+            ['Discord', 'Discord Inc.', 'Where the VoxelPort community chats. Linked from this site; you do not need it to use VoxelPort.'],
             ['Cloudflare', 'Cloudflare, Inc.', 'Network provider for the website and the fallback relay route.'],
           ]} />
           <p>

@@ -2,6 +2,7 @@
 // scripts/prerender.mjs (static HTML for each route, sitemap). Plain ESM, no JSX.
 
 import { GUIDES_INDEX, findGuide, guidePath } from './guides.js';
+import { DISCORD } from './community.js';
 
 export const SITE = 'https://voxelport.in';
 export const OG_IMAGE = `${SITE}/og-image.png`;
@@ -25,7 +26,56 @@ export const PAGES = {
       'Automatic Java install (Java 25 for Minecraft 26.1+)',
       'Live CPU, RAM and TPS, plus plain-English crash help',
       'Host from a Windows or Linux PC, or an Android phone',
-      'No account, no Discord, free and MIT-licensed',
+      'No account or login, free and MIT-licensed',
+      'A friendly Discord for help, servers and release news',
+    ],
+  },
+  features: {
+    path: '/features',
+    title: 'VoxelPort Features: Relay, Custom Address, Bedrock Crossplay, Auto Java',
+    description: 'Everything VoxelPort does: instant relay with no port forwarding, a free yourname.voxelport.in address, Java + Bedrock crossplay, automatic Java, direct routing for low ping, and plain-English crash help.',
+    heading: 'VoxelPort features',
+    summary: ['What the VoxelPort app does for the host, and why nobody who joins has to install anything: create a new server or bring your own, get a public address in seconds, and keep your router shut.'],
+  },
+  compare: {
+    path: '/compare',
+    title: 'VoxelPort vs playit.gg, ngrok and Port Forwarding',
+    description: 'How VoxelPort compares with playit.gg, ngrok and port forwarding for hosting a Minecraft server: signup, vanilla clients, open source, hiding your home IP and setup.',
+    heading: 'VoxelPort compared with playit.gg, ngrok and port forwarding',
+    summary: ['Generic tunnels work, until they don’t. VoxelPort does one job, Minecraft servers, and sets up the server and Java for you.'],
+  },
+  faq: {
+    path: '/faq',
+    title: 'VoxelPort FAQ: Hosting a Minecraft Server Without Port Forwarding',
+    description: 'Answers to the common questions about VoxelPort: is it free, do friends need to install anything, Bedrock crossplay, custom addresses, mods and plugins, and your home IP.',
+    heading: 'VoxelPort frequently asked questions',
+    summary: ['The things people ask before they install VoxelPort, answered in plain words.'],
+  },
+  download: {
+    path: '/download',
+    title: 'Download VoxelPort: Windows, Linux and Android (Free)',
+    description: 'Download VoxelPort free for Windows (Microsoft Store or direct installer), Linux and Android. No account, no ads. Install notes for SmartScreen and the Android APK.',
+    heading: 'Download VoxelPort',
+    summary: ['VoxelPort is free for Windows, Linux and Android. Get it from the Microsoft Store, the direct Windows installer, the Linux build on GitHub, or the Android APK.'],
+  },
+  support: {
+    path: '/support',
+    title: 'Support VoxelPort: Keep Free Minecraft Hosting Running',
+    description: 'VoxelPort is free and has no ads. A small UPI tip keeps the relay online, and supporters get a badge, a pinned server and a short address.',
+    heading: 'Support VoxelPort',
+    summary: ['VoxelPort has no ads, no accounts and no paid plan. If it saved you a fight with your router, a small tip helps keep the relay online.'],
+  },
+  community: {
+    path: '/community',
+    title: 'VoxelPort Discord: Help, Servers and Release News',
+    description: 'Join the VoxelPort Discord to get help hosting a Minecraft server, show your server, find players, suggest features and hear about every release first. Free to join.',
+    heading: 'The VoxelPort Discord',
+    summary: ['The VoxelPort Discord is where people ask for help, show their servers and hear about every release first. You do not need it to use VoxelPort.'],
+    points: [
+      'Get help with setup, crashes and modpacks',
+      'Release announcements with download links',
+      'Show your server and find people to play with',
+      'Suggest features and report bugs',
     ],
   },
   servers: {
@@ -81,6 +131,10 @@ export const FAQ = [
     a: 'Yes. Players only ever connect to the relay, never to your PC, so your home IP address isn’t exposed to them.',
   },
   {
+    q: 'Where can I get help or ask a question?',
+    a: `In the VoxelPort Discord (${DISCORD}): ask in #help, suggest features, and hear about every release first. You do not need Discord to use VoxelPort itself. There are also step-by-step guides on this site.`,
+  },
+  {
     q: 'How is VoxelPort different from playit.gg or ngrok?',
     a: 'VoxelPort is made only for Minecraft: it sets up the server and Java for you, adds Bedrock crossplay and a free custom address, needs no account, and is fully open source.',
   },
@@ -115,16 +169,20 @@ export function homeJsonLd() {
       isAccessibleForFree: true,
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${SITE}/`, logo: `${SITE}/logo.png`, sameAs: ['https://www.instagram.com/voxelport.in/'] },
-      sameAs: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App', 'https://www.instagram.com/voxelport.in/'],
+      publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${SITE}/`, logo: `${SITE}/logo.png`, sameAs: ['https://www.instagram.com/voxelport.in/', DISCORD] },
+      sameAs: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App', 'https://www.instagram.com/voxelport.in/', DISCORD],
     },
     { '@context': 'https://schema.org', '@type': 'WebSite', name: 'VoxelPort', url: `${SITE}/` },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: FAQ.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-    },
   ];
+}
+
+/** JSON-LD for the FAQ page (the questions are shown there, so the markup belongs there). */
+export function faqJsonLd() {
+  return [{
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  }];
 }
 
 // ─── Runtime helpers (browser only) ─────────────────────────────────────────

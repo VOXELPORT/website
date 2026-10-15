@@ -1,70 +1,16 @@
-import { useState } from 'react';
-import { Nav, Footer, Pixels } from './ui.jsx';
+import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
   SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP,
 } from './data.js';
-import { navigate, FAQ } from './seo.js';
-import { GuideGrid } from './GuidesPage.jsx';
-import { SUPPORTER } from './support.js';
+import { navigate } from './seo.js';
+import { SITE_NAV, TICKER, FEATURES, STEPS, EXPLORE } from './content.js';
 
-// ─── Content ──────────────────────────────────────────────────────────────────
+// The home page is the short version: what it is, how it works, the six things that matter, where to
+// get it, and the Discord. Everything else lives on its own page (see EXPLORE) so nobody has to scroll
+// through it all to find the download button.
 
-const TICKER = ['No port forwarding', 'Your own .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
-
-const PATHS = [
-  {
-    tag: 'New server', color: 'green', sprite: 'grass', title: 'START FROM SCRATCH',
-    desc: 'Pick Vanilla, Paper or Fabric and a version. VoxelPort downloads the server, installs the right Java and starts it for you.',
-    points: ['Right Java version installed automatically', 'Official, checksum-verified downloads', 'Live console, players & ping'],
-    cta: ['GET IT ON MICROSOFT STORE', DL_STORE],
-  },
-  {
-    tag: 'Your server', color: 'gold', sprite: 'diamond', title: 'BRING YOUR OWN',
-    desc: 'Already have a world, a modpack or a server running somewhere else? Import the folder or point VoxelPort at its port and go public.',
-    points: ['Import any server folder', 'Tunnel a server that’s already running', 'Modpacks & any server jar'],
-    cta: ['GET THE APP', '#download'],
-  },
-];
-
-const FEATURES = [
-  { sprite: 'bolt', title: 'INSTANT RELAY', desc: 'Your server dials out to the relay and gets a public address in seconds. No DNS, no static IP, no router.' },
-  { sprite: 'grass', title: 'VANILLA CLIENTS', desc: 'Friends join with plain Minecraft. No client mods, no launchers, no patches — ever.' },
-  { sprite: 'lock', title: 'ROUTER STAYS SHUT', desc: 'Nothing to open on your side. Players connect to the relay, never to your home IP.' },
-  { sprite: 'card', title: 'NO SIGNUP', desc: 'No account, no Discord, no token to copy. A private device key is created on first run.' },
-  { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Hosts connect straight to the relay for ~10–20 ms pings, and fall back to Cloudflare automatically if a network blocks it.' },
-  { sprite: 'heart', title: 'FREE & OPEN', desc: 'MIT-licensed app and relay. Read the code, fork it, or run your own relay.' },
-  { sprite: 'house', title: 'YOUR OWN ADDRESS', desc: 'Claim yourname.voxelport.in for free. Friends join without typing a port number.' },
-  { sprite: 'diamond', title: 'BEDROCK TOO', desc: 'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.' },
-  { sprite: 'head1', title: 'CRASH HELP', desc: 'If your server stops, VoxelPort says why in plain words — and offers the fix. Plus live CPU, RAM and TPS.' },
-];
-
-const STEPS = [
-  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows, Linux or Android. No account needed.', sprite: 'grass' },
-  { n: '2', title: 'HIT START', desc: 'Create or import a server and press Start. Java is handled for you.', sprite: 'bolt' },
-  { n: '3', title: 'COPY ADDRESS', desc: `VoxelPort hands you an address like ${EXAMPLE_ADDR}.`, sprite: 'card' },
-  { n: '4', title: 'FRIENDS JOIN', desc: 'They paste it into Multiplayer → Add Server. That’s it.', sprite: 'heart' },
-];
-
-const RIVALS = [
-  { name: 'VoxelPort', tag: 'Made for MC', note: 'Built for Minecraft only. Vanilla clients, no signup, one simple app, fully open source.', verdict: '✓ The right tool', us: true },
-  { name: 'playit.gg', tag: 'General tunnel', note: 'Works for lots of games, but it’s a generic agent with freemium limits and no Minecraft tuning.', verdict: '~ Freemium' },
-  { name: 'ngrok', tag: 'Dev tunnel', note: 'Great for webhooks and HTTP. Clunky for game servers, and TCP sits behind paid tiers.', verdict: '~ Not for games' },
-  { name: 'Port forwarding', tag: 'The old way', note: 'Needs router access, exposes your real IP and invites scans. Many ISPs block it anyway (CGNAT).', verdict: '✕ Risky' },
-];
-
-const Y = { k: 'yes', t: 'YES' };
-const N = { k: 'no', t: 'NO' };
-const P = (t) => ({ k: 'part', t });
-const TABLE = [
-  ['No port forwarding', Y, Y, Y, N],
-  ['Vanilla clients', Y, Y, P('TCP only'), Y],
-  ['No signup', Y, P('Freemium'), P('Account'), Y],
-  ['Open source', Y, N, N, P('—')],
-  ['Hides your home IP', Y, Y, Y, N],
-  ['Sets up Java & server', Y, N, N, N],
-  ['Minecraft-specific', Y, N, N, P('Manual')],
-];
+const HOME_FEATURES = FEATURES.filter((f) => f.home);
 
 // ─── Pieces ───────────────────────────────────────────────────────────────────
 
@@ -115,123 +61,32 @@ function RelayPanel() {
   );
 }
 
-/** App window mock, matching the real desktop app's look. */
-function AppMock() {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(EXAMPLE_ADDR).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
-  };
+/** A link tile to another page of the site. */
+function ExploreCard({ e, i }) {
   return (
-    <div className="panel tilt-r1" style={{ background: 'var(--paper)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderBottom: '3px solid var(--ink)', background: 'var(--ink)', color: 'var(--paper)' }}>
-        {['var(--red)', 'var(--gold)', 'var(--grass)'].map((c) => <span key={c} style={{ width: 12, height: 12, background: c, border: '2px solid var(--paper)' }} />)}
-        <span className="pixel" style={{ marginLeft: 8, fontSize: 12 }}>VOXELPORT APP</span>
+    <a className="panel guide-card explore-card" href={e.href} onClick={(ev) => { ev.preventDefault(); navigate(e.href); window.scrollTo(0, 0); }}
+      style={{ transform: `rotate(${[-.6, .5, -.3, .6][i % 4]}deg)` }}>
+      <div className="guide-card-top">
+        <span className="pixel" style={{ fontSize: 11 }}>{e.tag.toUpperCase()}</span>
+        <Pixels rows={SPRITES[e.sprite]} size={2.4} />
       </div>
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div className="h-display" style={{ fontSize: 30 }}>SURVIVAL SMP</div>
-          <span className="sticker green" style={{ transform: 'rotate(3deg)' }}>● PUBLIC</span>
-        </div>
-        <div className="kicker" style={{ color: 'var(--ink-2)' }}>Share this address</div>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <div className="addr" style={{ flex: 1 }}>{EXAMPLE_ADDR}</div>
-          <button className="btn sm cream" onClick={copy} style={{ boxShadow: '3px 3px 0 var(--ink)' }}>{copied ? 'COPIED!' : 'COPY'}</button>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          {[['3', 'PLAYERS'], ['13 ms', 'RELAY PING']].map(([n, l]) => (
-            <div key={l} className="panel" style={{ padding: '10px 14px', boxShadow: '3px 3px 0 var(--ink)' }}>
-              <div className="h-display" style={{ fontSize: 34 }}>{n}</div>
-              <div className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>{l}</div>
-            </div>
-          ))}
-        </div>
-        <div className="typewriter" style={{ background: 'var(--ink)', color: '#B9F18B', fontSize: 13, padding: '10px 12px', lineHeight: 1.7 }}>
-          <div>&gt; Connecting to wss://direct.voxelport.in…</div>
-          <div>&gt; Tunnel is live on public port 26137.</div>
-          <div style={{ color: 'var(--gold)' }}>&gt; Player connected → 127.0.0.1:25565</div>
-        </div>
-      </div>
-    </div>
+      <h3 className="h-display">{e.title}</h3>
+      <p>{e.blurb}</p>
+      <span className="guide-card-more">OPEN →</span>
+    </a>
   );
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-
-function Support() {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(UPI_ID).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
-  return (
-    <section className="section" id="support">
-      <div className="wrap support">
-        <div className="support-copy">
-          <span className="kicker">Tip jar · Keep it free</span>
-          <h2 className="h-display h-section">SUPPORT VOXELPORT</h2>
-          <p className="lede" style={{ marginTop: 14 }}>
-            VoxelPort has no ads, no accounts and no paid plan: hosting, custom addresses and the server list are free for everyone.
-            The relay runs on a server I pay for myself. If it saved you a fight with your router, a small tip helps keep it online,
-            and <a href="#supporters">supporters get a badge and a few extras</a> as a thank-you.
-          </p>
-          <ul className="support-points">
-            <li>Any amount helps, even ₹20</li>
-            <li>Goes to the relay's power, internet and hardware</li>
-            <li>UPI works from any Indian bank app: GPay, PhonePe, Paytm, BHIM</li>
-          </ul>
-        </div>
-        <div className="panel support-card tilt-r1">
-          <img src="/upi-qr.svg" width="220" height="220" alt={`UPI QR code for ${UPI_ID}`} className="support-qr" />
-          <span className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>SCAN WITH ANY UPI APP</span>
-          <div className="support-id">
-            <span className="addr">{UPI_ID}</span>
-            <button className="btn sm cream" onClick={copy}>{copied ? 'COPIED!' : 'COPY'}</button>
-          </div>
-          <a className="btn green sm support-pay" href={UPI_LINK}>PAY WITH UPI</a>
-          <span className="support-note">“Pay with UPI” opens your UPI app on a phone.</span>
-        </div>
-      </div>
-
-      <div className="wrap" id="supporters" style={{ marginTop: 56 }}>
-        <span className="kicker">Optional · a thank-you</span>
-        <h3 className="h-display" style={{ fontSize: 'clamp(30px, 4vw, 44px)', marginTop: 6 }}>SUPPORTER PERKS</h3>
-        <p className="lede" style={{ marginTop: 10, maxWidth: 720 }}>{SUPPORTER.intro}</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginTop: 22 }}>
-          {SUPPORTER.tiers.map((t) => (
-            <div key={t.name} className="panel" style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--card)' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10 }}>
-                <span className="h-display" style={{ fontSize: 28 }}>{t.name.toUpperCase()}</span>
-                <span className="pixel" style={{ fontSize: 13 }}>₹{t.inr}+</span>
-              </div>
-              <ul style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 6, color: 'var(--ink-2)' }}>
-                {t.perks.map((p) => <li key={p}>{p}</li>)}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p style={{ marginTop: 18, maxWidth: 760, lineHeight: 1.6 }}><b>How:</b> {SUPPORTER.how}</p>
-        <p style={{ marginTop: 8, maxWidth: 760, fontSize: 14, color: 'var(--muted)' }}>{SUPPORTER.fine}</p>
-      </div>
-    </section>
-  );
-}
 
 export default function Landing() {
   const relay = useRelayStatus();
   const rel = useLatestReleases();
   const scrollTo = (hash) => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
 
-  const navLinks = [
-    ['Features', '#features'], ['How it works', '#how'],
-    ['Compare', '#compare'], ['Servers', '/servers'], ['Guides', '/guides'], ['Download', '#download'], ['Donate', '#support'],
-  ];
-
   return (
     <div className="zine" id="top">
-      <Nav links={navLinks} relay={relay} onLogo={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+      <Nav links={SITE_NAV} relay={relay} onLogo={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
 
       {/* ═══ HERO — comic cover ═══ */}
       <header className="hero wrap">
@@ -259,7 +114,7 @@ export default function Landing() {
             </div>
             <div className="hero-ctas">
               <a className="btn tilt-l1" href="#download" onClick={(e) => { e.preventDefault(); scrollTo('#download'); }}>DOWNLOAD THE APP</a>
-              <a className="btn cream tilt-r1" href="#how" onClick={(e) => { e.preventDefault(); scrollTo('#how'); }}>HOW IT WORKS</a>
+              <DiscordButton className="tilt-r1">JOIN THE DISCORD</DiscordButton>
             </div>
           </div>
 
@@ -311,57 +166,11 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* ═══ TWO WAYS ═══ */}
-      <section className="section" id="paths">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Chapter 1 · One app, any server</span>
-            <h2 className="h-display h-section">NEW SERVER OR YOUR OWN.</h2>
-          </div>
-          <div className="grid-2">
-            {PATHS.map((p, i) => (
-              <article key={p.title} className={`panel ${i ? 'tilt-r1' : 'tilt-l1'}`} style={{ padding: 0, position: 'relative' }}>
-                <div className={`panel ${p.color}`} style={{ margin: -3, marginBottom: 0, boxShadow: 'none', padding: '14px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span className="kicker" style={{ color: 'var(--ink)' }}>{p.tag}</span>
-                  <Pixels rows={SPRITES[p.sprite]} size={3} />
-                </div>
-                <div style={{ padding: '22px 24px 28px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <h3 className="h-display" style={{ fontSize: 44 }}>{p.title}</h3>
-                  <p style={{ fontSize: 16.5, lineHeight: 1.6, color: 'var(--ink-2)' }}>{p.desc}</p>
-                  <ul className="ticks">{p.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
-                  <div><a className={`btn ${i ? 'gold' : ''}`} href={p.cta[1]} onClick={p.cta[1].startsWith('#') ? (e) => { e.preventDefault(); scrollTo(p.cta[1]); } : undefined}>{p.cta[0]}</a></div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ FEATURES ═══ */}
-      <section className="section band" id="features">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Chapter 2 · The powers</span>
-            <h2 className="h-display h-section">EVERYTHING THE HOST NEEDS.<br /><span style={{ color: 'var(--red)' }}>NOTHING THE PLAYER INSTALLS.</span></h2>
-          </div>
-          <div className="grid-3">
-            {FEATURES.map((f, i) => (
-              <article key={f.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7, -.5, .9, -.8][i]}deg)` }}>
-                <span className="sticker red feat-num" style={{ transform: 'rotate(4deg)' }}>#{String(i + 1).padStart(2, '0')}</span>
-                <div style={{ height: 56, display: 'flex', alignItems: 'center' }}><Pixels rows={SPRITES[f.sprite]} size={4.4} /></div>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ HOW IT WORKS ═══ */}
       <section className="section" id="how">
         <div className="wrap">
           <div className="section-head">
-            <span className="kicker">Chapter 3 · The plan</span>
+            <span className="kicker">The plan</span>
             <h2 className="h-display h-section">ZERO TO ONLINE IN FOUR PANELS.</h2>
           </div>
           <div className="grid-4">
@@ -376,126 +185,36 @@ export default function Landing() {
               </div>
             ))}
           </div>
-
-          <div className="how-demo">
-            <div>
-              <div className="bubble tail-b" style={{ maxWidth: 440 }}>
-                <span className="kicker">What hosting looks like</span>
-                <p style={{ marginTop: 8, fontSize: 17, lineHeight: 1.6 }}>
-                  One address to share, a live player count, and the relay ping — right in the app.
-                </p>
-              </div>
-              <div style={{ marginTop: 50, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <a className="btn green" href={DL_STORE} target="_blank" rel="noreferrer">GET THE APP</a>
-                <a className="btn cream" href={GITHUB_APP} target="_blank" rel="noreferrer">READ THE CODE</a>
-              </div>
-            </div>
-            <AppMock />
-          </div>
         </div>
       </section>
 
-      {/* ═══ DIRECT ROUTING ═══ */}
-      <section className="section band" id="direct">
-        <div className="wrap direct-grid">
-          <div>
-            <span className="kicker">Chapter 4 · New in app 1.3.1</span>
-            <h2 className="h-display h-section">DIRECT ROUTING.<br /><span style={{ color: 'var(--grass-dk)' }}>WAY LESS LAG.</span></h2>
-            <p className="lede" style={{ marginTop: 18 }}>
-              Some ISPs send traffic for big CDNs on a detour through another country. Now hosts connect straight to the relay
-              at <span className="typewriter" style={{ fontWeight: 700 }}>direct.voxelport.in</span> — and if your network blocks that, VoxelPort quietly falls back to the
-              Cloudflare route within a few seconds. Nothing to configure.
-            </p>
-          </div>
-          <div className="panel" style={{ padding: '24px 24px 26px', transform: 'rotate(1deg)' }}>
-            <div className="kicker" style={{ color: 'var(--ink-2)' }}>Relay ping, measured from Delhi</div>
-            {[['VIA CDN DETOUR', 151, 'var(--red)'], ['DIRECT', 13, 'var(--grass)']].map(([label, ms, color]) => (
-              <div key={label} style={{ marginTop: 18 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <span className="pixel" style={{ fontSize: 13 }}>{label}</span>
-                  <span className="h-display" style={{ fontSize: 38 }}>{ms} MS</span>
-                </div>
-                <div style={{ height: 22, border: '3px solid var(--ink)', background: 'var(--paper-2)', marginTop: 6 }}>
-                  <div style={{ width: `${Math.max(6, (ms / 160) * 100)}%`, height: '100%', background: color, borderRight: '3px solid var(--ink)' }} />
-                </div>
-              </div>
-            ))}
-            <p className="typewriter" style={{ marginTop: 16, fontSize: 13, color: 'var(--muted)' }}>
-              One host on one ISP — your numbers depend on where you are.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ COMPARE ═══ */}
-      <section className="section" id="compare">
+      {/* ═══ THE SIX THAT MATTER ═══ */}
+      <section className="section band" id="why">
         <div className="wrap">
           <div className="section-head">
-            <span className="kicker">Chapter 5 · Rivals</span>
-            <h2 className="h-display h-section">WHY NOT THE OTHERS?</h2>
-            <p className="lede" style={{ marginTop: 10 }}>Generic tunnels work — until they don’t. VoxelPort does one job: Minecraft servers.</p>
+            <span className="kicker">The powers</span>
+            <h2 className="h-display h-section">EVERYTHING THE HOST NEEDS.<br /><span style={{ color: 'var(--red)' }}>NOTHING THE PLAYER INSTALLS.</span></h2>
           </div>
-          <div className="grid-4">
-            {RIVALS.map((r, i) => (
-              <div key={r.name} className={`panel ${r.us ? 'green' : ''}`} style={{ padding: '20px 18px 22px', display: 'flex', flexDirection: 'column', gap: 10, transform: `rotate(${[-1, .7, -.5, .9][i]}deg)` }}>
-                <span className="kicker" style={{ color: r.us ? 'var(--ink)' : 'var(--muted)' }}>{r.tag}</span>
-                <h3 className="h-display" style={{ fontSize: 34 }}>{r.name.toUpperCase()}</h3>
-                <p style={{ fontSize: 15, lineHeight: 1.55, flex: 1 }}>{r.note}</p>
-                <span className="pixel" style={{ fontSize: 13 }}>{r.verdict}</span>
-              </div>
+          <div className="grid-3">
+            {HOME_FEATURES.map((f, i) => (
+              <article key={f.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7][i % 6]}deg)` }}>
+                <span className="sticker red feat-num" style={{ transform: 'rotate(4deg)' }}>#{String(i + 1).padStart(2, '0')}</span>
+                <div style={{ height: 56, display: 'flex', alignItems: 'center' }}><Pixels rows={SPRITES[f.sprite]} size={4.4} /></div>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </article>
             ))}
           </div>
-          <div className="table-scroll panel" style={{ marginTop: 40, padding: 0 }}>
-            <table className="table">
-              <thead>
-                <tr><th>FEATURE</th><th className="us">VOXELPORT</th><th>PLAYIT.GG</th><th>NGROK</th><th>PORT FWD</th></tr>
-              </thead>
-              <tbody>
-                {TABLE.map(([feat, ...cells]) => (
-                  <tr key={feat}>
-                    <td>{feat}</td>
-                    {cells.map((c, i) => <td key={i} className={i === 0 ? 'us' : undefined}><span className={c.k}>{c.t}</span></td>)}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="page-cta" style={{ justifyContent: 'center', marginTop: 44 }}>
+            <a className="btn cream" href="/features" onClick={(e) => { e.preventDefault(); navigate('/features'); window.scrollTo(0, 0); }}>SEE ALL {FEATURES.length} FEATURES →</a>
           </div>
-        </div>
-      </section>
-
-      {/* ═══ FAQ ═══ */}
-      <section className="section" id="faq">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Letters page · Your questions</span>
-            <h2 className="h-display h-section">MINECRAFT HOSTING, ANSWERED.</h2>
-          </div>
-          <div className="faq-grid">
-            {FAQ.map((f, i) => (
-              <details key={f.q} className="panel faq-item" style={{ transform: `rotate(${[-.5, .4, -.3, .5][i % 4]}deg)` }} open={i < 2}>
-                <summary><h3>{f.q}</h3></summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ GUIDES ═══ */}
-      <section className="section" id="guides">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">Field manual · Free guides</span>
-            <h2 className="h-display h-section">LEARN THE ROPES.</h2>
-          </div>
-          <GuideGrid />
         </div>
       </section>
 
       {/* ═══ DOWNLOAD ═══ */}
-      <section className="section band" id="download" style={{ textAlign: 'center' }}>
+      <section className="section" id="download" style={{ textAlign: 'center' }}>
         <div className="wrap">
-          <span className="kicker">Final chapter · Get it</span>
+          <span className="kicker">Get it</span>
           <h2 style={{ marginTop: 12, fontSize: 'clamp(70px, 13vw, 170px)' }}>
             <Title>GET IT!</Title>
           </h2>
@@ -503,7 +222,7 @@ export default function Landing() {
             One app — on your PC or your Android phone — hosts any Minecraft Java server. Players always join with vanilla Minecraft.
           </p>
           <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, textAlign: 'left', maxWidth: 640, marginInline: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
               <span className="kicker" style={{ color: 'var(--grass-dk)' }}>PC &amp; Android app</span>
               <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>NOW ON MICROSOFT STORE</span>
               <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
@@ -519,10 +238,8 @@ export default function Landing() {
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
             <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
-              The direct .exe is the newest version, before the Store updates. It isn’t code-signed yet, so Windows may say
-              “Windows protected your PC”: click <b>More info → Run anyway</b>. It updates itself after that.
-              <br /><b>Android:</b> host a server from your phone. The APK is sideloaded — open it, allow install from your
-              browser, and tap through the Play Protect prompt. See the <a href="/guides/host-minecraft-server-android-phone" style={{ color: 'inherit' }}>Android guide</a>.
+              Windows may say “Windows protected your PC” on the direct .exe — click <b>More info → Run anyway</b>.
+              {' '}<a href="/download" onClick={(e) => { e.preventDefault(); navigate('/download'); window.scrollTo(0, 0); }} style={{ color: 'inherit' }}>All install notes →</a>
             </p>
           </div>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 44 }}>
@@ -533,8 +250,19 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ SUPPORT ═══ */}
-      <Support />
+      {/* ═══ EXPLORE — one tile per page ═══ */}
+      <section className="section band" id="explore">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">More to read</span>
+            <h2 className="h-display h-section">THE REST OF THE ZINE.</h2>
+            <p className="lede" style={{ marginTop: 10 }}>Pick what you came for. Each one is its own short page.</p>
+          </div>
+          <div className="grid-4">
+            {EXPLORE.map((e, i) => <ExploreCard key={e.href} e={e} i={i} />)}
+          </div>
+        </div>
+      </section>
 
       <Footer onHome={(hash) => scrollTo(hash)} />
     </div>
