@@ -239,6 +239,7 @@ export default function Landing() {
             </div>
             <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
               Windows may say “Windows protected your PC” on the direct .exe — click <b>More info → Run anyway</b>.
+              <br /><b>Store updates take about a day:</b> Microsoft reviews each one first. The direct .exe is always the newest.
               {' '}<a href="/download" onClick={(e) => { e.preventDefault(); navigate('/download'); window.scrollTo(0, 0); }} style={{ color: 'inherit' }}>All install notes →</a>
             </p>
           </div>

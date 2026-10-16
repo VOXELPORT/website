@@ -40,6 +40,7 @@ const EXTRA = {
   ],
   faq: () => FAQ.map((f) => `<h2>${esc(f.q)}</h2><p>${esc(f.a)}</p>`),
   download: () => [
+    '<p><b>Microsoft Store updates take about a day:</b> Microsoft reviews every Store update before it goes out. The direct Windows installer is always the newest and updates itself.</p>',
     '<ul>' + [
       ['Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'],
       ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'],

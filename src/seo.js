@@ -131,6 +131,10 @@ export const FAQ = [
     a: 'Yes. Players only ever connect to the relay, never to your PC, so your home IP address isn’t exposed to them.',
   },
   {
+    q: 'Why is the Microsoft Store version behind the latest release?',
+    a: 'Microsoft reviews every Store update before it goes out, so a new version reaches the Store about a day after it is released on GitHub and announced. The direct Windows installer is always the newest and updates itself, so use that if you want a release right away.',
+  },
+  {
     q: 'Where can I get help or ask a question?',
     a: `In the VoxelPort Discord (${DISCORD}): ask in #help, suggest features, and hear about every release first. You do not need Discord to use VoxelPort itself. There are also step-by-step guides on this site.`,
   },
