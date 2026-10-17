@@ -26,12 +26,12 @@ export const GUIDES = [
       { q: 'How much mobile data does hosting use?', a: 'Roughly 10–50 MB per hour for each player online while they build or mine, and a lot more while they explore new land or fly, because new world has to be sent to them. Setting up the server downloads about 110 MB once. On a 1 GB-per-day plan that is a few players for a few hours, so host on Wi‑Fi when you can. The app shows what it used today and stops sharing at your limit.' },
       { q: 'Can friends without a paid Minecraft account join?', a: 'Yes, if you turn on "Allow cracked players" in the app (it sets online-mode to false). The trade-off is security: with the account check off, anyone can join under any name, including an admin’s, so use the whitelist or the one-tap login plugin (AuthMe) the app offers. Switching also changes players’ IDs, so existing inventories and ops won’t carry over.' },
       { q: 'Will it run well on my phone?', a: 'The app checks your phone and picks a performance level (Low-end, Balanced or High-end) that sets the view distance, mob limits, memory use and background threads to suit it. A phone with 4 GB of RAM can host a few friends on Low-end; 8 GB or more runs comfortably. You can change the level in Settings.' },
-      { q: 'Does it work on Jio/Airtel or mobile data?', a: 'Yes. Like the desktop app, the phone connects out to the VoxelPort relay, so there’s no port forwarding and CGNAT (Jio, Airtel, mobile data) is not a problem.' },
+      { q: 'Does it work on Jio/Airtel or mobile data?', a: 'Yes, there’s no port forwarding and CGNAT (Jio, Airtel, mobile data) is not a problem. But mobile data is the weakest way to host: the connection can drop for a moment, and players get disconnected when it does. Wi‑Fi is much steadier.' },
     ],
     html: `
 <p>Your Android phone is a small Linux computer with several gigabytes of RAM — plenty to host a Minecraft server for a few friends. VoxelPort for Android runs a real Paper (Java Edition) server right on the phone and puts it online through the VoxelPort relay, so friends join from anywhere without port forwarding.</p>
 
-<div class="tip">This is a <b>beta</b>, shared as a direct APK (not yet on the Play Store). It needs an arm64 phone on Android 8 or newer — effectively every phone from the last several years.</div>
+<div class="tip"><b>This is a beta build, so it has many bugs.</b> The server can stop on its own and players can get disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, keep the app open, and use the <a href="/download">PC app</a> for a server that has to stay up. It is shared as a direct APK (not on the Play Store yet) and needs an arm64 phone on Android 8 or newer.</div>
 
 <h2 id="install">Install the app</h2>
 <ol>

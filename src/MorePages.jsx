@@ -280,7 +280,7 @@ export function FaqPage({ onBack }) {
 const INSTALL_NOTES = [
   { title: 'WINDOWS · STORE', body: 'The easiest way: one click from the Microsoft Store, and it updates itself. Microsoft reviews every Store update before it goes out, so a new version reaches the Store about a day after it is released here. Want a release the moment it is out? Use the direct installer.' },
   { title: 'WINDOWS · DIRECT', body: 'The newest version, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
-  { title: 'ANDROID', body: 'Host a server from your phone. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
+  { title: 'ANDROID · BETA', body: 'Host a server from your phone. This is a beta, so it has bugs: the server can stop, and players can be disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
   { title: 'LINUX', body: 'Download the Linux build from the GitHub release. It is the same app, built for Linux.' },
   { title: 'WHAT YOU NEED', body: 'A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. No account, and no router settings.' },
   { title: 'MACOS', body: 'Not yet. Follow the Discord or GitHub to hear when it lands.' },
@@ -305,7 +305,7 @@ export function DownloadPage({ onBack }) {
           <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
           <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
           <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
-          <a className="btn gold sm" href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · APK</a>
+          <a className="btn gold sm" href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · BETA APK</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
           <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
         </div>
@@ -316,6 +316,14 @@ export function DownloadPage({ onBack }) {
         <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
           Microsoft reviews every Store update before it goes out, so a new version reaches the Store about a day after it is released here. If you got VoxelPort from the Store and the new version isn’t there yet, it is on its way.
           The <b>direct .exe</b> is always the newest and updates itself.
+        </p>
+      </div>
+
+      <div className="panel gold tilt-l1" style={{ padding: '18px 22px', marginTop: 24, maxWidth: 720 }}>
+        <span className="kicker" style={{ color: 'var(--ink-2)' }}>Heads up · Android beta</span>
+        <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
+          The Android app is a <b>beta build</b>, so it has many bugs. Servers can stop on their own and players can get disconnected, especially on mobile data or a phone with little memory.
+          Use Wi‑Fi, keep the app open, and use the <b>PC app</b> for a server that has to stay up. We are working on it.
         </p>
       </div>
 

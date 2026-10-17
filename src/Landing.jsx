@@ -233,13 +233,14 @@ export default function Landing() {
               <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
               <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
-              <a className="btn gold sm" href={DL_ANDROID}>ANDROID · APK</a>
+              <a className="btn gold sm" href={DL_ANDROID}>ANDROID · BETA APK</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
             <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
               Windows may say “Windows protected your PC” on the direct .exe — click <b>More info → Run anyway</b>.
               <br /><b>Store updates take about a day:</b> Microsoft reviews each one first. The direct .exe is always the newest.
+              <br /><b>The Android app is a beta:</b> it still has bugs. For a server that stays up, use the PC app.
               {' '}<a href="/download" onClick={(e) => { e.preventDefault(); navigate('/download'); window.scrollTo(0, 0); }} style={{ color: 'inherit' }}>All install notes →</a>
             </p>
           </div>

@@ -118,7 +118,7 @@ export function Nav({ links, relay, onLogo }) {
 const FOOTER_COLS = [
   { title: 'Explore', links: [['Features', '/features'], ['How it works', '#how'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Server list', '/servers'], ['Relay status', '/status']] },
   { title: 'Guides', links: GUIDES.slice(0, 5).map((g) => [g.short, guidePath(g)]).concat([['All guides', '/guides']]) },
-  { title: 'Get it', links: [['Download page', '/download'], ['Microsoft Store', DL_STORE], ['Windows (direct .exe)', DL_WIN], ['Android (APK)', DL_ANDROID], ['Linux app', DL_LINUX]] },
+  { title: 'Get it', links: [['Download page', '/download'], ['Microsoft Store', DL_STORE], ['Windows (direct .exe)', DL_WIN], ['Android (beta APK)', DL_ANDROID], ['Linux app', DL_LINUX]] },
   { title: 'Community', links: [['Discord', DISCORD], ['About the Discord', '/community'], ['Instagram', INSTAGRAM], ['App source', GITHUB_APP], ['All repos', GITHUB_ORG], ['Support (UPI)', '/support']] },
   { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks']] },
 ];
