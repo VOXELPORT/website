@@ -3,7 +3,7 @@
 // engines see the full text. `html` is trusted, hand-written markup: <h2 id>,
 // <p>, <ul>/<ol>, <table>, <code>, <div class="tip">, and site links.
 
-export const GUIDES_UPDATED = '2026-10-14';
+export const GUIDES_UPDATED = '2026-10-19';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
@@ -127,6 +127,8 @@ export const GUIDES = [
   <li><b>You want it online 24/7 without a PC:</b> that needs paid hosting; no free option does this well.</li>
 </ul>
 
+<div class="tip">Playing from India? See <a href="/guides/free-minecraft-hosting-india">free Minecraft hosting in India</a> for ping, UPI-friendly paid options and Jio/Airtel notes.</div>
+
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
 <p>VoxelPort’s relay is in India, so friends in India get low ping. You can claim a free address like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
@@ -143,6 +145,65 @@ ${GET_APP}
 
 <h2 id="catch">The catch</h2>
 <p>Your PC has to be on while people play, and it uses your internet: each player needs roughly 0.1–0.5 Mbps of upload. Most home connections handle a group of friends easily. If that doesn’t suit your group, a free cloud host is the better choice, and that’s fine.</p>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'free-minecraft-hosting-india',
+    title: 'Free Minecraft Server Hosting in India (2026): Free Hosts vs Your Own PC',
+    short: 'Free hosting in India',
+    description: 'Free Minecraft hosting in India compared: ad-supported free hosts, cheap rupee plans, and hosting on your own PC with no port forwarding. Ping, RAM, queues, and what works on Jio and Airtel.',
+    kicker: 'India · 2026',
+    blurb: 'Free hosts, cheap rupee plans and your own PC compared for players in India: ping, RAM, queues and the catch.',
+    faq: [
+      { q: 'Is there really free Minecraft hosting in India?', a: 'Yes, two kinds. Ad-supported free hosts run the server for you with limits: small RAM, few player slots, ads, and sleeping or queues. Or you host on your own PC for free with VoxelPort: no sleep, no queue and as much RAM as your PC can spare, but the PC has to stay on while people play.' },
+      { q: 'Which free Minecraft host is best in India?', a: 'It depends on what you have. If someone in your group has a PC that can stay on, hosting on it with VoxelPort is free and has no limits from a host. If nobody does, pick a free host with an Indian server location for lower ping, and expect the usual free-plan limits.' },
+      { q: 'Will it work on Jio Fiber, AirFiber or Airtel?', a: 'Yes. Most Jio and Airtel connections use CGNAT, so port forwarding does not work. VoxelPort needs no port forwarding: the app connects out to a relay in India that gives your server a public address.' },
+      { q: 'Do I need a credit card, UPI or a GST number?', a: 'Not for VoxelPort. It is free with no account and no payment. Some paid hosts bill in USD or ask for business details; many Indian hosts accept UPI. That only matters if you choose a paid plan.' },
+      { q: 'Can I host a Minecraft server from my phone in India?', a: 'Yes, there is an Android beta of VoxelPort that runs a Java server on the phone. Use Wi-Fi and a charger; mobile data works but is the weakest way to host.' },
+    ],
+    html: `
+<p>If you search for free Minecraft hosting in India you will find a lot of hosts, and almost all of them run your server on their machines with limits. There is also a free option that the lists usually skip: <b>host on your own PC</b> and use a relay to put it online. Here is how the choices compare for players in India.</p>
+
+<h2 id="options">The ways to get a free or cheap server in India</h2>
+<ul>
+  <li><b>An ad-supported free host.</b> They run the server for you at no cost, usually with small RAM, a few player slots, ads, and a server that sleeps when empty or a queue at busy times. Some now have Indian server locations, which helps the ping but not the limits.</li>
+  <li><b>Your own PC with VoxelPort.</b> Free, no sleep, no queue, no ads, and the RAM is whatever your PC can spare. It needs to stay on while people play.</li>
+  <li><b>A cheap Indian paid host.</b> Many start from a few tens to a couple of hundred rupees a month and accept UPI. Prices and plans change, so check each host’s site. You get 24/7 uptime without keeping a PC on.</li>
+  <li><b>Your Android phone.</b> VoxelPort has an Android beta that runs the server on the phone. Good for a small group on Wi-Fi.</li>
+</ul>
+
+<h2 id="compare">Free host or your own PC?</h2>
+<table>
+  <thead><tr><th></th><th>Free hosts</th><th>Your own PC (VoxelPort)</th></tr></thead>
+  <tbody>
+    <tr><td>Cost</td><td>Free, with ads</td><td><b>Free, no ads, no account</b></td></tr>
+    <tr><td>Sleeps when empty</td><td>Usually</td><td><b>No</b></td></tr>
+    <tr><td>Queue to start</td><td>At busy times</td><td><b>No</b></td></tr>
+    <tr><td>RAM</td><td>Small, set by the host</td><td><b>What your PC can spare (6–8 GB on a 16 GB PC)</b></td></tr>
+    <tr><td>Ping from India</td><td>Depends on the host’s location</td><td><b>Relay is in India</b></td></tr>
+    <tr><td>Mods and plugins</td><td>Limited on free plans</td><td><b>Any: Paper, Fabric, modpacks</b></td></tr>
+    <tr><td>Works on Jio and Airtel</td><td>Yes (they host it)</td><td><b>Yes, no port forwarding needed</b></td></tr>
+    <tr><td>Online while your PC is off</td><td>Yes</td><td>No</td></tr>
+  </tbody>
+</table>
+<p><small>Free plans change often, so check each host for its current limits. VoxelPort figures are for your own hardware and internet.</small></p>
+
+<h2 id="why">Why this matters on Jio and Airtel</h2>
+<p>Hosting at home normally means port forwarding. On most Jio Fiber, AirFiber, Airtel and mobile connections that is impossible, because they share one public IP between many customers (CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address like <code>play.voxelport.in:26137</code>, and friends join that. Nothing on your router changes and your home IP stays private. More detail: <a href="/guides/host-minecraft-server-jio-airtel">hosting on Jio or Airtel</a>.</p>
+
+<h2 id="steps">Set up a free server on your PC</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>. Pick a template or choose Vanilla, Paper or Fabric and a version.</li>
+  <li>Choose how much RAM to give it (2 to 4 GB is a good start on an 8 GB PC), agree to the EULA, and click <b>Install &amp; start</b>. VoxelPort downloads the right Java for you.</li>
+  <li>Click <b>Make public</b> and copy the address.</li>
+  <li>Share it. Friends add it under <b>Multiplayer → Add Server</b>. Turn on <b>Bedrock players</b> in Settings so phone and console players can join too.</li>
+</ol>
+<div class="tip">Coming from Aternos or another host? Download your world there and drop it into the new server’s folder as <code>world</code>. See <a href="/guides/aternos-alternative-no-queue#move-world">moving a world from Aternos</a>. Prefer Hindi? <a href="/guides/minecraft-server-kaise-banaye">Minecraft server kaise banaye</a>.</div>
+
+<h2 id="catch">The honest catch</h2>
+<p>Your PC has to be on while people play, and it uses your internet: each player needs roughly 0.1–0.5 Mbps of upload, which most home connections handle easily for a group of friends. VoxelPort’s relay is one server in India, run by a student, so there is no uptime guarantee. If you need a server that is online 24/7 with nobody’s PC on, a paid host is the right choice, and cheap Indian ones accept UPI.</p>`,
   },
 
   // ───────────────────────────────────────────────────────────────────────────
