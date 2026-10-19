@@ -2,7 +2,7 @@
 // One place for the invite and the wording, used by the pages, the build (prerender) and llms.txt.
 // Plain ESM with no JSX so scripts/prerender.mjs can import it.
 
-export const DISCORD = 'https://discord.gg/2wJbCPwP4r';
+export const DISCORD = 'https://discord.gg/JAUfmey2fP';
 
 export const DISCORD_LINE =
   'Ask for help, show off your server, find people to play with, and hear about every new release first.';
