@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
   SPRITES, useLatestReleases,
-  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
 import { SUPPORTER } from './support.js';
+import { DEV, LOCALMINER, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
 
 // The pages that used to be sections of one very long home page. Each is short and has its own address
 // (/features, /compare, /faq, /download, /support, /community), so people can link straight to it.
@@ -474,6 +475,122 @@ export function CommunityPage({ onBack }) {
         <div className="page-cta">
           <DiscordButton>JOIN THE DISCORD</DiscordButton>
           <a className="btn cream" href="/guides" onClick={go('/guides')}>READ THE GUIDES FIRST</a>
+        </div>
+      </section>
+    </SubPage>
+  );
+}
+
+// ─── /about ───────────────────────────────────────────────────────────────────────
+
+export function AboutPage({ onBack }) {
+  return (
+    <SubPage onBack={onBack} band={false}>
+      <PageHero kicker="The story" a="WHO MADE" b="VOXELPORT"
+        lede="A one-person, open-source project from India: who built it, how it started, how it is made, and what inspired it.">
+        <div className="page-cta">
+          <a className="btn" href={DEV.github} target="_blank" rel="noopener noreferrer">THE DEVELOPER ON GITHUB</a>
+          <a className="btn cream" href={DEV.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+          <a className="btn cream" href="/team" onClick={go('/team')}>JOIN THE TEAM</a>
+        </div>
+      </PageHero>
+
+      {ABOUT.map((s) => (
+        <section className="page-section" id={s.id} key={s.id}>
+          <SectionHead kicker={s.kicker}>{s.title}</SectionHead>
+          <div className="note-list">
+            {s.paras.map((p) => (
+              <div key={p.slice(0, 40)} className="panel"><p style={{ lineHeight: 1.65 }}>{p}</p></div>
+            ))}
+            {s.stack && (
+              <div className="panel" style={{ gridColumn: "1 / -1" }}>
+                <h3>The stack</h3>
+                <ul style={{ lineHeight: 1.7, paddingLeft: 20 }}>
+                  {s.stack.map(([k, v]) => <li key={k}><b>{k}:</b> {v}</li>)}
+                </ul>
+              </div>
+            )}
+            {s.credits && (
+              <div className="panel" style={{ gridColumn: "1 / -1" }}>
+                <ul style={{ lineHeight: 1.7, paddingLeft: 20 }}>
+                  {s.credits.map(([k, v]) => <li key={k}><b>{k}:</b> {v}</li>)}
+                </ul>
+              </div>
+            )}
+          </div>
+          {s.id === 'inspiration' && (
+            <div className="page-cta">
+              <a className="btn" href={LOCALMINER.github} target="_blank" rel="noopener noreferrer">LOCAL MINER ON GITHUB</a>
+              <a className="btn cream" href={LOCALMINER.site} target="_blank" rel="noopener noreferrer">LOCAL MINER WEBSITE</a>
+              <a className="btn cream" href={LOCALMINER.devGithub} target="_blank" rel="noopener noreferrer">{LOCALMINER.dev.toUpperCase()} ON GITHUB</a>
+            </div>
+          )}
+        </section>
+      ))}
+
+      <section className="page-section" id="contact">
+        <SectionHead kicker="Say hi">GET IN TOUCH.</SectionHead>
+        <div className="bubble tail-b" style={{ maxWidth: 760 }}>
+          <p style={{ lineHeight: 1.65 }}>
+            Found a bug, want to help, or just want to tell me how your server is going? Join the Discord, or email{' '}
+            <a href={'mailto:' + DEV.email}>{DEV.email}</a>. The code is at{' '}
+            <a href={GITHUB_ORG} target="_blank" rel="noopener noreferrer">github.com/VOXELPORT</a>.
+          </p>
+          <p style={{ marginTop: 10, opacity: 0.75, fontSize: 14 }}>{ABOUT_NOTE}</p>
+        </div>
+        <div className="page-cta">
+          <DiscordButton>JOIN THE DISCORD</DiscordButton>
+          <a className="btn cream" href="/team" onClick={go('/team')}>JOIN THE TEAM</a>
+        </div>
+      </section>
+    </SubPage>
+  );
+}
+
+// ─── /team ────────────────────────────────────────────────────────────────────────
+
+export function TeamPage({ onBack }) {
+  return (
+    <SubPage onBack={onBack} band={false}>
+      <PageHero kicker="Help wanted" a="JOIN THE" b="TEAM" lede={TEAM_INTRO}>
+        <div className="page-cta">
+          <DiscordButton>JOIN THE DISCORD</DiscordButton>
+          <a className="btn cream" href={'mailto:' + DEV.email}>EMAIL ME</a>
+        </div>
+      </PageHero>
+
+      <section className="page-section" id="roles">
+        <SectionHead kicker="Who we need">SIX WAYS TO HELP.</SectionHead>
+        <div className="grid-3">
+          {TEAM_ROLES.map((r, i) => (
+            <article key={r.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7][i % 6]}deg)` }}>
+              <div style={{ height: 56, display: 'flex', alignItems: 'center' }}><Pixels rows={SPRITES[r.sprite]} size={4.4} /></div>
+              <h3>{r.title}</h3>
+              <p>{r.body}</p>
+              <p style={{ marginTop: 10, opacity: 0.8, fontSize: 14 }}><b>You need:</b> {r.asks}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="page-section" id="how">
+        <SectionHead kicker="Takes a minute">HOW TO APPLY.</SectionHead>
+        <div className="note-list">
+          {TEAM_HOW.map((s) => (
+            <div key={s.title} className="panel">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="bubble tail-b" style={{ marginTop: 56, maxWidth: 760 }}>
+          <span className="kicker">Staying safe</span>
+          <p style={{ marginTop: 8, lineHeight: 1.65 }}>{TEAM_NOTE}</p>
+        </div>
+        <div className="page-cta">
+          <DiscordButton>JOIN THE DISCORD</DiscordButton>
+          <a className="btn cream" href={GITHUB_ORG} target="_blank" rel="noopener noreferrer">SEE THE CODE</a>
+          <a className="btn cream" href="/about" onClick={go('/about')}>THE STORY</a>
         </div>
       </section>
     </SubPage>

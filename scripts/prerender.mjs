@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGES, FAQ, SITE, homeJsonLd, faqJsonLd } from '../src/seo.js';
 import { DISCORD, DISCORD_PERKS } from '../src/community.js';
+import { ABOUT, DEV, LOCALMINER, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from '../src/about.js';
 import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
 import { SUPPORT } from '../src/support.js';
@@ -22,7 +23,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Get it on Microsoft Store', 'https://apps.microsoft.com/detail/9NGRX9CFNBD6'], ['Windows installer (direct)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
@@ -47,6 +48,18 @@ const EXTRA = {
       ['Linux', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz'],
       ['Android (install guide)', '/guides/host-minecraft-server-android-phone'],
     ].map(([l, h]) => `<li><a href="${h}">${esc(l)}</a></li>`).join('') + '</ul>',
+  ],
+  about: () => [
+    ABOUT.map((s) => `<h2>${esc(s.title)}</h2>` + s.paras.map((p) => `<p>${esc(p)}</p>`).join('') +
+      (s.stack ? '<ul>' + s.stack.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join('') + '</ul>' : '') +
+      (s.credits ? '<ul>' + s.credits.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join('') + '</ul>' : '')).join(''),
+    `<p>Developer: <a href="${DEV.github}">${esc(DEV.name)} on GitHub</a> · <a href="${DEV.linkedin}">LinkedIn</a>. Inspired by <a href="${LOCALMINER.github}">Local Miner</a> (<a href="${LOCALMINER.site}">website</a>, developer <a href="${LOCALMINER.devGithub}">${esc(LOCALMINER.dev)}</a>).</p>`,
+  ],
+  team: () => [
+    `<p>${esc(TEAM_INTRO)}</p>`,
+    '<h2>Who we need</h2>' + TEAM_ROLES.map((r) => `<h3>${esc(r.title)}</h3><p>${esc(r.body)} You need: ${esc(r.asks)}</p>`).join(''),
+    '<h2>How to apply</h2>' + TEAM_HOW.map((s) => `<h3>${esc(s.title)}</h3><p>${esc(s.body)}</p>`).join(''),
+    `<p><a href="${DISCORD}">Join the VoxelPort Discord</a> · <a href="mailto:${DEV.email}">${DEV.email}</a></p>`,
   ],
   community: () => [
     '<h2>What is inside</h2>' + DISCORD_PERKS.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join(''),
@@ -115,8 +128,8 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', support: '0.5', status: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -160,6 +173,8 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   `- [Download](${SITE}/download): Microsoft Store, Windows installer, Linux and Android.`,
   `- [Support](${SITE}/support): tip jar and supporter perks.`,
   `- [Community](${SITE}/community): the VoxelPort Discord (${DISCORD}), for help, showing servers and release news.`,
+  `- [About](${SITE}/about): who made VoxelPort (a student developer in India), how it started and is built, and the Local Miner project that inspired it.`,
+  `- [Join the team](${SITE}/team): volunteer roles: Discord moderators, developers, testers, translators and guide writers.`,
   `- [Public server list](${SITE}/servers): Minecraft servers hosted with VoxelPort that are online now.`,
   `- [Relay status](${SITE}/status): live status and ping of the relays.`,
   `- [License, privacy and terms](${SITE}/legal)`,

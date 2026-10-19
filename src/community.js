@@ -12,7 +12,7 @@ export const DISCORD_PERKS = [
   {
     sprite: 'head1',
     title: 'HELP & SETUP',
-    desc: 'Stuck on a crash, a port or a modpack? Ask in #help. People who have hosted before answer, and the VoxelPort bot answers common questions when you tag it.',
+    desc: 'Stuck on a crash, a port or a modpack? Open a ticket in #open-a-ticket. A private channel opens, the VoxelPort bot answers in English, Hindi or Hinglish and can read your screenshots, and I step in if it cannot fix it.',
   },
   {
     sprite: 'bolt',

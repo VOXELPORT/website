@@ -5,7 +5,7 @@ import StatusPage from './StatusPage.jsx';
 import ServersPage from './ServersPage.jsx';
 import GuidesPage from './GuidesPage.jsx';
 import Landing from './Landing.jsx';
-import { FeaturesPage, ComparePage, FaqPage, DownloadPage, SupportPage, CommunityPage } from './MorePages.jsx';
+import { FeaturesPage, ComparePage, FaqPage, DownloadPage, SupportPage, CommunityPage, AboutPage, TeamPage } from './MorePages.jsx';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
 
@@ -41,7 +41,7 @@ if (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, ''
 const SIMPLE_ROUTES = {
   '/legal': 'legal', '/status': 'status', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
-  '/support': 'support', '/community': 'community',
+  '/support': 'support', '/community': 'community', '/about': 'about', '/team': 'team',
 };
 
 function routeFromPath() {
@@ -87,6 +87,8 @@ export default function App() {
   if (page === 'download') return <DownloadPage onBack={goHome} />;
   if (page === 'support') return <SupportPage onBack={goHome} />;
   if (page === 'community') return <CommunityPage onBack={goHome} />;
+  if (page === 'about') return <AboutPage onBack={goHome} />;
+  if (page === 'team') return <TeamPage onBack={goHome} />;
   if (page === 'legal')  return <LegalPage onBack={goHome} />;
   if (page === 'status') return <StatusPage onBack={goHome} />;
   if (page === 'servers') return <ServersPage onBack={goHome} />;

@@ -78,6 +78,37 @@ export const PAGES = {
       'Suggest features and report bugs',
     ],
   },
+  about: {
+    path: '/about',
+    title: 'Who Made VoxelPort: The Developer, the Story and the Stack',
+    description: 'VoxelPort is made by Garv Verma, a student in India. How it started (Jio/Airtel CGNAT), how it is built (vibe-coded, open source, Electron + Go), and the Local Miner project that inspired it.',
+    heading: 'Who made VoxelPort',
+    summary: [
+      'VoxelPort is a one-person, open-source project by Garv Verma (Trazverse), a Game Design student at Poornima University in India. It started because port forwarding does not work on Jio and Airtel (CGNAT), so hosting a Minecraft server for friends was painful.',
+      'It is vibe-coded with an AI coding assistant, built with Electron, Go, React and TypeScript, and inspired by Local Miner. The code is open (MIT) and has hundreds of automated tests.',
+    ],
+    points: [
+      'Who: Garv Verma (Trazverse), student developer, India',
+      'How it started: a Fabric mod that grew into a desktop app and an Android beta',
+      'How it is made: AI-assisted (vibe-coded), open source, tested',
+      'Inspired by Local Miner (github.com/LocalMiner)',
+    ],
+  },
+  team: {
+    path: '/team',
+    title: 'Join the VoxelPort Team: Moderators, Developers, Testers and More',
+    description: 'VoxelPort needs Discord moderators, developers, Android beta testers, translators and guide writers. Volunteer roles, credit on the site and a say in what gets built. Here is how to apply.',
+    heading: 'Join the VoxelPort team',
+    summary: [
+      'VoxelPort is a one-person project that is growing, and it needs help. There is no budget yet, so every role is volunteer: you get credit, a say in what gets built and early access to builds.',
+    ],
+    points: [
+      'Discord moderators (Hindi and Hinglish speakers especially)',
+      'Developers: Electron, Go, Android, React, TypeScript',
+      'Beta testers for the Android app and the desktop app',
+      'Translators, guide writers and Minecraft creators',
+    ],
+  },
   servers: {
     path: '/servers',
     title: 'Minecraft Server List — Public VoxelPort Servers Online Now',
