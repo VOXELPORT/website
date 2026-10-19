@@ -73,7 +73,7 @@ export const ABOUT = [
     ],
     stack: [
       ['Desktop app', 'Electron and Node.js, for Windows and Linux (and the Microsoft Store)'],
-      ['Relay', 'Go, on a server in India. Hosts connect out over an encrypted WebSocket; players connect to the public port the relay assigns. It forwards traffic and does not store worlds or player data'],
+      ['Relay', 'Go, on two servers: one in India and one in Europe. Hosts connect out over an encrypted WebSocket; players connect to the public port the relay assigns. It forwards traffic and does not store worlds or player data'],
       ['Android app', 'Runs a Java server on the phone with a bundled Java runtime and a Go tunnel (beta)'],
       ['Website', 'React and Vite, with every page pre-rendered so search engines can read it'],
       ['Discord bot', 'TypeScript: support tickets, AI answers in English, Hindi and Hinglish, release announcements, moderation tools'],

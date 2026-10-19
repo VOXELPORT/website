@@ -59,6 +59,7 @@ function ServerCard({ s, i }) {
       <div className={`panel ${MODE_COLOR[mode] || ''}`} style={{ margin: -3, marginBottom: 0, boxShadow: 'none', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
         <span className="pixel" style={{ fontSize: 11 }}>{(mode || 'minecraft').toUpperCase()}{s.version ? ` · ${s.version}` : ''}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {s.region && <span className="sticker" title="The relay region this server is on" style={{ background: 'var(--paper-2)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-2deg)' }}>{s.region.toUpperCase()}</span>}
           {s.supporter && <span className="sticker" title="This host supports VoxelPort" style={{ background: 'var(--gold)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-3deg)' }}>★ SUPPORTER</span>}
           {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
           <Pixels rows={SPRITES[SPRITE_FOR[mode] || 'grass']} size={2.4} />

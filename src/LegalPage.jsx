@@ -92,8 +92,9 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">Sent to the relay</Sub>
           <p>
-            Hosts connect to <Code>wss://direct.voxelport.in:26499</Code> first and fall back to <Code>wss://relay.voxelport.in</Code>
-            (routed through Cloudflare) if that fails. Players connect to <Code>play.voxelport.in:&lt;port&gt;</Code>.
+            For the India relay, hosts connect to <Code>wss://direct.voxelport.in:26499</Code> first and fall back to <Code>wss://relay.voxelport.in</Code>
+            (routed through Cloudflare) if that fails. For the Europe relay, hosts connect to <Code>wss://eu.voxelport.in</Code>. Players connect to{' '}
+            <Code>play.voxelport.in:&lt;port&gt;</Code> (India) or <Code>play-eu.voxelport.in:&lt;port&gt;</Code> (Europe).
           </p>
           <Table rows={[
             ['When', 'Data', 'Why'],
@@ -139,9 +140,9 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">Where the relay is</Sub>
           <p>
-            There is <b>one relay, in India</b> — VoxelPort is free and self-funded, so that’s what we can run. Hosts and players
-            near India get the best ping (often under 50 ms); Europe and the Americas typically see 150–250 ms of relay overhead.
-            More regions may come if the project grows — support it on{' '}
+            There are <b>two relays: one in India and one in Europe</b> (a rented server there) — VoxelPort is free and self-funded, so that’s what we can run.
+            The app picks the closer one for each host. Hosts and players near India or near Europe get the best ping (often under 50 ms);
+            the Americas typically see 100–250 ms of relay overhead. The Europe relay does not offer custom addresses. More regions may come if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
           </p>
 

@@ -18,6 +18,7 @@ export const DL_ANDROID = '/guides/host-minecraft-server-android-phone';
 // list combine both.
 export const RELAYS = [
   { id: 'in', label: 'India', base: 'https://relay.voxelport.in' },
+  { id: 'eu', label: 'Europe', base: 'https://eu.voxelport.in' },
 ];
 export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';
 export const EXAMPLE_ADDR = 'play.voxelport.in:26137';
