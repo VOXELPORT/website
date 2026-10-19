@@ -8,7 +8,7 @@ import { navigate, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
 import { SUPPORTER } from './support.js';
-import { DEV, LOCALMINER, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
+import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
 
 // The pages that used to be sections of one very long home page. Each is short and has its own address
 // (/features, /compare, /faq, /download, /support, /community), so people can link straight to it.
@@ -487,7 +487,7 @@ export function AboutPage({ onBack }) {
   return (
     <SubPage onBack={onBack} band={false}>
       <PageHero kicker="The story" a="WHO MADE" b="VOXELPORT"
-        lede="A one-person, open-source project from India: who built it, how it started, how it is made, and what inspired it.">
+        lede="A one-person, open-source project from India: who built it, how it started, how it is made, and the people who made it possible.">
         <div className="page-cta">
           <a className="btn" href={DEV.github} target="_blank" rel="noopener noreferrer">THE DEVELOPER ON GITHUB</a>
           <a className="btn cream" href={DEV.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN</a>
@@ -518,11 +518,11 @@ export function AboutPage({ onBack }) {
               </div>
             )}
           </div>
-          {s.id === 'inspiration' && (
+          {s.links && (
             <div className="page-cta">
-              <a className="btn" href={LOCALMINER.github} target="_blank" rel="noopener noreferrer">LOCAL MINER ON GITHUB</a>
-              <a className="btn cream" href={LOCALMINER.site} target="_blank" rel="noopener noreferrer">LOCAL MINER WEBSITE</a>
-              <a className="btn cream" href={LOCALMINER.devGithub} target="_blank" rel="noopener noreferrer">{LOCALMINER.dev.toUpperCase()} ON GITHUB</a>
+              {s.links.map(([label, href, primary]) => (
+                <a key={href} className={primary ? 'btn' : 'btn cream'} href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+              ))}
             </div>
           )}
         </section>

@@ -9,7 +9,7 @@ export const DEV = {
   email: 'traz@voxelport.in',
 };
 
-/** Local Miner: the project that inspired VoxelPort. */
+/** Local Miner: the project and the person that VoxelPort comes from. */
 export const LOCALMINER = {
   site: 'https://localm.eu.org',
   github: 'https://github.com/LocalMiner',
@@ -17,7 +17,17 @@ export const LOCALMINER = {
   devGithub: 'https://github.com/healer-op',
 };
 
-/** The story, one section each. `paras` are plain text. */
+/** My server dev and all-time friend. */
+export const FRIEND = {
+  name: 'Akshat Mehta',
+  site: 'https://www.akshatmehta.com/',
+  github: 'https://github.com/nerkoux',
+};
+
+/**
+ * The story, one section each. `paras` are plain text; `links` become buttons under the section
+ * ([label, href, primary]).
+ */
 export const ABOUT = [
   {
     id: 'who',
@@ -26,6 +36,21 @@ export const ABOUT = [
     paras: [
       'VoxelPort is made by me, Garv Verma (online: Trazverse), a Game Design student at Poornima University in India. It is a one-person project: I design it, build it, run the relay, answer the tickets and write the guides.',
       'I am a student with no budget, so everything here is free and open source. If something is broken or confusing, that is on me, and I want to hear about it.',
+    ],
+  },
+  {
+    id: 'inspiration',
+    kicker: 'Where it really comes from',
+    title: 'LOCAL MINER STARTED THIS.',
+    paras: [
+      'VoxelPort would not exist without Local Miner. Local Miner is a project with one clear goal: host a Minecraft server on your own PC, without port forwarding and without a VPN. It had that idea first, and it showed me that this problem could be solved.',
+      'Its developer, Aditya, is the person who pulled me into building things like this in the first place, and who pushed me until I made my own. I worked with the Local Miner team, and everything I learned there went straight into VoxelPort. I owe him a huge thank you.',
+      'If you like what VoxelPort does, please go and look at Local Miner too. They deserve the attention.',
+    ],
+    links: [
+      ['LOCAL MINER ON GITHUB', 'https://github.com/LocalMiner', true],
+      ['LOCAL MINER WEBSITE', 'https://localm.eu.org', false],
+      ['ADITYA ON GITHUB', 'https://github.com/healer-op', false],
     ],
   },
   {
@@ -56,12 +81,16 @@ export const ABOUT = [
     ],
   },
   {
-    id: 'inspiration',
-    kicker: 'Where the idea came from',
-    title: 'INSPIRED BY LOCAL MINER.',
+    id: 'friend',
+    kicker: 'My server dev and all-time friend',
+    title: 'AKSHAT MEHTA.',
     paras: [
-      'VoxelPort was inspired by Local Miner, a project with the same goal: host a Minecraft server on your own PC without port forwarding or a VPN. I worked with the Local Miner team, and seeing what they were building is what pushed me to make my own take on it.',
-      'If you like the idea, go and look at their work too.',
+      'Akshat Mehta (nerkoux) is my all-time friend and the person who manages my server. He looks after the infrastructure side so that I can keep building, and VoxelPort would be a lot harder, and a lot less reliable, without him.',
+      'Go and see his work: his website and his GitHub are below.',
+    ],
+    links: [
+      ['AKSHAT’S WEBSITE', 'https://www.akshatmehta.com/', true],
+      ['AKSHAT ON GITHUB', 'https://github.com/nerkoux', false],
     ],
   },
   {
@@ -69,7 +98,7 @@ export const ABOUT = [
     kicker: 'Standing on open source',
     title: 'THANK YOU TO.',
     paras: [
-      'VoxelPort exists because of other people’s open-source work, and I am grateful to all of them.',
+      'VoxelPort also exists because of other people’s open-source work, and I am grateful to all of them.',
     ],
     credits: [
       ['PaperMC and Fabric', 'the server software VoxelPort installs and runs'],

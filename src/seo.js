@@ -85,13 +85,14 @@ export const PAGES = {
     heading: 'Who made VoxelPort',
     summary: [
       'VoxelPort is a one-person, open-source project by Garv Verma (Trazverse), a Game Design student at Poornima University in India. It started because port forwarding does not work on Jio and Airtel (CGNAT), so hosting a Minecraft server for friends was painful.',
-      'It is vibe-coded with an AI coding assistant, built with Electron, Go, React and TypeScript, and inspired by Local Miner. The code is open (MIT) and has hundreds of automated tests.',
+      'It is vibe-coded with an AI coding assistant, built with Electron, Go, React and TypeScript, and it comes from Local Miner, the project and developer (Aditya) who got Garv into building it. Akshat Mehta (nerkoux), his all-time friend, manages the server. The code is open (MIT) and has hundreds of automated tests.',
     ],
     points: [
       'Who: Garv Verma (Trazverse), student developer, India',
       'How it started: a Fabric mod that grew into a desktop app and an Android beta',
       'How it is made: AI-assisted (vibe-coded), open source, tested',
-      'Inspired by Local Miner (github.com/LocalMiner)',
+      'Comes from Local Miner (github.com/LocalMiner), whose developer Aditya inspired it',
+      'Server managed by Akshat Mehta (nerkoux), an all-time friend',
     ],
   },
   team: {

@@ -8,7 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGES, FAQ, SITE, homeJsonLd, faqJsonLd } from '../src/seo.js';
 import { DISCORD, DISCORD_PERKS } from '../src/community.js';
-import { ABOUT, DEV, LOCALMINER, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from '../src/about.js';
+import { ABOUT, DEV, LOCALMINER, FRIEND, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from '../src/about.js';
 import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
 import { SUPPORT } from '../src/support.js';
@@ -53,7 +53,7 @@ const EXTRA = {
     ABOUT.map((s) => `<h2>${esc(s.title)}</h2>` + s.paras.map((p) => `<p>${esc(p)}</p>`).join('') +
       (s.stack ? '<ul>' + s.stack.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join('') + '</ul>' : '') +
       (s.credits ? '<ul>' + s.credits.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join('') + '</ul>' : '')).join(''),
-    `<p>Developer: <a href="${DEV.github}">${esc(DEV.name)} on GitHub</a> · <a href="${DEV.linkedin}">LinkedIn</a>. Inspired by <a href="${LOCALMINER.github}">Local Miner</a> (<a href="${LOCALMINER.site}">website</a>, developer <a href="${LOCALMINER.devGithub}">${esc(LOCALMINER.dev)}</a>).</p>`,
+    `<p>Developer: <a href="${DEV.github}">${esc(DEV.name)} on GitHub</a> · <a href="${DEV.linkedin}">LinkedIn</a>. Comes from <a href="${LOCALMINER.github}">Local Miner</a> (<a href="${LOCALMINER.site}">website</a>, developer <a href="${LOCALMINER.devGithub}">${esc(LOCALMINER.dev)}</a>). Server managed by <a href="${FRIEND.site}">${esc(FRIEND.name)}</a> (<a href="${FRIEND.github}">GitHub</a>).</p>`,
   ],
   team: () => [
     `<p>${esc(TEAM_INTRO)}</p>`,
@@ -173,7 +173,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   `- [Download](${SITE}/download): Microsoft Store, Windows installer, Linux and Android.`,
   `- [Support](${SITE}/support): tip jar and supporter perks.`,
   `- [Community](${SITE}/community): the VoxelPort Discord (${DISCORD}), for help, showing servers and release news.`,
-  `- [About](${SITE}/about): who made VoxelPort (a student developer in India), how it started and is built, and the Local Miner project that inspired it.`,
+  `- [About](${SITE}/about): who made VoxelPort (a student developer in India), how it started and is built, the Local Miner project and developer it comes from, and Akshat Mehta, who manages the server.`,
   `- [Join the team](${SITE}/team): volunteer roles: Discord moderators, developers, testers, translators and guide writers.`,
   `- [Public server list](${SITE}/servers): Minecraft servers hosted with VoxelPort that are online now.`,
   `- [Relay status](${SITE}/status): live status and ping of the relays.`,
