@@ -120,7 +120,7 @@ const FOOTER_COLS = [
   { title: 'Guides', links: GUIDES.slice(0, 5).map((g) => [g.short, guidePath(g)]).concat([['All guides', '/guides']]) },
   { title: 'Get it', links: [['Download page', '/download'], ['Microsoft Store', DL_STORE], ['Windows (direct .exe)', DL_WIN], ['Android (beta APK)', DL_ANDROID], ['Linux app', DL_LINUX]] },
   { title: 'Community', links: [['Discord', DISCORD], ['About the Discord', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Instagram', INSTAGRAM], ['App source', GITHUB_APP], ['All repos', GITHUB_ORG], ['Support (UPI)', '/support']] },
-  { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks']] },
+  { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks'], ['Code signing', '/download#code-signing']] },
 ];
 
 export function Footer({ onHome, band = true }) {

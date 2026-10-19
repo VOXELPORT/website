@@ -320,6 +320,22 @@ export function DownloadPage({ onBack }) {
         </p>
       </div>
 
+      <div className="panel tilt-r1" id="code-signing" style={{ padding: '18px 22px', marginTop: 24, maxWidth: 720 }}>
+        <span className="kicker" style={{ color: 'var(--ink-2)' }}>Code signing policy</span>
+        <p style={{ marginTop: 8, lineHeight: 1.6 }}>
+          Free code signing provided by <a href="https://about.signpath.io/" target="_blank" rel="noreferrer">SignPath.io</a>, certificate by <a href="https://signpath.org/" target="_blank" rel="noreferrer">SignPath Foundation</a>.
+          The Microsoft Store build is signed by Microsoft.
+        </p>
+        <p style={{ marginTop: 10, lineHeight: 1.6, fontSize: 14, color: 'var(--ink-2)' }}>
+          <b>Team roles:</b> Garv Verma (Trazverse) — author, reviewer and approver, and sole maintainer.
+          Only VoxelPort’s own binaries, built from this project’s source, are signed.
+        </p>
+        <p style={{ marginTop: 10, lineHeight: 1.6, fontSize: 14, color: 'var(--ink-2)' }}>
+          <b>Privacy:</b> signing adds no tracking and transfers no personal data to the signer. See the{' '}
+          <a href="/legal" onClick={go('/legal')}>privacy notice</a>.
+        </p>
+      </div>
+
       <div className="panel gold tilt-l1" style={{ padding: '18px 22px', marginTop: 24, maxWidth: 720 }}>
         <span className="kicker" style={{ color: 'var(--ink-2)' }}>Heads up · Android beta</span>
         <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
