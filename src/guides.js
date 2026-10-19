@@ -3,7 +3,7 @@
 // engines see the full text. `html` is trusted, hand-written markup: <h2 id>,
 // <p>, <ul>/<ol>, <table>, <code>, <div class="tip">, and site links.
 
-export const GUIDES_UPDATED = '2026-10-19';
+export const GUIDES_UPDATED = '2026-10-20';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
@@ -965,12 +965,141 @@ ${GET_APP}
   <li><b>Consoles</b> (Xbox, PlayStation, Switch) can’t add servers directly. See <a href="/guides/minecraft-java-bedrock-crossplay-server">the crossplay guide</a> for what console players can do.</li>
 </ul>`,
   },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'free-minecraft-server-hosting-europe',
+    title: 'Free Minecraft Server Hosting in Europe: No Port Forwarding, Low Ping',
+    short: 'Hosting in Europe',
+    description: 'Host a Minecraft Java server from your own PC or Android phone for friends in Germany, the UK, France, the Netherlands, Poland, Spain or anywhere in Europe. Free, no port forwarding, with a relay in Europe.',
+    kicker: 'Europe · Free',
+    blurb: 'A relay in Europe, free and with no port forwarding: how to host a Minecraft server for friends in Germany, the UK, France and the rest of Europe.',
+    faq: [
+      { q: 'Is there a VoxelPort relay in Europe?', a: 'Yes. Since version 1.11 the app has a relay in Europe next to the one in India, and the Region setting (Auto by default) picks the faster one for you.' },
+      { q: 'Do my friends have to live in Europe too?', a: 'No, but ping is lowest when you and your friends are all reasonably close to the relay you use. You can change the region in the app, and the status page shows live ping from your browser.' },
+      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no account and no queue. Custom names like yourname.voxelport.in are a supporter perk and are only available on the India relay for now.' },
+      { q: 'What happens to player IP addresses?', a: 'The relay needs an IP address to pass a connection along, but it keeps it in memory only for as long as the connection lasts and does not write it to its logs. The privacy notice has the details.' },
+    ],
+    html: `
+<p>If you live in Germany, the UK, France, the Netherlands, Poland, Spain, Italy or anywhere else in Europe, you can host a Minecraft Java server from your own PC for free, without opening a single port on your router. VoxelPort now runs a relay in Europe, so the traffic between you and your friends does not have to travel to another continent.</p>
+
+<h2 id="why">Why the relay location matters</h2>
+<p>A relay sits between you and your players: your PC connects out to it, and your friends connect to it. Every packet takes that detour, so ping depends on how far you and your friends are from the relay. A relay on the other side of the world adds a lot; one in Europe adds very little for players in Europe. The <a href="/status">status page</a> shows the live ping from your own browser to each relay.</p>
+
+<h2 id="region">How the app picks a region</h2>
+<p>In VoxelPort 1.11 and newer, the <b>Region</b> setting on the server screen has three options: <b>Auto (fastest)</b>, <b>India</b> and <b>Europe</b>. Auto measures both relays when you click <b>Make public</b> and uses the faster one. You can also choose Europe by hand. Your public address then uses the Europe address, for example <code>play-eu.voxelport.in:26000</code>.</p>
+
+<h2 id="steps">Set it up in five steps</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>, pick Vanilla, Paper or Fabric and a version, and click <b>Install &amp; start</b>. Java is installed for you.</li>
+  <li>When the server shows <b>Online</b>, check that <b>Region</b> is on <b>Auto</b> (or <b>Europe</b>) and click <b>Make public</b>.</li>
+  <li>Copy the address the app shows.</li>
+  <li>Friends open Minecraft, go to <b>Multiplayer → Add Server</b>, paste the address and join. They need nothing installed.</li>
+  <li>For Bedrock players on phones and consoles, switch on <b>Let Bedrock players join</b> in the server settings.</li>
+</ol>
+
+<h2 id="good">Good to know</h2>
+<ul>
+  <li><b>Your PC must stay on</b> while people play. VoxelPort is not 24/7 hosting; for that you need a paid host or an always-on machine.</li>
+  <li><b>The Europe relay is new</b> and run by one student, so there is no uptime guarantee. If it is down, switch the Region to India and your server keeps working.</li>
+  <li><b>Custom addresses</b> (a supporter perk) are only on the India relay for now. An address stays on the relay where it was claimed.</li>
+  <li><b>Behind a shared IP address?</b> Many European providers use CGNAT or DS-Lite, which breaks port forwarding. Relays work anyway: see <a href="/guides/minecraft-server-dslite-cgnat-europe">the DS-Lite and CGNAT guide</a>.</li>
+</ul>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-dslite-cgnat-europe',
+    title: 'Minecraft Server Behind DS-Lite or CGNAT: How to Host It Anyway',
+    short: 'DS-Lite and CGNAT',
+    description: 'Port forwarding does not work on DS-Lite or CGNAT connections, which many cable, fibre and mobile providers in Europe use. How to check yours and host a Minecraft server for free anyway.',
+    kicker: 'Europe · Any ISP',
+    blurb: 'Why port forwarding fails on DS-Lite and CGNAT, how to check which one you have, and the simple fix.',
+    faq: [
+      { q: 'What is DS-Lite?', a: 'Dual-Stack Lite gives your connection an IPv6 address and a shared IPv4 address that is used by many customers at once. Incoming IPv4 connections cannot reach your router, so port forwarding for IPv4 does not work.' },
+      { q: 'What is CGNAT?', a: 'Carrier-grade NAT means your provider shares one public IPv4 address between many customers. Like DS-Lite, it blocks incoming IPv4 connections. It is also very common on mobile internet.' },
+      { q: 'Can I just use IPv6 instead?', a: 'Only if every player also has IPv6, and many do not. A relay works for players on both IPv4 and IPv6, because they connect to the relay, not to your home connection.' },
+    ],
+    html: `
+<p>You open port 25565 on your router, and your friends still cannot join. In many cases the port forwarding is fine. The problem is that your internet provider never gives your router a public IPv4 address of its own. This is the case on DS-Lite and CGNAT connections, which are used by several cable, fibre and mobile providers in Europe.</p>
+
+<h2 id="check">How to check which one you have</h2>
+<ol>
+  <li>Open your router's status page and look at the <b>WAN IPv4 address</b>.</li>
+  <li>Open a "what is my IP" site on a device in your network and compare. If the two IPv4 addresses differ, or the router's address starts with <code>100.64</code> to <code>100.127</code>, <code>10.</code> or <code>192.168.</code>, you are behind CGNAT.</li>
+  <li>If your router shows <b>no IPv4 address at all</b> but an IPv6 one, or its status page says <b>DS-Lite</b>, you are on DS-Lite.</li>
+</ol>
+
+<h2 id="options">What still works</h2>
+<table>
+  <thead><tr><th>Method</th><th>Works on DS-Lite / CGNAT?</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Port forwarding (IPv4)</td><td>No</td><td>Incoming IPv4 never reaches your router</td></tr>
+    <tr><td>Direct IPv6</td><td>Sometimes</td><td>Needs IPv6 on you and on every player</td></tr>
+    <tr><td>Virtual LAN (Hamachi, ZeroTier, Tailscale)</td><td>Yes</td><td>Every player must install it and sign up</td></tr>
+    <tr><td>A relay (VoxelPort)</td><td>Yes</td><td>Players need nothing installed; your PC connects out</td></tr>
+    <tr><td>Paid hosting</td><td>Yes</td><td>Costs money every month</td></tr>
+  </tbody>
+</table>
+
+<h2 id="fix">The free fix with VoxelPort</h2>
+<p>A relay does not need an incoming connection. Your PC connects <i>out</i> to the relay, which every connection type allows, and the relay hands players a public address. VoxelPort has a relay in Europe, so ping stays low for friends nearby.</p>
+${GET_APP}
+<ol>
+  <li>Create or import a server in the app and start it.</li>
+  <li>Click <b>Make public</b> and copy the address.</li>
+  <li>Friends paste it into <b>Multiplayer → Add Server</b>.</li>
+</ol>
+<div class="tip">There is no need to change anything in your router, and you do not need to call your provider to ask for a public IP address. The <a href="/guides/free-minecraft-server-hosting-europe">Europe guide</a> explains the region setting.</div>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-ohne-portfreigabe-kostenlos',
+    lang: 'de',
+    title: 'Minecraft Server ohne Portfreigabe hosten: kostenlos, auch bei DS-Lite',
+    short: 'Ohne Portfreigabe (DE)',
+    description: 'Einen Minecraft-Java-Server vom eigenen PC hosten, ohne Portfreigabe im Router. Kostenlos, ohne Konto, mit Relay in Europa. Funktioniert auch bei DS-Lite und CGNAT.',
+    kicker: 'Deutsch · Kostenlos',
+    blurb: 'So hostest du einen Minecraft-Server von zu Hause, ohne Ports im Router freizugeben, auch bei DS-Lite oder CGNAT.',
+    faq: [
+      { q: 'Muss ich im Router einen Port freigeben?', a: 'Nein. Dein PC baut selbst eine ausgehende Verbindung zum Relay auf. Am Router musst du nichts einstellen.' },
+      { q: 'Funktioniert das bei DS-Lite oder CGNAT?', a: 'Ja. Bei DS-Lite und CGNAT kommen eingehende IPv4-Verbindungen nicht bis zu deinem Router, aber ein Relay braucht keine eingehende Verbindung.' },
+      { q: 'Was kostet VoxelPort?', a: 'Nichts. Die App, das Relay und die Adresse sind kostenlos, ohne Konto und ohne Warteschlange.' },
+      { q: 'Müssen meine Freunde etwas installieren?', a: 'Nein. Sie öffnen Minecraft, gehen auf Mehrspieler, Server hinzufügen, fügen deine Adresse ein und treten bei.' },
+    ],
+    html: `
+<p>Du willst mit Freunden Minecraft spielen, aber die Portfreigabe im Router klappt nicht? Bei vielen Anschlüssen liegt das an DS-Lite oder CGNAT: Dein Anbieter gibt dir keine eigene öffentliche IPv4-Adresse, und eingehende Verbindungen erreichen deinen Router nie. Mit einem Relay kannst du trotzdem einen Server hosten, ohne irgendetwas freizugeben.</p>
+
+<h2 id="relay">So funktioniert ein Relay</h2>
+<p>Router blockieren eingehende Verbindungen, erlauben aber ausgehende. Dein PC verbindet sich deshalb von sich aus mit dem Relay und hält die Verbindung offen. Das Relay gibt dir eine öffentliche Adresse. Wenn ein Freund sich damit verbindet, leitet das Relay den Verkehr durch die bestehende Verbindung zu deinem PC. Deine Heim-IP bleibt dabei für deine Mitspieler unsichtbar.</p>
+<p>VoxelPort hat ein Relay in Europa, damit der Ping für Spieler in Deutschland und den Nachbarländern niedrig bleibt.</p>
+
+<h2 id="schritte">In fünf Schritten einrichten</h2>
+${GET_APP}
+<ol>
+  <li>Klicke auf <b>+ Add Server</b>, wähle Vanilla, Paper oder Fabric und eine Version und klicke auf <b>Install &amp; start</b>. Java wird bei Bedarf automatisch installiert.</li>
+  <li>Sobald der Server <b>Online</b> anzeigt, klicke auf <b>Make public</b>. Die Einstellung <b>Region</b> steht auf <b>Auto</b>, dann wählt die App das schnellere Relay selbst.</li>
+  <li>Kopiere die angezeigte Adresse.</li>
+  <li>Deine Freunde öffnen Minecraft, gehen auf <b>Mehrspieler → Server hinzufügen</b>, fügen die Adresse ein und treten bei.</li>
+  <li>Für Bedrock-Spieler auf Handy oder Konsole schaltest du in den Servereinstellungen <b>Let Bedrock players join</b> ein.</li>
+</ol>
+
+<h2 id="hinweise">Gut zu wissen</h2>
+<ul>
+  <li><b>Dein PC muss laufen</b>, solange gespielt wird. VoxelPort ist kein 24/7-Hosting.</li>
+  <li><b>Das Relay in Europa ist neu</b> und wird von einem Studenten betrieben, daher gibt es keine Verfügbarkeitsgarantie. Fällt es aus, stelle die Region auf Indien, dann läuft dein Server weiter.</li>
+  <li><b>Datenschutz:</b> Das Relay schreibt keine IP-Adressen in seine Logs. Einzelheiten stehen in der <a href="/legal">Datenschutzerklärung</a> (auf Englisch).</li>
+  <li>Mehr zu DS-Lite und CGNAT: <a href="/guides/minecraft-server-dslite-cgnat-europe">Guide auf Englisch</a>.</li>
+</ul>`,
+  },
 ];
 
 export const GUIDES_INDEX = {
   path: '/guides',
   title: 'Minecraft Server Guides — Hosting, Crossplay and Fixes | VoxelPort',
-  description: 'Free guides for hosting a Minecraft server from home: free Minecraft hosting compared (no sleep, no queue), without port forwarding, on Jio and Airtel, for school friends, modpacks and phone players, Java + Bedrock crossplay, an Aternos alternative with no queue, and fixes for common crashes.',
+  description: 'Free guides for hosting a Minecraft server from home: free Minecraft hosting compared (no sleep, no queue), without port forwarding, in India and Europe, on Jio and Airtel or behind DS-Lite and CGNAT, for school friends, modpacks and phone players, Java + Bedrock crossplay, an Aternos alternative with no queue, and fixes for common crashes.',
 };
 
 export const guidePath = (g) => `/guides/${g.slug}`;

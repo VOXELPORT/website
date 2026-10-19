@@ -11,8 +11,8 @@ export const STORE_URL = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 export const PAGES = {
   home: {
     path: '/',
-    title: 'VoxelPort: Free Minecraft Server Hosting in India, No Port Forwarding',
-    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Works on Jio and Airtel. Java + Bedrock crossplay. Free & open source.',
+    title: 'VoxelPort: Free Minecraft Server Hosting for India and Europe, No Port Forwarding',
+    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Relays in India and Europe, works on Jio, Airtel, DS-Lite and CGNAT. Java + Bedrock crossplay. Free & open source.',
     heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
     summary: [
       'VoxelPort is a free, open-source app for Windows, Linux and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
@@ -145,6 +145,14 @@ export const FAQ = [
   {
     q: 'Do my friends need to install anything?',
     a: 'No. Java players use normal Minecraft: Java Edition and paste your address into Multiplayer → Add Server. Bedrock players use their normal game too.',
+  },
+  {
+    q: 'Is there a relay in Europe?',
+    a: 'Yes. VoxelPort has a relay in India and one in Europe (from app version 1.11). The Region setting is on Auto by default and picks the faster one for you; you can also choose a region by hand. Custom addresses are only on the India relay for now.',
+  },
+  {
+    q: 'Does it work behind DS-Lite or CGNAT?',
+    a: 'Yes. DS-Lite and CGNAT block incoming IPv4 connections, which breaks port forwarding. VoxelPort needs no incoming connection: your PC connects out to the relay, so it works on those connections too.',
   },
   {
     q: 'Can Bedrock players on phones and consoles join?',
