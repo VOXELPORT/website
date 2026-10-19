@@ -12,14 +12,14 @@ export const CONTACT = 'traz@voxelport.in';
 // capacity than anyone else, and nothing is taken away from free hosts.
 export const SUPPORTER = {
   intro:
-    'VoxelPort stays free for everyone: hosting, custom addresses and the public server list. If you want to chip in, supporters get a few extras as a thank-you.',
+    'VoxelPort hosting stays free for everyone: the app, the free address (like play.voxelport.in:26137) and the public server list. A custom name like yourname.voxelport.in is a supporter perk. If you want to chip in, supporters also get a few extras as a thank-you.',
   tiers: [
     {
       name: 'Supporter',
       inr: 99,
       perks: [
         '★ Supporter badge on the server list, and your server pinned to the top',
-        'Your custom address never expires from disuse (free addresses are released after 60 days unused)',
+        'A custom address like yourname.voxelport.in, so Java players skip the port number (new custom names are for supporters, and yours never expires from disuse)',
       ],
     },
     {

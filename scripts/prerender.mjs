@@ -139,7 +139,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   'VoxelPort is a free, open-source (MIT) desktop app for Windows and Linux that creates or imports a Minecraft: Java Edition server on your own PC and puts it online through a VoxelPort relay, so friends can join without port forwarding, even behind CGNAT (common on Jio, Airtel and mobile data). There is no account, no ads and no paid tier.',
   '',
   'Key facts:',
-  '- Players join with plain Minecraft at an address like play.voxelport.in:26137, or a free custom address like yourname.voxelport.in (no port).',
+  '- Players join with plain Minecraft at a free address like play.voxelport.in:26137. Supporters can claim a custom address like yourname.voxelport.in (no port).',
   '- Players join at play.voxelport.in; the relay is in India.',
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',

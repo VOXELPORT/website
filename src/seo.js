@@ -16,11 +16,11 @@ export const PAGES = {
     heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
     summary: [
       'VoxelPort is a free, open-source app for Windows, Linux and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
-      'Friends join with plain Minecraft using an address like play.voxelport.in:26137, or your own free address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
+      'Friends join with plain Minecraft using a free address like play.voxelport.in:26137; supporters can claim a custom address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
     ],
     points: [
       'No port forwarding, works behind CGNAT',
-      'Free custom address: yourname.voxelport.in',
+      'Free address, custom names for supporters',
       'Java + Bedrock crossplay with one switch',
       'Vanilla, Paper, Fabric and modpacks',
       'Automatic Java install (Java 25 for Minecraft 26.1+)',
@@ -33,7 +33,7 @@ export const PAGES = {
   features: {
     path: '/features',
     title: 'VoxelPort Features: Relay, Custom Address, Bedrock Crossplay, Auto Java',
-    description: 'Everything VoxelPort does: instant relay with no port forwarding, a free yourname.voxelport.in address, Java + Bedrock crossplay, automatic Java, direct routing for low ping, and plain-English crash help.',
+    description: 'Everything VoxelPort does: instant relay with no port forwarding, a free public address (custom names for supporters), Java + Bedrock crossplay, automatic Java, direct routing for low ping, and plain-English crash help.',
     heading: 'VoxelPort features',
     summary: ['What the VoxelPort app does for the host, and why nobody who joins has to install anything: create a new server or bring your own, get a public address in seconds, and keep your router shut.'],
   },
@@ -120,7 +120,7 @@ export const FAQ = [
   },
   {
     q: 'Can I get my own server address?',
-    a: 'Yes, for free. While your server is public, claim a name and players join with yourname.voxelport.in — no port number needed in Java Edition.',
+    a: 'Yes, as a supporter. Supporters can claim a custom name so players join with yourname.voxelport.in, with no port number needed in Java Edition. Everyone gets a free address like play.voxelport.in:26137.',
   },
   {
     q: 'Does it work with mods, plugins and modpacks?',
@@ -140,7 +140,7 @@ export const FAQ = [
   },
   {
     q: 'How is VoxelPort different from playit.gg or ngrok?',
-    a: 'VoxelPort is made only for Minecraft: it sets up the server and Java for you, adds Bedrock crossplay and a free custom address, needs no account, and is fully open source.',
+    a: 'VoxelPort is made only for Minecraft: it sets up the server and Java for you, adds Bedrock crossplay and a free public address (custom names for supporters), needs no account, and is fully open source.',
   },
 ];
 
@@ -163,7 +163,7 @@ export function homeJsonLd() {
         'Host a Minecraft server on a Windows/Linux PC or an Android phone, without port forwarding',
         'Works behind CGNAT (Jio, Airtel, mobile data)',
         'No sleep, no queue, no RAM cap',
-        'Free custom address: yourname.voxelport.in',
+        'Free address, custom names for supporters',
         'Java + Bedrock crossplay (Geyser + Floodgate)',
         'Vanilla, Paper, Fabric and modpacks',
         'Automatic Java install',

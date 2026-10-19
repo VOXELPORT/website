@@ -50,7 +50,7 @@ export const GUIDES = [
 <h2 id="public">Let friends join</h2>
 <ol>
   <li>Tap <b>Make Public</b>. Allow it to ignore battery optimisation, so Android doesn’t kill the server in the background.</li>
-  <li>Copy the address it shows (like <code>play.voxelport.in:26137</code>), or claim a free <code>yourname.voxelport.in</code>.</li>
+  <li>Copy the address it shows (like <code>play.voxelport.in:26137</code>); supporters can also claim a custom <code>yourname.voxelport.in</code>.</li>
   <li>Share it. Friends open <b>Multiplayer → Add Server</b> and paste it. Bedrock (phone/console) players use the same address.</li>
 </ol>
 
@@ -96,7 +96,7 @@ export const GUIDES = [
     faq: [
       { q: 'What is the best free Minecraft server hosting?', a: 'It depends on your PC. If you have a PC that can stay on while people play, hosting on it with VoxelPort is free with no sleep, no queue and no RAM cap. If you don’t, a cloud host like Aternos, Minehut or Falix runs the server for you, with limits on the free plan.' },
       { q: 'Is there free Minecraft hosting that doesn’t sleep?', a: 'Free cloud hosts usually stop or sleep the server when nobody is online, to save resources. A server on your own PC doesn’t: with VoxelPort it stays online until you stop it, as long as the PC is on.' },
-      { q: 'Is VoxelPort really free?', a: 'Yes. The app and the relay are free and open source, with no account, no ads and no paid tier. You use your own PC’s power and internet. (Tips are optional; supporters get a badge and a few extras as a thank-you, and nothing free is ever taken away.)' },
+      { q: 'Is VoxelPort really free?', a: 'Yes. The app, the relay and your public address are free and open source, with no account and no ads. You use your own PC’s power and internet. (Tips are optional; supporters get a badge, a pinned server and a custom yourname.voxelport.in address as a thank-you, and nothing free is ever taken away.)' },
       { q: 'How much RAM do free Minecraft hosts give?', a: 'Free plans are usually around 1–4 GB, depending on the host. On your own PC you choose: a PC with 16 GB of RAM can give a server 6–8 GB, enough for most modpacks.' },
       { q: 'Can Bedrock and phone players join a free server?', a: 'On VoxelPort, yes: turn on Bedrock players for a Paper or Fabric server and Java and Bedrock (phone, console, Windows) players join the same world. Several cloud hosts support this too, sometimes only on paid plans.' },
     ],
@@ -131,14 +131,14 @@ export const GUIDES = [
 
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
-<p>VoxelPort’s relay is in India, so friends in India get low ping. You can claim a free address like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
+<p>VoxelPort’s relay is in India, so friends in India get low ping. You get a free address like <code>play.voxelport.in:26137</code>, and supporters can claim a custom name like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
 
 <h2 id="steps">Set up a free server in 2 minutes</h2>
 ${GET_APP}
 <ol>
   <li>Click <b>+ Add Server</b>. Pick a template (Survival SMP, Creative, Modded…) or choose Vanilla, Paper or Fabric and a version.</li>
   <li>Choose how much RAM to give it, agree to the EULA, and click <b>Install &amp; start</b>. VoxelPort downloads the right Java for you.</li>
-  <li>Click <b>Make public</b> and claim your free address.</li>
+  <li>Click <b>Make public</b> and copy your free address.</li>
   <li>Share it. Friends add it under <b>Multiplayer → Add Server</b>. Turn on <b>Bedrock players</b> in Settings so phone and console players can join too.</li>
 </ol>
 <div class="tip">Moving from a cloud host? Download your world from it, put it in your new server’s folder as <code>world</code>, and start the server. See <a href="/guides/aternos-alternative-no-queue#move-world">moving a world from Aternos</a>.</div>
@@ -265,7 +265,7 @@ ${GET_APP}
 <p>The classic way is port forwarding, which doesn’t work on most Indian connections and many others (CGNAT). VoxelPort skips it:</p>
 <ol>
   <li>Click <b>Make public</b>. You get an address like <code>play.voxelport.in:26137</code>.</li>
-  <li>Optionally claim a free name, like <code>yourname.voxelport.in</code>, so friends don’t need the port.</li>
+  <li>Supporters can optionally claim a custom name, like <code>yourname.voxelport.in</code>, so friends don’t need the port.</li>
   <li>Friends open <b>Multiplayer → Add Server</b>, paste the address and join.</li>
 </ol>
 <div class="tip">Want phone and console players too? Open the server’s <b>Settings</b> and turn on <b>Bedrock players</b>. They join with the same address and port as Java players. See the <a href="/guides/minecraft-java-bedrock-crossplay-server">crossplay guide</a>.</div>
@@ -314,7 +314,7 @@ ${GET_APP}
   <li>Template chuno (Survival SMP, Creative, Modded…) ya khud type chuno: <b>Paper</b> (plugins, sabse common), <b>Fabric</b> (mods) ya <b>Vanilla</b>.</li>
   <li>RAM set karo (2–3 GB dosto ke liye kaafi hai), EULA accept karo, aur <b>Install &amp; start</b> dabao. Sahi Java bhi app khud download kar leta hai.</li>
   <li><b>Online</b> dikhe toh <b>Make public</b> dabao. Address milega, jaise <code>play.voxelport.in:26137</code>.</li>
-  <li>Free naam claim karo, jaise <code>tumharanaam.voxelport.in</code>, taaki port yaad na rakhna pade.</li>
+  <li>Supporters apna custom naam claim kar sakte hain, jaise <code>tumharanaam.voxelport.in</code>, taaki port yaad na rakhna pade.</li>
   <li>Dosto ko bhejo. Woh <b>Multiplayer → Add Server</b> mein address daal ke join karenge.</li>
 </ol>
 <div class="tip">Phone wale dost bhi chahiye? Server ki <b>Settings</b> mein <b>Bedrock players</b> on karo. Wahi address use karke Bedrock se join kar sakte hain.</div>
@@ -344,7 +344,7 @@ ${GET_APP}
     faq: [
       { q: 'What is the best alternative to Hamachi for Minecraft?', a: 'A tunnel or relay, so your friends don’t install anything. With VoxelPort your friends join with plain Minecraft using an address, and there is no member limit.' },
       { q: 'Does ngrok work for Minecraft for free?', a: 'It can, but ngrok’s free plan asks you to add a credit or debit card before TCP endpoints work, and the address changes when you restart. VoxelPort needs no card and keeps your address.' },
-      { q: 'Is VoxelPort like playit.gg?', a: 'Both put a home server online without port forwarding. VoxelPort is also a server manager: it installs and runs the server, Java and Bedrock support for you, and the free custom address (yourname.voxelport.in) is free.' },
+      { q: 'Is VoxelPort like playit.gg?', a: 'Both put a home server online without port forwarding. VoxelPort is also a server manager: it installs and runs the server, Java and Bedrock support for you, and supporters can get a custom address (yourname.voxelport.in).' },
       { q: 'Do my friends need to install anything?', a: 'Not with VoxelPort, playit.gg or ngrok: they join with normal Minecraft. With Hamachi everyone installs Hamachi, and with mods like e4mc or Essential the host (and with Essential, often friends) needs the mod.' },
     ],
     html: `
@@ -354,7 +354,7 @@ ${GET_APP}
 <table>
   <thead><tr><th>Tool</th><th>Friends install</th><th>Address</th><th>Watch out for</th></tr></thead>
   <tbody>
-    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; free <code>name.voxelport.in</code></td><td>Windows and Linux app; relay in India</td></tr>
+    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; custom <code>name.voxelport.in</code> for supporters</td><td>Windows and Linux app; relay in India</td></tr>
     <tr><td>playit.gg</td><td>Nothing</td><td>Generated address; custom domains on the paid plan</td><td>Free plan limits change; check their site</td></tr>
     <tr><td>ngrok</td><td>Nothing</td><td>Changes on restart (free)</td><td>Free TCP needs a credit/debit card on your account; bandwidth cap</td></tr>
     <tr><td>Hamachi</td><td>Hamachi, for everyone</td><td>Hamachi IP</td><td>About 5 people on the free plan; a VPN running on every PC</td></tr>
@@ -366,7 +366,7 @@ ${GET_APP}
 <h2 id="different">What VoxelPort does differently</h2>
 <ul>
   <li><b>It runs the server too.</b> You don’t install Java, download a server jar and then set up a tunnel: VoxelPort does all of it, with Vanilla, Paper, Fabric and modpack templates.</li>
-  <li><b>A permanent, free address.</b> Your port and your <code>yourname.voxelport.in</code> belong to your install, so friends save the server once.</li>
+  <li><b>A permanent address.</b> Your port belongs to your install (and a supporter’s custom <code>yourname.voxelport.in</code> too), so friends save the server once.</li>
   <li><b>Java + Bedrock.</b> One switch adds Geyser and Floodgate, and Bedrock traffic (UDP) goes through the same relay.</li>
   <li><b>No account, no card, open source.</b> The app and the relay are MIT-licensed.</li>
 </ul>
@@ -376,7 +376,7 @@ ${GET_APP}
 <ol>
   <li>Already have a server folder? Click <b>Import Existing Server</b> and pick it. Otherwise click <b>+ Add Server</b>.</li>
   <li>Click <b>Start</b>, then <b>Make public</b>.</li>
-  <li>Claim a free address and send it to friends. Stop your old tunnel (playit agent, ngrok, Hamachi) — you don’t need it any more.</li>
+  <li>Copy your address and send it to friends. Stop your old tunnel (playit agent, ngrok, Hamachi) — you don’t need it any more.</li>
 </ol>
 <div class="tip">Running a server outside VoxelPort (a Docker container, another panel)? Use <b>Tunnel a server I already run elsewhere</b> on the start screen: it puts any local port online the same way.</div>`,
   },
@@ -427,7 +427,7 @@ ${GET_APP}
   <li>Open VoxelPort and click <b>+ Add Server</b>. Pick a template such as <b>Survival SMP</b>, or choose Vanilla, Paper or Fabric and a Minecraft version.</li>
   <li>Set the RAM (VoxelPort suggests an amount for your PC), tick <b>I agree to the Minecraft EULA</b>, and click <b>Install &amp; start</b>. VoxelPort downloads the server and the right Java version for you.</li>
   <li>When the server is online, click <b>Make public</b>. You get an address like <code>play.voxelport.in:26137</code>.</li>
-  <li>Optional: type a name under <b>Get a custom address — free</b> and click <b>Claim</b>. Friends can then join with <code>yourname.voxelport.in</code> and no port number.</li>
+  <li>Supporters can type a name under <b>Get a custom address</b> and click <b>Claim</b>. Friends can then join with <code>yourname.voxelport.in</code> and no port number.</li>
   <li>Send the address to your friends. In Minecraft they go to <b>Multiplayer → Add Server</b> and paste it.</li>
 </ol>
 <div class="tip"><b>Already have a server folder?</b> Use <b>Import Existing Server</b>. If you start your server some other way, use <b>Tunnel a server I already run elsewhere</b> and enter its port.</div>
@@ -469,7 +469,7 @@ ${GET_APP}
     <tr><td>Port forwarding</td><td>No</td><td>No</td><td>Needs router access and a public IP; exposes your IP</td></tr>
     <tr><td>Virtual LAN (Hamachi, ZeroTier, Tailscale)</td><td>Yes, every player</td><td>Yes</td><td>Fine for 2–3 friends, painful for more</td></tr>
     <tr><td>General tunnels (playit.gg, ngrok)</td><td>No</td><td>Usually</td><td>Work for any game or app; you set up the server yourself</td></tr>
-    <tr><td>VoxelPort</td><td>No</td><td>No</td><td>Made for Minecraft: sets up the server and Java, Bedrock crossplay, free custom address</td></tr>
+    <tr><td>VoxelPort</td><td>No</td><td>No</td><td>Made for Minecraft: sets up the server and Java, Bedrock crossplay, custom address for supporters</td></tr>
     <tr><td>Paid hosting</td><td>No</td><td>Yes</td><td>Runs 24/7 without your PC, but costs money monthly</td></tr>
   </tbody>
 </table>
@@ -480,7 +480,7 @@ ${GET_APP}
   <li>Click <b>+ Add Server</b> and pick a template or a server type (Vanilla, Paper or Fabric) and version.</li>
   <li>Choose the RAM, agree to the Minecraft EULA, and click <b>Install &amp; start</b>. Java is installed automatically if you don’t have the right version.</li>
   <li>Wait for the server to show <b>Online</b>, then click <b>Make public</b>.</li>
-  <li>Copy the address, for example <code>play.voxelport.in:26137</code>. Claim a free name if you want <code>yourname.voxelport.in</code> instead.</li>
+  <li>Copy the address, for example <code>play.voxelport.in:26137</code>. Supporters can claim a custom name like <code>yourname.voxelport.in</code> instead.</li>
   <li>Friends open Minecraft, go to <b>Multiplayer → Add Server</b>, paste the address and join.</li>
 </ol>
 <div class="tip">To stop sharing, click <b>Stop public tunnel</b>. The server keeps running for you locally; nobody else can reach it.</div>
@@ -546,7 +546,7 @@ ${GET_APP}
 <ul>
   <li>Everyone must use the <b>same Minecraft version</b> as the server (Java), or a version Geyser supports (Bedrock).</li>
   <li>Turn on the <b>whitelist</b> in the server’s <b>Settings</b> if you only want your friends to join.</li>
-  <li>Claim a <a href="/guides/free-minecraft-server-address">free custom address</a> so friends don’t have to remember a port number.</li>
+  <li>Supporters can claim a <a href="/guides/free-minecraft-server-address">custom address</a> so friends don’t have to remember a port number.</li>
 </ul>`,
   },
 
@@ -604,24 +604,25 @@ ${GET_APP}
   // ───────────────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-server-address',
-    title: 'How to Get a Free Custom Minecraft Server Address (No Port Number)',
-    short: 'Free custom address',
-    description: 'Replace play.voxelport.in:26137 with yourname.voxelport.in for free. How SRV records let Java players skip the port, how to claim a name, and how to use your own domain.',
+    title: 'How to Get a Free Minecraft Server Address (and a Custom One With No Port Number)',
+    short: 'Server address',
+    description: 'Every VoxelPort server gets a free address like play.voxelport.in:26137. Supporters can claim a custom yourname.voxelport.in so Java players skip the port. How SRV records work, how to claim a name, and how to use your own domain.',
     kicker: 'Addresses · DNS',
-    blurb: 'Get yourname.voxelport.in for free, and how SRV records remove the port number.',
+    blurb: 'Your free play.voxelport.in address, a custom yourname.voxelport.in for supporters, and how SRV records remove the port number.',
     faq: [
-      { q: 'Is the custom address really free?', a: 'Yes. Every VoxelPort install can claim one name under voxelport.in at no cost. A name that isn’t used for 60 days is released so others can claim it.' },
+      { q: 'Is the custom address free?', a: 'The regular address (like play.voxelport.in:26137) is free for everyone. A custom name like yourname.voxelport.in is a supporter perk. A name that isn’t used for 60 days is released so others can claim it, unless its owner is a supporter.' },
       { q: 'Why does my address work without a port?', a: 'VoxelPort creates a DNS SRV record for your name. Minecraft Java looks up that record and finds the port automatically.' },
       { q: 'Can I use my own domain?', a: 'Yes. Add an SRV record on your domain pointing to play.voxelport.in and your VoxelPort port. Claim a voxelport.in name first so your port stays reserved.' },
     ],
     html: `
-<p>An address like <code>play.voxelport.in:26137</code> works, but it’s hard to remember and easy to mistype. A custom address such as <code>yourname.voxelport.in</code> is easier to share, and Java players don’t need to type a port.</p>
+<p>An address like <code>play.voxelport.in:26137</code> works, but it’s hard to remember and easy to mistype. A custom address such as <code>yourname.voxelport.in</code> (a supporter perk) is easier to share, and Java players don’t need to type a port.</p>
 
-<h2 id="claim">Claim your free address</h2>
+<h2 id="claim">Claim a custom address (supporters)</h2>
+<p>Your free address always works. New custom names are a supporter perk: <a href="/support#supporters">see how to become a supporter</a>.</p>
 ${GET_APP}
 <ol>
   <li>Start your server and click <b>Make public</b>.</li>
-  <li>Under <b>Get a custom address — free</b>, type a name: 3–20 letters, numbers or dashes.</li>
+  <li>Under <b>Get a custom address</b>, type a name: 3–20 letters, numbers or dashes.</li>
   <li>Click <b>Claim</b>. After a short wait the address shows as <b>Your address</b>.</li>
   <li>Share <code>yourname.voxelport.in</code>. Java players paste it into <b>Multiplayer → Add Server</b> as it is.</li>
 </ol>
@@ -738,7 +739,7 @@ ${GET_APP}
   <li>Click <b>+ Add Server</b> and pick <b>Survival SMP</b>. If some friends play on phones, pick <b>Java + Bedrock</b> instead.</li>
   <li>Give it 3–4 GB of RAM, agree to the Minecraft EULA, and click <b>Install &amp; start</b>.</li>
   <li>When it says <b>Online</b>, click <b>Make public</b>.</li>
-  <li>Claim a free name such as <code>ourclass.voxelport.in</code> under <b>Get a custom address — free</b>, so the address never changes.</li>
+  <li>Supporters can claim a name such as <code>ourclass.voxelport.in</code> under <b>Get a custom address</b>; the free address also stays the same between restarts.</li>
   <li>Post the address in your class or hostel group chat. Friends add it under <b>Multiplayer → Add Server</b>.</li>
 </ol>
 
@@ -819,7 +820,7 @@ ${GET_APP}
 <ol>
   <li>In VoxelPort, click <b>Tunnel a server I already run elsewhere</b>.</li>
   <li>Enter the port (<code>25565</code> unless you changed <code>server-port</code>) and click <b>Start hosting</b>.</li>
-  <li>Copy the address it shows, or claim a free name such as <code>ourpack.voxelport.in</code>.</li>
+  <li>Copy the address it shows, or, as a supporter, claim a name such as <code>ourpack.voxelport.in</code>.</li>
   <li>Friends launch the same modpack, go to <b>Multiplayer → Add Server</b>, and paste the address.</li>
 </ol>
 <div class="tip"><b>Making your own pack instead?</b> For a small Fabric pack, use VoxelPort’s <b>Modded (Fabric)</b> template, then drop mods into its <code>mods</code> folder and give friends the same mods. Client-only mods (shaders, minimaps, Sodium) stay on players’ PCs, not on the server.</div>
@@ -889,7 +890,7 @@ ${GET_APP}
   <li>Click <b>+ Add Server</b>. Pick a template, or choose Vanilla, Paper or Fabric and a version.</li>
   <li>Choose the RAM, agree to the EULA, and click <b>Install &amp; start</b>. VoxelPort installs the right Java too.</li>
   <li>Click <b>Make public</b>. You don’t need to forward ports, even on Jio or Airtel.</li>
-  <li>Claim a free address like <code>yourname.voxelport.in</code>.</li>
+  <li>Copy the address it shows (like <code>play.voxelport.in:26137</code>).</li>
   <li>Share it. Friends join under <b>Multiplayer → Add Server</b>.</li>
 </ol>
 
@@ -960,7 +961,7 @@ ${GET_APP}
 <h2 id="tips">Tips for phone-heavy servers</h2>
 <ul>
   <li><b>Keep the view distance at 8 or below</b> in Settings. Phones show less anyway, and it saves server power.</li>
-  <li><b>Claim a free name</b> like <code>oursmp.voxelport.in</code> so the address is easy to type on a phone. Phone players still enter the port.</li>
+  <li><b>Supporters can claim a custom name</b> like <code>oursmp.voxelport.in</code> so the address is easy to type on a phone. Phone players still enter the port.</li>
   <li><b>Consoles</b> (Xbox, PlayStation, Switch) can’t add servers directly. See <a href="/guides/minecraft-java-bedrock-crossplay-server">the crossplay guide</a> for what console players can do.</li>
 </ul>`,
   },

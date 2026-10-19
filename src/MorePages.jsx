@@ -366,7 +366,7 @@ export function SupportPage({ onBack }) {
         <div className="support">
           <div className="support-copy">
             <p className="lede">
-              VoxelPort has no ads, no accounts and no paid plan: hosting, custom addresses and the server list are free for everyone.
+              VoxelPort has no ads, no accounts and no paid plan: hosting, the free address and the server list are free for everyone. A custom name is a supporter perk.
               The relay runs on a server I pay for myself. If it saved you a fight with your router, a small tip helps keep it online,
               and <a href="#supporters">supporters get a badge and a few extras</a> as a thank-you.
             </p>

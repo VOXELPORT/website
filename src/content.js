@@ -10,7 +10,7 @@ export const SITE_NAV = [
   ['Support', '/support'],
 ];
 
-export const TICKER = ['No port forwarding', 'Your own .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
+export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
 
 export const PATHS = [
   {
@@ -33,7 +33,7 @@ export const FEATURES = [
   { sprite: 'card', title: 'NO SIGNUP', desc: 'No account, no login, no token to copy. A private device key is created on first run. (Discord is where we hang out, not a requirement.)' },
   { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Hosts connect straight to the relay for ~10–20 ms pings, and fall back to Cloudflare automatically if a network blocks it.' },
   { sprite: 'heart', title: 'FREE & OPEN', desc: 'MIT-licensed app and relay. Read the code, fork it, or run your own relay.', home: true },
-  { sprite: 'house', title: 'YOUR OWN ADDRESS', desc: 'Claim yourname.voxelport.in for free. Friends join without typing a port number.', home: true },
+  { sprite: 'house', title: 'YOUR ADDRESS', desc: 'Every server gets a free address like play.voxelport.in:26137. Supporters can claim yourname.voxelport.in, with no port number.', home: true },
   { sprite: 'diamond', title: 'BEDROCK TOO', desc: 'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.', home: true },
   { sprite: 'head1', title: 'CRASH HELP', desc: 'If your server stops, VoxelPort says why in plain words — and offers the fix. Plus live CPU, RAM and TPS.', home: true },
 ];
