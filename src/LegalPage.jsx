@@ -109,7 +109,7 @@ export default function LegalPage({ onBack }) {
           <p>
             For abuse prevention and capacity planning the relay writes a short line per hosting session to its server log: the first
             8 characters of your token, the public port, how long the session lasted, how many player connections it had, and how
-            many bytes went through. It does <b>not</b> log IP addresses, player names, chat or any game content. On the Europe relay the server log is kept in memory only: it disappears when the server restarts and is never kept longer than 7 days.
+            many bytes went through. It does <b>not</b> log IP addresses, player names, chat or any game content. On the Europe relay the server log is kept in memory only: it disappears when the server restarts and is never kept longer than 7 days. Until 20 October 2026 the system log of the India relay could also record the IP address of a connection that failed its secure handshake (for example a port scanner); that is no longer logged, and older entries are deleted when the server rotates its logs.
           </p>
 
           <Sub color="var(--red)">Never collected</Sub>
