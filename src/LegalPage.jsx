@@ -109,7 +109,7 @@ export default function LegalPage({ onBack }) {
           <p>
             For abuse prevention and capacity planning the relay writes a short line per hosting session to its server log: the first
             8 characters of your token, the public port, how long the session lasted, how many player connections it had, and how
-            many bytes went through. It does <b>not</b> log IP addresses, player names, chat or any game content.
+            many bytes went through. It does <b>not</b> log IP addresses, player names, chat or any game content. On the Europe relay the server log is kept in memory only: it disappears when the server restarts and is never kept longer than 7 days.
           </p>
 
           <Sub color="var(--red)">Never collected</Sub>
@@ -144,6 +144,22 @@ export default function LegalPage({ onBack }) {
             The app picks the closer one for each host. Hosts and players near India or near Europe get the best ping (often under 50 ms);
             the Americas typically see 100–250 ms of relay overhead. The Europe relay does not offer custom addresses. More regions may come if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
+          </p>
+
+          <Sub color="var(--red)">Who is responsible, and your rights</Sub>
+          <p>
+            VoxelPort is run by Garv Verma, an individual and student in India, who decides why and how the data above is handled
+            (the “controller” in privacy law). Reason for handling it: running and protecting a free relay service (legitimate
+            interests). The relays are in India and Europe; a connection goes to the relay the app picked for you, so your IP
+            address can be processed in either place, in memory only. The Europe relay runs on a rented server at a hosting
+            provider in Europe, which only provides the machine. On the India relay’s Cloudflare route, Cloudflare is the network carrier.
+          </p>
+          <p>
+            Wherever you live, you can ask us what we hold about you, ask us to delete it, object to how it is handled, or complain to
+            your local data-protection authority. Email <Code>traz@voxelport.in</Code> and we will answer. Because the relay keeps
+            no IP addresses or player names after a connection ends, there is usually nothing about a player to look up; the only
+            stored items are the ones in the tables above (a hashed token for custom addresses, and the public server-list entry if
+            you opted in).
           </p>
 
           <Sub color="var(--red)">Sharing &amp; deleting</Sub>
@@ -190,6 +206,14 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--gold)">5 · Suspension</Sub>
           <p>Tokens used to break these terms can be blocked from the relay. The service is free, so no refunds apply.</p>
+
+          <Sub color="var(--gold)">5a · Reporting illegal content or abuse</Sub>
+          <p>
+            The relay only passes encrypted game traffic and cannot see or store what a server hosts. Servers shown on the public
+            server list are checked when reported. To report illegal content, a server that breaks these terms, or an infringement of
+            your rights, email <Code>traz@voxelport.in</Code> with the server’s address and what is wrong. We remove listings and
+            block tokens that break the law or these terms, and we answer valid requests from authorities at the same address.
+          </p>
 
           <Sub color="var(--gold)">6 · Forks &amp; changes</Sub>
           <p>
