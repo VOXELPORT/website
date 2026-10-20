@@ -3,7 +3,7 @@
 // engines see the full text. `html` is trusted, hand-written markup: <h2 id>,
 // <p>, <ul>/<ol>, <table>, <code>, <div class="tip">, and site links.
 
-export const GUIDES_UPDATED = '2026-10-20';
+export const GUIDES_UPDATED = '2026-10-21';
 
 const STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
@@ -1093,6 +1093,102 @@ ${GET_APP}
   <li><b>Datenschutz:</b> Das Relay schreibt keine IP-Adressen in seine Logs. Einzelheiten stehen in der <a href="/legal">Datenschutzerklärung</a> (auf Englisch).</li>
   <li>Mehr zu DS-Lite und CGNAT: <a href="/guides/minecraft-server-dslite-cgnat-europe">Guide auf Englisch</a>.</li>
 </ul>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'voxelport-fabric-mod-install-guide',
+    title: 'VoxelPort Fabric Mod: Install and Use Guide (Minecraft 26.1 to 26.3)',
+    short: 'Fabric mod guide',
+    description: 'Install the VoxelPort Fabric mod and share your singleplayer world or Fabric server with friends in one click: requirements, steps, commands, India and Europe relays, updating and fixes.',
+    kicker: 'Fabric mod · Free',
+    blurb: 'Install the VoxelPort Fabric mod, press Open to VoxelPort, and your friends can join: steps, commands, regions and fixes.',
+    faq: [
+      { q: 'Do my friends need the mod?', a: 'No. Only the host installs it. Friends join with normal Minecraft: Java Edition using the address the mod gives you.' },
+      { q: 'Which Minecraft versions does the mod support?', a: 'Minecraft 26.1, 26.1.1, 26.1.2, 26.2 and 26.3 with Fabric Loader 0.18.6 or newer on Java 25 or newer. When a new Minecraft version changes something the mod hooks into, the mod needs an update, so use the newest release.' },
+      { q: 'Mod or app: which should I use?', a: 'Use the mod if you want to stay inside Minecraft and open your current world with one button. Use the VoxelPort app if you want to create and manage servers, install plugins and mods, run Bedrock crossplay, back up worlds or keep a friends-only list. They use the same relays.' },
+      { q: 'Does my game have to stay open?', a: 'Yes. The address works while your world or server is running. VoxelPort is not a 24/7 host, and the relays are run by one student with no uptime guarantee.' },
+      { q: 'Is it free, and do I need an account?', a: 'It is free and open source (MIT). There is no account: the mod creates a private device token on first use.' },
+      { q: 'Which relay does it use?', a: 'With the default settings it measures the India and Europe relays and uses the closer one, so you do not choose anything. Your friends join play.voxelport.in:port (India) or play-eu.voxelport.in:port (Europe).' },
+    ],
+    html: `
+<p>The VoxelPort Fabric mod adds one button to Minecraft: <b>Open to VoxelPort</b>. Open your world to LAN, press it, and the mod connects out to a VoxelPort relay and gives you a public address. Your friends paste that address into Multiplayer and join from <b>normal Minecraft</b>, with no port forwarding on your router and nothing installed on their side.</p>
+
+<div class="tip"><b>Mod or app?</b> This is the small option for people who want to stay in the game. The <a href="/download">VoxelPort app</a> does much more: it creates and manages servers, installs plugins and mods, runs Bedrock crossplay and keeps backups. Both use the same relays, and you can use either.</div>
+
+<h2 id="requirements">What you need</h2>
+<table>
+  <thead><tr><th></th><th>Needed</th></tr></thead>
+  <tbody>
+    <tr><td>Minecraft: Java Edition</td><td>26.1, 26.1.1, 26.1.2, 26.2 or 26.3</td></tr>
+    <tr><td>Fabric Loader</td><td>0.18.6 or newer</td></tr>
+    <tr><td>Java</td><td>25 or newer (the Minecraft launcher installs it for these versions)</td></tr>
+    <tr><td>Internet</td><td>Outbound HTTPS/WSS to <code>relay.voxelport.in</code> and <code>eu.voxelport.in</code> on port 443</td></tr>
+  </tbody>
+</table>
+<p>Only the <b>host</b> installs the mod. The mod needs VoxelPort's relay service, so it does not work offline.</p>
+
+<h2 id="install">Install the mod</h2>
+<ol>
+  <li>Install <b>Fabric Loader</b> for your Minecraft version with the official installer from <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noreferrer">fabricmc.net</a>. It adds a Fabric profile to the Minecraft launcher.</li>
+  <li>Download the latest <b>VoxelPort-Fabric.jar</b> from the <a href="https://github.com/VOXELPORT/VoxelPort/releases/latest" target="_blank" rel="noreferrer">GitHub releases page</a>.</li>
+  <li>Press <b>Win + R</b>, type <code>%appdata%\\.minecraft\\mods</code> and press Enter (create the <code>mods</code> folder if it is not there). Put the jar in it. On macOS and Linux the folder is <code>.minecraft/mods</code> in your home or Library folder.</li>
+  <li>Start the <b>Fabric</b> profile in the launcher. When the game opens, the mod is loaded.</li>
+</ol>
+
+<h2 id="singleplayer">Share a singleplayer world</h2>
+<ol>
+  <li>Open your world.</li>
+  <li>Press <b>Esc</b>, click <b>Open to LAN</b> and start the LAN world.</li>
+  <li>Press <b>Esc</b> again and click <b>Open to VoxelPort</b>.</li>
+  <li>The address is copied to your clipboard, for example <code>play.voxelport.in:26137</code> (India) or <code>play-eu.voxelport.in:26137</code> (Europe). Send it to your friends.</li>
+  <li>They open Minecraft, go to <b>Multiplayer → Add Server</b>, paste the address and join.</li>
+</ol>
+<p>The button changes to <b>VoxelPort: Live</b>. Click it to see the address, how long you have been live and how many players are connected. The relay ping is shown in the player-list header (hold <b>Tab</b>). To stop sharing, leave the world.</p>
+
+<h2 id="server">Share a Fabric server</h2>
+<ol>
+  <li>Install Fabric Loader on your server and put the mod jar in the server's <code>mods</code> folder.</li>
+  <li>Start the server.</li>
+  <li>As an operator, run <code>/voxelport start</code> in the console or in game. It prints the public address.</li>
+  <li>Share that address. <code>/voxelport status</code> shows it again at any time.</li>
+</ol>
+
+<h2 id="commands">Commands</h2>
+<p><code>/voxelport</code> also works as <code>/voxel</code> and <code>/vp</code>. They need game-master permissions (operator level 2).</p>
+<table>
+  <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>/voxelport start</code></td><td>Go public using the server's own port</td></tr>
+    <tr><td><code>/voxelport start &lt;port&gt;</code></td><td>Go public with a different local port</td></tr>
+    <tr><td><code>/voxelport status</code></td><td>Show the address, uptime, players and relay ping</td></tr>
+    <tr><td><code>/voxelport stop</code></td><td>Stop sharing</td></tr>
+  </tbody>
+</table>
+
+<h2 id="regions">India or Europe?</h2>
+<p>VoxelPort has a relay in India and one in Europe. When you press the button, the mod measures both and uses the closer one, so you do not choose anything. Ping is lowest when you and your friends are all reasonably close to the relay in use. You can see live relay status on the <a href="/status">status page</a>.</p>
+
+<h2 id="update">Update the mod</h2>
+<p>Download the newest jar from the releases page, delete the old VoxelPort jar from your <code>mods</code> folder and put the new one in. Minecraft updates can break mods that hook into the game, so after updating Minecraft, check that the mod has a release for your version.</p>
+
+<h2 id="fixes">If something goes wrong</h2>
+<ul>
+  <li><b>No "Open to VoxelPort" button:</b> you are probably not on the Fabric profile, the jar is not in the right <code>mods</code> folder, or your Minecraft version is not 26.1 to 26.3. Check the game's mod list or the log.</li>
+  <li><b>It will not connect:</b> allow outbound HTTPS/WSS to <code>relay.voxelport.in</code> and <code>eu.voxelport.in</code> on port 443. Some school and work networks block it. Check the <a href="/status">status page</a> too.</li>
+  <li><b>Friends cannot join:</b> make sure they use the exact address from the Live screen or <code>/voxelport status</code>, and that your world or server is still running.</li>
+  <li><b>The game crashes on start:</b> check the Java version (25 or newer), make sure the Fabric Loader is 0.18.6 or newer, and use the latest mod release.</li>
+  <li><b>Want your own relay or token?</b> Optional. Settings are in <code>config/voxelport/settings.properties</code> (<code>relay_url</code>, <code>public_host</code>). Set the <code>VOXELPORT_TOKEN</code> environment variable to use your own token.</li>
+</ul>
+<p>Still stuck? Ask in the <a href="/community">Discord</a> or open an issue on <a href="https://github.com/VOXELPORT/VoxelPort/issues" target="_blank" rel="noreferrer">GitHub</a>.</p>
+
+<h2 id="privacy">What the mod stores and sends</h2>
+<ul>
+  <li><b>Stored on your computer:</b> a random device token.</li>
+  <li><b>Sent to the relay:</b> that token, the mod name and version (for support), and your game's network traffic while you share, which is passed on and never inspected.</li>
+  <li><b>Not collected:</b> passwords, email, chat, inventory, world data or analytics.</li>
+</ul>
+<p>Details are in the <a href="/legal">privacy notice</a>.</p>`,
   },
 ];
 

@@ -324,6 +324,7 @@ export function DownloadPage({ onBack }) {
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 18 }}>
           <a className="btn green sm" href={DL_MOD}>DOWNLOAD THE MOD (.JAR)</a>
+          <a className="btn cream sm" href="/guides/voxelport-fabric-mod-install-guide" onClick={go('/guides/voxelport-fabric-mod-install-guide')}>INSTALL GUIDE</a>
           <a className="btn cream sm" href={GITHUB_MOD} target="_blank" rel="noreferrer">SOURCE &amp; NOTES</a>
         </div>
         <p style={{ marginTop: 14, fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6 }}>
