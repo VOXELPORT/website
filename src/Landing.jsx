@@ -234,6 +234,7 @@ export default function Landing() {
               <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
               <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
               <a className="btn gold sm" href={DL_ANDROID}>ANDROID · BETA APK</a>
+              <a className="btn cream sm" href="/download#fabric-mod" onClick={(e) => { e.preventDefault(); navigate('/download#fabric-mod'); }}>FABRIC MOD · 26.1–26.3</a>
               <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
               <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
             </div>
