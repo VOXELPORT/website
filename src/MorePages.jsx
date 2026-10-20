@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
   SPRITES, useLatestReleases,
-  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, DL_MOD, GITHUB_APP, GITHUB_MOD, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE } from './content.js';
@@ -312,7 +312,26 @@ export function DownloadPage({ onBack }) {
         </div>
       </div>
 
-      <div className="panel gold tilt-r1" style={{ padding: '18px 22px', marginTop: 36, maxWidth: 720 }}>
+      <div className="panel tilt-r1" id="fabric-mod" style={{ padding: '22px 24px 24px', marginTop: 36, maxWidth: 720 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+          <span className="kicker" style={{ color: 'var(--grass-dk)' }}>Fabric mod</span>
+          <span className="sticker" style={{ transform: 'rotate(2deg)' }}>MINECRAFT 26.1 – 26.3</span>
+        </div>
+        <h2 className="h-display" style={{ fontSize: 36, marginTop: 10 }}>OPEN TO VOXELPORT</h2>
+        <p style={{ marginTop: 6, color: 'var(--ink-2)', lineHeight: 1.6 }}>
+          Prefer to stay inside Minecraft? The mod adds an <b>Open to VoxelPort</b> button to the pause menu: open your world to LAN, press it, and share the address.
+          On a Fabric server, run <code>/voxelport start</code>. Friends need no mod, and it picks the India or Europe relay for you. Needs Fabric Loader 0.18.6+ and Java 25.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 18 }}>
+          <a className="btn green sm" href={DL_MOD}>DOWNLOAD THE MOD (.JAR)</a>
+          <a className="btn cream sm" href={GITHUB_MOD} target="_blank" rel="noreferrer">SOURCE &amp; NOTES</a>
+        </div>
+        <p style={{ marginTop: 14, fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.6 }}>
+          It is a separate download from the app. If you just want to host a server, the app above does more (Bedrock, backups, modpacks, friends-only).
+        </p>
+      </div>
+
+      <div className="panel gold tilt-l1" style={{ padding: '18px 22px', marginTop: 36, maxWidth: 720 }}>
         <span className="kicker" style={{ color: 'var(--ink-2)' }}>Heads up · Microsoft Store</span>
         <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
           Microsoft reviews every Store update before it goes out, so a new version reaches the Store about a day after it is released here. If you got VoxelPort from the Store and the new version isn’t there yet, it is on its way.

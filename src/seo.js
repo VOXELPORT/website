@@ -89,7 +89,7 @@ export const PAGES = {
     ],
     points: [
       'Who: Garv Verma (Trazverse), student developer, India',
-      'How it started: a Fabric mod that grew into a desktop app and an Android beta',
+      'How it started: a Fabric mod that grew into a desktop app and an Android beta (the mod is back, too)',
       'How it is made: AI-assisted (vibe-coded), open source, tested',
       'Comes from Local Miner (github.com/LocalMiner), whose developer Aditya inspired it',
       'Server managed by Akshat Mehta (nerkoux), an all-time friend',

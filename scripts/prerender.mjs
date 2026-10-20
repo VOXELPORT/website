@@ -157,6 +157,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
   '- Download: Microsoft Store (https://apps.microsoft.com/detail/9NGRX9CFNBD6), the Windows installer directly (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe) or GitHub releases incl. Linux (https://github.com/VOXELPORT/VoxelPort-App/releases/latest). Android app (host from a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',
+  '- Fabric mod (optional, Minecraft 26.1 to 26.3, Fabric Loader 0.18.6+, Java 25): adds an "Open to VoxelPort" pause-menu button and /voxelport start for Fabric servers. Download: https://github.com/VOXELPORT/VoxelPort/releases/latest/download/VoxelPort-Fabric.jar',
   '',
   '## Guides',
   '',
