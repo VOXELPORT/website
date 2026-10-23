@@ -1,0 +1,17 @@
+.motd-page { padding-top: 50px; padding-bottom: 80px; }
+.motd-page > p { max-width: 780px; margin: 20px 0 30px; }
+.motd-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.motd-card { border: 2px solid currentColor; padding: 24px; min-width: 0; box-shadow: 5px 5px 0 #222; }
+.motd-card label { display: block; font-weight: bold; margin: 12px 0; }
+.motd-card textarea, .motd-card input:not([type=color]), .motd-card select { display: block; width: 100%; box-sizing: border-box; padding: 10px; color: #222; background: #fffaf0; border: 2px solid #333; margin-top: 8px; font: inherit; }
+.motd-card textarea { font-family: monospace; resize: vertical; }
+.motd-card p { font-size: 14px; line-height: 1.6; margin: 16px 0; }
+.motd-swatches, .motd-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.motd-swatches button { width: 30px; height: 30px; border: 2px solid #777; cursor: pointer; }
+.motd-actions button { padding: 8px 12px; border: 2px solid #222; background: #f6cb2f; color: #222; cursor: pointer; font: inherit; }
+.motd-card button:focus-visible { outline: 3px solid #0066cc; outline-offset: 3px; }
+.motd-preview { background: #252525; border: 3px solid #777; padding: 18px; font-family: monospace; font-size: 16px; text-shadow: 2px 2px #111; margin-top: 18px; overflow-wrap: anywhere; }
+.motd-server-name { color: white; margin-bottom: 5px; }
+.motd-server-name > span { color: #aaa; float: right; font-size: 13px; }
+.motd-lines { white-space: pre-wrap; min-height: 48px; line-height: 24px; }
+@media (max-width: 800px) { .motd-layout { grid-template-columns: 1fr; } .motd-card { padding: 16px; } }

@@ -28,6 +28,7 @@ const NAV = [['Home', '/'], ['Features', '/features'], ['Compare', '/compare'], 
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
 const EXTRA = {
+  motd: () => ['<p>Create two-line MOTDs with 16 Minecraft colors, custom hex colors, gradients, bold, italic, underline, strikethrough and obfuscated text. Use the live preview, then copy or download a server.properties snippet. The editor runs in your browser.</p>'],
   home: () => [
     '<h2>How it works</h2><ol>' + STEPS.map((x) => `<li><b>${esc(x.title)}</b>: ${esc(x.desc)}</li>`).join('') + '</ol>',
     '<p><a href="/features">All features</a> · <a href="/faq">FAQ</a> · <a href="/compare">Compare</a> · <a href="/download">Download</a></p>',

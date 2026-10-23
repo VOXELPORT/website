@@ -5,6 +5,7 @@ import StatusPage from './StatusPage.jsx';
 import ServersPage from './ServersPage.jsx';
 import GuidesPage from './GuidesPage.jsx';
 import Landing from './Landing.jsx';
+import MotdPage from './MotdPage.jsx';
 import { FeaturesPage, ComparePage, FaqPage, DownloadPage, SupportPage, CommunityPage, AboutPage, TeamPage } from './MorePages.jsx';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
@@ -39,6 +40,7 @@ if (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, ''
 }
 
 const SIMPLE_ROUTES = {
+  '/motd': 'motd',
   '/legal': 'legal', '/status': 'status', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
   '/support': 'support', '/community': 'community', '/about': 'about', '/team': 'team',
@@ -81,6 +83,7 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  if (page === 'motd') return <MotdPage onBack={goHome} />;
   if (page === 'features') return <FeaturesPage onBack={goHome} />;
   if (page === 'compare') return <ComparePage onBack={goHome} />;
   if (page === 'faq') return <FaqPage onBack={goHome} />;

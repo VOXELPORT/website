@@ -12,7 +12,7 @@ export const DISCORD_PERKS = [
   {
     sprite: 'head1',
     title: 'HELP & SETUP',
-    desc: 'Stuck on a crash, a port or a modpack? Open a ticket in #open-a-ticket. A private channel opens, the VoxelPort bot answers in English, Hindi or Hinglish and can read your screenshots, and I step in if it cannot fix it.',
+    desc: 'Stuck on a crash, a port or a modpack? Export an error report from the desktop app and attach it to a ticket in #open-a-ticket. The bot answers first and reads logs and screenshots. Press “I need a person for this” to stop AI replies and request our team.',
   },
   {
     sprite: 'bolt',

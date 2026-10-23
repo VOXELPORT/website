@@ -3,6 +3,7 @@ import { EXAMPLE_ADDR } from './data.js';
 
 /** The links every page's nav shares. (The Discord button is added by Nav itself.) */
 export const SITE_NAV = [
+  ['MOTD Editor', '/motd'],
   ['Features', '/features'],
   ['Guides', '/guides'],
   ['Servers', '/servers'],
