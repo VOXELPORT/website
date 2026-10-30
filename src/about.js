@@ -59,7 +59,7 @@ export const ABOUT = [
     title: 'THE PROBLEM.',
     paras: [
       'I wanted to play Minecraft with my friends on a server running on my own PC. That means port forwarding, and on most Indian connections (Jio, Airtel, hostel Wi-Fi) it simply does not work, because many customers share one public IP address (CGNAT). The usual answers were paying for hosting or waiting in a free host’s queue.',
-      'So I built a way around it. The first version of VoxelPort was a small Fabric mod. It grew into a desktop app for Windows and Linux that creates the server, installs Java, and puts the server online through a relay. Then came the Microsoft Store version, a Discord community, and an Android app (still in beta) that hosts a server from a phone. The Fabric mod is back too, for Minecraft 26.1 to 26.3, if you would rather open your world from inside the game.',
+      'So I built a way around it. The first version of VoxelPort was a small Fabric mod. It grew into a desktop app for Windows and Linux that creates the server, installs Java, and puts the server online through a relay. Then came the Microsoft Store version, a Discord community, and an Android app (still in beta) that hosts a server from a phone.',
       'One early lesson: my own internet routed relay traffic through another country, which made the ping about 151 ms. Adding a direct route to the relay, with an automatic fallback, brought it down to about 13 ms. Most of the work since has been this kind of problem.',
     ],
   },

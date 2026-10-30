@@ -120,7 +120,7 @@ body { background: var(--paper); }
 .v3-demo-footer { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 24px; color: #78836d; font-size: 9px; }
 .v3-demo-caption { text-align: center; font-size: 11px; margin-top: 30px; color: #6a765d; }
 .v3-demo-caption > span { font-size: 25px; margin-right: 8px; }
-.v3-platforms { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.v3-platforms { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .v3-platform { display: block; padding: 28px 22px; text-decoration: none; border-right: 1px solid var(--rule); transition: background .18s; }
 .v3-platform:last-child { border-right: none; }
 .v3-platform:hover, .v3-platform.recommended { background: #edf1e5; }

@@ -192,15 +192,6 @@ export const GUIDES_META = [
     kicker: 'Deutsch · Kostenlos',
     blurb: 'So hostest du einen Minecraft-Server von zu Hause, ohne Ports im Router freizugeben, auch bei DS-Lite oder CGNAT.',
   },
-  {
-    slug: 'voxelport-fabric-mod-install-guide',
-    category: 'setup',
-    title: 'VoxelPort Fabric Mod: Install and Use (MC 26.1-26.3)',
-    short: 'Fabric mod guide',
-    description: 'Install the VoxelPort Fabric mod for Minecraft 26.1 to 26.3: an Open to VoxelPort pause-menu button and /voxelport start to put your world online.',
-    kicker: 'Fabric mod · Free',
-    blurb: 'Install the VoxelPort Fabric mod, press Open to VoxelPort, and your friends can join: steps, commands, regions and fixes.',
-  },
 ];
 
 export const guidePath = (g) => `/guides/${g.slug}`;

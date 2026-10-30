@@ -5,9 +5,6 @@ import { useEffect, useState } from 'react';
 export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
 export const INSTAGRAM = 'https://www.instagram.com/voxelport.in/';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
-// The Fabric mod (Minecraft 26.1 to 26.3): a separate download from the app. The jar has a fixed name on every release.
-export const GITHUB_MOD = 'https://github.com/VOXELPORT/VoxelPort';
-export const DL_MOD = 'https://github.com/VOXELPORT/VoxelPort/releases/latest/download/VoxelPort-Fabric.jar';
 export { DISCORD } from './community.js';
 export const DL_STORE = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 // Direct Windows installer from GitHub (not code-signed yet, so SmartScreen warns once).
