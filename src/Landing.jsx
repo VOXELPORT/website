@@ -1,273 +1,51 @@
-import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
-import {
-  SPRITES, useRelayStatus, useLatestReleases,
-  DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP,
-} from './data.js';
-import { navigate } from './seo.js';
-import { SITE_NAV, TICKER, FEATURES, STEPS, EXPLORE } from './content.js';
+import { useState } from 'react';
+import { Nav, Footer, DiscordIcon } from './ui.jsx';
+import { useDetectedOS, DL_WIN, DL_LINUX, DL_ANDROID, DL_STORE, GITHUB_APP, DISCORD } from './data.js';
+import { navigate, isModifiedClick } from './seo.js';
+import { SITE_NAV } from './content.js';
+import World from './World.jsx';
 
-// The home page is the short version: what it is, how it works, the six things that matter, where to
-// get it, and the Discord. Everything else lives on its own page (see EXPLORE) so nobody has to scroll
-// through it all to find the download button.
-
-const HOME_FEATURES = FEATURES.filter((f) => f.home);
-
-// ─── Pieces ───────────────────────────────────────────────────────────────────
-
-function Title({ children, className = '', style }) {
-  return <span className={`c-title ${className}`} data-text={children} style={style}>{children}</span>;
+const go = (href) => (e) => { if (isModifiedClick(e)) return; e.preventDefault(); navigate(href); window.scrollTo(0, 0); };
+function Arrow() { return <span aria-hidden="true">↗</span>; }
+function Icon({ kind, size = 24 }) {
+  const paths = {
+    window: <path d="m3 5 8-1v7H3zm10-1 8-1v8h-8zM3 13h8v7l-8-1zm10 0h8v8l-8-1z" fill="currentColor" stroke="none" />,
+    cube: <path d="m12 2 9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10" />,
+    link: <path d="m10 13 4-4m-6 6-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2 2 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0" transform="translate(1 1)" />,
+    shield: <><path d="m12 2 8 3v6c0 5-8 11-8 11S4 16 4 11V5z" /><path d="m8 11 3 3 5-6" /></>,
+    phone: <><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M10 18h4M10 5h4" /></>,
+    code: <path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20" />,
+  };
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[kind] || paths.cube}</svg>;
 }
-
-/** The comic panel in the hero: host → relay → players, with packets moving. */
-function RelayPanel() {
-  const lines = ['M 92 150 L 236 150', 'M 290 150 L 390 64', 'M 290 150 L 404 150', 'M 290 150 L 390 236'];
-  const colors = ['#5FAE3B', '#C8262B', '#F6CB2F', '#43C8D8'];
-  return (
-    <svg viewBox="0 0 480 300" width="100%" style={{ display: 'block' }} aria-label="Your server connects out to the VoxelPort relay; players connect to the relay">
-      <rect width="480" height="300" fill="#FFFBF2" />
-      <g opacity=".5">{Array.from({ length: 16 }, (_, i) => <line key={i} x1={i * 32} y1="0" x2={i * 32} y2="300" stroke="#E8DCC5" strokeWidth="1" />)}</g>
-      <rect x="0" y="246" width="480" height="54" fill="#E8DCC5" />
-      {lines.map((d) => (
-        <path key={d} d={d} stroke="#15120F" strokeWidth="3" strokeDasharray="8 7" fill="none">
-          <animate attributeName="stroke-dashoffset" from="30" to="0" dur="1s" repeatCount="indefinite" />
-        </path>
-      ))}
-      {lines.map((d, i) => (
-        <rect key={`p${i}`} x="-7" y="-7" width="14" height="14" fill={colors[i]} stroke="#15120F" strokeWidth="3">
-          <animateMotion path={d} dur={i === 0 ? '1.4s' : '1.8s'} begin={`${i * 0.35}s`} repeatCount="indefinite" />
-        </rect>
-      ))}
-      <foreignObject x="18" y="96" width="80" height="120">
-        <div style={{ textAlign: 'center' }}>
-          <Pixels rows={SPRITES.house} size={5} />
-          <div className="pixel" style={{ fontSize: 11, marginTop: 4 }}>YOUR PC</div>
-        </div>
-      </foreignObject>
-      <foreignObject x="218" y="70" width="100" height="150">
-        <div style={{ textAlign: 'center' }} className="bob">
-          <Pixels rows={SPRITES.tower} size={7} />
-          <div className="pixel" style={{ fontSize: 11, marginTop: 4 }}>RELAY</div>
-        </div>
-      </foreignObject>
-      {[[SPRITES.head1, 42], [SPRITES.head2, 128], [SPRITES.head3, 214]].map(([rows, y], i) => (
-        <foreignObject key={i} x="396" y={y - 24} width="70" height="60">
-          <div style={{ textAlign: 'center' }}>
-            <Pixels rows={rows} size={5} />
-            <div className="pixel" style={{ fontSize: 10, marginTop: 1 }}>P{i + 1}</div>
-          </div>
-        </foreignObject>
-      ))}
-    </svg>
-  );
-}
-
-/** A link tile to another page of the site. */
-function ExploreCard({ e, i }) {
-  return (
-    <a className="panel guide-card explore-card" href={e.href} onClick={(ev) => { ev.preventDefault(); navigate(e.href); window.scrollTo(0, 0); }}
-      style={{ transform: `rotate(${[-.6, .5, -.3, .6][i % 4]}deg)` }}>
-      <div className="guide-card-top">
-        <span className="pixel" style={{ fontSize: 11 }}>{e.tag.toUpperCase()}</span>
-        <Pixels rows={SPRITES[e.sprite]} size={2.4} />
-      </div>
-      <h3 className="h-display">{e.title}</h3>
-      <p>{e.blurb}</p>
-      <span className="guide-card-more">OPEN →</span>
-    </a>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
+const walkthrough = [
+  { title: 'Make yourself at home.', text: 'Install VoxelPort on Windows, Linux, or Android. Join our Discord once. No other hoops to jump through.', screen: 'Choose your starting point', option: 'Create a new server', sub: 'Vanilla, Paper, or Fabric. Your call.', icon: 'cube' },
+  { title: 'Bring your world to life.', text: 'Create a fresh server or import the world you already love. VoxelPort takes care of Java and the setup.', screen: 'Your world, ready to go', option: 'Start your server', sub: 'Java and server files are handled for you.', icon: 'code' },
+  { title: 'Send the invite.', text: 'Copy your public server address. Friends add it in Minecraft Multiplayer and join with their normal game.', screen: 'A little address. A big adventure.', option: 'play.voxelport.in:26137', sub: 'Example address · yours appears in the app', icon: 'link' },
+];
+const questions = [
+  ['Is VoxelPort really free?', 'Yes. The app and relay are free and open source under the MIT license. Optional supporter perks help keep the project running. You can host and play without paying.'],
+  ['Do my friends need to install anything?', 'Only Minecraft. Players connect to your public address through Multiplayer. VoxelPort runs on the host’s device.'],
+  ['Can Java and Bedrock friends play together?', 'Yes. Enable Geyser and Floodgate in VoxelPort to let Bedrock players join your Java server. Check the guides for setup details and console connection options.'],
+  ['Does my computer need to stay on?', 'Yes. Your world runs on your own PC or Android phone, so that device and the server must stay running while friends play. Performance depends on your hardware and connection.'],
+];
 export default function Landing() {
-  const relay = useRelayStatus();
-  const rel = useLatestReleases();
-  const scrollTo = (hash) => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
-
-  return (
-    <div className="zine" id="top">
-      <Nav links={SITE_NAV} relay={relay} onLogo={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
-
-      {/* ═══ HERO — comic cover ═══ */}
-      <header className="hero wrap">
-        <div className="hero-top">
-          <span className="sticker tilt-l" style={{ lineHeight: 1.5 }}>
-            Issue #{rel.app ? rel.app.replace(/^v/, '') : '1.3'}<br />Oct 2026<br /><span style={{ color: 'var(--red)' }}>Free · No signup</span>
-          </span>
-          <span className="sticker gold tilt-r hero-flag" style={{ fontFamily: 'var(--display)', fontSize: 22, letterSpacing: '.04em', padding: '10px 16px 8px' }}>
-            NO PORT FORWARDING!
-          </span>
-        </div>
-
-        <h1 className="hero-title">
-          <span className="sr-only">VoxelPort — free Minecraft server hosting from your PC or Android phone, no port forwarding</span>
-          <span aria-hidden="true"><Title>VOXEL</Title><Title className="green">PORT</Title></span>
-        </h1>
-
-        <div className="hero-grid">
-          <div className="hero-left">
-            <div className="bubble tail-r">
-              <div className="kicker" style={{ textAlign: 'right' }}>Hey, host!</div>
-              <p className="h-display" style={{ fontSize: 'clamp(30px, 3.6vw, 44px)', textAlign: 'right', marginTop: 8 }}>
-                HOST ANY SERVER.<br /><span style={{ color: 'var(--red)' }}>ROUTER STAYS SHUT.</span>
-              </p>
-            </div>
-            <div className="hero-ctas">
-              <a className="btn tilt-l1" href="#download" onClick={(e) => { e.preventDefault(); scrollTo('#download'); }}>DOWNLOAD THE APP</a>
-              <DiscordButton className="tilt-r1">JOIN THE DISCORD</DiscordButton>
-            </div>
-          </div>
-
-          <div className="hero-panel-wrap">
-            <div className="burst" style={{ inset: '-14% -10%', zIndex: 0 }} />
-            <figure className="panel hero-panel">
-              <RelayPanel />
-              <figcaption className="pixel" style={{ position: 'absolute', left: 14, bottom: 14, background: 'var(--ink)', color: 'var(--paper)', fontSize: 12, padding: '6px 10px' }}>
-                THE RELAY — PLAY.VOXELPORT.IN
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="hero-right">
-            <div className="panel gold" style={{ padding: '18px 20px' }}>
-              <div className="kicker" style={{ color: 'var(--ink-2)' }}>Meanwhile, in your world…</div>
-              <p style={{ marginTop: 8, fontWeight: 600, fontSize: 16.5, lineHeight: 1.5 }}>
-                Your friends paste one address into vanilla Minecraft and they’re in. No mods on their side, no account, no router settings.
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 22 }}>
-              <span className="chip tilt-l1">PC + ANDROID</span>
-              <span className="chip tilt-r1">AUTO JAVA</span>
-              <span className="chip tilt-r1">OPEN SOURCE</span>
-              <span className="chip tilt-l1">FREE</span>
-            </div>
-            <a href="/status" onClick={(e) => { e.preventDefault(); navigate('/status'); }} className="panel" style={{ display: 'block', marginTop: 22, padding: '12px 16px', textDecoration: 'none', boxShadow: 'var(--shadow-sm)' }}>
-              <div className="typewriter" style={{ fontSize: 14, lineHeight: 1.6 }}>
-                <span style={{ color: 'var(--red)', fontWeight: 700 }}>RELAY LOG: </span>
-                {relay.state === 'loading' && 'checking the relay…'}
-                {relay.state === 'offline' && 'relay unreachable right now.'}
-                {relay.state === 'online' && <>online · {relay.tunnels} {relay.tunnels === 1 ? 'server' : 'servers'} hosting · {relay.players} {relay.players === 1 ? 'player' : 'players'} connected.</>}
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-turn typewriter">TURN THE PAGE ↓</div>
-      </header>
-
-      {/* ═══ TICKER ═══ */}
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          {[0, 1].map((k) => (
-            <div key={k} className="ticker-item">
-              {TICKER.map((t) => <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 28 }}>{t.toUpperCase()} <i>■</i></span>)}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ═══ HOW IT WORKS ═══ */}
-      <section className="section" id="how">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">The plan</span>
-            <h2 className="h-display h-section">ZERO TO ONLINE IN FOUR PANELS.</h2>
-          </div>
-          <div className="grid-4">
-            {STEPS.map((s, i) => (
-              <div key={s.n} className="panel" style={{ padding: '20px 18px 22px', position: 'relative', transform: `rotate(${i % 2 ? .8 : -.8}deg)` }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span className="c-title" data-text={s.n} style={{ fontSize: 64, '--title-off': '5px', '--title-stroke': '3px' }}>{s.n}</span>
-                  <Pixels rows={SPRITES[s.sprite]} size={3.4} />
-                </div>
-                <h3 className="h-display" style={{ fontSize: 30, marginTop: 10 }}>{s.title}</h3>
-                <p style={{ marginTop: 8, fontSize: 15, lineHeight: 1.55, color: 'var(--ink-2)', overflowWrap: 'anywhere' }}>{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ THE SIX THAT MATTER ═══ */}
-      <section className="section band" id="why">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">The powers</span>
-            <h2 className="h-display h-section">EVERYTHING THE HOST NEEDS.<br /><span style={{ color: 'var(--red)' }}>NOTHING THE PLAYER INSTALLS.</span></h2>
-          </div>
-          <div className="grid-3">
-            {HOME_FEATURES.map((f, i) => (
-              <article key={f.title} className="panel feat" style={{ position: 'relative', transform: `rotate(${[-1.2, .8, -.6, 1, -.9, .7][i % 6]}deg)` }}>
-                <span className="sticker red feat-num" style={{ transform: 'rotate(4deg)' }}>#{String(i + 1).padStart(2, '0')}</span>
-                <div style={{ height: 56, display: 'flex', alignItems: 'center' }}><Pixels rows={SPRITES[f.sprite]} size={4.4} /></div>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-              </article>
-            ))}
-          </div>
-          <div className="page-cta" style={{ justifyContent: 'center', marginTop: 44 }}>
-            <a className="btn cream" href="/features" onClick={(e) => { e.preventDefault(); navigate('/features'); window.scrollTo(0, 0); }}>SEE ALL {FEATURES.length} FEATURES →</a>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ DOWNLOAD ═══ */}
-      <section className="section" id="download" style={{ textAlign: 'center' }}>
-        <div className="wrap">
-          <span className="kicker">Get it</span>
-          <h2 style={{ marginTop: 12, fontSize: 'clamp(70px, 13vw, 170px)' }}>
-            <Title>GET IT!</Title>
-          </h2>
-          <p className="lede" style={{ margin: '22px auto 0' }}>
-            One app — on your PC or your Android phone — hosts any Minecraft Java server. Players always join with vanilla Minecraft.
-          </p>
-          <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, textAlign: 'left', maxWidth: 640, marginInline: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-              <span className="kicker" style={{ color: 'var(--grass-dk)' }}>PC &amp; Android app</span>
-              <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>NOW ON MICROSOFT STORE</span>
-              <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
-            </div>
-            <h3 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>HOST ANY SERVER</h3>
-            <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
-              <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
-              <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
-              <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
-              <a className="btn gold sm" href={DL_ANDROID}>ANDROID · BETA APK</a>
-              <a className="btn cream sm" href="/download#fabric-mod" onClick={(e) => { e.preventDefault(); navigate('/download#fabric-mod'); }}>FABRIC MOD · 26.1–26.3</a>
-              <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
-              <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
-            </div>
-            <p style={{ marginTop: 14, fontSize: 13, lineHeight: 1.5, color: 'var(--muted)' }}>
-              Windows may say “Windows protected your PC” on the direct .exe — click <b>More info → Run anyway</b>.
-              <br /><b>Store updates take about a day:</b> Microsoft reviews each one first. The direct .exe is always the newest.
-              <br /><b>The Android app is a beta:</b> it still has bugs. For a server that stays up, use the PC app.
-              {' '}<a href="/download" onClick={(e) => { e.preventDefault(); navigate('/download'); window.scrollTo(0, 0); }} style={{ color: 'inherit' }}>All install notes →</a>
-            </p>
-          </div>
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 44 }}>
-            {['No signup', 'Open source · MIT', 'Vanilla clients join'].map((b, i) => (
-              <span key={b} className="sticker" style={{ transform: `rotate(${[-2, 1.5, -1][i]}deg)` }}>{b}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ EXPLORE — one tile per page ═══ */}
-      <section className="section band" id="explore">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="kicker">More to read</span>
-            <h2 className="h-display h-section">THE REST OF THE ZINE.</h2>
-            <p className="lede" style={{ marginTop: 10 }}>Pick what you came for. Each one is its own short page.</p>
-          </div>
-          <div className="grid-4">
-            {EXPLORE.map((e, i) => <ExploreCard key={e.href} e={e} i={i} />)}
-          </div>
-        </div>
-      </section>
-
-      <Footer onHome={(hash) => scrollTo(hash)} />
-    </div>
-  );
+  const os = useDetectedOS();
+  const [step, setStep] = useState(0);
+  const selected = walkthrough[step];
+  const cta = os === 'android' ? 'Get it for Android' : os === 'linux' ? 'Download for Linux' : 'Download for Windows';
+  const download = os === 'android' ? DL_ANDROID : os === 'linux' ? DL_LINUX : DL_WIN;
+  return <div className="hb v3" id="top"><Nav links={SITE_NAV} /><main id="main-content" tabIndex={-1}>
+    <section className="v3-hero hb-wrap"><div className="v3-hero-copy"><p className="v3-eyebrow"><span className="v3-tiny-cube" /> SMALL APP. BIG ADVENTURES.</p><h1>Your world.<br />Your rules.<br /><span>Friends included.</span></h1><p className="v3-lede">Turn your PC or Android phone into a Minecraft server. Bring your friends. We’ll handle the connection.</p><div className="v3-actions"><a className="hb-btn hb-btn-solid" href={download} onClick={os === 'android' ? go(download) : undefined}><Icon kind={os === 'android' ? 'phone' : os === 'linux' ? 'code' : 'window'} size={18} />{cta}<span aria-hidden="true">↓</span></a><a className="v3-underlink" href="/download" onClick={go('/download')}>All platforms <Arrow /></a></div><p className="v3-free"><span>✓</span> Free & open source <i /> Join our Discord to host</p></div><div className="v3-world"><div className="v3-world-grid" /><span className="v3-world-tag">A WORLD WORTH SHARING</span><World /><div className="v3-world-note"><span className="v3-note-icon"><Icon kind="link" size={18} /></span><div><strong>Less setup. More survival.</strong><span>No port forwarding. No router drama.</span></div></div><span className="v3-world-coordinate">OVERWORLD / 01</span></div></section>
+    <div className="v3-proof"><div className="hb-wrap">{['No port forwarding', 'Your hardware, your world', 'Java + Bedrock', 'Made to be open'].map((text) => <span key={text}><span aria-hidden="true">✳</span>{text}</span>)}</div></div>
+    <section className="v3-section hb-wrap" id="why"><div className="v3-section-heading"><div><p className="v3-eyebrow">LESS FRICTION. MORE MINECRAFT.</p><h2>Good worlds deserve<br />good company.</h2></div><p>From the first dirt hut to your next big build.<br className="v3-desktop-break" /> VoxelPort gets everyone into the same world.</p></div><div className="v3-features">
+      <article className="v3-feature v3-feature-green"><div className="v3-feature-top"><span className="v3-feature-icon"><Icon kind="link" /></span><span>01 / CONNECT</span></div><div className="v3-connection-art" aria-hidden="true"><span><Icon kind="cube" size={32} /></span><i /><span className="v3-connection-center">V<span>↗</span></span><i /><span><Icon kind="cube" size={32} /></span></div><h3>Skip the router rituals.</h3><p>A public address for your server, without port forwarding. Works behind CGNAT and on networks you don’t control.</p></article>
+      <article className="v3-feature v3-feature-peach"><div className="v3-feature-top"><span className="v3-feature-icon"><Icon kind="cube" /></span><span>02 / PLAY TOGETHER</span></div><div className="v3-crossplay-art" aria-hidden="true"><span>JAVA</span><span>+</span><span>BEDROCK</span></div><h3>Different devices. Same dirt.</h3><p>Enable Geyser + Floodgate for crossplay. Your friends join with their usual Minecraft. No extra client app.</p></article>
+      <article className="v3-feature v3-feature-cream"><div className="v3-feature-top"><span className="v3-feature-icon"><Icon kind="shield" /></span><span>03 / KEEP CONTROL</span></div><div className="v3-control-art" aria-hidden="true"><span>YOUR WORLD</span><div><span>Mods</span><b>✓</b></div><div><span>Server files</span><b>✓</b></div></div><h3>Your server means yours.</h3><p>Vanilla, Paper, Fabric, or your own server. Keep your files on your hardware, with the freedom to make it your own.</p></article>
+    </div><a className="v3-underlink v3-feature-link" href="/features" onClick={go('/features')}>A closer look at the features <Arrow /></a></section>
+    <section className="v3-how" id="how"><div className="hb-wrap v3-how-grid"><div><p className="v3-eyebrow">FROM “WHEN ARE WE PLAYING?” TO PLAYING.</p><h2>Three steps.<br />Then, adventure.</h2><div className="v3-step-list" role="tablist" aria-label="Setup steps" aria-orientation="vertical">{walkthrough.map((item, i) => <button id={`step-${i}`} role="tab" aria-selected={step === i} aria-controls="step-panel" key={item.title} className={`v3-step ${step === i ? 'selected' : ''}`} onClick={() => setStep(i)} onKeyDown={(e) => { if (['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(e.key)) { e.preventDefault(); const next = e.key === 'Home' ? 0 : e.key === 'End' ? 2 : (i + (['ArrowDown', 'ArrowRight'].includes(e.key) ? 1 : 2)) % 3; setStep(next); document.getElementById(`step-${next}`)?.focus(); } }} tabIndex={step === i ? 0 : -1}><span className="v3-step-number">0{i + 1}</span><span><strong>{item.title}</strong>{step === i && <span className="v3-step-desc">{item.text}</span>}</span><span className="v3-step-arrow" aria-hidden="true">↗</span></button>)}</div></div><div className="v3-demo-wrap"><div className="v3-demo" id="step-panel" role="tabpanel" aria-labelledby={`step-${step}`} tabIndex={0}><div className="v3-demo-bar"><span /><span /><span /><b>VoxelPort</b><small>ILLUSTRATIVE PREVIEW</small></div><div className="v3-demo-body"><span className="v3-demo-logo"><Icon kind={selected.icon} size={32} /></span><h3>{selected.screen}</h3><p>{step === 0 ? 'Every great world starts somewhere.' : step === 1 ? 'One click closer to your next adventure.' : 'Share it. Open Minecraft. See you there.'}</p><div className="v3-demo-option"><Icon kind={selected.icon} /><div><strong>{selected.option}</strong><span>{selected.sub}</span></div><span aria-hidden="true">↗</span></div>{step === 0 && <div className="v3-demo-secondary"><Icon kind="code" size={20} /> Import an existing world <span>↗</span></div>}<div className="v3-demo-footer"><Icon kind="shield" size={14} /> Your files stay on your device.</div></div></div><p className="v3-demo-caption"><span aria-hidden="true">↳</span> You host the world. We open the door.</p></div></div></section>
+    <section className="v3-section hb-wrap v3-download" id="download"><div className="v3-section-heading"><div><p className="v3-eyebrow">PICK YOUR PLATFORM</p><h2>Your next session<br />starts here.</h2></div><p>One download for the host.<br />Just Minecraft for everyone else.</p></div><div className="v3-platforms"><a href={DL_WIN} className={`v3-platform ${os === 'windows' ? 'recommended' : ''}`}><Icon kind="window" size={30} /><h3>Windows</h3><p>The desktop adventure starts here.</p><span>Download .exe <span aria-hidden="true">↓</span></span></a><a href={DL_LINUX} className={`v3-platform ${os === 'linux' ? 'recommended' : ''}`}><Icon kind="code" size={30} /><h3>Linux</h3><p>Your distro. Your server. Your way.</p><span>Download .tar.gz <span aria-hidden="true">↓</span></span></a><a href={DL_ANDROID} onClick={go(DL_ANDROID)} className={`v3-platform ${os === 'android' ? 'recommended' : ''}`}><Icon kind="phone" size={30} /><h3>Android <small>BETA</small></h3><p>A whole world in your pocket.</p><span>Get the install guide <Arrow /></span></a><a href="/download#fabric-mod" onClick={go('/download#fabric-mod')} className="v3-platform"><Icon kind="cube" size={30} /><h3>Fabric mod</h3><p>Open your world from the game.</p><span>Explore the mod <Arrow /></span></a></div><p className="v3-download-note">Prefer the Microsoft Store? <a href={DL_STORE} target="_blank" rel="noreferrer">Get VoxelPort there <Arrow /></a><span>Installation help, requirements, and release notes on the <a href="/download" onClick={go('/download')}>download page</a>.</span></p></section>
+    <section className="v3-community hb-wrap"><div><p className="v3-eyebrow">BUILT IN THE OPEN. BETTER TOGETHER.</p><h2>A small project.<br />An open invitation.</h2><p>Made for the people who just want to play together. Find your people, share your builds, or help make VoxelPort better.</p><div className="v3-actions"><a className="hb-btn hb-btn-solid" href={DISCORD} target="_blank" rel="noopener noreferrer"><DiscordIcon size={20} />Meet us on Discord <Arrow /></a><a className="v3-underlink" href={GITHUB_APP} target="_blank" rel="noreferrer">Explore the source <Arrow /></a></div></div><div className="v3-community-art" aria-hidden="true"><span className="v3-pixel-heart">♥</span><span>BUILT FOR<br />THE MULTIPLAYER<br />MEMORIES.</span><span className="v3-community-stamp">FREE · OPEN SOURCE · YOURS</span></div></section>
+    <section className="v3-section hb-wrap v3-faq"><div><p className="v3-eyebrow">BEFORE YOU DIG IN</p><h2>A few good<br />questions.</h2><a className="v3-underlink" href="/faq" onClick={go('/faq')}>The full FAQ <Arrow /></a></div><div>{questions.map(([q, a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section><div className="v3-final hb-wrap"><span className="v3-tiny-cube" /><p>The best part of Minecraft is who you share it with.</p><a href="/download" onClick={go('/download')}>Let’s get you connected <Arrow /></a></div>
+  </main><Footer band={false} /></div>;
 }

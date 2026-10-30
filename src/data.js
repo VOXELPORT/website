@@ -84,6 +84,19 @@ export function useLatestReleases() {
   return v;
 }
 
+/** Detects visitor OS ('windows' | 'android' | 'linux' | 'macos') for primary download CTAs. */
+export function useDetectedOS() {
+  const [os] = useState(() => {
+    if (typeof navigator === 'undefined') return 'windows';
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (ua.includes('android')) return 'android';
+    if (ua.includes('mac os') || ua.includes('macintosh') || ua.includes('iphone') || ua.includes('ipad')) return 'macos';
+    if (ua.includes('linux')) return 'linux';
+    return 'windows';
+  });
+  return os;
+}
+
 // ─── Pixel art ────────────────────────────────────────────────────────────────
 
 export const PAL = {

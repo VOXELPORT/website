@@ -11,7 +11,7 @@ export const SITE_NAV = [
   ['Support', '/support'],
 ];
 
-export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'No signup', 'Open source', 'Free forever'];
+export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'Players need no account', 'Open source', 'Free forever'];
 
 export const PATHS = [
   {
@@ -31,7 +31,7 @@ export const FEATURES = [
   { sprite: 'bolt', title: 'INSTANT RELAY', desc: 'Your server dials out to the relay and gets a public address in seconds. No DNS, no static IP, no router.', home: true },
   { sprite: 'grass', title: 'VANILLA CLIENTS', desc: 'Friends join with plain Minecraft. No client mods, no launchers, no patches — ever.', home: true },
   { sprite: 'lock', title: 'ROUTER STAYS SHUT', desc: 'Nothing to open on your side. Players connect to the relay, never to your home IP.' },
-  { sprite: 'card', title: 'NO SIGNUP', desc: 'No account, no login, no token to copy. A private device key is created on first run. (Discord is where we hang out, not a requirement.)' },
+  { sprite: 'card', title: 'FRIENDS NEED NOTHING', desc: 'Friends join with plain Minecraft: no account, no login, no mods. Hosts join our Discord server once to use the app, and a private device key is created on first run. Free, with no card.' },
   { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Hosts connect straight to the relay for ~10–20 ms pings, and fall back to Cloudflare automatically if a network blocks it.' },
   { sprite: 'heart', title: 'FREE & OPEN', desc: 'MIT-licensed app and relay. Read the code, fork it, or run your own relay.', home: true },
   { sprite: 'house', title: 'YOUR ADDRESS', desc: 'Every server gets a free address like play.voxelport.in:26137. Supporters can claim yourname.voxelport.in, with no port number.', home: true },
@@ -40,14 +40,14 @@ export const FEATURES = [
 ];
 
 export const STEPS = [
-  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows, Linux or Android. No account needed.', sprite: 'grass' },
+  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows, Linux or Android. Free, and you join our Discord once.', sprite: 'grass' },
   { n: '2', title: 'HIT START', desc: 'Create or import a server and press Start. Java is handled for you.', sprite: 'bolt' },
   { n: '3', title: 'COPY ADDRESS', desc: `VoxelPort hands you an address like ${EXAMPLE_ADDR}.`, sprite: 'card' },
   { n: '4', title: 'FRIENDS JOIN', desc: 'They paste it into Multiplayer → Add Server. That’s it.', sprite: 'heart' },
 ];
 
 export const RIVALS = [
-  { name: 'VoxelPort', tag: 'Made for MC', note: 'Built for Minecraft only. Vanilla clients, no signup, one simple app, fully open source.', verdict: '✓ The right tool', us: true },
+  { name: 'VoxelPort', tag: 'Made for MC', note: 'Built for Minecraft only. Vanilla clients, no signup for friends, one simple app, fully open source.', verdict: '✓ The right tool', us: true },
   { name: 'playit.gg', tag: 'General tunnel', note: 'Works for lots of games, but it’s a generic agent with freemium limits and no Minecraft tuning.', verdict: '~ Freemium' },
   { name: 'ngrok', tag: 'Dev tunnel', note: 'Great for webhooks and HTTP. Clunky for game servers, and TCP sits behind paid tiers.', verdict: '~ Not for games' },
   { name: 'Port forwarding', tag: 'The old way', note: 'Needs router access, exposes your real IP and invites scans. Many ISPs block it anyway (CGNAT).', verdict: '✕ Risky' },
@@ -60,7 +60,7 @@ const P = (t) => ({ k: 'part', t });
 export const TABLE = [
   ['No port forwarding', Y, Y, Y, N],
   ['Vanilla clients', Y, Y, P('TCP only'), Y],
-  ['No signup', Y, P('Freemium'), P('Account'), Y],
+  ['No signup for players', Y, P('Freemium'), P('Account'), Y],
   ['Open source', Y, N, N, P('—')],
   ['Hides your home IP', Y, Y, Y, N],
   ['Sets up Java & server', Y, N, N, N],

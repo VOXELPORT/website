@@ -1,18 +1,35 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import LegalPage from './LegalPage.jsx';
-import StatusPage from './StatusPage.jsx';
-import ServersPage from './ServersPage.jsx';
-import GuidesPage from './GuidesPage.jsx';
 import Landing from './Landing.jsx';
-import MotdPage from './MotdPage.jsx';
-import { FeaturesPage, ComparePage, FaqPage, DownloadPage, SupportPage, CommunityPage, AboutPage, TeamPage } from './MorePages.jsx';
+import { Nav, Footer } from './ui.jsx';
+import { SITE_NAV } from './content.js';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
+import './v3.css';
+import './theme.css';
 
-// Smooth scrolling, matching the previous site feel.
+const LegalPage = lazy(() => import('./LegalPage.jsx'));
+const StatusPage = lazy(() => import('./StatusPage.jsx'));
+const ServersPage = lazy(() => import('./ServersPage.jsx'));
+const GuidesPage = lazy(() => import('./GuidesPage.jsx'));
+const MotdPage = lazy(() => import('./MotdPage.jsx'));
+
+const FeaturesPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.FeaturesPage })));
+const ComparePage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.ComparePage })));
+const FaqPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.FaqPage })));
+const DownloadPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.DownloadPage })));
+const SupportPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.SupportPage })));
+const CommunityPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.CommunityPage })));
+const AboutPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.AboutPage })));
+const TeamPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.TeamPage })));
+const NotFoundPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.NotFoundPage })));
+
+// Smooth scrolling, matching the site feel while respecting reduced-motion preferences.
 function useLenis() {
   useEffect(() => {
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (mq?.matches) return;
+
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
     let raf;
     const loop = (t) => { lenis.raf(t); raf = requestAnimationFrame(loop); };
@@ -49,10 +66,21 @@ const SIMPLE_ROUTES = {
 function routeFromPath() {
   if (typeof window === 'undefined') return 'home';
   const p = window.location.pathname.replace(/\/+$/, '');
+  if (p === '') return 'home';
   if (SIMPLE_ROUTES[p]) return SIMPLE_ROUTES[p];
   const m = p.match(/^\/guides\/([\w-]+)$/);
   if (m) return 'guide:' + m[1];
-  return 'home';
+  return 'notfound';
+}
+
+function PageFallback({ onBack }) {
+  return (
+    <div className="zine hb">
+      <Nav links={SITE_NAV} onLogo={onBack} />
+      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 120, minHeight: '60vh' }} />
+      <Footer />
+    </div>
+  );
 }
 
 export default function App() {
@@ -83,18 +111,26 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  if (page === 'motd') return <MotdPage onBack={goHome} />;
-  if (page === 'features') return <FeaturesPage onBack={goHome} />;
-  if (page === 'compare') return <ComparePage onBack={goHome} />;
-  if (page === 'faq') return <FaqPage onBack={goHome} />;
-  if (page === 'download') return <DownloadPage onBack={goHome} />;
-  if (page === 'support') return <SupportPage onBack={goHome} />;
-  if (page === 'community') return <CommunityPage onBack={goHome} />;
-  if (page === 'about') return <AboutPage onBack={goHome} />;
-  if (page === 'team') return <TeamPage onBack={goHome} />;
-  if (page === 'legal')  return <LegalPage onBack={goHome} />;
-  if (page === 'status') return <StatusPage onBack={goHome} />;
-  if (page === 'servers') return <ServersPage onBack={goHome} />;
-  if (page === 'guides' || page.startsWith('guide:')) return <GuidesPage slug={page.startsWith('guide:') ? page.slice(6) : null} onBack={goHome} />;
-  return <Landing />;
+  if (page === 'home') return <Landing />;
+
+  return (
+    <Suspense fallback={<PageFallback onBack={goHome} />}>
+      {page === 'motd' && <MotdPage onBack={goHome} />}
+      {page === 'features' && <FeaturesPage onBack={goHome} />}
+      {page === 'compare' && <ComparePage onBack={goHome} />}
+      {page === 'faq' && <FaqPage onBack={goHome} />}
+      {page === 'download' && <DownloadPage onBack={goHome} />}
+      {page === 'support' && <SupportPage onBack={goHome} />}
+      {page === 'community' && <CommunityPage onBack={goHome} />}
+      {page === 'about' && <AboutPage onBack={goHome} />}
+      {page === 'team' && <TeamPage onBack={goHome} />}
+      {page === 'legal' && <LegalPage onBack={goHome} />}
+      {page === 'status' && <StatusPage onBack={goHome} />}
+      {page === 'servers' && <ServersPage onBack={goHome} />}
+      {(page === 'guides' || page.startsWith('guide:')) && (
+        <GuidesPage slug={page.startsWith('guide:') ? page.slice(6) : null} onBack={goHome} />
+      )}
+      {page === 'notfound' && <NotFoundPage onBack={goHome} />}
+    </Suspense>
+  );
 }

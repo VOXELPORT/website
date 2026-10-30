@@ -1,18 +1,20 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import { SITE_NAV } from './content.js';
 import { SPRITES, DL_STORE } from './data.js';
-import { navigate } from './seo.js';
-import { GUIDES, findGuide, guidePath, guideToc } from './guides.js';
+import { navigate, isModifiedClick } from './seo.js';
+import { GUIDES_META, GUIDE_CATEGORIES, guidePath } from './guides-meta.js';
+import { findGuide, guideToc } from './guides.js';
 
 const SPRITE_FOR = ['grass', 'diamond', 'heart', 'bolt', 'tower', 'grass'];
 
 /** Same-site links inside the article HTML navigate without a page load. */
 function onArticleClick(e) {
+  if (isModifiedClick(e)) return;
   const a = e.target.closest('a');
   const href = a?.getAttribute('href');
   // /dl/ is a real file download served by the web server, not an app route.
-  if (!href || !href.startsWith('/') || href.startsWith('/dl/') || a.hasAttribute('download') || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  if (!href || !href.startsWith('/') || href.startsWith('/dl/') || a.hasAttribute('download')) return;
   e.preventDefault();
   navigate(href);
   window.scrollTo(0, 0);
@@ -34,29 +36,83 @@ function GuideCard({ g, i }) {
   );
 }
 
-export function GuideGrid({ guides = GUIDES }) {
-  return <div className="grid-3">{guides.map((g) => <GuideCard key={g.slug} g={g} i={GUIDES.indexOf(g)} />)}</div>;
+export function GuideGrid({ guides = GUIDES_META }) {
+  return <div className="grid-3">{guides.map((g, idx) => <GuideCard key={g.slug} g={g} i={idx} />)}</div>;
 }
 
-function GuidesIndex() {
+function GuidesIndex({ missingSlug }) {
+  const [cat, setCat] = useState('all');
+  const [q, setQ] = useState('');
+
+  const shown = useMemo(() => {
+    const needle = q.trim().toLowerCase();
+    return GUIDES_META.filter((g) => {
+      if (cat !== 'all' && g.category !== cat) return false;
+      if (!needle) return true;
+      return `${g.title} ${g.short} ${g.blurb} ${g.kicker} ${g.description}`.toLowerCase().includes(needle);
+    });
+  }, [cat, q]);
+
   return (
     <>
+      {missingSlug && (
+        <div className="panel gold" style={{ padding: '18px 22px', marginBottom: 32 }}>
+          <span className="kicker" style={{ color: 'var(--ink-2)' }}>404 · Guide not found</span>
+          <p style={{ marginTop: 6, fontWeight: 600 }}>
+            We couldn’t find a guide at <code className="typewriter">/guides/{missingSlug}</code>. Browse or search all {GUIDES_META.length} guides below.
+          </p>
+        </div>
+      )}
       <span className="kicker">Field manual · free guides</span>
       <h1 className="guide-hero">
         <span className="c-title" data-text="SERVER">SERVER</span><br />
         <span className="c-title green" data-text="GUIDES">GUIDES</span>
       </h1>
       <p className="lede" style={{ marginTop: 18 }}>
-        Plain-English guides to hosting a Minecraft server from your own PC: no port forwarding, Java and Bedrock together, and what to do when it crashes.
+        Plain-English guides to hosting a Minecraft server from your own PC or Android phone: no port forwarding, Java and Bedrock together, and what to do when it crashes.
       </p>
-      <div style={{ marginTop: 40 }}><GuideGrid /></div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 32, alignItems: 'center' }}>
+        {GUIDE_CATEGORIES.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={`btn sm ${cat === id ? '' : 'cream'}`}
+            onClick={() => setCat(id)}
+            aria-pressed={cat === id}
+          >
+            {label.toUpperCase()}
+          </button>
+        ))}
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search guides…"
+          aria-label="Search guides"
+          style={{ flex: '1 1 200px', minWidth: 0, border: '3px solid var(--ink)', padding: '10px 12px', font: 'inherit', background: 'var(--card)', boxShadow: '3px 3px 0 var(--ink)' }}
+        />
+      </div>
+
+      <div style={{ marginTop: 36 }}>
+        {shown.length > 0 ? (
+          <GuideGrid guides={shown} />
+        ) : (
+          <div className="panel" style={{ padding: '26px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+            <div>
+              <h2 className="h-display" style={{ fontSize: 32 }}>NO GUIDES MATCH THAT SEARCH</h2>
+              <p style={{ marginTop: 4, color: 'var(--ink-2)' }}>Try another keyword or show all {GUIDES_META.length} guides.</p>
+            </div>
+            <button type="button" className="btn sm cream" onClick={() => { setCat('all'); setQ(''); }}>SHOW ALL GUIDES</button>
+          </div>
+        )}
+      </div>
     </>
   );
 }
 
 function GuideArticle({ g }) {
   const toc = guideToc(g);
-  const related = GUIDES.filter((x) => x !== g).slice(0, 3);
+  const related = GUIDES_META.filter((x) => x.slug !== g.slug && (x.category === g.category || true)).slice(0, 3);
   return (
     <>
       <nav className="crumbs typewriter" aria-label="Breadcrumb">
@@ -113,10 +169,10 @@ export default function GuidesPage({ slug, onBack }) {
   }, [slug]);
 
   return (
-    <div className="zine">
-      <Nav links={SITE_NAV} relay={null} onLogo={back} />
-      <main className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>
-        {g ? <GuideArticle g={g} /> : <GuidesIndex />}
+    <div className="zine hb">
+      <Nav links={SITE_NAV} onLogo={back} />
+      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>
+        {g ? <GuideArticle g={g} /> : <GuidesIndex missingSlug={slug} />}
       </main>
       <Footer />
     </div>

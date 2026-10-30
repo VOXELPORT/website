@@ -28,10 +28,10 @@ export default function LegalPage({ onBack }) {
   const back = (e) => { e?.preventDefault(); onBack(e); };
 
   return (
-    <div className="zine">
+    <div className="zine hb">
       <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
-      <main className="wrap legal" style={{ maxWidth: 860, paddingTop: 60, paddingBottom: 100 }}>
+      <main id="main-content" tabIndex={-1} className="wrap legal" style={{ maxWidth: 860, paddingTop: 60, paddingBottom: 100 }}>
         <span className="kicker">The fine print</span>
         <h1 style={{ fontSize: 'clamp(60px, 10vw, 120px)', fontWeight: 400, lineHeight: .95, marginTop: 10 }}>
           <span className="c-title" data-text="LEGAL &">LEGAL &amp;</span><br />
@@ -87,8 +87,36 @@ export default function LegalPage({ onBack }) {
           <Table rows={[
             ['What', 'Contents', 'Purpose', 'Kept'],
             ['Device token', 'An auto-generated vp_… key', 'Identifies your host to the relay so you keep the same address', 'Until you delete it'],
+            ['Discord session', 'A random key from the accounts service', 'Keeps this app signed in with Discord', 'Until you sign out'],
+            ['Address backup (optional)', 'Your device token, locked on your device with a passphrase only you know', 'Lets you get the same address back on a new PC or phone', 'Until you delete it'],
             ['Settings', 'Relay URL, ports, your server list (app)', 'Remembers your setup', 'Until you delete it'],
           ]} />
+
+          <Sub color="var(--red)">Discord sign-in</Sub>
+          <p>
+            To host with the desktop or Android app you sign in with Discord and must be a member of the VoxelPort Discord server. Sign-in runs on
+            Discord’s own page; VoxelPort receives your permanent Discord ID, your display name and whether you are in the server. It
+            does not receive or keep your email address, your password or any Discord access token. The accounts service stores that ID, your
+            display name, your membership status, a hash of your app session and the 12-character ID of your device token. Players who
+            only join a server never sign in. Ask in the Discord server to have this data deleted.
+          </p>
+
+          <Sub color="var(--red)">Address backup</Sub>
+          <p>
+            Address backup is optional. When you use it, the app locks your device token with a passphrase you choose, on your own device,
+            and sends only the locked copy to the accounts service, which keeps one per account. VoxelPort cannot read it and cannot recover a
+            forgotten passphrase. You can delete the backup from the app at any time, or ask in the Discord server.
+          </p>
+
+          <Sub color="var(--red)">Linked servers, ranks and tips</Sub>
+          <p>
+            When you link a server to your account, the accounts service keeps its 12-character ID. For linked servers it records the number of
+            players, connections and bytes per minute (never player names or IP addresses) and deletes those counts after 30 days, to show you
+            your server’s insights. If you tip VoxelPort you pay in your own UPI app, so VoxelPort never sees your bank details or UPI PIN.
+            If you send us a UPI transaction ID to get a Supporter rank, we keep that ID, the amount, the dates and the rank you were given, so an
+            admin can check the tip by hand. A payment screenshot, if you send one, is private and deleted 60 days after it has been reviewed. Support requests
+            and community pages you create are kept with your account until you ask for them to be deleted.
+          </p>
 
           <Sub color="var(--red)">Sent to the relay</Sub>
           <p>
@@ -112,9 +140,18 @@ export default function LegalPage({ onBack }) {
             many bytes went through. It does <b>not</b> log IP addresses, player names, chat or any game content. On the Europe relay the server log is kept in memory only: it disappears when the server restarts and is never kept longer than 7 days. Until 20 October 2026 the system log of the India relay could also record the IP address of a connection that failed its secure handshake (for example a port scanner); that is no longer logged, and older entries are deleted when the server rotates its logs.
           </p>
 
+          <Sub color="var(--red)">Discord status</Sub>
+          <p>
+            If the Discord desktop app is running, the VoxelPort app shows a status line on your Discord profile while your server is
+            online, like “Hosting a Paper server · 3 players online”. It contains only the server type, the version and the number of
+            players online. Your server name, address and player names are never included. The app hands this to your own Discord app on
+            your computer; it is not sent to VoxelPort’s relay or website. Discord shows it to people who can see your profile, and its
+            own privacy policy applies. The line disappears when your server stops or the app closes.
+          </p>
+
           <Sub color="var(--red)">Never collected</Sub>
           <List items={[
-            'Passwords, emails or accounts of any kind',
+            'Your email address, your password or any Discord access token',
             'Minecraft chat, inventories, worlds or other game data',
             'Location, device fingerprints or hardware IDs',
             'Analytics, telemetry or crash reports from the app',
@@ -142,7 +179,7 @@ export default function LegalPage({ onBack }) {
           <p>
             There are <b>two relays: one in India and one in Europe</b> (a rented server there) — VoxelPort is free and self-funded, so that’s what we can run.
             The app picks the closer one for each host. Hosts and players near India or near Europe get the best ping (often under 50 ms);
-            the Americas typically see 100–250 ms of relay overhead. The Europe relay does not offer custom addresses. More regions may come if the project grows — support it on{' '}
+            the Americas typically see 100–250 ms of relay overhead. The accounts service runs on a rented server in Europe, and accounts.voxelport.in is served through Cloudflare. The Europe relay does not offer custom addresses. More regions may come if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
           </p>
 
@@ -189,6 +226,21 @@ export default function LegalPage({ onBack }) {
             'Keep your device token private — it is the only key to your relay address.',
           ]} />
 
+          <Sub color="var(--gold)">2a · Discord membership</Sub>
+          <p>
+            To host with the desktop or Android app you sign in with Discord and must be a member of the VoxelPort Discord server, where updates,
+            giveaways and help are posted. If you leave the server, hosting publicly can stop working until you rejoin. Friends who
+            join your server need no account.
+          </p>
+
+          <Sub color="var(--gold)">2b · Supporter ranks</Sub>
+          <p>
+            VoxelPort has no paid plans and no subscriptions. If you want to help keep the relay online you can send a tip by UPI; nothing renews and
+            nothing is debited automatically. As a thank-you, an admin switches on a Supporter or Supporter+ rank for your linked server by
+            hand (Supporter+ includes automatic voice chat on Paper and Fabric servers). A rank is a thank-you, not something you buy, and it can be
+            taken back if it is misused. Free use is never affected.
+          </p>
+
           <Sub color="var(--gold)">3 · Don’t use VoxelPort to</Sub>
           <List items={[
             'Host or distribute pirated Minecraft content.',
@@ -205,7 +257,7 @@ export default function LegalPage({ onBack }) {
           </p>
 
           <Sub color="var(--gold)">5 · Suspension</Sub>
-          <p>Tokens used to break these terms can be blocked from the relay. The service is free, so no refunds apply.</p>
+          <p>Tokens used to break these terms can be blocked from the relay. Free use has no payment to refund. If you tipped and your rank was not switched on, ask in the Discord server and it will be checked. Tips are voluntary and are not refundable.</p>
 
           <Sub color="var(--gold)">5a · Reporting illegal content or abuse</Sub>
           <p>

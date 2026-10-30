@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PAGES, FAQ, SITE, homeJsonLd, faqJsonLd } from '../src/seo.js';
+import { PAGES, FAQ, SITE, STORE_URL, OG_IMAGE, homeJsonLd, faqJsonLd } from '../src/seo.js';
 import { DISCORD, DISCORD_PERKS } from '../src/community.js';
 import { ABOUT, DEV, LOCALMINER, FRIEND, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from '../src/about.js';
 import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
@@ -77,8 +77,42 @@ function fallback(key, page) {
   return parts.join('');
 }
 
+// Pages that are the same guide in another language (hreflang). English is the default.
+const TRANSLATIONS = {
+  'how-to-make-a-minecraft-server': { 'hi-Latn': 'minecraft-server-kaise-banaye' },
+  'minecraft-server-without-port-forwarding': { de: 'minecraft-server-ohne-portfreigabe-kostenlos' },
+};
+function hreflangTags(slug) {
+  const en = Object.keys(TRANSLATIONS).find((e) => e === slug || Object.values(TRANSLATIONS[e]).includes(slug));
+  if (!en) return '';
+  const group = [['en', en], ...Object.entries(TRANSLATIONS[en])];
+  const tag = (l, s) => `<link rel="alternate" hreflang="${l}" href="${SITE}/guides/${s}" />`;
+  return [...group.map(([l, s]) => tag(l, s)), tag('x-default', en)].join('\n    ');
+}
+
+const breadcrumb = (name, p) => ({
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'VoxelPort', item: `${SITE}/` },
+    { '@type': 'ListItem', position: 2, name, item: SITE + p },
+  ],
+});
+const downloadJsonLd = () => ({
+  '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'VoxelPort', url: `${SITE}/download`, image: OG_IMAGE,
+  applicationCategory: 'UtilitiesApplication', operatingSystem: 'Windows 10, Windows 11, Linux, Android',
+  downloadUrl: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
+  isAccessibleForFree: true, license: 'https://opensource.org/licenses/MIT',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+});
+
 function render(key) {
-  return renderPage(PAGES[key], key === 'home' ? homeJsonLd() : key === 'faq' ? faqJsonLd() : null, fallback(key, PAGES[key]));
+  const page = PAGES[key];
+  const ld = key === 'home' ? homeJsonLd() : [
+    ...(key === 'faq' ? faqJsonLd() : []),
+    ...(key === 'download' ? [downloadJsonLd()] : []),
+    breadcrumb(page.heading, page.path),
+  ];
+  return renderPage(page, ld, fallback(key, page));
 }
 
 function renderPage(page, jsonLd, body) {
@@ -93,6 +127,8 @@ function renderPage(page, jsonLd, body) {
   html = replaceOnce(html, /<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(page.description)}" />`);
   html = replaceOnce(html, /<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(page.title)}" />`);
   html = replaceOnce(html, /<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(page.description)}" />`);
+  const alt = page.path.startsWith('/guides/') ? hreflangTags(page.path.slice(8)) : '';
+  if (alt) html = replaceOnce(html, /<\/head>/, `    ${alt}\n  </head>`);
   if (jsonLd) {
     const ld = jsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`).join('\n    ');
     html = replaceOnce(html, /<\/head>/, `    ${ld}\n  </head>`);
@@ -129,12 +165,12 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...Object.entries(PAGES).map(([k, p]) => `  <url><loc>${SITE}${p.path}</loc><lastmod>${today}</lastmod><changefreq>${freq[k]}</changefreq><priority>${priority[k]}</priority></url>`),
+  ...Object.entries(PAGES).map(([k, p]) => `  <url><loc>${SITE}${p.path}</loc><lastmod>${today}</lastmod><changefreq>${freq[k] || 'monthly'}</changefreq><priority>${priority[k] || '0.5'}</priority></url>`),
   `  <url><loc>${SITE}${GUIDES_INDEX.path}</loc><lastmod>${GUIDES_UPDATED}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`,
   ...GUIDES.map((g) => `  <url><loc>${SITE}${guidePath(g)}</loc><lastmod>${GUIDES_UPDATED}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
   '</urlset>', '',

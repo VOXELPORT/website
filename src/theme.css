@@ -1,0 +1,83 @@
+/* Theme controls stay available beside the navigation, including on phones. */
+:root { color-scheme: light; }
+.hb-links { margin-left: auto; }
+.v3-nav-controls { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.v3-theme-selector { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper); }
+.v3-theme-selector button { display: grid; place-items: center; width: 34px; height: 34px; border: none; border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; }
+.v3-theme-selector button:hover { color: var(--ink); background: var(--tint); }
+.v3-theme-selector button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111614; --paper-2: #202922; --card: #1a211c;
+  --ink: #e9eee5; --ink-2: #b4c0b0; --muted: #a1ad9a;
+  --grass: #93b77e; --grass-dk: #a1c78b; --red: #a1c78b; --red-dk: #b4d99d;
+  --gold: #76633f; --diamond: #8ec5ba;
+}
+:root[data-theme="dark"] .hb {
+  --bg: #111614; --tint: #1b241d; --accent: #3e6948; --accent-dk: #4c7b55;
+  --rule: #323d33; --leaf: #93b77e; --ink-3: #a1ad9a;
+}
+:root[data-theme="dark"] .hb-nav { background: #111614f5; }
+:root[data-theme="dark"] .hb-links > a:not(.hb-btn):hover,
+:root[data-theme="dark"] .hb-links a.active,
+:root[data-theme="dark"] .hb-links .hb-relay { color: #a9cc91; }
+:root[data-theme="dark"] :is(.v3-eyebrow, .v3-world-coordinate, .v3-free > span, .v3-platform > svg, .v3-step-arrow, .v3-step.selected strong, .v3-control-art b, .v3-faq summary > span) { color: #a1c78b; }
+:root[data-theme="dark"] :is(.v3-hero h1 > span, .hb .c-title.green) { color: #a1c78b; }
+:root[data-theme="dark"] .v3-world::before { background: #243125; }
+:root[data-theme="dark"] .v3-cloud { fill: #627162; opacity: .45; }
+:root[data-theme="dark"] :is(.v3-world-note, .v3-world-tag) { background: #1a211cf2; border-color: var(--rule); box-shadow: 0 8px 24px #0003; }
+:root[data-theme="dark"] .v3-world-tag { color: #c4d1ba; }
+:root[data-theme="dark"] .v3-note-icon { background: #2c3d29; color: #b3d39d; }
+:root[data-theme="dark"] :is(.v3-proof, .v3-how) { background: #181f19; }
+:root[data-theme="dark"] .v3-proof > div > span > span { color: #9fbd85; }
+:root[data-theme="dark"] .v3-feature { border-color: var(--rule); }
+:root[data-theme="dark"] .v3-feature-green { background: #202b20; }
+:root[data-theme="dark"] .v3-feature-peach { background: #2d251f; }
+:root[data-theme="dark"] .v3-feature-cream { background: #292a20; }
+:root[data-theme="dark"] :is(.v3-feature p, .v3-community > div > p:not(.v3-eyebrow)) { color: var(--ink-2); }
+:root[data-theme="dark"] :is(.v3-feature-top > span:last-child, .v3-control-art > span, .v3-step-number, .v3-demo-caption, .v3-demo-footer, .v3-demo-bar small) { color: var(--muted); }
+:root[data-theme="dark"] .v3-connection-art .v3-connection-center { background: #172019; border-color: #637b53; }
+:root[data-theme="dark"] .v3-crossplay-art > span:not(:nth-child(2)) { background: #382f25; border-color: #79664d; box-shadow: 0 4px 0 #493e30; }
+:root[data-theme="dark"] .v3-control-art { background: #20251b; border-color: #535c41; }
+:root[data-theme="dark"] .v3-step { border-color: var(--rule); }
+:root[data-theme="dark"] .v3-demo { background: #1d251e; border-color: #46553e; box-shadow: 10px 12px 0 #273125; }
+:root[data-theme="dark"] :is(.v3-demo-bar, .v3-demo-secondary) { border-color: var(--rule); }
+:root[data-theme="dark"] .v3-demo-logo { background: #2e3f27; color: #b3d39d; }
+:root[data-theme="dark"] .v3-demo-option { background: #293924; border-color: #658052; }
+:root[data-theme="dark"] :is(.v3-platform:hover, .v3-platform.recommended) { background: #202c1f; }
+:root[data-theme="dark"] .v3-platform small { background: #4a402b; color: #f1dbac; }
+:root[data-theme="dark"] .v3-community { background: #202a1d; border-color: #3d4b32; }
+:root[data-theme="dark"] .v3-community-stamp { border-color: #667755; }
+:root[data-theme="dark"] .v3-pixel-heart { color: #d59b7c; text-shadow: 4px 4px #6b4836; }
+:root[data-theme="dark"] .hb .footer { background: #0c100d; }
+:root[data-theme="dark"] .hb .footer .logo-word { color: #f5f4e9 !important; }
+:root[data-theme="dark"] .hb .panel { border-color: var(--rule); }
+:root[data-theme="dark"] .hb .panel.gold { background: #3c3423; }
+:root[data-theme="dark"] .hb .panel.green { background: #25351f; }
+:root[data-theme="dark"] .hb :is(.panel.red, .panel.ink) { background: #273e2d; color: var(--ink); }
+:root[data-theme="dark"] .hb .sticker { background: #252e20; color: var(--ink); border-color: #60724f; }
+:root[data-theme="dark"] .hb .sticker.gold { background: #4a402b; }
+:root[data-theme="dark"] .hb .sticker.green { background: #314526; }
+:root[data-theme="dark"] .hb .sticker.red { background: #315b3e; color: #fff; }
+:root[data-theme="dark"] .hb .btn.gold { color: #f1e4c5; }
+:root[data-theme="dark"] .hb .faq-item summary::after { border-color: #667654; }
+:root[data-theme="dark"] .hb :is(input, textarea, select) { color: var(--ink); background-color: var(--card); }
+
+@media (max-width: 1100px) {
+  .hb-nav-inner { gap: 16px; }
+  .hb-links { gap: 16px; }
+}
+@media (max-width: 800px) {
+  .v3-nav-controls { margin-left: auto; }
+  .hb-links { margin-left: 0; }
+  .v3-theme-selector button { width: 36px; height: 36px; }
+}
+@media (max-width: 360px) {
+  .hb-logo { font-size: 20px; gap: 7px; }
+  .hb-logo img { width: 27px; height: 27px; }
+  .v3-nav-controls { gap: 7px; }
+  .hb-nav-inner { gap: 7px; }
+  .v3-theme-selector button { width: 30px; height: 36px; }
+  .hb-nav-toggle { padding-inline: 10px; }
+}

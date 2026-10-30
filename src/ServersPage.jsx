@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import { SITE_NAV } from './content.js';
 import { SPRITES, RELAYS, DL_STORE, DISCORD } from './data.js';
-import { navigate } from './seo.js';
+import { navigate, isModifiedClick } from './seo.js';
 
 const MODES = [
   ['all', 'All'], ['survival', 'Survival'], ['creative', 'Creative'], ['hardcore', 'Hardcore'], ['modded', 'Modded'], ['bedrock', 'Bedrock'],
@@ -109,10 +109,10 @@ export default function ServersPage({ onBack }) {
   const players = servers.reduce((n, s) => n + s.players, 0);
 
   return (
-    <div className="zine">
-      <Nav links={SITE_NAV} relay={null} onLogo={back} />
+    <div className="zine hb">
+      <Nav links={SITE_NAV} onLogo={back} />
 
-      <main className="wrap" style={{ paddingTop: 60, paddingBottom: 100 }}>
+      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 100 }}>
         <span className="kicker">Powered by VoxelPort · live directory</span>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap', marginTop: 10 }}>
           <h1 style={{ fontSize: 'clamp(64px, 11vw, 132px)', fontWeight: 400, lineHeight: .95 }}>
@@ -141,7 +141,7 @@ export default function ServersPage({ onBack }) {
         {error && !servers.length ? (
           <div className="panel" style={{ marginTop: 34, padding: 24, background: 'var(--gold)' }}>
             <span className="h-display" style={{ fontSize: 30 }}>CAN’T REACH THE RELAY</span>
-            <p style={{ marginTop: 6 }}>The list will come back on its own — check the <a href="/status" onClick={(e) => { e.preventDefault(); navigate('/status'); }}>relay status</a>.</p>
+            <p style={{ marginTop: 6 }}>The list will come back on its own — check the <a href="/status" onClick={(e) => { if (isModifiedClick(e)) return; e.preventDefault(); navigate('/status'); }}>relay status</a>.</p>
           </div>
         ) : !loading && !shown.length ? (
           <div className="panel" style={{ marginTop: 34, padding: '30px 26px', display: 'flex', gap: 22, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -165,7 +165,7 @@ export default function ServersPage({ onBack }) {
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
             Only servers whose owners switched on <b>Show on voxelport.in/servers</b> appear here, and only while they’re online — nothing is
             stored. Player counts come from the server itself. Servers marked <b>★ SUPPORTER</b> belong to people who chip in to keep VoxelPort running;
-            they’re shown first (<a href="/support#supporters" onClick={(e) => { e.preventDefault(); navigate('/support#supporters'); }}>how that works</a>), and everything else about the list is the same for everyone.
+            they’re shown first (<a href="/support#supporters" onClick={(e) => { if (isModifiedClick(e)) return; e.preventDefault(); navigate('/support#supporters'); }}>how that works</a>), and everything else about the list is the same for everyone.
             Something inappropriate? Email <span className="typewriter">traz@voxelport.in</span> and we’ll take it down. Want people to find your server? Share it in <b>#showcase</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.
           </p>
         </div>

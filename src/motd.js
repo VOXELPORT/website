@@ -1,5 +1,30 @@
 export const COLORS = ['#000000', '#0000aa', '#00aa00', '#00aaaa', '#aa0000', '#aa00aa', '#ffaa00', '#aaaaaa', '#555555', '#5555ff', '#55ff55', '#55ffff', '#ff5555', '#ff55ff', '#ffff55', '#ffffff'];
 
+export const COLOR_NAMES = [
+  'Black', 'Dark Blue', 'Dark Green', 'Dark Aqua',
+  'Dark Red', 'Dark Purple', 'Gold', 'Gray',
+  'Dark Gray', 'Blue', 'Green', 'Aqua',
+  'Red', 'Light Purple', 'Yellow', 'White',
+];
+
+export function stripCodes(text) {
+  return text.replace(/\u00a7x(?:\u00a7[0-9a-f]){6}|\u00a7[0-9a-fk-or]/gi, '');
+}
+
+export function centerMotdText(text, width = 45) {
+  return text
+    .replace(/\r\n?/g, '\n')
+    .split('\n')
+    .slice(0, 2)
+    .map((line) => {
+      const trimmed = line.replace(/^ +/, '');
+      const visibleLen = Array.from(stripCodes(trimmed)).length;
+      const pad = Math.max(0, Math.floor((width - visibleLen) / 2));
+      return ' '.repeat(pad) + trimmed;
+    })
+    .join('\n');
+}
+
 export function hexCode(hex) {
   return '\u00a7x' + hex.slice(1).split('').map(c => '\u00a7' + c).join('');
 }

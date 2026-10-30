@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
-  SPRITES, useLatestReleases,
+  SPRITES, useLatestReleases, useDetectedOS,
   DL_STORE, DL_WIN, DL_LINUX, DL_ANDROID, DL_MOD, GITHUB_APP, GITHUB_MOD, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
-import { navigate, FAQ } from './seo.js';
-import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE } from './content.js';
+import { navigate, isModifiedClick, FAQ } from './seo.js';
+import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE, EXPLORE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
 import { SUPPORTER } from './support.js';
 import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
@@ -15,7 +15,7 @@ import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } f
 
 /** Same-site link that navigates without a page load. */
 const go = (href) => (e) => {
-  if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+  if (isModifiedClick(e)) return;
   e.preventDefault();
   navigate(href);
 };
@@ -29,9 +29,9 @@ function SubPage({ onBack, children, band = true }) {
     else window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="zine">
-      <Nav links={SITE_NAV} relay={null} onLogo={back} />
-      <main className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>{children}</main>
+    <div className="zine hb">
+      <Nav links={SITE_NAV} onLogo={back} />
+      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>{children}</main>
       <Footer band={band} />
     </div>
   );
@@ -253,17 +253,68 @@ export function ComparePage({ onBack }) {
 // ─── /faq ─────────────────────────────────────────────────────────────────────
 
 export function FaqPage({ onBack }) {
+  const [openQuestions, setOpenQuestions] = useState(() => new Set(FAQ.slice(0, 2).map((f) => f.q)));
+  const [q, setQ] = useState('');
+
+  const shown = useMemo(() => {
+    const needle = q.trim().toLowerCase();
+    if (!needle) return FAQ;
+    return FAQ.filter((f) => `${f.q} ${f.a}`.toLowerCase().includes(needle));
+  }, [q]);
+
+  const allOpen = shown.length > 0 && shown.every((f) => openQuestions.has(f.q));
+
+  const toggleAll = () => {
+    if (allOpen) {
+      setOpenQuestions(new Set());
+    } else {
+      setOpenQuestions(new Set(FAQ.map((f) => f.q)));
+    }
+  };
+
+  const toggleOne = (question, isOpen) => {
+    setOpenQuestions((prev) => {
+      const next = new Set(prev);
+      if (isOpen) next.add(question);
+      else next.delete(question);
+      return next;
+    });
+  };
+
   return (
     <SubPage onBack={onBack}>
       <PageHero kicker="Letters page" a="YOUR" b="QUESTIONS"
         lede="The things people ask before they install, answered in plain words." />
-      <div className="faq-grid" style={{ marginTop: 52 }}>
-        {FAQ.map((f, i) => (
-          <details key={f.q} className="panel faq-item" style={{ transform: `rotate(${[-.5, .4, -.3, .5][i % 4]}deg)` }} open>
-            <summary><h2>{f.q}</h2></summary>
-            <p>{f.a}</p>
-          </details>
-        ))}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 34, alignItems: 'center' }}>
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search questions…"
+          aria-label="Search questions"
+          style={{ flex: '1 1 240px', minWidth: 0, border: '3px solid var(--ink)', padding: '10px 12px', font: 'inherit', background: 'var(--card)', boxShadow: '3px 3px 0 var(--ink)' }}
+        />
+        <button type="button" className="btn sm cream" onClick={toggleAll}>
+          {allOpen ? 'COLLAPSE ALL' : 'EXPAND ALL'}
+        </button>
+      </div>
+
+      <div className="faq-grid" style={{ marginTop: 28 }}>
+        {shown.map((f, i) => {
+          const isOpen = q.trim().length > 0 || openQuestions.has(f.q);
+          return (
+            <details
+              key={f.q}
+              className="panel faq-item"
+              style={{ transform: `rotate(${[-.5, .4, -.3, .5][i % 4]}deg)` }}
+              open={isOpen}
+              onToggle={(e) => toggleOne(f.q, e.currentTarget.open)}
+            >
+              <summary><h2>{f.q}</h2></summary>
+              <p>{f.a}</p>
+            </details>
+          );
+        })}
       </div>
       <div className="bubble tail-b" style={{ marginTop: 60, maxWidth: 720 }}>
         <span className="kicker">Not here?</span>
@@ -283,30 +334,33 @@ const INSTALL_NOTES = [
   { title: 'WINDOWS · DIRECT', body: 'The newest version, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
   { title: 'ANDROID · BETA', body: 'Host a server from your phone. This is a beta, so it has bugs: the server can stop, and players can be disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
   { title: 'LINUX', body: 'Download the Linux build from the GitHub release. It is the same app, built for Linux.' },
-  { title: 'WHAT YOU NEED', body: 'A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. No account, and no router settings.' },
+  { title: 'WHAT YOU NEED', body: 'A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. A free Discord account to join our server, and no router settings.' },
   { title: 'MACOS', body: 'Not yet. Follow the Discord or GitHub to hear when it lands.' },
 ];
 
 export function DownloadPage({ onBack }) {
   const rel = useLatestReleases();
+  const os = useDetectedOS();
   return (
     <SubPage onBack={onBack}>
-      <PageHero kicker="Free · no signup" a="GET" b="VOXELPORT"
+      <PageHero kicker="Free · join our Discord" a="GET" b="VOXELPORT"
         lede="One app, on your PC or your Android phone, hosts any Minecraft Java server. Players always join with vanilla Minecraft." />
 
       <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, maxWidth: 720 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
           <span className="kicker" style={{ color: 'var(--grass-dk)' }}>PC &amp; Android app</span>
-          <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>NOW ON MICROSOFT STORE</span>
+          <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>
+            {os === 'android' ? 'DETECTED: ANDROID' : os === 'linux' ? 'DETECTED: LINUX' : 'NOW ON MICROSOFT STORE'}
+          </span>
           <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
         </div>
         <h2 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>HOST ANY SERVER</h2>
         <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
-          <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
-          <a className="btn cream sm" href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
-          <a className="btn cream sm" href={DL_LINUX}>LINUX</a>
-          <a className="btn gold sm" href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · BETA APK</a>
+          <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_STORE} target="_blank" rel="noreferrer">MICROSOFT STORE</a>
+          <a className={`btn ${os === 'windows' ? 'gold' : 'cream'} sm`} href={DL_WIN}>WINDOWS · DIRECT .EXE</a>
+          <a className={`btn ${os === 'linux' ? 'green' : 'cream'} sm`} href={DL_LINUX}>LINUX</a>
+          <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · BETA APK</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
           <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
         </div>
@@ -403,7 +457,7 @@ export function SupportPage({ onBack }) {
         <div className="support">
           <div className="support-copy">
             <p className="lede">
-              VoxelPort has no ads, no accounts and no paid plan: hosting, the free address and the server list are free for everyone. A custom name is a supporter perk.
+              VoxelPort has no ads. Hosting, the free address and the server list are free for everyone, and hosts join our Discord server to use the app. A custom name is a supporter perk.
               The relay runs on a server I pay for myself. If it saved you a fight with your router, a small tip helps keep it online,
               and <a href="#supporters">supporters get a badge and a few extras</a> as a thank-you.
             </p>
@@ -627,6 +681,41 @@ export function TeamPage({ onBack }) {
           <DiscordButton>JOIN THE DISCORD</DiscordButton>
           <a className="btn cream" href={GITHUB_ORG} target="_blank" rel="noopener noreferrer">SEE THE CODE</a>
           <a className="btn cream" href="/about" onClick={go('/about')}>THE STORY</a>
+        </div>
+      </section>
+    </SubPage>
+  );
+}
+
+// ─── 404 Not Found ────────────────────────────────────────────────────────────────
+
+export function NotFoundPage({ onBack }) {
+  return (
+    <SubPage onBack={onBack}>
+      <PageHero kicker="Error 404 · wrong portal" a="PAGE NOT" b="FOUND"
+        lede="That address doesn’t lead anywhere on voxelport.in. Head back to the home page or jump straight to what you came for:">
+        <div className="page-cta">
+          <a className="btn green" href="/" onClick={go('/')}>BACK TO HOME</a>
+          <a className="btn cream" href="/download" onClick={go('/download')}>DOWNLOAD THE APP</a>
+          <a className="btn cream" href="/guides" onClick={go('/guides')}>SERVER GUIDES</a>
+        </div>
+      </PageHero>
+
+      <section className="page-section">
+        <SectionHead kicker="Where to go">EXPLORE THE ZINE.</SectionHead>
+        <div className="grid-4">
+          {EXPLORE.map((e, i) => (
+            <a key={e.href} className="panel guide-card explore-card" href={e.href} onClick={go(e.href)}
+              style={{ transform: `rotate(${[-.6, .5, -.3, .6][i % 4]}deg)` }}>
+              <div className="guide-card-top">
+                <span className="pixel" style={{ fontSize: 11 }}>{e.tag.toUpperCase()}</span>
+                <Pixels rows={SPRITES[e.sprite]} size={2.4} />
+              </div>
+              <h3 className="h-display">{e.title}</h3>
+              <p>{e.blurb}</p>
+              <span className="guide-card-more">OPEN →</span>
+            </a>
+          ))}
         </div>
       </section>
     </SubPage>

@@ -28,11 +28,12 @@ export const SUPPORTER = {
       perks: [
         'Everything in Supporter',
         'A short address of 1–2 characters, like vp.voxelport.in (first come, first served; you pick it)',
+        'Automatic voice chat on Paper and Fabric servers: once your rank is on, the app installs and sets up Simple Voice Chat for you and friends just join with your server address (they need the matching voice mod)',
       ],
     },
   ],
   how:
-    `Tip any amount (₹99 or more for Supporter, ₹299 or more for Supporter+) by UPI, then email ${CONTACT} with your UPI reference number and your server's address (like mysmp.voxelport.in). It's switched on by hand, usually within a day or two.`,
+    `Tip any amount (₹99 or more for Supporter, ₹299 or more for Supporter+) by UPI, then email ${CONTACT} with your UPI reference number, your server's address (like mysmp.voxelport.in) and, for Supporter+, your VoxelPort ID (copy it from the app's server settings). It's switched on by hand, usually within a day or two.`,
   fine: 'Perks are a thank-you for a donation, not a purchase, and last as long as VoxelPort runs. If one is ever misused it can be taken back.',
 };
 
