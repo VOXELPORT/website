@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels } from './ui.jsx';
 import { SITE_NAV } from './content.js';
-import { SPRITES, RELAYS, DL_STORE, DISCORD } from './data.js';
+import { SPRITES, RELAYS, DL_WIN, DISCORD } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
 
 const MODES = [
@@ -152,7 +152,7 @@ export default function ServersPage({ onBack }) {
                 Host one and list it here: in the VoxelPort app open your server’s <b>Settings</b>, tick <b>Show on voxelport.in/servers</b>, then make it public.
               </p>
             </div>
-            <a className="btn" href={DL_STORE} target="_blank" rel="noreferrer">GET THE APP</a>
+            <a className="btn" href={DL_WIN} target="_blank" rel="noreferrer">GET THE APP</a>
           </div>
         ) : (
           <div className="grid-3" style={{ marginTop: 34 }}>

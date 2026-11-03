@@ -6,7 +6,6 @@ import { DISCORD } from './community.js';
 
 export const SITE = 'https://voxelport.in';
 export const OG_IMAGE = `${SITE}/og-image.png`;
-export const STORE_URL = 'https://apps.microsoft.com/detail/9NGRX9CFNBD6';
 
 export const PAGES = {
   motd: {
@@ -60,9 +59,9 @@ export const PAGES = {
   download: {
     path: '/download',
     title: 'Download VoxelPort: Windows, Linux and Android (Free)',
-    description: 'Download VoxelPort free for Windows (Store or direct installer), Linux and Android. No ads, and hosts join our Discord server once. SmartScreen and Android APK install notes.',
+    description: 'Download VoxelPort free for Windows, Linux and Android. No ads, and hosts join our Discord server once. SmartScreen and Android APK install notes.',
     heading: 'Download VoxelPort',
-    summary: ['VoxelPort is free for Windows, Linux and Android. Get it from the Microsoft Store, the direct Windows installer, the Linux build on GitHub, or the Android APK.'],
+    summary: ['VoxelPort is free for Windows, Linux and Android. Get the Windows installer, the Linux build on GitHub, or the Android APK.'],
   },
   support: {
     path: '/support',
@@ -177,10 +176,6 @@ export const FAQ = [
     a: 'Yes. Players only ever connect to the relay, never to your PC, so your home IP address isn’t exposed to them.',
   },
   {
-    q: 'Why is the Microsoft Store version behind the latest release?',
-    a: 'Microsoft reviews every Store update before it goes out, so a new version reaches the Store about a day after it is released on GitHub and announced. The direct Windows installer is always the newest and updates itself, so use that if you want a release right away.',
-  },
-  {
     q: 'Where can I get help or ask a question?',
     a: `In the VoxelPort Discord (${DISCORD}): ask in #help, suggest features, and hear about every release first. Friends who only play need no Discord at all; hosts sign in with Discord in the app. There are also step-by-step guides on this site.`,
   },
@@ -208,7 +203,7 @@ export function homeJsonLd() {
       applicationSubCategory: 'Minecraft server hosting',
       operatingSystem: 'Windows 10, Windows 11, Linux, Android',
       softwareVersion: '1.5.0',
-      downloadUrl: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
+      downloadUrl: ['https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
       featureList: [
         'Host a Minecraft server on a Windows/Linux PC or an Android phone, without port forwarding',
         'Works behind CGNAT (Jio, Airtel, mobile data)',
@@ -224,7 +219,7 @@ export function homeJsonLd() {
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       publisher: { '@type': 'Organization', name: 'VoxelPort', url: `${SITE}/`, logo: `${SITE}/logo.png`, sameAs: ['https://www.instagram.com/voxelport.in/', DISCORD] },
-      sameAs: [STORE_URL, 'https://github.com/VOXELPORT/VoxelPort-App', 'https://www.instagram.com/voxelport.in/', DISCORD],
+      sameAs: ['https://github.com/VOXELPORT/VoxelPort-App', 'https://www.instagram.com/voxelport.in/', DISCORD],
     },
     { '@context': 'https://schema.org', '@type': 'WebSite', name: 'VoxelPort', url: `${SITE}/` },
   ];

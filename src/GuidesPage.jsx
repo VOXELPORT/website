@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import { SITE_NAV } from './content.js';
-import { SPRITES, DL_STORE } from './data.js';
+import { SPRITES, DL_WIN } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
 import { GUIDES_META, GUIDE_CATEGORIES, guidePath } from './guides-meta.js';
 import { findGuide, guideToc } from './guides.js';
@@ -131,7 +131,7 @@ function GuideArticle({ g }) {
             ))}
             {g.faq?.length > 0 && <li><a href="#faq" onClick={(e) => { e.preventDefault(); document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }); }}>Questions</a></li>}
           </ol>
-          <a className="btn green sm" href={DL_STORE} target="_blank" rel="noreferrer" style={{ textAlign: 'center' }}>GET VOXELPORT</a>
+          <a className="btn green sm" href={DL_WIN} target="_blank" rel="noreferrer" style={{ textAlign: 'center' }}>GET VOXELPORT</a>
         </aside>
 
         <div className="guide-main">
