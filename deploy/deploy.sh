@@ -3,7 +3,7 @@
 # Usage (from the website/ folder, Git Bash):  bash deploy/deploy.sh
 set -euo pipefail
 
-HOST="${DEPLOY_HOST:-trazhub@100.89.127.14}"
+HOST="${DEPLOY_HOST:-root@129.121.170.249}"
 KEY="${DEPLOY_KEY:-$HOME/.ssh/voxelport_vps}"
 cd "$(dirname "$0")/.."
 
