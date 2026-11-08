@@ -4,7 +4,7 @@
 import { GUIDES_INDEX, findGuideMeta, guidePath } from './guides-meta.js';
 import { DISCORD } from './community.js';
 
-export const SITE = 'https://voxelport.in';
+export const SITE = 'https://voxelport.github.io';
 export const OG_IMAGE = `${SITE}/og-image.png`;
 
 export const PAGES = {

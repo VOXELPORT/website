@@ -662,7 +662,7 @@ export function NotFoundPage({ onBack }) {
   return (
     <SubPage onBack={onBack}>
       <PageHero kicker="Error 404 · wrong portal" a="PAGE NOT" b="FOUND"
-        lede="That address doesn’t lead anywhere on voxelport.in. Head back to the home page or jump straight to what you came for:">
+        lede="That address doesn’t lead anywhere on this site. Head back to the home page or jump straight to what you came for:">
         <div className="page-cta">
           <a className="btn green" href="/" onClick={go('/')}>BACK TO HOME</a>
           <a className="btn cream" href="/download" onClick={go('/download')}>DOWNLOAD THE APP</a>
