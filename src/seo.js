@@ -141,7 +141,7 @@ export const PAGES = {
 export const FAQ = [
   {
     q: 'Is VoxelPort moving to a new app?',
-    a: 'Yes. VoxelPort was rebuilt on newer technology: the new app (2.0 beta, Windows) is about 3 MB instead of over 100 MB, opens faster and does the same things, and new features only come to it. In your current app (1.18.0) press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong the old app and your data stay as they are. You sign in with Discord once in the new app. Microsoft Store users: the Store cannot install another app, so download the new one from the download page, open it and use its banner to bring your data over, then remove the Store version.',
+    a: 'Yes. VoxelPort was rebuilt on newer technology: the new app (2.0 beta, Windows) is about 3 MB instead of over 100 MB and does the same things, and new features only come to it. In your current app (1.18.0) press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong the old app and your data stay as they are. You sign in with Discord once in the new app. Microsoft Store users: the Store cannot install another app, so download the new one from the download page, open it and use its banner to bring your data over, then remove the Store version.',
   },
   {
     q: 'Windows 11 says Smart App Control blocked the installer. What do I do?',
