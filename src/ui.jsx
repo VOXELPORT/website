@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ThemeSelector from './ThemeSelector.jsx';
-import { PAL, DL_WIN, DL_LINUX, DL_ANDROID, GITHUB_APP, GITHUB_ORG, INSTAGRAM, DISCORD, useRelayStatus } from './data.js';
+import { PAL, DL_WIN, DL_ANDROID, GITHUB_APP, GITHUB_ORG, INSTAGRAM, DISCORD, useRelayStatus } from './data.js';
 import { DISCORD_LINE } from './community.js';
 import { navigate, isModifiedClick } from './seo.js';
 import { GUIDES_META, guidePath } from './guides-meta.js';
@@ -156,7 +156,7 @@ export function Nav({ links, relay, onLogo }) {
 const FOOTER_COLS = [
   { title: 'Explore', links: [['Features', '/features'], ['How it works', '#how'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Server list', '/servers'], ['Relay status', '/status'], ['MOTD Editor', '/motd']] },
   { title: 'Guides', links: GUIDES_META.slice(0, 5).map((g) => [g.short, guidePath(g)]).concat([['All guides', '/guides']]) },
-  { title: 'Get it', links: [['Download page', '/download'], ['Windows (direct .exe)', DL_WIN], ['Android (beta APK)', DL_ANDROID], ['Linux app', DL_LINUX]] },
+  { title: 'Get it', links: [['Download page', '/download'], ['Windows (direct .exe)', DL_WIN], ['Android (beta APK)', DL_ANDROID]] },
   { title: 'Community', links: [['Discord', DISCORD], ['About the Discord', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Instagram', INSTAGRAM], ['App source', GITHUB_APP], ['All repos', GITHUB_ORG], ['Support (UPI)', '/support']] },
   { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks'], ['Code signing', '/download#code-signing']] },
 ];

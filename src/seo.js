@@ -20,7 +20,7 @@ export const PAGES = {
     description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Relays in India and Europe. Java + Bedrock.',
     heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
     summary: [
-      'VoxelPort is a free, open-source app for Windows, Linux and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
+      'VoxelPort is a free, open-source app for Windows and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
       'Friends join with plain Minecraft using a free address like play.voxelport.in:26137; supporters can claim a custom address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
     ],
     points: [
@@ -30,7 +30,7 @@ export const PAGES = {
       'Vanilla, Paper, Fabric and modpacks',
       'Automatic Java install (Java 25 for Minecraft 26.1+)',
       'Live CPU, RAM and TPS, plus plain-English crash help',
-      'Host from a Windows or Linux PC, or an Android phone',
+      'Host from a Windows PC or an Android phone',
       'Free and MIT-licensed; hosts join our Discord server',
       'A friendly Discord for help, servers and release news',
     ],
@@ -58,10 +58,10 @@ export const PAGES = {
   },
   download: {
     path: '/download',
-    title: 'Download VoxelPort: Windows, Linux and Android (Free)',
-    description: 'Download VoxelPort free for Windows, Linux and Android. No ads, and hosts join our Discord server once. SmartScreen and Android APK install notes.',
+    title: 'Download VoxelPort: Windows and Android (Free)',
+    description: 'Download VoxelPort free for Windows and Android. No ads, and hosts join our Discord server once. SmartScreen and Android APK install notes.',
     heading: 'Download VoxelPort',
-    summary: ['VoxelPort is free for Windows, Linux and Android. Get the Windows installer, the Linux build on GitHub, or the Android APK.'],
+    summary: ['VoxelPort is free for Windows and Android. Get the Windows installer or the Android APK.'],
   },
   support: {
     path: '/support',
@@ -209,11 +209,11 @@ export function homeJsonLd() {
       description: PAGES.home.description,
       applicationCategory: 'UtilitiesApplication',
       applicationSubCategory: 'Minecraft server hosting',
-      operatingSystem: 'Windows 10, Windows 11, Linux, Android',
+      operatingSystem: 'Windows 10, Windows 11, Android',
       softwareVersion: '1.5.0',
       downloadUrl: ['https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
       featureList: [
-        'Host a Minecraft server on a Windows/Linux PC or an Android phone, without port forwarding',
+        'Host a Minecraft server on a Windows PC or an Android phone, without port forwarding',
         'Works behind CGNAT (Jio, Airtel, mobile data)',
         'No sleep, no queue, no RAM cap',
         'Free address, custom names for supporters',

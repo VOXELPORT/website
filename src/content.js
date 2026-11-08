@@ -40,7 +40,7 @@ export const FEATURES = [
 ];
 
 export const STEPS = [
-  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows, Linux or Android. Free, and you join our Discord once.', sprite: 'grass' },
+  { n: '1', title: 'INSTALL', desc: 'Grab the app — Windows or Android. Free, and you join our Discord once.', sprite: 'grass' },
   { n: '2', title: 'HIT START', desc: 'Create or import a server and press Start. Java is handled for you.', sprite: 'bolt' },
   { n: '3', title: 'COPY ADDRESS', desc: `VoxelPort hands you an address like ${EXAMPLE_ADDR}.`, sprite: 'card' },
   { n: '4', title: 'FRIENDS JOIN', desc: 'They paste it into Multiplayer → Add Server. That’s it.', sprite: 'heart' },

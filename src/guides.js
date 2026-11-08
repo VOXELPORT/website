@@ -6,7 +6,7 @@
 export const GUIDES_UPDATED = '2026-10-28';
 
 
-const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe">Windows installer</a> (the new app, 2.0 beta; Windows 10 and 11; if Windows warns, click More info → Run anyway; if Windows 11 Smart App Control blocks it, see <a href="/download">the download page</a>), or get the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free and open source; to host, join our Discord server once.</p>`;
+const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe">Windows installer</a> (the new app, 2.0 beta; Windows 10 and 11; if Windows warns, click More info → Run anyway; if Windows 11 Smart App Control blocks it, see <a href="/download">the download page</a>). It's free and open source; to host, join our Discord server once.</p>`;
 
 export const GUIDES = [
   // ───────────────────────────────────────────────────────────────────────────
@@ -230,7 +230,7 @@ ${GET_APP}
 
 <h2 id="need">What you need</h2>
 <ul>
-  <li>A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable).</li>
+  <li>A Windows 10/11 PC with at least 8 GB of RAM (16 GB is comfortable).</li>
   <li>A normal home internet connection. Jio, Airtel and mobile data are fine.</li>
   <li>Minecraft: Java Edition for you and your friends (Bedrock players can join too, see below).</li>
 </ul>
@@ -303,7 +303,7 @@ ${GET_APP}
 
 <h2 id="kya-chahiye">Kya chahiye</h2>
 <ul>
-  <li>Windows 10/11 ya Linux PC, kam se kam 8 GB RAM.</li>
+  <li>Windows 10/11 PC, kam se kam 8 GB RAM.</li>
   <li>Normal internet: Jio Fiber, AirFiber, Airtel, ya mobile hotspot bhi chalega.</li>
   <li>Minecraft Java Edition (phone wale dost Bedrock se bhi aa sakte hain).</li>
 </ul>
@@ -358,7 +358,7 @@ ${GET_APP}
 <table>
   <thead><tr><th>Tool</th><th>Friends install</th><th>Address</th><th>Watch out for</th></tr></thead>
   <tbody>
-    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; custom <code>name.voxelport.in</code> for supporters</td><td>Windows and Linux app; relays in India and Europe</td></tr>
+    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; custom <code>name.voxelport.in</code> for supporters</td><td>Windows and Android app; relays in India and Europe</td></tr>
     <tr><td>playit.gg</td><td>Nothing</td><td>Generated address; custom domains on the paid plan</td><td>Free plan limits change; check their site</td></tr>
     <tr><td>ngrok</td><td>Nothing</td><td>Changes on restart (free)</td><td>Free TCP needs a credit/debit card on your account; bandwidth cap</td></tr>
     <tr><td>Hamachi</td><td>Hamachi, for everyone</td><td>Hamachi IP</td><td>About 5 people on the free plan; a VPN running on every PC</td></tr>
@@ -917,7 +917,7 @@ ${GET_APP}
     kicker: 'Bedrock · Android · iPhone',
     blurb: 'A server friends can join from Android and iPhone, and how to add it on the phone.',
     faq: [
-      { q: 'Can I host the server on my phone?', a: 'Not with VoxelPort. The server runs on a Windows or Linux PC. Your friends, and you, can then play on phones.' },
+      { q: 'Can I host the server on my phone?', a: 'Not with VoxelPort. The server runs on a Windows PC. Your friends, and you, can then play on phones.' },
       { q: 'Do phone players need Minecraft Java?', a: 'No. They play the normal Minecraft app on their phone. The server uses Geyser and Floodgate to let them in, and Floodgate means they only need their Microsoft (Xbox) account.' },
       { q: 'Does the host need to buy Minecraft Java Edition?', a: 'No. Running the server doesn’t require owning Java Edition. You only need it if you also want to play Java on the PC.' },
       { q: 'Why does my phone say “Unable to connect to world”?', a: 'Usually the port is wrong or missing, the server isn’t public yet, or Geyser needs an update for a new Minecraft version. The fixes are in this guide.' },
@@ -927,7 +927,7 @@ ${GET_APP}
 
 <h2 id="how">How it works</h2>
 <p>VoxelPort runs a Java server with two free add-ons: <b>Geyser</b>, which lets the phone version talk to a Java server, and <b>Floodgate</b>, which lets phone players log in with just their Microsoft account. The relay carries the phone traffic too, so you don’t forward any ports.</p>
-<div class="tip">You need a <b>PC</b> to host (Windows 10/11 or Linux), and it must stay on while people play. The phones only play.</div>
+<div class="tip">You need a <b>PC</b> to host (Windows 10/11), and it must stay on while people play. The phones only play.</div>
 
 <h2 id="setup">Set up the server on your PC</h2>
 ${GET_APP}

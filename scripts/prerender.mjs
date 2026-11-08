@@ -44,7 +44,6 @@ const EXTRA = {
   download: () => [
     '<ul>' + [
       ['Windows installer (direct, the new app 2.0 beta)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe'],
-      ['Linux', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz'],
       ['Android (install guide)', '/guides/host-minecraft-server-android-phone'],
     ].map(([l, h]) => `<li><a href="${h}">${esc(l)}</a></li>`).join('') + '</ul>',
   ],
@@ -97,7 +96,7 @@ const breadcrumb = (name, p) => ({
 });
 const downloadJsonLd = () => ({
   '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'VoxelPort', url: `${SITE}/download`, image: OG_IMAGE,
-  applicationCategory: 'UtilitiesApplication', operatingSystem: 'Windows 10, Windows 11, Linux, Android',
+  applicationCategory: 'UtilitiesApplication', operatingSystem: 'Windows 10, Windows 11, Android',
   downloadUrl: ['https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
   isAccessibleForFree: true, license: 'https://opensource.org/licenses/MIT',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -184,14 +183,14 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '',
   `> ${PAGES.home.description}`,
   '',
-  'VoxelPort is a free, open-source (MIT) desktop app for Windows and Linux that creates or imports a Minecraft: Java Edition server on your own PC and puts it online through a VoxelPort relay, so friends can join without port forwarding, even behind CGNAT (common on Jio, Airtel and mobile data). There is no account, no ads and no paid tier.',
+  'VoxelPort is a free, open-source (MIT) desktop app for Windows that creates or imports a Minecraft: Java Edition server on your own PC and puts it online through a VoxelPort relay, so friends can join without port forwarding, even behind CGNAT (common on Jio, Airtel and mobile data). There is no account, no ads and no paid tier.',
   '',
   'Key facts:',
   '- Players join with plain Minecraft at a free address like play.voxelport.in:26137. Supporters can claim a custom address like yourname.voxelport.in (no port).',
   '- Players join at play.voxelport.in (India) or play-eu.voxelport.in (Europe); VoxelPort has a relay in each region.',
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
-  '- Download: the Windows installer, the new app (https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe) or GitHub releases incl. Linux (https://github.com/VOXELPORT/VoxelPort-App/releases/latest). Android app (host from a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',
+  '- Download: the Windows installer, the new app (https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe). Android app (host from a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',
   '',
   '## Guides',
   '',
@@ -205,7 +204,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   `- [Features](${SITE}/features): everything the app does, and direct routing.`,
   `- [Compare](${SITE}/compare): VoxelPort next to playit.gg, ngrok and port forwarding.`,
   `- [FAQ](${SITE}/faq)`,
-  `- [Download](${SITE}/download): Windows installer, Linux and Android.`,
+  `- [Download](${SITE}/download): Windows installer and Android.`,
   `- [Support](${SITE}/support): tip jar and supporter perks.`,
   `- [Community](${SITE}/community): the VoxelPort Discord (${DISCORD}), for help, showing servers and release news.`,
   `- [About](${SITE}/about): who made VoxelPort (a student developer in India), how it started and is built, the Local Miner project and developer it comes from, and Akshat Mehta, who manages the server.`,
