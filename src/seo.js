@@ -140,6 +140,14 @@ export const PAGES = {
 
 export const FAQ = [
   {
+    q: 'Is VoxelPort moving to a new app?',
+    a: 'Yes. VoxelPort was rebuilt on newer technology: the new app (2.0 beta, Windows) is about 3 MB instead of over 100 MB, opens faster and does the same things, and new features only come to it. In your current app (1.18.0) press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong the old app and your data stay as they are. You sign in with Discord once in the new app. Microsoft Store users: the Store cannot install another app, so download the new one from the download page, open it and use its banner to bring your data over, then remove the Store version.',
+  },
+  {
+    q: 'Windows 11 says Smart App Control blocked the installer. What do I do?',
+    a: 'The new app is not code-signed yet, so with Smart App Control on, Windows blocks its installer and there is no “Run anyway” button. To install it, switch Smart App Control off: Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings › Off. Windows cannot turn it back on later without reinstalling Windows, so if you would rather not, keep using your current VoxelPort, which keeps working.',
+  },
+  {
     q: 'How do I host a Minecraft server without port forwarding?',
     a: 'Install VoxelPort, create or import a server, press Start and then Make public. VoxelPort connects your server out to its relay, which gives you a public address. Players connect to the relay, so nothing has to be opened on your router.',
   },

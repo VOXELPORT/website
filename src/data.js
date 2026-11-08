@@ -6,8 +6,8 @@ export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
 export const INSTAGRAM = 'https://www.instagram.com/voxelport.in/';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export { DISCORD } from './community.js';
-// Direct Windows installer from GitHub (not code-signed yet, so SmartScreen warns once).
-export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe';
+// Direct Windows installer from GitHub: the NEW app (2.0 beta). Not code-signed yet, so SmartScreen warns once and Smart App Control blocks it.
+export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe';
 export const DL_LINUX = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Linux.tar.gz';
 // Android app (host a server from the phone). Points to the install guide,
 // which links the sideload APK on GitHub Releases (sideloading needs the steps).

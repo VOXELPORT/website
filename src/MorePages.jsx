@@ -330,9 +330,11 @@ export function FaqPage({ onBack }) {
 // ─── /download ────────────────────────────────────────────────────────────────
 
 const INSTALL_NOTES = [
-  { title: 'WINDOWS', body: 'The newest version, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
+  { title: 'THE NEW APP · 2.0 BETA', body: 'VoxelPort has moved to a new app, rebuilt on newer technology: about 3 MB instead of over 100 MB, quicker to open, and where every new feature goes. Already using VoxelPort? Update your current app to 1.18.0 and press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong your old app and data stay as they are. You sign in with Discord once in the new app. Microsoft Store copy: the Store can’t install another app, so download the new one here, open it and use its banner to bring your data over, then remove the Store version in Windows Settings › Apps.' },
+  { title: 'WINDOWS', body: 'The new app, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
+  { title: 'WINDOWS 11 · SMART APP CONTROL', body: 'If Smart App Control is on, Windows blocks the installer and there is no “Run anyway” button. To install it, switch Smart App Control off: Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings › Off. Windows can’t turn it back on later without reinstalling Windows, so if you’d rather not, keep using your current VoxelPort: it keeps working.' },
   { title: 'ANDROID · BETA', body: 'Host a server from your phone. This is a beta, so it has bugs: the server can stop, and players can be disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
-  { title: 'LINUX', body: 'Download the Linux build from the GitHub release. It is the same app, built for Linux.' },
+  { title: 'LINUX', body: 'Download the Linux build from the GitHub release. It is the previous app (the new app is Windows only for now), built for Linux.' },
   { title: 'WHAT YOU NEED', body: 'A Windows 10/11 or Linux PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. A free Discord account to join our server, and no router settings.' },
   { title: 'MACOS', body: 'Not yet. Follow the Discord or GitHub to hear when it lands.' },
 ];
@@ -351,13 +353,13 @@ export function DownloadPage({ onBack }) {
           <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>
             {os === 'android' ? 'DETECTED: ANDROID' : os === 'linux' ? 'DETECTED: LINUX' : 'FREE DOWNLOAD'}
           </span>
-          <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{rel.app ? `Latest ${rel.app}` : 'Latest release'}</span>
+          <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{`New app 2.0 beta${rel.app ? ` · previous app ${rel.app}` : ''}`}</span>
         </div>
         <h2 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>HOST ANY SERVER</h2>
         <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
-          <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_WIN}>WINDOWS · .EXE</a>
-          <a className={`btn ${os === 'linux' ? 'green' : 'cream'} sm`} href={DL_LINUX}>LINUX</a>
+          <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_WIN}>WINDOWS · NEW APP (BETA)</a>
+          <a className={`btn ${os === 'linux' ? 'green' : 'cream'} sm`} href={DL_LINUX}>LINUX · PREVIOUS APP</a>
           <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · BETA APK</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
           <span className="btn sm" aria-disabled="true">MACOS · SOON</span>

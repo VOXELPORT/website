@@ -6,7 +6,7 @@
 export const GUIDES_UPDATED = '2026-10-28';
 
 
-const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe">Windows installer</a> (Windows 10 and 11; if Windows warns, click More info → Run anyway), or get the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free and open source; to host, join our Discord server once.</p>`;
+const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe">Windows installer</a> (the new app, 2.0 beta; Windows 10 and 11; if Windows warns, click More info → Run anyway; if Windows 11 Smart App Control blocks it, see <a href="/download">the download page</a>), or get the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest">Linux build from GitHub</a>. It's free and open source; to host, join our Discord server once.</p>`;
 
 export const GUIDES = [
   // ───────────────────────────────────────────────────────────────────────────
