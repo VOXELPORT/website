@@ -327,6 +327,75 @@ export function FaqPage({ onBack }) {
   );
 }
 
+// ─── /new-app ─────────────────────────────────────────────────────────────────
+
+const NEWAPP_STEPS = [{"title":"1 · UPDATE YOUR CURRENT APP","body":"Open VoxelPort. If it offers an update, press Restart & Update. You need version 1.18.0 or newer, which is the one with the move button."},{"title":"2 · PRESS THE BIG BUTTON","body":"You will see “VoxelPort has moved to a new app”. Press Update to the new VoxelPort. It downloads and checks the new app, installs it, brings over your servers, backups, VoxelPort ID, address and settings, then removes the old app. It takes about a minute."},{"title":"3 · SIGN IN AND PLAY","body":"Sign in with Discord once in the new app. Then Start and Make public, as always. Your server folders and worlds were never touched."}];
+const NEWAPP_OTHER = [{"title":"NO BUTTON? INSTALL IT DIRECTLY","body":"Download the new app below and run it. The first time it opens, it finds your old VoxelPort and offers to bring your data over."},{"title":"MICROSOFT STORE VERSION","body":"The Store cannot install another app for you. Download the new one below, open it, use its banner to bring your data over, then remove the Store version in Windows Settings › Apps."},{"title":"WINDOWS SAYS “PROTECTED YOUR PC”","body":"The new app is not code-signed yet. Click More info, then Run anyway. If Windows 11 Smart App Control is on, it blocks the installer with no Run anyway button. You can switch Smart App Control off (Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings), but Windows cannot turn it back on later without reinstalling Windows. If you would rather not, keep using your current VoxelPort: it keeps working."},{"title":"ANDROID","body":"Nothing to do. The Android app updates itself from inside the app."}];
+const NEWAPP_WHY = [{"title":"MUCH SMALLER","body":"About 3 MB to download instead of over 100 MB."},{"title":"WHERE NEW THINGS GO","body":"New features come only to the new app. The old one keeps working, but it stops getting them."},{"title":"SAFE UPDATES","body":"Updates are checked against a key built into the app before they are installed."},{"title":"NOTHING LOST","body":"Your servers, worlds, backups, VoxelPort ID and custom address come with you, and if anything goes wrong your old app and data stay exactly as they are."}];
+
+export function NewAppPage({ onBack }) {
+  return (
+    <SubPage onBack={onBack}>
+      <PageHero kicker="VoxelPort has moved" a="THE NEW" b="VOXELPORT"
+        lede="A smaller app that does everything the old one does, and the only one that gets new features. Moving takes about a minute and keeps your servers.">
+        <div className="page-cta" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
+          <a className="btn green" href={DL_WIN}>DOWNLOAD THE NEW APP</a>
+          <DiscordButton>ASK ON DISCORD</DiscordButton>
+        </div>
+      </PageHero>
+
+      <section className="page-section" id="steps">
+        <SectionHead kicker="Already using VoxelPort?">MOVE IN ONE MINUTE.</SectionHead>
+        <div className="note-list">
+          {NEWAPP_STEPS.map((n) => (
+            <div key={n.title} className="panel gold">
+              <h3>{n.title}</h3>
+              <p>{n.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="page-section" id="other">
+        <SectionHead kicker="If something is different">OTHER WAYS AND QUESTIONS.</SectionHead>
+        <div className="note-list">
+          {NEWAPP_OTHER.map((n) => (
+            <div key={n.title} className="panel">
+              <h3>{n.title}</h3>
+              <p>{n.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="page-section" id="why">
+        <SectionHead kicker="Why move">WHAT YOU GET.</SectionHead>
+        <div className="note-list">
+          {NEWAPP_WHY.map((n) => (
+            <div key={n.title} className="panel">
+              <h3>{n.title}</h3>
+              <p>{n.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="page-cta" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 28 }}>
+          <a className="btn green" href={DL_WIN}>DOWNLOAD THE NEW APP</a>
+          <a className="btn cream" href="/download" onClick={go('/download')}>ALL DOWNLOADS</a>
+        </div>
+      </section>
+    </SubPage>
+  );
+}
+
+/** A slim notice for the pages most people land on. */
+export function MoveStrip() {
+  return (
+    <a className="move-strip" href="/new-app" onClick={go('/new-app')}>
+      <b>VoxelPort has a new app.</b> Using VoxelPort already? Move in one minute and keep your servers <span aria-hidden="true">→</span>
+    </a>
+  );
+}
+
 // ─── /download ────────────────────────────────────────────────────────────────
 
 const INSTALL_NOTES = [
@@ -343,6 +412,7 @@ export function DownloadPage({ onBack }) {
   const os = useDetectedOS();
   return (
     <SubPage onBack={onBack}>
+      <MoveStrip />
       <PageHero kicker="Free · join our Discord" a="GET" b="VOXELPORT"
         lede="One app, on your PC or your Android phone, hosts any Minecraft Java server. Players always join with vanilla Minecraft." />
 

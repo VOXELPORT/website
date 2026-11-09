@@ -20,6 +20,7 @@ const FaqPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.F
 const DownloadPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.DownloadPage })));
 const SupportPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.SupportPage })));
 const CommunityPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.CommunityPage })));
+const NewAppPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.NewAppPage })));
 const AboutPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.AboutPage })));
 const TeamPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.TeamPage })));
 const NotFoundPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.NotFoundPage })));
@@ -60,7 +61,7 @@ const SIMPLE_ROUTES = {
   '/motd': 'motd',
   '/legal': 'legal', '/status': 'status', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
-  '/support': 'support', '/community': 'community', '/about': 'about', '/team': 'team',
+  '/support': 'support', '/community': 'community', '/new-app': 'newapp', '/about': 'about', '/team': 'team',
 };
 
 function routeFromPath() {
@@ -122,6 +123,7 @@ export default function App() {
       {page === 'download' && <DownloadPage onBack={goHome} />}
       {page === 'support' && <SupportPage onBack={goHome} />}
       {page === 'community' && <CommunityPage onBack={goHome} />}
+      {page === 'newapp' && <NewAppPage onBack={goHome} />}
       {page === 'about' && <AboutPage onBack={goHome} />}
       {page === 'team' && <TeamPage onBack={goHome} />}
       {page === 'legal' && <LegalPage onBack={goHome} />}

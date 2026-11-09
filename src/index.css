@@ -500,3 +500,8 @@ button { font-family: inherit; }
   .nav-links a, .nav-links button { font-size: 12px; letter-spacing: .08em; }
   .logo-word { font-size: 26px; }
 }
+
+/* The "VoxelPort has a new app" strip at the top of the home and download pages. */
+.move-strip { display: block; text-align: center; padding: 10px 16px; background: var(--gold); color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; border-bottom: 3px solid var(--ink); }
+.move-strip:hover { filter: brightness(1.05); }
+.move-strip b { font-weight: 800; }

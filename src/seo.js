@@ -70,6 +70,19 @@ export const PAGES = {
     heading: 'Support VoxelPort',
     summary: ['VoxelPort has no ads and hosting is free. If it saved you a fight with your router, a small tip helps keep the relay online.'],
   },
+  newapp: {
+    path: '/new-app',
+    title: 'The New VoxelPort: Move in One Minute and Keep Your Servers',
+    description: 'VoxelPort has a new app: about 3 MB instead of over 100 MB, and the only one that gets new features. Press Update to the new VoxelPort in your current app; your servers, worlds and address come with you.',
+    heading: 'The new VoxelPort',
+    summary: ['VoxelPort has moved to a new app. It does everything the old one does, is about 3 MB instead of over 100 MB, and is the only one that gets new features. Moving takes about a minute and keeps your servers, worlds, backups and address.'],
+    points: [
+      'Update your current app to 1.18.0 or newer, then press Update to the new VoxelPort',
+      'No button? Download the new app and it offers to bring your data over',
+      'Microsoft Store users: download the new app, bring your data over, remove the Store version',
+      'Your server folders and worlds are never touched',
+    ],
+  },
   community: {
     path: '/community',
     title: 'VoxelPort Discord: Help, Servers and Release News',

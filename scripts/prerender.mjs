@@ -23,7 +23,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0 beta)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0 beta)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
@@ -58,6 +58,11 @@ const EXTRA = {
     '<h2>Who we need</h2>' + TEAM_ROLES.map((r) => `<h3>${esc(r.title)}</h3><p>${esc(r.body)} You need: ${esc(r.asks)}</p>`).join(''),
     '<h2>How to apply</h2>' + TEAM_HOW.map((s) => `<h3>${esc(s.title)}</h3><p>${esc(s.body)}</p>`).join(''),
     `<p><a href="${DISCORD}">Join the VoxelPort Discord</a> · <a href="mailto:${DEV.email}">${DEV.email}</a></p>`,
+  ],
+  newapp: () => [
+    '<h2>Move in one minute</h2><ol><li>Update your current VoxelPort to 1.18.0 or newer (Restart &amp; Update).</li><li>Press <b>Update to the new VoxelPort</b> on the banner. It installs the new app, brings over your servers, backups, VoxelPort ID, address and settings, then removes the old app.</li><li>Sign in with Discord once in the new app.</li></ol>',
+    '<h2>Other ways</h2><p>No button? Download the new app and it offers to bring your data over. Microsoft Store users: the Store cannot install another app, so download it, bring your data over and remove the Store version. Windows may say it protected your PC: click More info, then Run anyway. With Windows 11 Smart App Control on, the installer is blocked; you can switch it off (Windows cannot turn it back on without reinstalling), or keep using your current VoxelPort, which keeps working.</p>',
+    `<p><a href="https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe">Download the new app</a> · <a href="${DISCORD}">Ask on Discord</a></p>`,
   ],
   community: () => [
     '<h2>What is inside</h2>' + DISCORD_PERKS.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join(''),
@@ -162,8 +167,8 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
