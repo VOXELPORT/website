@@ -7,7 +7,7 @@ export const INSTAGRAM = 'https://www.instagram.com/voxelport.in/';
 export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export { DISCORD } from './community.js';
 // Direct Windows installer from GitHub: the NEW app (2.0 beta). Not code-signed yet, so SmartScreen warns once and Smart App Control blocks it.
-export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.1/VoxelPort-Setup.exe';
+export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.2/VoxelPort-Setup.exe';
 // Android app (host a server from the phone). Points to the install guide,
 // which links the sideload APK on GitHub Releases (sideloading needs the steps).
 export const DL_ANDROID = '/guides/host-minecraft-server-android-phone';
