@@ -402,7 +402,7 @@ const INSTALL_NOTES = [
   { title: 'THE NEW APP · 2.0 BETA', body: 'VoxelPort has moved to a new app, rebuilt on newer technology: about 3 MB instead of over 100 MB, and where every new feature goes. Already using VoxelPort? Update your current app to 1.18.0 and press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong your old app and data stay as they are. You sign in with Discord once in the new app. Microsoft Store copy: the Store can’t install another app, so download the new one here, open it and use its banner to bring your data over, then remove the Store version in Windows Settings › Apps.' },
   { title: 'WINDOWS', body: 'The new app, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
   { title: 'WINDOWS 11 · SMART APP CONTROL', body: 'If Smart App Control is on, Windows blocks the installer and there is no “Run anyway” button. To install it, switch Smart App Control off: Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings › Off. Windows can’t turn it back on later without reinstalling Windows, so if you’d rather not, keep using your current VoxelPort: it keeps working.' },
-  { title: 'ANDROID · BETA', body: 'Host a server from your phone. This is a beta, so it has bugs: the server can stop, and players can be disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
+  { title: 'ANDROID', body: 'Host a server from your phone. A phone has limits: Android can close apps in the background, and mobile data or a phone with little RAM is the hardest case. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
   { title: 'WHAT YOU NEED', body: 'A Windows 10/11 PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. A free Discord account to join our server, and no router settings.' },
   { title: 'MACOS', body: 'Not yet. Follow the Discord or GitHub to hear when it lands.' },
 ];
@@ -428,7 +428,7 @@ export function DownloadPage({ onBack }) {
         <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
           <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_WIN}>WINDOWS · NEW APP (BETA)</a>
-          <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · BETA APK</a>
+          <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · APK</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
           <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
         </div>
@@ -450,10 +450,10 @@ export function DownloadPage({ onBack }) {
       </div>
 
       <div className="panel gold tilt-l1" style={{ padding: '18px 22px', marginTop: 24, maxWidth: 720 }}>
-        <span className="kicker" style={{ color: 'var(--ink-2)' }}>Heads up · Android beta</span>
+        <span className="kicker" style={{ color: 'var(--ink-2)' }}>Good to know · Android</span>
         <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
-          The Android app is a <b>beta build</b>, so it has many bugs. Servers can stop on their own and players can get disconnected, especially on mobile data or a phone with little memory.
-          Use Wi‑Fi, keep the app open, and use the <b>PC app</b> for a server that has to stay up. We are working on it.
+          Hosting from a phone has limits. Android can close apps in the background, and mobile data or a phone with little memory is the hardest case.
+          Use Wi‑Fi, keep the app open, and use the <b>PC app</b> for a server that has to stay up.
         </p>
       </div>
 

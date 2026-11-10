@@ -15,12 +15,12 @@ export const GUIDES = [
     title: 'Host a Minecraft Server on Your Android Phone (Free)',
     short: 'Host from your phone',
     description: 'Run a real Minecraft: Java server on your Android phone with the free VoxelPort app. Friends join from anywhere, no port forwarding, Java + Bedrock.',
-    kicker: 'Android · Beta',
+    kicker: 'Android',
     blurb: 'Turn your Android phone into a Minecraft server: install the app, start, make public.',
     faq: [
       { q: 'Can my Android phone really run a Minecraft server?', a: 'Yes. VoxelPort for Android runs a full Paper (Java Edition) server on the phone, with a real Java 25 runtime bundled in. A phone with 6–8 GB of RAM comfortably hosts a few friends.' },
       { q: 'Do my friends need Android or the app?', a: 'No. You (the host) run the app; friends join with normal Minecraft on any device — PC, phone or console. Turn on Bedrock players and phone/console players can join too.' },
-      { q: 'Why is it an APK and not on the Play Store?', a: 'The app is in beta and distributed as a direct APK for now. A Play Store listing is planned. Sideloading is safe here — it’s the same open project as the desktop app.' },
+      { q: 'Why is it an APK and not on the Play Store?', a: 'The app is distributed as a direct APK for now. A Play Store listing is planned. Sideloading is safe here — it’s the same open project as the desktop app.' },
       { q: 'Will it drain my battery or data?', a: 'Hosting uses CPU and keeps the screen-off server awake, so keep the phone on a charger for long sessions. Every player’s traffic goes through your connection, so Wi‑Fi is best. On mobile data the app counts what it uses, warns you before big downloads, stops sharing at a daily limit you choose (500 MB by default), and has a Data saver mode that sends each player less.' },
       { q: 'How much mobile data does hosting use?', a: 'Roughly 10–50 MB per hour for each player online while they build or mine, and a lot more while they explore new land or fly, because new world has to be sent to them. Setting up the server downloads about 110 MB once. On a 1 GB-per-day plan that is a few players for a few hours, so host on Wi‑Fi when you can. The app shows what it used today and stops sharing at your limit.' },
       { q: 'Can friends without a paid Minecraft account join?', a: 'Yes, if you turn on "Allow cracked players" in the app (it sets online-mode to false). The trade-off is security: with the account check off, anyone can join under any name, including an admin’s, so use the whitelist or the one-tap login plugin (AuthMe) the app offers. Switching also changes players’ IDs, so existing inventories and ops won’t carry over.' },
@@ -30,7 +30,7 @@ export const GUIDES = [
     html: `
 <p>Your Android phone is a small Linux computer with several gigabytes of RAM — plenty to host a Minecraft server for a few friends. VoxelPort for Android runs a real Paper (Java Edition) server right on the phone and puts it online through the VoxelPort relay, so friends join from anywhere without port forwarding.</p>
 
-<div class="tip"><b>This is a beta build, so it has many bugs.</b> The server can stop on its own and players can get disconnected, most of all on mobile data or a phone with little RAM. Use Wi‑Fi, keep the app open, and use the <a href="/download">PC app</a> for a server that has to stay up. It is shared as a direct APK (not on the Play Store yet) and needs an arm64 phone on Android 8 or newer.</div>
+<div class="tip"><b>A phone is not a PC.</b> Android can close apps in the background, and mobile data or a phone with little RAM is the hardest way to host. Use Wi‑Fi, keep the app open, and use the <a href="/download">PC app</a> for a server that has to stay up. It is shared as a direct APK (not on the Play Store yet) and needs an arm64 phone on Android 8 or newer.</div>
 
 <h2 id="install">Install the app</h2>
 <ol>
@@ -164,7 +164,7 @@ ${GET_APP}
       { q: 'Which free Minecraft host is best in India?', a: 'It depends on what you have. If someone in your group has a PC that can stay on, hosting on it with VoxelPort is free and has no limits from a host. If nobody does, pick a free host with an Indian server location for lower ping, and expect the usual free-plan limits.' },
       { q: 'Will it work on Jio Fiber, AirFiber or Airtel?', a: 'Yes. Most Jio and Airtel connections use CGNAT, so port forwarding does not work. VoxelPort needs no port forwarding: the app connects out to a relay in India that gives your server a public address.' },
       { q: 'Do I need a credit card, UPI or a GST number?', a: 'Not for VoxelPort. It is free, with no payment (hosts join our Discord server). Some paid hosts bill in USD or ask for business details; many Indian hosts accept UPI. That only matters if you choose a paid plan.' },
-      { q: 'Can I host a Minecraft server from my phone in India?', a: 'Yes, there is an Android beta of VoxelPort that runs a Java server on the phone. Use Wi-Fi and a charger; mobile data works but is the weakest way to host.' },
+      { q: 'Can I host a Minecraft server from my phone in India?', a: 'Yes, VoxelPort has an Android app that runs a Java server on the phone. Use Wi-Fi and a charger; mobile data works but is the weakest way to host.' },
     ],
     html: `
 <p>If you search for free Minecraft hosting in India you will find a lot of hosts, and almost all of them run your server on their machines with limits. There is also a free option that the lists usually skip: <b>host on your own PC</b> and use a relay to put it online. Here is how the choices compare for players in India.</p>
@@ -174,7 +174,7 @@ ${GET_APP}
   <li><b>An ad-supported free host.</b> They run the server for you at no cost, usually with small RAM, a few player slots, ads, and a server that sleeps when empty or a queue at busy times. Some now have Indian server locations, which helps the ping but not the limits.</li>
   <li><b>Your own PC with VoxelPort.</b> Free, no sleep, no queue, no ads, and the RAM is whatever your PC can spare. It needs to stay on while people play.</li>
   <li><b>A cheap Indian paid host.</b> Many start from a few tens to a couple of hundred rupees a month and accept UPI. Prices and plans change, so check each host’s site. You get 24/7 uptime without keeping a PC on.</li>
-  <li><b>Your Android phone.</b> VoxelPort has an Android beta that runs the server on the phone. Good for a small group on Wi-Fi.</li>
+  <li><b>Your Android phone.</b> VoxelPort has an Android app that runs the server on the phone. Good for a small group on Wi-Fi.</li>
 </ul>
 
 <h2 id="compare">Free host or your own PC?</h2>

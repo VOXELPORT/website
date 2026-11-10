@@ -59,7 +59,7 @@ export const ABOUT = [
     title: 'THE PROBLEM.',
     paras: [
       'I wanted to play Minecraft with my friends on a server running on my own PC. That means port forwarding, and on most Indian connections (Jio, Airtel, hostel Wi-Fi) it simply does not work, because many customers share one public IP address (CGNAT). The usual answers were paying for hosting or waiting in a free host’s queue.',
-      'So I built a way around it. The first version of VoxelPort was a small Fabric mod. It grew into a desktop app for Windows that creates the server, installs Java, and puts the server online through a relay. Then came a Discord community, and an Android app (still in beta) that hosts a server from a phone.',
+      'So I built a way around it. The first version of VoxelPort was a small Fabric mod. It grew into a desktop app for Windows that creates the server, installs Java, and puts the server online through a relay. Then came a Discord community, and an Android app that hosts a server from a phone.',
       'One early lesson: my own internet routed relay traffic through another country, which made the ping about 151 ms. Adding a direct route to the relay, with an automatic fallback, brought it down to about 13 ms. Most of the work since has been this kind of problem.',
     ],
   },
@@ -74,7 +74,7 @@ export const ABOUT = [
     stack: [
       ['Desktop app', 'Tauri and Rust, for Windows'],
       ['Relay', 'Go, on two servers: one in India and one in Europe. Hosts connect out over an encrypted WebSocket; players connect to the public port the relay assigns. It forwards traffic and does not store worlds or player data'],
-      ['Android app', 'Runs a Java server on the phone with a bundled Java runtime and a Go tunnel (beta)'],
+      ['Android app', 'Runs a Java server on the phone with a bundled Java runtime and a Go tunnel'],
       ['Website', 'React and Vite, with every page pre-rendered so search engines can read it'],
       ['Discord bot', 'TypeScript: support tickets, AI answers in English, Hindi and Hinglish, release announcements, moderation tools'],
       ['Builds', 'GitHub Actions for tests, installers and releases'],
@@ -133,7 +133,7 @@ export const TEAM_ROLES = [
   {
     title: 'BETA TESTERS',
     sprite: 'diamond',
-    body: 'Try the Android beta (arm64 phone, Android 8 or newer) and the desktop app on different PCs, internet providers and Minecraft versions, and tell us exactly what breaks.',
+    body: 'Try the Android app (arm64 phone, Android 8 or newer) and the new desktop app (2.0 beta) on different PCs, internet providers and Minecraft versions, and tell us exactly what breaks.',
     asks: 'A phone or PC and the time to write a clear bug report. Screenshots help a lot.',
   },
   {

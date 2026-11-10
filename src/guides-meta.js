@@ -25,7 +25,7 @@ export const GUIDES_META = [
     title: 'Host a Minecraft Server on Your Android Phone (Free)',
     short: 'Host from your phone',
     description: 'Run a real Minecraft: Java server on your Android phone with the free VoxelPort app. Friends join from anywhere, no port forwarding, Java + Bedrock.',
-    kicker: 'Android · Beta',
+    kicker: 'Android',
     blurb: 'Turn your Android phone into a Minecraft server: install the app, start, make public.',
   },
   {

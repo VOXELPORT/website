@@ -124,7 +124,7 @@ export const PAGES = {
     points: [
       'Discord moderators (Hindi and Hinglish speakers especially)',
       'Developers: Electron, Go, Android, React, TypeScript',
-      'Beta testers for the Android app and the desktop app',
+      'Testers for the Android app and the new desktop app (2.0 beta)',
       'Translators, guide writers and Minecraft creators',
     ],
   },
