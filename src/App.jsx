@@ -2,11 +2,14 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Landing from './Landing.jsx';
 import { Nav, Footer } from './ui.jsx';
+import { V2Bg } from './V2Shell.jsx';
 import { SITE_NAV } from './content.js';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
 import './v3.css';
 import './theme.css';
+import './v2dark.css';
+import './v2inner.css';
 
 const LegalPage = lazy(() => import('./LegalPage.jsx'));
 const StatusPage = lazy(() => import('./StatusPage.jsx'));
@@ -115,6 +118,7 @@ export default function App() {
   if (page === 'home') return <Landing />;
 
   return (
+    <div className="v2d v2d-inner"><V2Bg />
     <Suspense fallback={<PageFallback onBack={goHome} />}>
       {page === 'motd' && <MotdPage onBack={goHome} />}
       {page === 'features' && <FeaturesPage onBack={goHome} />}
@@ -134,5 +138,6 @@ export default function App() {
       )}
       {page === 'notfound' && <NotFoundPage onBack={goHome} />}
     </Suspense>
+    </div>
   );
 }

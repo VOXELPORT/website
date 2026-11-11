@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ThemeSelector from './ThemeSelector.jsx';
+import { V2Nav, V2Footer } from './V2Shell.jsx';
 import { PAL, DL_WIN, DL_ANDROID, GITHUB_APP, GITHUB_ORG, INSTAGRAM, DISCORD, useRelayStatus } from './data.js';
 import { DISCORD_LINE } from './community.js';
 import { navigate, isModifiedClick } from './seo.js';
@@ -105,111 +105,8 @@ export function DiscordBand() {
 
 // ─── Nav ───────────────────────────────────────────────────────────────────
 
-export function Nav({ links, relay, onLogo }) {
-  const [open, setOpen] = useState(false);
-  const liveRelay = useRelayStatus();
-  const status = relay || liveRelay;
-  const currentPath = typeof window !== 'undefined' ? (window.location.pathname.replace(/\/+$/, '') || '/') : '/';
-  const label = status.state === 'online' ? 'Relays online' : status.state === 'loading' ? 'Checking relays' : 'Status unavailable';
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open]);
-
-  return (
-    <><a className="v3-skip" href="#main-content">Skip to content</a><header className="hb-nav">
-      <div className="hb-wrap hb-nav-inner">
-        <a
-          className="hb-logo" href="/" aria-label="VoxelPort home"
-          onClick={(e) => { if (isModifiedClick(e)) return; if (onLogo) onLogo(e); else { e.preventDefault(); navigate('/'); window.scrollTo(0, 0); } }}
-        >
-          <img src="/favicon.svg" width="28" height="28" alt="" />
-          <span>VoxelPort</span>
-        </a>
-        <nav id="hb-links" className={`hb-links${open ? ' open' : ''}`} aria-label="Main navigation" onClick={() => setOpen(false)}>
-          {links.filter(([, href]) => ['/features', '/guides', '/servers'].includes(href)).map(([text, href]) => {
-            const active = currentPath === href || (href === '/guides' && currentPath.startsWith('/guides/'));
-            return (
-              <a key={href} href={href} className={active ? 'active' : undefined} aria-current={active ? 'page' : undefined} onClick={internal(href)}>{text}</a>
-            );
-          })}
-          <a className="hb-relay" href="/status" onClick={internal('/status')}><span className={`hb-dot ${status.state}`} aria-hidden="true" />{label}</a>
-          <a className="hb-discord" href={DISCORD} target="_blank" rel="noopener noreferrer"><DiscordIcon size={17} />Discord</a>
-          <a className="hb-btn hb-btn-solid hb-btn-sm" href="/download" onClick={internal('/download')}>Get VoxelPort <span aria-hidden="true">↗</span></a>
-        </nav>
-        <div className="v3-nav-controls">
-          <ThemeSelector />
-          <button className="hb-nav-toggle" aria-expanded={open} aria-controls="hb-links" onClick={() => setOpen((v) => !v)}>
-            {open ? 'Close' : 'Menu'}
-          </button>
-        </div>
-      </div>
-    </header></>
-  );
-}
+export function Nav({ onLogo }) { return <V2Nav onLogo={onLogo} />; }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
-const FOOTER_COLS = [
-  { title: 'Explore', links: [['Features', '/features'], ['How it works', '#how'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Server list', '/servers'], ['Relay status', '/status'], ['MOTD Editor', '/motd']] },
-  { title: 'Guides', links: GUIDES_META.slice(0, 5).map((g) => [g.short, guidePath(g)]).concat([['All guides', '/guides']]) },
-  { title: 'Get it', links: [['Download page', '/download'], ['Windows (direct .exe)', DL_WIN], ['Android (APK)', DL_ANDROID]] },
-  { title: 'Community', links: [['Discord', DISCORD], ['About the Discord', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Instagram', INSTAGRAM], ['App source', GITHUB_APP], ['All repos', GITHUB_ORG], ['Support (UPI)', '/support']] },
-  { title: 'Legal', links: [['MIT License', '/legal#mit-license'], ['Privacy', '/legal#privacy-notice'], ['Terms', '/legal#terms-of-use'], ['Trademarks', '/legal#trademarks'], ['Code signing', '/download#code-signing']] },
-];
-
-export function Footer({ onHome, band = true }) {
-  const go = (href) => (e) => {
-    if (isModifiedClick(e)) return;
-    if (href.startsWith('/dl/')) return; // real file download, let the browser handle it
-    if (href.startsWith('/')) { e.preventDefault(); navigate(href); window.scrollTo(0, 0); return; }
-    // A section of the landing page: scroll there, or go home first.
-    if (href.startsWith('#')) {
-      if (onHome) onHome(href);
-      else { e.preventDefault(); navigate('/' + href); }
-    }
-  };
-  return (
-    <>
-    {band && <DiscordBand />}
-    <footer className="footer">
-      <div className="wrap">
-        <div className="footer-grid">
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <img src="/favicon.svg" width="38" height="38" alt="" style={{ imageRendering: 'pixelated', display: 'block' }} />
-              <span className="logo-word" style={{ color: 'var(--paper)' }}>VOXEL<span style={{ color: 'var(--grass)' }}>PORT</span></span>
-            </div>
-            <p style={{ marginTop: 16, maxWidth: 300, fontSize: 15, lineHeight: 1.6, color: 'rgba(243,235,220,.78)' }}>
-              Free, open-source Minecraft server hosting from your own PC. No port forwarding, no signup for friends — Java and Bedrock friends join in seconds.
-            </p>
-            <DiscordButton small style={{ marginTop: 18 }}>JOIN THE DISCORD</DiscordButton>
-          </div>
-          {FOOTER_COLS.map((col) => (
-            <div key={col.title}>
-              <h2 className="footer-title">{col.title}</h2>
-              <ul>
-                {col.links.map(([label, href]) => {
-                  const external = !href.startsWith('#') && !href.startsWith('/');
-                  return (
-                    <li key={label}>
-                      <a href={href} onClick={external ? undefined : go(href)} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}>{label}</a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="footer-base">
-          <span>© 2026 VoxelPort · built by trazhub</span>
-          <span>Not affiliated with Mojang or Microsoft · MIT License</span>
-        </div>
-      </div>
-    </footer>
-    </>
-  );
-}
+export function Footer() { return <V2Footer />; }
