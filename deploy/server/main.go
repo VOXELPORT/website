@@ -79,10 +79,11 @@ func main() {
 		h.Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		h.Set("X-Frame-Options", "DENY")
 
-		// The main website is now https://voxelport.github.io. People who open a page here (the home page or a
-		// route like /guides) are sent there for good. Files keep being served from here: /dl/ (the Android APK and
-		// its update feed, which installed apps read), support.json, images and other assets.
-		if r.Header.Get("Cf-Ray") != "" && !strings.HasPrefix(r.URL.Path, "/dl/") && filepath.Ext(r.URL.Path) == "" {
+		// The main website is now https://voxelport.github.io: every page and file requested here is sent there for good.
+		// Only two things stay on this host, because installed Android apps (and the desktop app) have these two addresses
+		// built in and cannot be changed after the fact: /dl/ (the app update feed, the APK and the private dev build)
+		// and /support.json (the supporter list the apps read).
+		if r.Header.Get("Cf-Ray") != "" && !strings.HasPrefix(r.URL.Path, "/dl/") && r.URL.Path != "/support.json" {
 			http.Redirect(w, r, "https://voxelport.github.io"+r.URL.RequestURI(), http.StatusMovedPermanently)
 			return
 		}
