@@ -143,3 +143,6 @@
   .v2d-show-tag { left: 12px; bottom: 12px; }
   .v2d-proof-in { justify-content: flex-start; }
 }
+.v2d-dual-media.is-phone { margin: auto 0; border: 0; background: radial-gradient(ellipse 60% 55% at 50% 50%, color-mix(in srgb, var(--green) 16%, transparent), transparent 70%); padding: 6px 0; overflow: visible; }
+.v2d-dual-media.is-phone .v2d-phone { width: 100%; max-width: 250px; }
+.v2d-dual-card > p { margin-bottom: 14px; }

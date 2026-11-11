@@ -107,7 +107,7 @@ export default function Landing() {
             <span className="v2d-badge"><Icon kind="phone" size={14} /> Android</span>
             <h3>Host from your phone</h3>
             <p>One Play button installs, starts and shares. Players, whitelist and plugins, all on your phone.</p>
-            <div className="v2d-dual-media"><Showcase className="v2d-phone" src="/showcase/android.mp4" poster="/showcase/android.gif" /></div>
+            <div className="v2d-dual-media is-phone"><Showcase className="v2d-phone" src="/showcase/android.mp4" poster="/showcase/android.gif" /></div>
           </div>
         </div>
       </section>
