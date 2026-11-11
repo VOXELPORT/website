@@ -107,3 +107,39 @@
 .v2d-inner .legal-head .pixel { color: var(--green) !important; }
 .v2d.v2d-inner .legal-section .legal-head, .v2d.v2d-inner .legal-section .legal-head h2 { color: var(--ink) !important; }
 .v2d.v2d-inner .legal-section .legal-head .pixel { color: var(--green) !important; }
+.v2d-logo { image-rendering: pixelated; display: block; flex: none; }
+.v2d-brand { white-space: nowrap; gap: 10px; }
+.v2d-brand span { letter-spacing: 0; }
+
+/* ───── Phone layout ───── */
+@media (max-width: 920px) {
+  .v2d-top-in { justify-content: space-between; }
+  .v2d-wrap { padding: 0 18px; }
+  .v2d-inner .wrap { padding: 0 18px !important; }
+  .v2d-inner main.wrap { padding-top: 36px !important; padding-bottom: 64px !important; }
+  .v2d-inner :is(.grid-2, .grid-3, .grid-4, .faq-grid, .support, .direct-grid, .guide-layout) { grid-template-columns: 1fr !important; gap: 18px; }
+  .v2d-inner [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  .v2d-inner [style*="display: flex"], .v2d-inner [style*="display:flex"] { flex-wrap: wrap; }
+  .v2d-inner h1 { font-size: clamp(40px, 13vw, 76px) !important; line-height: 1 !important; }
+  .v2d-inner .h-section { font-size: clamp(28px, 8vw, 44px); }
+  .v2d-inner .page-section { padding-top: 40px; padding-bottom: 40px; }
+  .v2d-inner .page-cta { padding: 24px 18px; }
+  .v2d-inner .panel { min-width: 0; }
+  .v2d-inner :is(.table-scroll, .guide-body table) { overflow-x: auto; max-width: 100%; }
+  .v2d-inner .addr, .v2d-inner code { overflow-wrap: anywhere; white-space: normal; }
+  .v2d-inner img, .v2d-inner video, .v2d-inner svg { max-width: 100%; height: auto; }
+  .v2d-inner :is(.page-cta, .support-card) .btn { width: 100%; max-width: 100%; text-align: center; }
+  .v2d-inner .support-card { max-width: 100%; }
+  .v2d-inner .guide-toc { position: static; }
+  .v2d-foot-in { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 520px) {
+  .v2d-strip { font-size: 12px; padding: 8px 12px; }
+  .v2d-hero h1 { font-size: clamp(38px, 11.5vw, 56px); }
+  .v2d-brand { font-size: 17px; }
+}
+@media (max-width: 920px) {
+  .v2d-hero { padding-bottom: 56px; }
+  .v2d-show-tag { left: 12px; bottom: 12px; }
+  .v2d-proof-in { justify-content: flex-start; }
+}

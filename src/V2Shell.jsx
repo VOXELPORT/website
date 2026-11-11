@@ -33,7 +33,7 @@ export function V2Nav({ onLogo }) {
     <a className="v2d-strip" href="/new-app" onClick={go('/new-app')}><b>VoxelPort has a new app.</b> Already using it? Move in one minute and keep your servers →</a>
     <header className="v2d-top">
       <div className="v2d-wrap v2d-top-in">
-        <a className="v2d-brand" href="/" onClick={(e) => { if (onLogo && !isModifiedClick(e)) onLogo(e); else go('/')(e); }}><span className="v2d-cube" aria-hidden="true" /><span>Voxel<b>Port</b></span></a>
+        <a className="v2d-brand" href="/" onClick={(e) => { if (onLogo && !isModifiedClick(e)) onLogo(e); else go('/')(e); }}><img className="v2d-logo" src="/favicon.svg" width="30" height="30" alt="" /><span>Voxel<b>Port</b></span></a>
         <nav id="v2d-nav" className={`v2d-nav${open ? ' open' : ''}`} aria-label="Main">
           {SITE_NAV.map(([label, href]) => {
             const active = path === href || (href === '/guides' && path.startsWith('/guides/'));
@@ -51,7 +51,7 @@ export function V2Nav({ onLogo }) {
 export function V2Footer() {
   return <footer className="v2d-foot">
     <div className="v2d-wrap v2d-foot-in">
-      <a className="v2d-brand" href="/" onClick={go('/')} style={{ fontSize: 17 }}><span className="v2d-cube" style={{ width: 20, height: 20 }} aria-hidden="true" /><span>Voxel<b>Port</b></span></a>
+      <a className="v2d-brand" href="/" onClick={go('/')} style={{ fontSize: 17 }}><img className="v2d-logo" src="/favicon.svg" width="24" height="24" alt="" /><span>Voxel<b>Port</b></span></a>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 24px' }} aria-label="Footer">
         {SITE_NAV.map(([label, href]) => <a key={href} href={href} onClick={go(href)}>{label}</a>)}
         <a href="/compare" onClick={go('/compare')}>Compare</a>
