@@ -133,7 +133,7 @@ export const TEAM_ROLES = [
   {
     title: 'BETA TESTERS',
     sprite: 'diamond',
-    body: 'Try the Android app (arm64 phone, Android 8 or newer) and the new desktop app (2.0 beta) on different PCs, internet providers and Minecraft versions, and tell us exactly what breaks.',
+    body: 'Try the Android app (arm64 phone, Android 8 or newer) and the new desktop app on different PCs, internet providers and Minecraft versions, and tell us exactly what breaks.',
     asks: 'A phone or PC and the time to write a clear bug report. Screenshots help a lot.',
   },
   {
