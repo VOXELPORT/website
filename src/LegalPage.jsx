@@ -121,8 +121,8 @@ export default function LegalPage({ onBack }) {
           <Sub color="var(--red)">Sent to the relay</Sub>
           <p>
             For the India relay, hosts connect to <Code>wss://direct.voxelport.in:26499</Code> first and fall back to <Code>wss://relay.voxelport.in</Code>
-            (routed through Cloudflare) if that fails. For the Europe relay, hosts connect to <Code>wss://eu.voxelport.in</Code>. Players connect to{' '}
-            <Code>play.voxelport.in:&lt;port&gt;</Code> (India) or <Code>play-eu.voxelport.in:&lt;port&gt;</Code> (Europe).
+            (routed through Cloudflare) if that fails. For the Europe relay, hosts connect to <Code>wss://eu.voxelport.in</Code>, and for the Los Angeles relay to <Code>wss://la.voxelport.in</Code>. Players connect to{' '}
+            <Code>play.voxelport.in:&lt;port&gt;</Code> (India), <Code>play-eu.voxelport.in:&lt;port&gt;</Code> (Europe) or <Code>play-la.voxelport.in:&lt;port&gt;</Code> (Los Angeles).
           </p>
           <Table rows={[
             ['When', 'Data', 'Why'],
@@ -177,9 +177,9 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">Where the relay is</Sub>
           <p>
-            There are <b>two relays: one in India and one in Europe</b> (a rented server there) — VoxelPort is free and self-funded, so that’s what we can run.
-            The app picks the closer one for each host. Hosts and players near India or near Europe get the best ping (often under 50 ms);
-            the Americas typically see 100–250 ms of relay overhead. The accounts service runs on a rented server in Europe, and accounts.voxelport.in is served through Cloudflare. The Europe relay does not offer custom addresses. More regions may come if the project grows — support it on{' '}
+            There are <b>three relays: one in India, one in Europe and one in Los Angeles</b> (rented servers) — VoxelPort is free and self-funded, so that’s what we can run.
+            The app picks the closer one for each host. Hosts and players near a relay get the best ping (often under 50 ms);
+            South America and the US east coast typically see more. The accounts service runs on a rented server in Europe, and accounts.voxelport.in is served through Cloudflare. The Europe and Los Angeles relays do not offer custom addresses. More regions may come if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
           </p>
 
@@ -187,9 +187,9 @@ export default function LegalPage({ onBack }) {
           <p>
             VoxelPort is run by Garv Verma, an individual and student in India, who decides why and how the data above is handled
             (the “controller” in privacy law). Reason for handling it: running and protecting a free relay service (legitimate
-            interests). The relays are in India and Europe; a connection goes to the relay the app picked for you, so your IP
-            address can be processed in either place, in memory only. The Europe relay runs on a rented server at a hosting
-            provider in Europe, which only provides the machine. On the India relay’s Cloudflare route, Cloudflare is the network carrier.
+            interests). The relays are in India, Europe and Los Angeles; a connection goes to the relay the app picked for you, so your IP
+            address can be processed in any of those places, in memory only. The Europe relay runs on a rented server at a hosting
+            provider in Europe, which only provides the machine; the Los Angeles relay runs on a rented server at a hosting provider in the US, which likewise only provides the machine. On the India relay’s Cloudflare route, Cloudflare is the network carrier.
           </p>
           <p>
             Wherever you live, you can ask us what we hold about you, ask us to delete it, object to how it is handled, or complain to

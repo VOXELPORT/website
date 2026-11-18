@@ -13,10 +13,11 @@ export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/downl
 export const DL_ANDROID = '/guides/host-minecraft-server-android-phone';
 
 // One relay per region; the app picks the closest. Counts and the server
-// list combine both.
+// list combine all of them.
 export const RELAYS = [
   { id: 'in', label: 'India', base: 'https://relay.voxelport.in' },
   { id: 'eu', label: 'Europe', base: 'https://eu.voxelport.in' },
+  { id: 'la', label: 'Los Angeles', base: 'https://la.voxelport.in' },
 ];
 export const RELAY_STATUS_URL = 'https://relay.voxelport.in/api/status';
 export const EXAMPLE_ADDR = 'play.voxelport.in:26137';

@@ -192,7 +192,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '',
   'Key facts:',
   '- Players join with plain Minecraft at a free address like play.voxelport.in:26137. Supporters can claim a custom address like yourname.voxelport.in (no port).',
-  '- Players join at play.voxelport.in (India) or play-eu.voxelport.in (Europe); VoxelPort has a relay in each region.',
+  '- Players join at play.voxelport.in (India), play-eu.voxelport.in (Europe) or play-la.voxelport.in (Los Angeles); VoxelPort has a relay in each region.',
   '- Unlike free cloud hosts (Aternos, Minehut, Falix), the server does not sleep, has no start queue and can use as much RAM as the PC can spare. Trade-off: the PC must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
   '- Download: the Windows installer, the new app (https://github.com/VOXELPORT/VoxelPort-App/releases/download/v2.0.0-beta.2/VoxelPort-Setup.exe). Android app (host from a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',

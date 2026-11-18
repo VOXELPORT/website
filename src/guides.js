@@ -135,7 +135,7 @@ export const GUIDES = [
 
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
-<p>VoxelPort has relays in India and in Europe, and the app picks the closer one, so friends near either get low ping. You get a free address like <code>play.voxelport.in:26137</code>, and supporters can claim a custom name like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
+<p>VoxelPort has relays in India, in Europe and in Los Angeles, and the app picks the closest one, so friends near any of them get low ping. You get a free address like <code>play.voxelport.in:26137</code>, and supporters can claim a custom name like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
 
 <h2 id="steps">Set up a free server in 2 minutes</h2>
 ${GET_APP}
@@ -358,7 +358,7 @@ ${GET_APP}
 <table>
   <thead><tr><th>Tool</th><th>Friends install</th><th>Address</th><th>Watch out for</th></tr></thead>
   <tbody>
-    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; custom <code>name.voxelport.in</code> for supporters</td><td>Windows and Android app; relays in India and Europe</td></tr>
+    <tr><td><b>VoxelPort</b></td><td>Nothing</td><td>Stays the same; custom <code>name.voxelport.in</code> for supporters</td><td>Windows and Android app; relays in India, Europe and Los Angeles</td></tr>
     <tr><td>playit.gg</td><td>Nothing</td><td>Generated address; custom domains on the paid plan</td><td>Free plan limits change; check their site</td></tr>
     <tr><td>ngrok</td><td>Nothing</td><td>Changes on restart (free)</td><td>Free TCP needs a credit/debit card on your account; bandwidth cap</td></tr>
     <tr><td>Hamachi</td><td>Hamachi, for everyone</td><td>Hamachi IP</td><td>About 5 people on the free plan; a VPN running on every PC</td></tr>
@@ -397,7 +397,7 @@ ${GET_APP}
       { q: 'Why doesn’t port forwarding work on Jio Fiber?', a: 'Most Jio Fiber and AirFiber connections are behind CGNAT: your router doesn’t get a public IPv4 address, so a forwarded port on your router can’t be reached from the internet. A relay such as VoxelPort avoids the problem because your PC connects out to it.' },
       { q: 'Does this work on Airtel Xstream Fiber?', a: 'Yes. Whether or not your Airtel connection has a public IP, VoxelPort only needs an outgoing connection, so it works the same way on Airtel, Jio, ACT, BSNL and other ISPs.' },
       { q: 'Can I host from a mobile hotspot?', a: 'Yes, it works on a Jio or Airtel mobile hotspot, because no incoming connections are needed. Watch your data: every player’s traffic goes through your connection.' },
-      { q: 'Will my friends get good ping?', a: 'VoxelPort has a relay in India and one in Europe, and the app uses whichever is closer to you. Friends near either relay usually get low ping; friends far from both (for example in the Americas) will see higher ping.' },
+      { q: 'Will my friends get good ping?', a: 'VoxelPort has relays in India, Europe and Los Angeles, and the app uses whichever is closest to you. Friends near one of them usually get low ping; friends far from all three (for example in Africa or Oceania) will see higher ping.' },
     ],
     html: `
 <p>You set up a Minecraft server, forwarded port 25565 on your Jio or Airtel router, and your friends still can’t join. You probably did nothing wrong. Most Indian home connections are behind <b>CGNAT</b>, which makes port forwarding impossible. This guide shows how to check, and how to host anyway, without changing any router settings.</p>
@@ -991,7 +991,7 @@ ${GET_APP}
 <p>A relay sits between you and your players: your PC connects out to it, and your friends connect to it. Every packet takes that detour, so ping depends on how far you and your friends are from the relay. A relay on the other side of the world adds a lot; one in Europe adds very little for players in Europe. The <a href="/status">status page</a> shows the live ping from your own browser to each relay.</p>
 
 <h2 id="region">How the app picks a region</h2>
-<p>In VoxelPort 1.11 and newer, the <b>Region</b> setting on the server screen has three options: <b>Auto (fastest)</b>, <b>India</b> and <b>Europe</b>. Auto measures both relays when you click <b>Make public</b> and uses the faster one. You can also choose Europe by hand. Your public address then uses the Europe address, for example <code>play-eu.voxelport.in:26000</code>.</p>
+<p>In VoxelPort 1.11 and newer, the <b>Region</b> setting on the server screen has these options: <b>Auto (fastest)</b>, <b>India</b>, <b>Europe</b> and, in the newest app, <b>Los Angeles</b>. Auto measures the relays when you click <b>Make public</b> and uses the fastest one. You can also choose Europe by hand. Your public address then uses the Europe address, for example <code>play-eu.voxelport.in:26000</code>.</p>
 
 <h2 id="steps">Set it up in five steps</h2>
 ${GET_APP}

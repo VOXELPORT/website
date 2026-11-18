@@ -4,11 +4,12 @@ import { SITE_NAV } from './content.js';
 import { SPRITES, useRelayStatus, DISCORD } from './data.js';
 
 // The India relay has two public routes: hosts on app ≥1.3.1 try direct first
-// and fall back to the Cloudflare route. The Europe relay serves wss itself.
+// and fall back to the Cloudflare route. The Europe and Los Angeles relays serve wss themselves.
 const ENDPOINTS = [
   { key: 'direct', name: 'DIRECT ROUTE', host: 'wss://direct.voxelport.in:26499', url: 'https://direct.voxelport.in:26499/api/status', sprite: 'bolt', note: 'Used first by the app (1.3.1+)' },
   { key: 'cdn', name: 'CLOUDFLARE ROUTE', host: 'wss://relay.voxelport.in', url: 'https://relay.voxelport.in/api/status', sprite: 'signal', note: 'Fallback route · older versions' },
   { key: 'eu', name: 'EUROPE RELAY', host: 'wss://eu.voxelport.in', url: 'https://eu.voxelport.in/api/status', sprite: 'tower', note: 'Chosen automatically when it’s closest to you' },
+  { key: 'la', name: 'LOS ANGELES RELAY', host: 'wss://la.voxelport.in', url: 'https://la.voxelport.in/api/status', sprite: 'tower', note: 'Chosen automatically when it’s closest to you' },
 ];
 
 /** Warm round-trip time: one request to open the connection, then the best of three. */
@@ -173,10 +174,10 @@ export default function StatusPage({ onBack }) {
         <div className="bubble tail-b" style={{ marginTop: 50, maxWidth: 720 }}>
           <span className="kicker">About these numbers</span>
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
-            Pings are measured from <b>your browser</b> to each relay: one server in India and one in Europe. The app picks whichever is closest to
-            the person hosting. Near India you should see tens of milliseconds to the India relay; near Europe, to the Europe relay. From the Americas,
-            expect 100 ms or more to either. The India direct route skips the Cloudflare hop, which some ISPs send through another country. Players connect to{' '}
-            <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> (India) or <span className="typewriter" style={{ fontWeight: 700 }}>play-eu.voxelport.in</span> (Europe) directly either way. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
+            Pings are measured from <b>your browser</b> to each relay: one server in India, one in Europe and one in Los Angeles. The app picks whichever is closest to
+            the person hosting. Near India you should see tens of milliseconds to the India relay; near Europe, to the Europe relay; near the US west coast, to the Los Angeles relay. From South America or the US east coast,
+            expect somewhat more. The India direct route skips the Cloudflare hop, which some ISPs send through another country. Players connect to{' '}
+            <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> (India) or <span className="typewriter" style={{ fontWeight: 700 }}>play-eu.voxelport.in</span> (Europe) or <span className="typewriter" style={{ fontWeight: 700 }}>play-la.voxelport.in</span> (Los Angeles) directly either way. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
           </p>
         </div>
       </main>
