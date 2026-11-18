@@ -17,7 +17,7 @@ export const PAGES = {
   home: {
     path: '/',
     title: 'VoxelPort: Free Minecraft Server Hosting, No Port Forwarding',
-    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Relays in India and Europe. Java + Bedrock.',
+    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Relays in India, Europe and Los Angeles. Java + Bedrock.',
     heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
     summary: [
       'VoxelPort is a free, open-source app for Windows and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',

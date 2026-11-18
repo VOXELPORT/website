@@ -130,7 +130,7 @@ export default function StatusPage({ onBack }) {
           {[
             ['HOSTS ONLINE', relay.tunnels, 'grass'],
             ['PLAYERS CONNECTED', relay.players, 'head1'],
-            ['RELAY LOCATIONS', 'INDIA + EUROPE', 'house'],
+            ['RELAY LOCATIONS', 'IN + EU + LA', 'house'],
           ].map(([label, value, sprite], i) => (
             <div key={label} className="panel" style={{ padding: '18px 20px', transform: `rotate(${[-1, .6, -.4][i]}deg)` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
