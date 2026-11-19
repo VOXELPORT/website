@@ -57,6 +57,7 @@ for (const url of urls) {
   const title = attr(html, /<title>([^<]*)<\/title>/);
   const desc = attr(html, /<meta name="description" content="([^"]*)"/);
   const canonical = attr(html, /<link rel="canonical" href="([^"]*)"/);
+  if (title && /low ping|way less lag|free forever|instant/i.test(title)) fail(`${p}: the title makes a performance promise: ${title}`);
   if (title && /free minecraft (server )?hosting/i.test(title)) fail(`${p}: the title promises free hosting: ${title}`);
   if (!title) fail(`${p}: no <title>`);
   else if (titles.has(title)) fail(`${p}: same title as ${titles.get(title)}`);
@@ -133,6 +134,7 @@ const banned = [
   [/switch (?:Smart App Control|it) off|turn (?:Smart App Control|it) off|Smart App Control settings/i, 'advice to switch off Smart App Control'],
   [/VoxelPort-Android\/releases/, 'a GitHub Android release link (that repository has no public releases)'],
   [/We host your|free cloud (?:Minecraft )?hosting/i, 'hosting-provider wording'],
+  [/10s?[–-]s?20 ?ms|way less lag/i, 'an unqualified latency promise'],
 ];
 for (const f of walk(dist)) {
   if (!/\.(html|txt|json)$/.test(f)) continue;

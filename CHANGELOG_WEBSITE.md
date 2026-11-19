@@ -1,5 +1,19 @@
 # Website changelog
 
+## production-verification (2026-11-20, not deployed)
+
+### Fixed
+- **Failure states were green.** The dark theme maps the `--red` token to green, so a down relay, a DOWN pill, low-uptime bars and the CDN-detour bar looked healthy. A real red (`--bad`) is used for every failure state.
+- **Removed a fabricated app dashboard** from /features (invented players and ping, unreadable text); it is now a real, captioned screenshot.
+- **Status page honesty:** the banner and labels say what the visitor's browser observed ("No answer", not "Down"), states are announced to screen readers, counts show a dash when the status API cannot be reached, and the explanation lists what latency depends on.
+- **Performance wording** qualified: no "low ping" in a title, no "free forever", no unqualified "in seconds"; the About page's 151 ms and 13 ms are marked as the maintainer's own test.
+- **Accessibility:** contrast on /status, /uptime, /legal, /motd and /servers; button names and heading order; layout shift on /uptime (0.417 to 0.001) and /servers (0.12 to 0.099).
+
+### Added
+- `scripts/audit-live.mjs`: read-only crawl of a running site that compares production with the local build and checks metadata, links, 404s and (with `--external`) external links.
+- `npm run verify` guards for performance promises in titles and for a "10 to 20 ms" claim.
+- `PRODUCTION_AUDIT.md`.
+
 ## website-final-fixes (2026-11-20, not deployed)
 
 ### Fixed

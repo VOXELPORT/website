@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
   SPRITES, useAndroidFeed, useDetectedOS,
-  DL_WIN, GITHUB_APP, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  DL_WIN, GITHUB_APP, GITHUB_ORG, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, isModifiedClick, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE, EXPLORE } from './content.js';
@@ -64,45 +64,13 @@ function SectionHead({ kicker, children }) {
 
 // ─── /features ────────────────────────────────────────────────────────────────
 
-/** App window mock, matching the real desktop app's look. */
+/** A real screenshot of the app (a frame from the recording on the home page). */
 function AppMock() {
-  const [copied, setCopied] = useState(false);
-  const copy = () => {
-    navigator.clipboard?.writeText(EXAMPLE_ADDR).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
-  };
   return (
-    <div className="panel tilt-r1" style={{ background: 'var(--paper)' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderBottom: '3px solid var(--ink)', background: 'var(--ink)', color: 'var(--paper)' }}>
-        {['var(--red)', 'var(--gold)', 'var(--grass)'].map((c) => <span key={c} style={{ width: 12, height: 12, background: c, border: '2px solid var(--paper)' }} />)}
-        <span className="pixel" style={{ marginLeft: 8, fontSize: 12 }}>VOXELPORT APP</span>
-      </div>
-      <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div className="h-display" style={{ fontSize: 30 }}>SURVIVAL SMP</div>
-          <span className="sticker green" style={{ transform: 'rotate(3deg)' }}>● PUBLIC</span>
-        </div>
-        <div className="kicker" style={{ color: 'var(--ink-2)' }}>Share this address</div>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <div className="addr" style={{ flex: 1 }}>{EXAMPLE_ADDR}</div>
-          <button className="btn sm cream" onClick={copy} style={{ boxShadow: '3px 3px 0 var(--ink)' }}>{copied ? 'COPIED!' : 'COPY'}</button>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          {[['3', 'PLAYERS'], ['13 ms', 'RELAY PING']].map(([n, l]) => (
-            <div key={l} className="panel" style={{ padding: '10px 14px', boxShadow: '3px 3px 0 var(--ink)' }}>
-              <div className="h-display" style={{ fontSize: 34 }}>{n}</div>
-              <div className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>{l}</div>
-            </div>
-          ))}
-        </div>
-        <div className="typewriter" style={{ background: 'var(--ink)', color: '#B9F18B', fontSize: 13, padding: '10px 12px', lineHeight: 1.7 }}>
-          <div>&gt; Connecting to wss://direct.voxelport.in…</div>
-          <div>&gt; Tunnel is live on public port 26137.</div>
-          <div style={{ color: 'var(--gold)' }}>&gt; Player connected → 127.0.0.1:25565</div>
-        </div>
-      </div>
-    </div>
+    <figure className="panel tilt-r1" style={{ margin: 0, padding: 12, background: 'var(--paper)' }}>
+      <img src="/showcase/app-share-address.webp" width="720" height="900" loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 10 }} alt="VoxelPort server page for a running server: CPU, RAM and TPS readings and a shareable address with a Copy button." />
+      <figcaption style={{ marginTop: 10, fontSize: 13, color: 'var(--muted)' }}>Screenshot of the VoxelPort app (a 2.0 pre-release build, with a sample server).</figcaption>
+    </figure>
   );
 }
 
@@ -158,12 +126,12 @@ export function FeaturesPage({ onBack }) {
             <p className="lede" style={{ marginTop: 18 }}>
               Some ISPs send traffic for big CDNs on a detour through another country. The app connects straight to the relay
               at <span className="typewriter" style={{ fontWeight: 700 }}>direct.voxelport.in</span> — and if your network blocks that, VoxelPort quietly falls back to the
-              Cloudflare route within a few seconds. Nothing to configure.
+              Cloudflare route, usually within a few seconds. Nothing to configure.
             </p>
           </div>
           <div className="panel" style={{ padding: '24px 24px 26px', transform: 'rotate(1deg)' }}>
             <div className="kicker" style={{ color: 'var(--ink-2)' }}>Example: relay ping from one connection in Delhi</div>
-            {[['VIA CDN DETOUR', 151, 'var(--red)'], ['DIRECT', 13, 'var(--grass)']].map(([label, ms, color]) => (
+            {[['VIA CDN DETOUR', 151, 'var(--bad, #ff6b6b)'], ['DIRECT', 13, 'var(--grass)']].map(([label, ms, color]) => (
               <div key={label} style={{ marginTop: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                   <span className="pixel" style={{ fontSize: 13 }}>{label}</span>
@@ -187,7 +155,7 @@ export function FeaturesPage({ onBack }) {
             <div className="bubble tail-b" style={{ maxWidth: 440 }}>
               <span className="kicker">What running a server looks like</span>
               <p style={{ marginTop: 8, fontSize: 17, lineHeight: 1.6 }}>
-                One address to share, a live player count, and the relay ping — right in the app.
+                One address to share, live CPU, RAM and TPS, and your players, right in the app.
               </p>
             </div>
             <div style={{ marginTop: 50, display: 'flex', gap: 14, flexWrap: 'wrap' }}>

@@ -35,11 +35,11 @@ async function measure(url) {
 }
 
 function grade(ms) {
-  if (ms === null || ms === undefined) return { label: 'DOWN', color: 'var(--red)' };
+  if (ms === null || ms === undefined) return { label: 'NO ANSWER', color: 'var(--bad, #ff6b6b)' };
   if (ms < 60) return { label: 'EXCELLENT', color: 'var(--grass)' };
   if (ms < 120) return { label: 'GOOD', color: 'var(--grass)' };
   if (ms < 220) return { label: 'FAIR', color: 'var(--gold)' };
-  return { label: 'HIGH', color: 'var(--red)' };
+  return { label: 'HIGH', color: 'var(--bad, #ff6b6b)' };
 }
 
 function EndpointCard({ ep, ms, loading, i }) {
@@ -58,7 +58,7 @@ function EndpointCard({ ep, ms, loading, i }) {
           <div className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>PING FROM YOU</div>
           <div className="h-display" style={{ fontSize: 58, lineHeight: 1 }}>{loading ? '…' : ms === null ? '—' : `${ms} MS`}</div>
         </div>
-        <span className="sticker" style={{ background: loading ? 'var(--paper-2)' : g.color, color: g.color === 'var(--red)' && !loading ? 'var(--card)' : 'var(--ink)', transform: 'rotate(3deg)' }}>
+        <span className="sticker" style={{ background: loading ? 'var(--paper-2)' : g.color, color: loading ? 'var(--ink)' : '#07090c', transform: 'rotate(3deg)' }}>
           {loading ? 'CHECKING…' : g.label}
         </span>
       </div>
@@ -94,12 +94,12 @@ export default function StatusPage({ onBack }) {
   }, [check]);
 
   const anyUp = Object.values(ms).some((v) => v !== null);
-  const overall = loading && !checkedAt ? 'checking' : relay.state === 'offline' && !anyUp ? 'down' : Object.values(ms).some((v) => v === null) ? 'partial' : 'ok';
+  const overall = loading && !checkedAt ? 'checking' : !anyUp ? 'down' : Object.values(ms).some((v) => v === null) ? 'partial' : 'ok';
   const banner = {
     checking: ['RUNNING CHECKS…', 'Pinging the relay from your browser.', 'var(--paper-2)'],
-    ok: ['ALL SYSTEMS GO!', 'Every relay is up, on every route. Host away.', 'var(--grass)'],
-    partial: ['ONE ROUTE IS DOWN', 'Hosting still works — VoxelPort uses a route or region that’s up.', 'var(--gold)'],
-    down: ['RELAY UNREACHABLE', 'Hosting and joining won’t work right now. Check back soon.', 'var(--red)'],
+    ok: ['ALL ROUTES ANSWERED', 'Every relay and route answered from your browser just now.', 'var(--grass)'],
+    partial: ['SOME ROUTES DID NOT ANSWER', 'From your browser, at least one route did not answer. The cards below show which. It can be your network as well as the relay.', 'var(--gold)'],
+    down: ['NO RELAY ANSWERED', 'None of the relays answered from your browser. This can be your connection or the relays. Check the uptime report or the Discord.', 'var(--bad, #ff6b6b)'],
   }[overall];
   const maxMs = Math.max(200, ...history.flatMap((h) => ENDPOINTS.map((e) => h[e.key] || 0)));
 
@@ -122,8 +122,8 @@ export default function StatusPage({ onBack }) {
           </div>
         </div>
 
-        <div className="panel" style={{ marginTop: 34, padding: '18px 22px', background: banner[2], color: overall === 'down' ? 'var(--card)' : 'var(--ink)', display: 'flex', alignItems: 'center', gap: 16, transform: 'rotate(-.5deg)' }}>
-          <span className="h-display" style={{ fontSize: 36 }}>{banner[0]}</span>
+        <div role="status" aria-live="polite" className="panel" style={{ marginTop: 34, padding: '18px 22px', background: banner[2], color: overall === 'checking' ? 'var(--ink)' : '#07090c', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', transform: 'rotate(-.5deg)' }}>
+          <span className="h-display" style={{ fontSize: 36, color: 'inherit' }}>{banner[0]}</span>
           <span style={{ fontWeight: 600 }}>{banner[1]}</span>
         </div>
 
@@ -138,7 +138,7 @@ export default function StatusPage({ onBack }) {
                 <span className="pixel" style={{ fontSize: 12, color: 'var(--muted)' }}>{label}</span>
                 <Pixels rows={SPRITES[sprite]} size={3} />
               </div>
-              <div className="h-display" style={{ fontSize: 56, marginTop: 6 }}>{value ?? (relay.state === 'loading' ? '…' : '—')}</div>
+              <div className="h-display" style={{ fontSize: 56, marginTop: 6 }}>{label !== 'RELAY LOCATIONS' && relay.state === 'offline' ? '—' : (value ?? (relay.state === 'loading' ? '…' : '—'))}</div>
             </div>
           ))}
         </div>
@@ -162,7 +162,7 @@ export default function StatusPage({ onBack }) {
               {history.map((h, i) => (
                 <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: 2, height: '100%' }} title={`${h.t} · direct ${h.direct ?? '—'} ms · cloudflare ${h.cdn ?? '—'} ms · europe ${h.eu ?? '—'} ms · los angeles ${h.la ?? '—'} ms`}>
                   {[[h.direct, 'var(--grass)'], [h.cdn, 'var(--diamond)'], [h.eu, 'var(--gold)'], [h.la, '#a78bfa']].map(([v, c], j) => (
-                    <div key={j} style={{ flex: 1, height: v === null ? '100%' : `${Math.max(4, (v / maxMs) * 100)}%`, background: v === null ? 'var(--red)' : c, border: '2px solid var(--ink)', borderBottom: 'none' }} />
+                    <div key={j} style={{ flex: 1, height: v === null ? '100%' : `${Math.max(4, (v / maxMs) * 100)}%`, background: v === null ? 'var(--bad, #ff6b6b)' : c, border: '2px solid var(--ink)', borderBottom: 'none' }} />
                   ))}
                 </div>
               ))}
@@ -176,9 +176,9 @@ export default function StatusPage({ onBack }) {
         <div className="bubble tail-b" style={{ marginTop: 50, maxWidth: 720 }}>
           <span className="kicker">About these numbers</span>
           <p style={{ marginTop: 8, lineHeight: 1.65 }}>
-            Pings are measured from <b>your browser</b> to each relay: one server in India, one in Europe and one in Los Angeles. The app picks whichever is closest to
-            the person hosting. Near India you should see tens of milliseconds to the India relay; near Europe, to the Europe relay; near the US west coast, to the Los Angeles relay. From South America or the US east coast,
-            expect somewhat more. The India direct route skips the Cloudflare hop, which some ISPs send through another country. Players connect to{' '}
+            Pings are measured from <b>your browser</b> to each relay (the best of three requests after a warm-up): one server in India, one in Europe and one in Los Angeles. The app picks whichever answers fastest for
+            the person running the server. Latency depends on where you are, which relay you reach, how your ISP routes traffic, the quality of your connection and, for a Minecraft server, the hardware it runs on, so your numbers will differ from anyone else’s. When you are far from every relay, expect more.
+            If a card says no answer, the relay may be down or your network may be blocking the request. Nothing here is a guarantee; for history, see the <a href="/uptime">uptime report</a>. The India direct route skips the Cloudflare hop, which some ISPs send through another country. Players connect to{' '}
             <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> (India) or <span className="typewriter" style={{ fontWeight: 700 }}>play-eu.voxelport.in</span> (Europe) or <span className="typewriter" style={{ fontWeight: 700 }}>play-la.voxelport.in</span> (Los Angeles) directly either way. Want the history? See the <a href="/uptime">uptime report</a>. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
           </p>
         </div>

@@ -135,7 +135,7 @@ export const GUIDES = [
 
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
-<p>VoxelPort has relays in India, in Europe and in Los Angeles, and the app picks the closest one, so friends near any of them get low ping. You get a free address like <code>play.voxelport.in:26137</code>, and supporters can claim a custom name like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
+<p>VoxelPort has relays in India, in Europe and in Los Angeles, and the app picks the closest one, so friends near one of them usually get lower ping. Ping depends on where you and your friends are, your ISPs and network quality, and the hardware running the server. You get a free address like <code>play.voxelport.in:26137</code>, and supporters can claim a custom name like <code>yourname.voxelport.in</code> that friends join without a port number.</p>
 
 <h2 id="steps">Set up a free server in 2 minutes</h2>
 ${GET_APP}
@@ -973,9 +973,9 @@ ${GET_APP}
   // ─────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-server-hosting-europe',
-    title: 'Run a Free Minecraft Server in Europe (Low Ping)',
+    title: 'Run a Free Minecraft Server in Europe (European Relay)',
     short: 'Server in Europe',
-    description: 'Run a free Minecraft server from home in Europe with no port forwarding and low ping from a European relay. Works behind DS-Lite and CGNAT, Java and Bedrock.',
+    description: 'Run a free Minecraft server from home in Europe with no port forwarding, using a relay in Europe (ping depends on your location and ISP). Works behind DS-Lite and CGNAT, Java and Bedrock.',
     kicker: 'Europe · Free',
     blurb: 'A relay in Europe, free and with no port forwarding: how to host a Minecraft server for friends in Germany, the UK, France and the rest of Europe.',
     faq: [

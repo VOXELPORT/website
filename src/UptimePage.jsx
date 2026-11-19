@@ -12,7 +12,7 @@ const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v.toFixed(v ==
 const barColor = (u, t) => {
   if (!t) return 'var(--paper-2)';
   const p = (u / t) * 100;
-  return p >= 99.9 ? 'var(--grass)' : p >= 98 ? 'var(--gold)' : 'var(--red)';
+  return p >= 99.9 ? 'var(--grass)' : p >= 98 ? 'var(--gold)' : 'var(--bad, #ff6b6b)';
 };
 const ago = (ms, now) => {
   const s = Math.max(0, Math.round((now - ms) / 1000));
@@ -61,7 +61,7 @@ function Row({ t, now }) {
           <span className="typewriter" style={{ fontSize: 12, color: 'var(--muted)' }}>
             {t.up ? `up for ${span(t.since, null, now)}${t.ms ? ` · ${t.ms} ms` : ''}` : `down for ${span(t.since, null, now)}${t.error ? ` · ${t.error}` : ''}`}
           </span>
-          <span className="pixel" style={{ fontSize: 12, padding: '4px 10px', border: '2px solid var(--ink)', background: t.up ? 'var(--grass)' : 'var(--red)', color: t.up ? 'var(--ink)' : 'var(--card)' }}>{t.up ? 'UP' : 'DOWN'}</span>
+          <span className="pixel" style={{ fontSize: 12, padding: '4px 10px', border: '2px solid var(--ink)', background: t.up ? 'var(--grass)' : 'var(--bad, #ff6b6b)', color: '#07090c' }}>{t.up ? 'UP' : 'DOWN'}</span>
         </div>
       </div>
       <div style={{ marginTop: 12 }}><DayBars days={t.days} now={now} /></div>
@@ -105,7 +105,7 @@ export default function UptimePage({ onBack }) {
     ? error ? ['REPORT UNAVAILABLE', 'The uptime report could not be loaded. Try again in a minute.', 'var(--gold)'] : ['LOADING…', 'Reading the latest checks.', 'var(--paper-2)']
     : stale ? ['MONITOR NOT REPORTING', `The last check was ${ago(data.updated, now)} ago, so the numbers below may be out of date.`, 'var(--gold)']
     : down.length === 0 ? ['ALL SYSTEMS OPERATIONAL', 'Every service answered its last check.', 'var(--grass)']
-    : [`${down.length} ${down.length === 1 ? 'SERVICE IS' : 'SERVICES ARE'} DOWN`, down.map((t) => t.label).join(', '), 'var(--red)'];
+    : [`${down.length} ${down.length === 1 ? 'SERVICE IS' : 'SERVICES ARE'} DOWN`, down.map((t) => t.label).join(', '), 'var(--bad, #ff6b6b)'];
   const groups = data ? [...new Set(data.targets.map((t) => t.group))] : [];
 
   return (
@@ -119,11 +119,13 @@ export default function UptimePage({ onBack }) {
           <span className="c-title green" data-text="REPORT">REPORT</span>
         </h1>
 
-        <div className="panel" style={{ marginTop: 34, padding: '18px 22px', background: banner[2], color: down.length && !stale ? 'var(--card)' : 'var(--ink)', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <span className="h-display" style={{ fontSize: 30 }}>{banner[0]}</span>
+        <div className="panel" style={{ marginTop: 34, padding: '18px 22px', background: banner[2], color: !data && !error ? 'var(--ink)' : '#07090c', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <span className="h-display" style={{ fontSize: 30, color: 'inherit' }}>{banner[0]}</span>
           <span style={{ fontWeight: 600 }}>{banner[1]}</span>
         </div>
 
+        {/* Reserve the height of the results while they load, so the text below does not jump when they arrive. */}
+        {!data && <div aria-hidden="true" style={{ minHeight: 1500 }} />}
         {groups.map((g) => (
           <section key={g} style={{ marginTop: 36 }}>
             <span className="kicker">{g}</span>

@@ -21,7 +21,7 @@
   --paper: #07090c; --paper-2: #151c24; --card: #10151b; --bg: #07090c; --tint: #0d1116;
   --ink: #f3f7f5; --ink-2: #c3d0cc; --ink-3: #9fb0ac; --muted: #9fb0ac;
   --grass: #3ddc84; --grass-dk: #3ddc84; --red: #3ddc84; --red-dk: #7af0ae; --gold: #f7c94b; --diamond: #4fd4e4;
-  --stone: #6b7b78; --accent: #3ddc84; --accent-dk: #2fb26a; --rule: #1f2a33; --leaf: #3ddc84;
+  --stone: #6b7b78; --bad: #ff6b6b; --accent: #3ddc84; --accent-dk: #2fb26a; --rule: #1f2a33; --leaf: #3ddc84;
   --display: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --type: 'Inter', system-ui, sans-serif; --pixel: 'Inter', system-ui, sans-serif;
   --shadow: none; --shadow-sm: none; --halftone: none; --line: 1px;

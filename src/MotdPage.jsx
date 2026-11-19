@@ -15,6 +15,13 @@ const PRESETS = {
 
 const SCRAMBLE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789#$%&*@!?';
 
+/** White or near-black text, whichever reads better on this swatch colour (WCAG relative luminance). */
+function textIsWhite(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return 1.05 / (L + 0.05) > (L + 0.05) / 0.0565;
+}
+
 export default function MotdPage({ onBack }) {
   const [text, setText] = useState(PRESETS.Welcome);
   const [name, setName] = useState('Your Minecraft Server');
@@ -138,7 +145,7 @@ export default function MotdPage({ onBack }) {
               <div className="motd-swatches" aria-label="Minecraft colors">
                 {COLORS.map((c, i) => {
                   const hexChar = i.toString(16);
-                  const dark = i < 6 || i === 8;
+                  const dark = textIsWhite(c);
                   return (
                     <button
                       key={c}
@@ -146,7 +153,7 @@ export default function MotdPage({ onBack }) {
                       className="motd-swatch"
                       style={{ background: c, color: dark ? '#fff' : '#15120F' }}
                       title={`${COLOR_NAMES[i]} (§${hexChar})`}
-                      aria-label={`Insert ${COLOR_NAMES[i]} color (§${hexChar})`}
+                      aria-label={`§${hexChar} ${COLOR_NAMES[i]}: insert this color`}
                       onClick={() => insert('§' + hexChar)}
                     >
                       §{hexChar}

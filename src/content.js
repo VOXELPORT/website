@@ -11,7 +11,7 @@ export const SITE_NAV = [
   ['Support', '/support'],
 ];
 
-export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'Players need no account', 'Open source', 'Free forever'];
+export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'Players need no account', 'Open source', 'Free to use'];
 
 export const PATHS = [
   {
@@ -28,7 +28,7 @@ export const PATHS = [
 
 // `home: true` marks the six that the home page shows; /features shows all nine.
 export const FEATURES = [
-  { sprite: 'bolt', title: 'INSTANT RELAY', desc: 'Your server dials out to the relay and gets a public address in seconds. No DNS, no static IP, no router.', home: true },
+  { sprite: 'bolt', title: 'INSTANT RELAY', desc: 'Your server dials out to the relay and gets a public address, usually within seconds of pressing Make public. No DNS, no static IP, no router changes.', home: true },
   { sprite: 'grass', title: 'VANILLA CLIENTS', desc: 'Friends join with plain Minecraft. No client mods, no launchers, no patches — ever.', home: true },
   { sprite: 'lock', title: 'ROUTER STAYS SHUT', desc: 'Nothing to open on your side. Players connect to the relay, never to your home IP.' },
   { sprite: 'card', title: 'FRIENDS NEED NOTHING', desc: 'Friends join with plain Minecraft: no account, no login, no mods. You join our Discord server once to use the app, and a private device key is created on first run. Free, with no card.' },

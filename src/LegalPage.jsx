@@ -43,7 +43,7 @@ export default function LegalPage({ onBack }) {
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 26 }}>
           {SECTIONS.map(([id, label, color], i) => (
             <button key={id} className="chip" onClick={() => jump(id)}
-              style={{ background: color, cursor: 'pointer', transform: `rotate(${i % 2 ? 1.5 : -1.5}deg)`, color: color === 'var(--red)' ? 'var(--card)' : 'var(--ink)' }}>
+              style={{ background: color, cursor: 'pointer', transform: `rotate(${i % 2 ? 1.5 : -1.5}deg)`, color: '#07090c' }}>
               {label.toUpperCase()}
             </button>
           ))}

@@ -37,3 +37,9 @@ Preserved where accurate: "Minecraft server without port forwarding" (FAQ, guide
 - Google Search Console: add the property, submit the sitemap, run URL Inspection (not possible from here).
 - The Google site-verification file `/googlec669d8304b2be68c.html` is redirected to a clean URL by Vercel's clean-URL rule; if Search Console asks again, verify with a DNS TXT record or HTML tag.
 - Rankings cannot be measured from this environment; none are claimed.
+
+## Re-verification of production (production-verification branch)
+
+`node scripts/audit-live.mjs https://voxelport.in --external` against the live site (run before any change on this branch): 37 sitemap URLs all 200; production HTML equal to a fresh build of `main` for every page; unique titles and descriptions; canonical equal to the page URL everywhere; Open Graph and Twitter tags present; JSON-LD parses; no noindex; an unknown URL returns 404; 48 internal and 19 external links resolve; `robots.txt` and `sitemap.xml` return 200 with the right content types. Preview deployments return `X-Robots-Tag: noindex`. The Discord invite used on the site is valid.
+
+Lighthouse (mobile preset, local production build) SEO score: 100 on all 15 routes tested.

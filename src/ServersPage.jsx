@@ -61,20 +61,20 @@ function ServerCard({ s, i }) {
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {s.region && <span className="sticker" title="The relay region this server is on" style={{ background: 'var(--paper-2)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-2deg)' }}>{s.region.toUpperCase()}</span>}
           {s.supporter && <span className="sticker" title="This host supports VoxelPort" style={{ background: 'var(--gold)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(-3deg)' }}>★ SUPPORTER</span>}
-          {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
+          {s.bedrock && <span className="sticker" style={{ background: 'var(--diamond)', color: '#07090c', fontSize: 10, padding: '3px 7px 2px', transform: 'rotate(3deg)' }}>+ BEDROCK</span>}
           <Pixels rows={SPRITES[SPRITE_FOR[mode] || 'grass']} size={2.4} />
         </span>
       </div>
       <div style={{ padding: '16px 18px 18px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
-        <h3 className="h-display" style={{ fontSize: 32, lineHeight: 1, overflowWrap: 'anywhere' }}>{s.title}</h3>
+        <h2 className="h-display" style={{ fontSize: 32, lineHeight: 1, overflowWrap: 'anywhere' }}>{s.title}</h2>
         {s.description && <p style={{ fontSize: 15, lineHeight: 1.5, color: 'var(--ink-2)', overflowWrap: 'anywhere' }}>{s.description}</p>}
         <div style={{ marginTop: 'auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
             <span className="pixel" style={{ fontSize: 11, color: 'var(--muted)' }}>PLAYERS</span>
-            <span className="h-display" style={{ fontSize: 24, color: full ? 'var(--red)' : 'var(--ink)' }}>{s.players}/{s.max_players}</span>
+            <span className="h-display" style={{ fontSize: 24, color: full ? 'var(--bad, #ff6b6b)' : 'var(--ink)' }}>{s.players}/{s.max_players}</span>
           </div>
           <div style={{ height: 12, border: '2.5px solid var(--ink)', background: 'var(--paper-2)', marginTop: 4 }}>
-            <div style={{ height: '100%', width: `${Math.min(100, (s.players / Math.max(1, s.max_players)) * 100)}%`, background: full ? 'var(--red)' : 'var(--grass)' }} />
+            <div style={{ height: '100%', width: `${Math.min(100, (s.players / Math.max(1, s.max_players)) * 100)}%`, background: full ? 'var(--bad, #ff6b6b)' : 'var(--grass)' }} />
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -119,7 +119,7 @@ export default function ServersPage({ onBack }) {
             <span className="c-title" data-text="SERVER">SERVER</span><br />
             <span className="c-title green" data-text="LIST">LIST</span>
           </h1>
-          <div className="bubble tail-b" style={{ maxWidth: 360 }}>
+          <div className="bubble tail-b" style={{ maxWidth: 360, minHeight: 130 }}>
             <p className="h-display" style={{ fontSize: 30, lineHeight: 1 }}>
               {loading ? 'CHECKING…' : `${servers.length} ${servers.length === 1 ? 'SERVER' : 'SERVERS'} ONLINE`}
             </p>

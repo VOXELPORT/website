@@ -167,9 +167,9 @@ export const GUIDES_META = [
   {
     slug: 'free-minecraft-server-hosting-europe',
     category: 'hosting',
-    title: 'Run a Free Minecraft Server in Europe (Low Ping)',
+    title: 'Run a Free Minecraft Server in Europe (European Relay)',
     short: 'Server in Europe',
-    description: 'Run a free Minecraft server from home in Europe with no port forwarding and low ping from a European relay. Works behind DS-Lite and CGNAT, Java and Bedrock.',
+    description: 'Run a free Minecraft server from home in Europe with no port forwarding, using a relay in Europe (ping depends on your location and ISP). Works behind DS-Lite and CGNAT, Java and Bedrock.',
     kicker: 'Europe · Free',
     blurb: 'A relay in Europe, free and with no port forwarding: how to host a Minecraft server for friends in Germany, the UK, France and the rest of Europe.',
   },
