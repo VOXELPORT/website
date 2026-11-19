@@ -178,7 +178,7 @@ export const FAQ = [
   },
   {
     q: 'Is there a relay in Europe?',
-    a: 'Yes. VoxelPort has a relay in India and one in Europe (from app version 1.11). The Region setting is on Auto by default and picks the faster one for you; you can also choose a region by hand. Custom addresses are only on the India relay for now.',
+    a: 'Yes. VoxelPort has a relay in India and one in Europe (from app version 1.11). The Region setting is on Auto by default and picks the faster one for you; you can also choose a region by hand. Custom addresses (a supporter perk) work on every relay in the new desktop app; an address stays on the relay where it was claimed.',
   },
   {
     q: 'Does it work behind DS-Lite or CGNAT?',

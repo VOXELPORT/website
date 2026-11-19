@@ -981,7 +981,7 @@ ${GET_APP}
     faq: [
       { q: 'Is there a VoxelPort relay in Europe?', a: 'Yes. Since version 1.11 the app has a relay in Europe next to the one in India, and the Region setting (Auto by default) picks the faster one for you.' },
       { q: 'Do my friends have to live in Europe too?', a: 'No, but ping is lowest when you and your friends are all reasonably close to the relay you use. You can change the region in the app, and the status page shows live ping from your browser.' },
-      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no queue (hosts join our Discord server). Custom names like yourname.voxelport.in are a supporter perk and are only available on the India relay for now.' },
+      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no queue (hosts join our Discord server). Custom names like yourname.voxelport.in are a supporter perk and work on every relay in the new desktop app.' },
       { q: 'What happens to player IP addresses?', a: 'The relay needs an IP address to pass a connection along, but it keeps it in memory only for as long as the connection lasts and does not write it to its logs. The privacy notice has the details.' },
     ],
     html: `
@@ -1007,7 +1007,7 @@ ${GET_APP}
 <ul>
   <li><b>Your PC must stay on</b> while people play. VoxelPort is not 24/7 hosting; for that you need a paid host or an always-on machine.</li>
   <li><b>The Europe relay is new</b> and run by one student, so there is no uptime guarantee. If it is down, switch the Region to India and your server keeps working.</li>
-  <li><b>Custom addresses</b> (a supporter perk) are only on the India relay for now. An address stays on the relay where it was claimed.</li>
+  <li><b>Custom addresses</b> (a supporter perk) work on every relay in the new desktop app, and so does voice chat for Supporter+. An address stays on the relay where it was claimed, and your server uses that relay while you use the address. The Android app claims addresses on India for now.</li>
   <li><b>Behind a shared IP address?</b> Many European providers use CGNAT or DS-Lite, which breaks port forwarding. Relays work anyway: see <a href="/guides/minecraft-server-dslite-cgnat-europe">the DS-Lite and CGNAT guide</a>.</li>
 </ul>`,
   },
@@ -1023,7 +1023,7 @@ ${GET_APP}
     faq: [
       { q: 'Is there a VoxelPort relay in the USA?', a: 'Yes. VoxelPort has a relay in Los Angeles next to the ones in India and Europe. The Region setting (Auto by default) measures all of them when you click Make public and uses the fastest, or you can pick Los Angeles by hand.' },
       { q: 'Is it good for the whole US, or only the west coast?', a: 'Ping is lowest when you and your friends are close to the relay, so the west coast benefits most. Players on the east coast, in Canada or in Mexico can use it too; the status page shows the live ping from your own browser, and the app chooses for you.' },
-      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no queue (hosts join our Discord server once). Custom names like yourname.voxelport.in are a supporter perk and are only available on the India relay for now.' },
+      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no queue (hosts join our Discord server once). Custom names like yourname.voxelport.in are a supporter perk and work on every relay in the new desktop app.' },
       { q: 'Do my friends need VoxelPort or an account?', a: 'No. They join with normal Minecraft using the address you share. Java players use Multiplayer, Add Server. Bedrock players need the Bedrock option switched on in the server settings.' },
       { q: 'Is this 24/7 hosting?', a: 'No. Your PC runs the server, so it has to stay on while people play. VoxelPort only gives it a public address without port forwarding. For a server that runs while your PC is off you need a paid host or an always-on machine.' },
     ],
@@ -1050,7 +1050,7 @@ ${GET_APP}
 <ul>
   <li><b>Your PC must stay on</b> while people play. VoxelPort is not 24/7 hosting.</li>
   <li><b>The Los Angeles relay is new</b> and run by one student, so there is no uptime guarantee. If it is down, switch the Region to another relay and your server keeps working.</li>
-  <li><b>Custom addresses</b> (a supporter perk) are only on the India relay for now. An address stays on the relay where it was claimed.</li>
+  <li><b>Custom addresses</b> (a supporter perk) work on every relay in the new desktop app, and so does voice chat for Supporter+. An address stays on the relay where it was claimed, and your server uses that relay while you use the address. The Android app claims addresses on India for now.</li>
   <li><b>Starlink, T-Mobile Home Internet or another 5G home connection?</b> Port forwarding often does not work there. A relay works anyway: see <a href="/guides/minecraft-server-starlink-tmobile-5g-cgnat-usa">the Starlink and 5G home internet guide</a>.</li>
   <li><b>Playing with friends in another country?</b> <a href="/guides/play-minecraft-with-friends-different-wifi">The different-Wi-Fi guide</a> explains how the relay connects everyone.</li>
 </ul>`,

@@ -179,7 +179,7 @@ export default function LegalPage({ onBack }) {
           <p>
             There are <b>three relays: one in India, one in Europe and one in Los Angeles</b> (rented servers) — VoxelPort is free and self-funded, so that’s what we can run.
             The app picks the closer one for each host. Hosts and players near a relay get the best ping (often under 50 ms);
-            South America and the US east coast typically see more. The accounts service runs on a rented server in Europe, and accounts.voxelport.in is served through Cloudflare. The Europe and Los Angeles relays do not offer custom addresses. More regions may come if the project grows — support it on{' '}
+            South America and the US east coast typically see more. The accounts service runs on a rented server in Europe, and accounts.voxelport.in is served through Cloudflare. Custom addresses (a supporter perk) are available on all three relays and stay on the relay where they were claimed. More regions may come if the project grows — support it on{' '}
             <a href="https://github.com/sponsors/trazhub" target="_blank" rel="noreferrer">GitHub Sponsors</a>.
           </p>
 
