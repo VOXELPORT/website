@@ -32,7 +32,7 @@ export const FEATURES = [
   { sprite: 'grass', title: 'VANILLA CLIENTS', desc: 'Friends join with plain Minecraft. No client mods, no launchers, no patches — ever.', home: true },
   { sprite: 'lock', title: 'ROUTER STAYS SHUT', desc: 'Nothing to open on your side. Players connect to the relay, never to your home IP.' },
   { sprite: 'card', title: 'FRIENDS NEED NOTHING', desc: 'Friends join with plain Minecraft: no account, no login, no mods. You join our Discord server once to use the app, and a private device key is created on first run. Free, with no card.' },
-  { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Your server connects straight to the relay for ~10–20 ms pings, and fall back to Cloudflare automatically if a network blocks it.' },
+  { sprite: 'signal', title: 'DIRECT ROUTING', desc: 'Your server connects straight to the relay, a shorter path than the Cloudflare route on many networks (13 ms vs 151 ms in one test from Delhi; yours will vary), and falls back to Cloudflare automatically if a network blocks it.' },
   { sprite: 'heart', title: 'FREE & OPEN', desc: 'MIT-licensed app and relay. Read the code, fork it, or run your own relay.', home: true },
   { sprite: 'house', title: 'YOUR ADDRESS', desc: 'Every server gets a free address like play.voxelport.in:26137. Supporters can claim yourname.voxelport.in, with no port number.', home: true },
   { sprite: 'diamond', title: 'BEDROCK TOO', desc: 'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.', home: true },

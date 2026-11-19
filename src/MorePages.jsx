@@ -8,7 +8,7 @@ import { navigate, isModifiedClick, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE, EXPLORE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
 import { SUPPORTER } from './support.js';
-import { RELEASES, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_COMMAND } from './release.js';
+import { RELEASES, LEGACY, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_COMMAND } from './release.js';
 import { COMPARE } from './content.js';
 import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
 
@@ -153,16 +153,16 @@ export function FeaturesPage({ onBack }) {
       <section className="page-section" id="direct">
         <div className="direct-grid">
           <div>
-            <span className="kicker">New in app 1.3.1</span>
-            <h2 className="h-display h-section">DIRECT ROUTING.<br /><span style={{ color: 'var(--grass-dk)' }}>WAY LESS LAG.</span></h2>
+            <span className="kicker">Since app 1.3.1</span>
+            <h2 className="h-display h-section">DIRECT ROUTING.<br /><span style={{ color: 'var(--grass-dk)' }}>A SHORTER PATH.</span></h2>
             <p className="lede" style={{ marginTop: 18 }}>
-              Some ISPs send traffic for big CDNs on a detour through another country. Now hosts connect straight to the relay
+              Some ISPs send traffic for big CDNs on a detour through another country. The app connects straight to the relay
               at <span className="typewriter" style={{ fontWeight: 700 }}>direct.voxelport.in</span> — and if your network blocks that, VoxelPort quietly falls back to the
               Cloudflare route within a few seconds. Nothing to configure.
             </p>
           </div>
           <div className="panel" style={{ padding: '24px 24px 26px', transform: 'rotate(1deg)' }}>
-            <div className="kicker" style={{ color: 'var(--ink-2)' }}>Relay ping, measured from Delhi</div>
+            <div className="kicker" style={{ color: 'var(--ink-2)' }}>Example: relay ping from one connection in Delhi</div>
             {[['VIA CDN DETOUR', 151, 'var(--red)'], ['DIRECT', 13, 'var(--grass)']].map(([label, ms, color]) => (
               <div key={label} style={{ marginTop: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -175,7 +175,7 @@ export function FeaturesPage({ onBack }) {
               </div>
             ))}
             <p className="typewriter" style={{ marginTop: 16, fontSize: 13, color: 'var(--muted)' }}>
-              One host on one ISP — your numbers depend on where you are.
+              A single test on one home connection to the India relay: an example, not a promise. Your ping depends on your ISP, your distance to the relay and the time of day. The status page measures yours live.
             </p>
           </div>
         </div>
@@ -445,7 +445,7 @@ export function DownloadPage({ onBack }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
           <span className="kicker" style={{ color: 'var(--grass-dk)' }}>PC &amp; Android app</span>
           <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>
-            {os === 'android' ? 'DETECTED: ANDROID' : 'FREE DOWNLOAD'}
+            {os === 'android' ? 'DETECTED: ANDROID' : 'RECOMMENDED · CURRENT VERSION'}
           </span>
           <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{`Stable ${win.version}`}</span>
         </div>
@@ -456,6 +456,14 @@ export function DownloadPage({ onBack }) {
           <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={RELEASES.android.downloadUrl}>DOWNLOAD FOR ANDROID (APK)</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
         </div>
+      </div>
+
+      <div className="panel" style={{ padding: '14px 20px', marginTop: 18, maxWidth: 720 }}>
+        <span className="kicker">Which one should I get?</span>
+        <p style={{ marginTop: 8, lineHeight: 1.6 }}>
+          <b>New install:</b> the buttons above (VoxelPort {win.version}, the current version). <b>Already use VoxelPort 1.x on Windows?</b> Update it to 1.18.0 and press “Update to the new VoxelPort”, or install {win.version} directly.
+          The previous Windows app ({LEGACY.version}, {fmtMB(LEGACY.sizeBytes)}) is <b>no longer updated</b> and is not recommended for new installs; it is kept for people who already use it. <a href={LEGACY.releaseUrl} target="_blank" rel="noreferrer">Its release page</a>.
+        </p>
       </div>
 
       <section className="page-section" id="releases">

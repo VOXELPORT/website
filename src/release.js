@@ -55,6 +55,13 @@ export const RELEASES = {
   notAvailable: ['macOS', 'Linux'],
 };
 
+// The previous Windows app (Electron). Source: GitHub release v1.18.0 (VoxelPort-Setup.exe 113,903,053 bytes). Not updated any more.
+export const LEGACY = {
+  version: '1.18.0',
+  sizeBytes: 113903053,
+  releaseUrl: `${APP}/releases/tag/v1.18.0`,
+};
+
 export const fmtMB = (bytes) => `${(bytes / 1048576).toFixed(1)} MB`;
 export const fmtDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 

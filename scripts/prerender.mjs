@@ -43,6 +43,9 @@ const EXTRA = {
     '<p><a href="/features">All features</a> · <a href="/faq">FAQ</a> · <a href="/compare">Compare</a> · <a href="/download">Download</a></p>',
     `<p>Questions? <a href="${DISCORD}">Join the VoxelPort Discord</a>.</p>`,
   ],
+  status: () => [
+    '<h2>Relays</h2><p>VoxelPort has relays in India (play.voxelport.in), Europe (play-eu.voxelport.in) and Los Angeles (play-la.voxelport.in). The numbers on this page (servers online, players, ping) are measured live in your browser and are not part of this static text. For uptime percentages and history see <a href="/uptime">the uptime report</a>.</p>',
+  ],
   features: () => ['<h2>Features</h2>' + FEATURES.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join('')],
   compare: () => [
     `<h2>How we compared</h2><p>Last verified ${fmtDate(COMPARE.verifiedOn)}. ${COMPARE.definitions.map(([t, d]) => esc(t + ': ' + d)).join(' ')}</p><ul>${COMPARE.sources.map(([n, u, d]) => `<li><a href="${u}">${esc(n)}</a>: ${esc(d)}</li>`).join('')}</ul>`,
