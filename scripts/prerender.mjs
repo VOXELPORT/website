@@ -167,8 +167,8 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', uptime: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', uptime: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -216,6 +216,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   `- [Join the team](${SITE}/team): volunteer roles: Discord moderators, developers, testers, translators and guide writers.`,
   `- [Public server list](${SITE}/servers): Minecraft servers hosted with VoxelPort that are online now.`,
   `- [Relay status](${SITE}/status): live status and ping of the relays.`,
+  `- [Uptime report](${SITE}/uptime): uptime percentages and history for every relay and service.`,
   `- [License, privacy and terms](${SITE}/legal)`,
   '- [Source code](https://github.com/VOXELPORT)',
   '',

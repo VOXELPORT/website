@@ -69,7 +69,7 @@ function EndpointCard({ ep, ms, loading, i }) {
 
 export default function StatusPage({ onBack }) {
   const relay = useRelayStatus(15000);
-  const [ms, setMs] = useState({ direct: null, cdn: null, eu: null });
+  const [ms, setMs] = useState(() => Object.fromEntries(ENDPOINTS.map((e) => [e.key, null])));
   const [loading, setLoading] = useState(true);
   const [checkedAt, setCheckedAt] = useState(null);
   const [history, setHistory] = useState([]);
@@ -78,10 +78,11 @@ export default function StatusPage({ onBack }) {
   // `loading` starts true, so the automatic checks don't need to set it;
   // only the manual "Check now" button flips it back on first.
   const check = useCallback(async () => {
-    const [direct, cdn, eu] = await Promise.all(ENDPOINTS.map((e) => measure(e.url)));
-    setMs({ direct, cdn, eu });
+    const results = await Promise.all(ENDPOINTS.map((e) => measure(e.url)));
+    const next = Object.fromEntries(ENDPOINTS.map((e, i) => [e.key, results[i]]));
+    setMs(next);
     setCheckedAt(new Date());
-    setHistory((h) => [...h.slice(-23), { t: new Date().toLocaleTimeString(), direct, cdn, eu }]);
+    setHistory((h) => [...h.slice(-23), { t: new Date().toLocaleTimeString(), ...next }]);
     setLoading(false);
   }, []);
 
@@ -92,15 +93,15 @@ export default function StatusPage({ onBack }) {
     return () => { clearTimeout(first); clearInterval(timer.current); };
   }, [check]);
 
-  const anyUp = ms.direct !== null || ms.cdn !== null || ms.eu !== null;
-  const overall = loading && !checkedAt ? 'checking' : relay.state === 'offline' && !anyUp ? 'down' : ms.direct === null || ms.cdn === null || ms.eu === null ? 'partial' : 'ok';
+  const anyUp = Object.values(ms).some((v) => v !== null);
+  const overall = loading && !checkedAt ? 'checking' : relay.state === 'offline' && !anyUp ? 'down' : Object.values(ms).some((v) => v === null) ? 'partial' : 'ok';
   const banner = {
     checking: ['RUNNING CHECKS…', 'Pinging the relay from your browser.', 'var(--paper-2)'],
-    ok: ['ALL SYSTEMS GO!', 'Both relays are up, on every route. Host away.', 'var(--grass)'],
+    ok: ['ALL SYSTEMS GO!', 'Every relay is up, on every route. Host away.', 'var(--grass)'],
     partial: ['ONE ROUTE IS DOWN', 'Hosting still works — VoxelPort uses a route or region that’s up.', 'var(--gold)'],
     down: ['RELAY UNREACHABLE', 'Hosting and joining won’t work right now. Check back soon.', 'var(--red)'],
   }[overall];
-  const maxMs = Math.max(200, ...history.flatMap((h) => [h.direct || 0, h.cdn || 0, h.eu || 0]));
+  const maxMs = Math.max(200, ...history.flatMap((h) => ENDPOINTS.map((e) => h[e.key] || 0)));
 
   const back = (e) => { e?.preventDefault(); onBack(e); };
 
@@ -153,13 +154,14 @@ export default function StatusPage({ onBack }) {
               <span className="typewriter" style={{ fontSize: 13 }}>
                 <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--grass)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> direct&nbsp;&nbsp;
                 <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--diamond)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> cloudflare&nbsp;&nbsp;
-                <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--gold)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> europe
+                <span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--gold)', border: '2px solid var(--ink)', verticalAlign: -1 }} /> europe&nbsp;&nbsp;
+                <span style={{ display: 'inline-block', width: 12, height: 12, background: '#a78bfa', border: '2px solid var(--ink)', verticalAlign: -1 }} /> los angeles
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 120, marginTop: 18, borderBottom: '3px solid var(--ink)' }}>
               {history.map((h, i) => (
-                <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: 2, height: '100%' }} title={`${h.t} · direct ${h.direct ?? '—'} ms · cloudflare ${h.cdn ?? '—'} ms · europe ${h.eu ?? '—'} ms`}>
-                  {[[h.direct, 'var(--grass)'], [h.cdn, 'var(--diamond)'], [h.eu, 'var(--gold)']].map(([v, c], j) => (
+                <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: 2, height: '100%' }} title={`${h.t} · direct ${h.direct ?? '—'} ms · cloudflare ${h.cdn ?? '—'} ms · europe ${h.eu ?? '—'} ms · los angeles ${h.la ?? '—'} ms`}>
+                  {[[h.direct, 'var(--grass)'], [h.cdn, 'var(--diamond)'], [h.eu, 'var(--gold)'], [h.la, '#a78bfa']].map(([v, c], j) => (
                     <div key={j} style={{ flex: 1, height: v === null ? '100%' : `${Math.max(4, (v / maxMs) * 100)}%`, background: v === null ? 'var(--red)' : c, border: '2px solid var(--ink)', borderBottom: 'none' }} />
                   ))}
                 </div>
@@ -177,7 +179,7 @@ export default function StatusPage({ onBack }) {
             Pings are measured from <b>your browser</b> to each relay: one server in India, one in Europe and one in Los Angeles. The app picks whichever is closest to
             the person hosting. Near India you should see tens of milliseconds to the India relay; near Europe, to the Europe relay; near the US west coast, to the Los Angeles relay. From South America or the US east coast,
             expect somewhat more. The India direct route skips the Cloudflare hop, which some ISPs send through another country. Players connect to{' '}
-            <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> (India) or <span className="typewriter" style={{ fontWeight: 700 }}>play-eu.voxelport.in</span> (Europe) or <span className="typewriter" style={{ fontWeight: 700 }}>play-la.voxelport.in</span> (Los Angeles) directly either way. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
+            <span className="typewriter" style={{ fontWeight: 700 }}>play.voxelport.in</span> (India) or <span className="typewriter" style={{ fontWeight: 700 }}>play-eu.voxelport.in</span> (Europe) or <span className="typewriter" style={{ fontWeight: 700 }}>play-la.voxelport.in</span> (Los Angeles) directly either way. Want the history? See the <a href="/uptime">uptime report</a>. See something wrong? Tell us in <b>#help</b> on the <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>, where <b>/status</b> also shows whether VoxelPort is working.
           </p>
         </div>
       </main>

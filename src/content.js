@@ -75,6 +75,7 @@ export const EXPLORE = [
   { href: '/faq', tag: 'Your questions', title: 'FAQ', blurb: 'The questions people ask before they install.', sprite: 'card' },
   { href: '/servers', tag: 'Live directory', title: 'SERVER LIST', blurb: 'Public servers that are online right now. Copy one and join.', sprite: 'house' },
   { href: '/status', tag: 'Live ping', title: 'RELAY STATUS', blurb: 'Is the relay up? Ping measured from your own browser.', sprite: 'signal' },
+  { href: '/uptime', tag: 'Reliability', title: 'UPTIME REPORT', blurb: 'How often each relay and service was up: percentages and 90 days of history.', sprite: 'tower' },
   { href: '/support', tag: 'Keep it free', title: 'SUPPORT', blurb: 'A tip jar, and the perks that come with a thank-you.', sprite: 'heart' },
   { href: '/legal', tag: 'The fine print', title: 'PRIVACY & LEGAL', blurb: 'What we collect (almost nothing), the license and terms.', sprite: 'lock' },
 ];

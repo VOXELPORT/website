@@ -13,6 +13,7 @@ import './v2inner.css';
 
 const LegalPage = lazy(() => import('./LegalPage.jsx'));
 const StatusPage = lazy(() => import('./StatusPage.jsx'));
+const UptimePage = lazy(() => import('./UptimePage.jsx'));
 const ServersPage = lazy(() => import('./ServersPage.jsx'));
 const GuidesPage = lazy(() => import('./GuidesPage.jsx'));
 const MotdPage = lazy(() => import('./MotdPage.jsx'));
@@ -62,7 +63,7 @@ if (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, ''
 
 const SIMPLE_ROUTES = {
   '/motd': 'motd',
-  '/legal': 'legal', '/status': 'status', '/servers': 'servers', '/guides': 'guides',
+  '/legal': 'legal', '/status': 'status', '/uptime': 'uptime', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
   '/support': 'support', '/community': 'community', '/new-app': 'newapp', '/about': 'about', '/team': 'team',
 };
@@ -132,6 +133,7 @@ export default function App() {
       {page === 'team' && <TeamPage onBack={goHome} />}
       {page === 'legal' && <LegalPage onBack={goHome} />}
       {page === 'status' && <StatusPage onBack={goHome} />}
+      {page === 'uptime' && <UptimePage onBack={goHome} />}
       {page === 'servers' && <ServersPage onBack={goHome} />}
       {(page === 'guides' || page.startsWith('guide:')) && (
         <GuidesPage slug={page.startsWith('guide:') ? page.slice(6) : null} onBack={goHome} />

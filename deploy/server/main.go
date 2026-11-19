@@ -113,6 +113,10 @@ func main() {
 				// The Android app's update manifest: always fresh, never from a cache.
 				h.Set("Cache-Control", "no-cache, max-age=0")
 			}
+			if name == "uptime.json" {
+				// The public uptime report: the website (on another host) reads it from the browser.
+				h.Set("Access-Control-Allow-Origin", "*")
+			}
 			http.ServeFile(w, r, p)
 			return
 		}

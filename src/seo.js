@@ -142,6 +142,13 @@ export const PAGES = {
     heading: 'VoxelPort relay status',
     summary: ['Live uptime and ping for the VoxelPort relay that connects players to hosted Minecraft servers, on both the direct route and the Cloudflare route.'],
   },
+  uptime: {
+    path: '/uptime',
+    title: 'VoxelPort Uptime Report: Relay and Service Uptime Percentages',
+    description: 'How reliable VoxelPort is: uptime percentages for the India, Europe and Los Angeles relays, Discord sign-in, the website and downloads, checked every minute, with a 90-day history.',
+    heading: 'VoxelPort uptime report',
+    summary: ['Uptime percentages (24 hours, 7, 30 and 90 days) for every VoxelPort relay and service, checked every minute, with a day-by-day history and recent incidents.'],
+  },
   legal: {
     path: '/legal',
     title: 'License, Privacy & Terms — VoxelPort',
@@ -152,6 +159,10 @@ export const PAGES = {
 };
 
 export const FAQ = [
+  {
+    q: 'Does the previous VoxelPort app have the Los Angeles relay and custom addresses on every relay?',
+    a: 'The previous (Electron) app is not updated any more: it keeps the India and Europe relays, and custom addresses only on India. Los Angeles, custom addresses on every relay and Supporter+ voice chat on every relay are in the new app. In your current app press “Update to the new VoxelPort” and your servers, backups, ID and address come across.',
+  },
   {
     q: 'Is there a VoxelPort relay in the USA?',
     a: 'Yes. VoxelPort has a relay in Los Angeles, next to the ones in India and Europe, so players in the US and Canada get a nearby server. The Region setting in the app (Auto by default) measures all relays and uses the fastest, or you can choose Los Angeles by hand. Players join at play-la.voxelport.in with the port the app shows. Hosting is free with no port forwarding.',
