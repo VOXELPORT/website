@@ -92,13 +92,13 @@ export const GUIDES = [
   // ───────────────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-server-hosting',
-    title: 'Free Minecraft Server Hosting: No Sleep, No Queue (2026)',
-    short: 'Free Minecraft hosting',
-    description: 'Free Minecraft hosting compared: Aternos, Minehut, Falix and your own PC with VoxelPort. What each free plan limits, and which to pick for your group.',
-    kicker: 'Free hosting · 2026',
+    title: 'Free Minecraft Server Options: No Sleep, No Queue (2026)',
+    short: 'Free Minecraft server options',
+    description: 'Free Minecraft server options compared: the hosting services Aternos, Minehut and Falix, and running a server on your own PC with VoxelPort. What each limits, and which to pick.',
+    kicker: 'Free options · 2026',
     blurb: 'Aternos, Minehut, Falix and your own PC compared: sleep, queues, RAM and the catch with each.',
     faq: [
-      { q: 'What is the best free Minecraft server hosting?', a: 'It depends on your PC. If you have a PC that can stay on while people play, hosting on it with VoxelPort is free with no sleep, no queue and no RAM cap. If you don’t, a cloud host like Aternos, Minehut or Falix runs the server for you, with limits on the free plan.' },
+      { q: 'What is the best free Minecraft server hosting?', a: 'It depends on your PC. If you have a PC that can stay on while people play, running the server on it with VoxelPort is free with no sleep, no queue and no cloud RAM cap. (VoxelPort is not a hosting service: it manages the server and connects it through a relay, while your own PC does the work.) If you don’t, a cloud host like Aternos, Minehut or Falix runs the server for you, with limits on the free plan.' },
       { q: 'Is there free Minecraft hosting that doesn’t sleep?', a: 'Free cloud hosts usually stop or sleep the server when nobody is online, to save resources. A server on your own PC doesn’t: with VoxelPort it stays online until you stop it, as long as the PC is on.' },
       { q: 'Is VoxelPort really free?', a: 'Yes. The app, the relay and your public address are free and open source, with no ads and no card (hosts join our Discord server). You use your own PC’s power and internet. (Tips are optional; supporters get a badge, a pinned server and a custom yourname.voxelport.in address as a thank-you, and nothing free is ever taken away.)' },
       { q: 'How much RAM do free Minecraft hosts give?', a: 'Free plans are usually around 1–4 GB, depending on the host. On your own PC you choose: a PC with 16 GB of RAM can give a server 6–8 GB, enough for most modpacks.' },
@@ -131,7 +131,7 @@ export const GUIDES = [
   <li><b>You want it online 24/7 without a PC:</b> that needs paid hosting; no free option does this well.</li>
 </ul>
 
-<div class="tip">Playing from India? See <a href="/guides/free-minecraft-hosting-india">free Minecraft hosting in India</a> for ping, UPI-friendly paid options and Jio/Airtel notes.</div>
+<div class="tip">Playing from India? See <a href="/guides/free-minecraft-hosting-india">running a free Minecraft server in India</a> for ping, UPI-friendly paid options and Jio/Airtel notes.</div>
 
 <h2 id="how">How free hosting on your own PC works</h2>
 <p>Normally, hosting at home means port forwarding, which doesn’t work on many connections (Jio, Airtel and most mobile data use CGNAT). VoxelPort avoids it: the app connects <i>out</i> to a VoxelPort relay, the relay gives your server a public address, and players join that address. Nothing on your router changes, and your home IP stays private.</p>
@@ -154,9 +154,9 @@ ${GET_APP}
   // ─────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-hosting-india',
-    title: 'Free Minecraft Server Hosting in India (2026)',
-    short: 'Free hosting in India',
-    description: 'Free Minecraft hosting in India compared: free hosts vs your own PC with VoxelPort. Works on Jio and Airtel, no port forwarding, low ping from an India relay.',
+    title: 'Run a Free Minecraft Server in India (2026)',
+    short: 'Free server in India',
+    description: 'Running a free Minecraft server in India: hosting services vs your own PC with VoxelPort. Works on Jio and Airtel, no port forwarding, low ping from an India relay.',
     kicker: 'India · 2026',
     blurb: 'Free hosts, cheap rupee plans and your own PC compared for players in India: ping, RAM, queues and the catch.',
     faq: [
@@ -781,7 +781,7 @@ ${GET_APP}
     slug: 'play-minecraft-modpack-with-friends-free',
     title: 'Play a Minecraft Modpack With Friends for Free',
     short: 'Modpacks with friends',
-    description: 'Host a Minecraft modpack server for free and play with friends: import your server folder, put it online with VoxelPort. No port forwarding or paid hosting.',
+    description: 'Run a Minecraft modpack server for free and play with friends: import your server folder, put it online with VoxelPort. No port forwarding or paid hosting.',
     kicker: 'Mods · Modpacks',
     blurb: 'Host a CurseForge or Modrinth modpack for free and get friends connected.',
     faq: [
@@ -973,9 +973,9 @@ ${GET_APP}
   // ─────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-server-hosting-europe',
-    title: 'Free Minecraft Server Hosting in Europe (Low Ping)',
-    short: 'Hosting in Europe',
-    description: 'Free Minecraft server hosting for Europe with no port forwarding and low ping from a European relay. Works behind DS-Lite and CGNAT, Java and Bedrock.',
+    title: 'Run a Free Minecraft Server in Europe (Low Ping)',
+    short: 'Server in Europe',
+    description: 'Run a free Minecraft server from home in Europe with no port forwarding and low ping from a European relay. Works behind DS-Lite and CGNAT, Java and Bedrock.',
     kicker: 'Europe · Free',
     blurb: 'A relay in Europe, free and with no port forwarding: how to host a Minecraft server for friends in Germany, the UK, France and the rest of Europe.',
     faq: [
@@ -1015,9 +1015,9 @@ ${GET_APP}
   // ─────────────────────────────────────────────────────────────────
   {
     slug: 'free-minecraft-server-hosting-usa',
-    title: 'Free Minecraft Server Hosting in the USA (Los Angeles Relay)',
-    short: 'Hosting in the USA',
-    description: 'Free Minecraft server hosting for players in the USA and Canada: a relay in Los Angeles, no port forwarding, no queue. Java and Bedrock on one address.',
+    title: 'Run a Free Minecraft Server in the USA (Los Angeles Relay)',
+    short: 'Server in the USA',
+    description: 'Run a free Minecraft server from home in the USA and Canada: a relay in Los Angeles, no port forwarding, no queue. Java and Bedrock on one address.',
     kicker: 'USA · Free',
     blurb: 'A relay in Los Angeles, free and with no port forwarding: how to host a Minecraft server from your own PC for friends in the US and Canada.',
     faq: [
@@ -1188,8 +1188,8 @@ ${GET_APP}
 
 export const GUIDES_INDEX = {
   path: '/guides',
-  title: 'Minecraft Server Guides: Hosting, Crossplay, Fixes',
-  description: 'Free guides for hosting a Minecraft server from home: no port forwarding, India, Europe and the US, Jio and Airtel, CGNAT, Bedrock crossplay and crash fixes.',
+  title: 'Minecraft Server Guides: Setup, Crossplay, Fixes',
+  description: 'Free guides for running a Minecraft server from home: no port forwarding, India, Europe and the US, Jio and Airtel, CGNAT, Bedrock crossplay and crash fixes.',
 };
 
 export const guidePath = (g) => `/guides/${g.slug}`;

@@ -22,14 +22,22 @@ function Icon({ kind, size = 24 }) {
 }
 
 const FEATURES = [
-  { icon: 'link', tag: '01 / CONNECT', title: 'Skip the router rituals.', text: 'Your server gets a public address with no port forwarding. Works behind CGNAT and on networks you do not control.' },
-  { icon: 'diamond', tag: '02 / PLAY TOGETHER', title: 'Different devices. Same dirt.', text: 'One switch adds Geyser and Floodgate. Java, Bedrock, phone and console friends all join the same world, with plain Minecraft.' },
-  { icon: 'shield', tag: '03 / KEEP CONTROL', title: 'Your server means yours.', text: 'Vanilla, Paper, Fabric or your own jar. Your files stay on your hardware. Live console, CPU, RAM and TPS.' },
+  { icon: 'cube', tag: '01 / MANAGE', title: 'Run it from one app.', text: 'Create a Vanilla, Paper or Fabric server, or import the one you have. VoxelPort installs the right Java and gives you a live console, players, CPU, RAM and TPS, backups, and plugins or mods from Modrinth.' },
+  { icon: 'link', tag: '02 / CONNECT', title: 'Skip the router rituals.', text: 'The VoxelPort relay is a proxy: your server connects out to it and players connect to it, so no port forwarding is needed. It works behind CGNAT and on networks you do not control.' },
+  { icon: 'diamond', tag: '03 / PLAY TOGETHER', title: 'Different devices. Same dirt.', text: 'One switch adds Geyser and Floodgate, so Java and Bedrock friends join the same world with plain Minecraft. Your world and files stay on your own hardware.' },
 ];
-const PROOF = ['No port forwarding', 'Java + Bedrock', 'Players need no account', 'Open source', 'Free forever'];
+const PROOF = ['Runs on your own device', 'No port forwarding', 'Java + Bedrock', 'Players need no account', 'Open source', 'Free'];
+const HOW = [
+  ['1', 'Install VoxelPort', 'Download the app for Windows or Android and sign in with Discord once.'],
+  ['2', 'Create or import a server', 'Pick a type and version, or import a server folder. VoxelPort sets up Java and starts it on your device.'],
+  ['3', 'Connect through the relay', 'Press Make public. Your server connects out to a VoxelPort relay and gets an address.'],
+  ['4', 'Friends join', 'They paste the address into Multiplayer in plain Minecraft. No account, no install.'],
+];
 const FAQ = [
-  ['Is VoxelPort really free?', 'Yes. The app and relay are free and open source under the MIT license. Optional supporter perks help keep the project running. You can host and play without paying.'],
-  ['Do my friends need to install anything?', 'Only Minecraft. Players connect to your public address through Multiplayer. VoxelPort runs on the host device.'],
+  ['Is VoxelPort a Minecraft hosting service?', 'No. It is a server manager and proxy app. Your server runs on your own PC or Android phone with your own CPU, RAM and internet. VoxelPort manages it and connects it to a relay so friends can join without port forwarding.'],
+  ['What does the relay do?', 'It provides connectivity, not computing. Your server connects out to the relay, players connect to it, and it passes the traffic between them. It does not run your server or store your world.'],
+  ['Is VoxelPort really free?', 'Yes. The app and relay are free and open source under the MIT license. Optional supporter perks help keep the project running. You can use it and play without paying.'],
+  ['Do my friends need to install anything?', 'Only Minecraft. Players connect to your public address through Multiplayer. VoxelPort runs on the device that runs the server.'],
   ['Can Java and Bedrock friends play together?', 'Yes. Turn on Geyser and Floodgate in VoxelPort to let Bedrock players (phone, console, Windows 10) join your Java server.'],
   ['Does my computer need to stay on?', 'Yes. Your world runs on your own PC or Android phone, so that device must stay on while friends play. Performance depends on your hardware and connection.'],
 ];
@@ -40,7 +48,7 @@ function Showcase({ src, poster, className }) {
 
 export default function Landing() {
   const os = useDetectedOS();
-  const cta = os === 'android' ? 'Get it for Android' : 'Download for Windows';
+  const cta = 'Download VoxelPort';
   const download = os === 'android' ? DL_ANDROID : DL_WIN;
   return <div className="v2d" id="top">
     <V2Bg />
@@ -50,14 +58,14 @@ export default function Landing() {
       {/* HERO */}
       <section className="v2d-wrap v2d-hero">
         <div>
-          <p className="v2d-eyebrow"><i />Small app. Big adventures.</p>
-          <h1>Host Minecraft.<br />Invite everyone.<br /><span className="g">No port forwarding.</span></h1>
-          <p className="v2d-lede">Turn your PC or Android phone into a Minecraft server in a couple of clicks. Your friends join with plain Minecraft, on Java or Bedrock. You keep control of your world.</p>
+          <p className="v2d-eyebrow"><i />Minecraft server manager &amp; proxy</p>
+          <h1>Run your own server.<br />Let everyone join.<br /><span className="g">No port forwarding.</span></h1>
+          <p className="v2d-lede">VoxelPort manages the Minecraft server you run on your own PC or Android phone, and connects it through a relay so friends can join with plain Minecraft, on Java or Bedrock. The server and your world stay on your hardware.</p>
           <div className="v2d-cta">
             <a className="v2d-btn v2d-btn-solid" href={download} onClick={os === 'android' ? go(download) : undefined}><Icon kind={os === 'android' ? 'phone' : 'window'} size={18} />{cta}</a>
             <a className="v2d-btn v2d-btn-ghost" href="/download" onClick={go('/download')}>All platforms <Arrow /></a>
           </div>
-          <p className="v2d-free"><b>✓</b> Free &amp; open source <i /> Join our Discord to host <i /> No card</p>
+          <p className="v2d-free"><b>✓</b> Free &amp; open source <i /> {os === 'android' ? 'For Android' : 'For Windows'} <i /> Sign in with Discord once</p>
         </div>
         <div className="v2d-show">
           <div className="v2d-show-frame">
@@ -75,8 +83,8 @@ export default function Landing() {
       <section className="v2d-wrap v2d-sec" id="why">
         <div className="v2d-head">
           <p className="v2d-eyebrow"><i />Less friction. More Minecraft.</p>
-          <h2>Good worlds deserve good company.</h2>
-          <p>From the first dirt hut to your next big build, VoxelPort gets everyone into the same world.</p>
+          <h2>A server manager with a built-in connection.</h2>
+          <p>VoxelPort looks after the server on your device and gets your friends to it. It is not a hosting service.</p>
         </div>
         <div className="v2d-cards">
           {FEATURES.map((f) => <article className="v2d-card" key={f.tag}>
@@ -89,12 +97,28 @@ export default function Landing() {
         <p style={{ marginTop: 28 }}><a className="v2d-underlink" href="/features" onClick={go('/features')}>A closer look at the features <Arrow /></a></p>
       </section>
 
+      {/* HOW IT WORKS */}
+      <section className="v2d-wrap v2d-sec" id="how" style={{ paddingTop: 0 }}>
+        <div className="v2d-head">
+          <p className="v2d-eyebrow"><i />How VoxelPort works.</p>
+          <h2>Your device runs the server. The relay connects it.</h2>
+          <p>The relay is a proxy that provides connectivity, not compute. It does not run your server, store your world, or provide CPU or RAM. Your PC or phone has to stay on while people play.</p>
+        </div>
+        <div className="v2d-cards">
+          {HOW.map(([n, t, d]) => <article className="v2d-card" key={n}>
+            <p className="v2d-card-tag">STEP {n}</p>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </article>)}
+        </div>
+      </section>
+
       {/* DUAL SHOWCASE */}
       <section className="v2d-wrap v2d-sec" id="showcase" style={{ paddingTop: 0 }}>
         <div className="v2d-head">
           <p className="v2d-eyebrow"><i />See it work.</p>
-          <h2>One app. Every platform.</h2>
-          <p>The same simple flow on your desktop and in your pocket: set up a server, make it public, share the address.</p>
+          <h2>The real app, on Windows and Android.</h2>
+          <p>Recordings of VoxelPort itself: set up a server, make it public, share the address.</p>
         </div>
         <div className="v2d-dual">
           <div className="v2d-dual-card">
@@ -105,8 +129,8 @@ export default function Landing() {
           </div>
           <div className="v2d-dual-card">
             <span className="v2d-badge"><Icon kind="phone" size={14} /> Android</span>
-            <h3>Host from your phone</h3>
-            <p>One Play button installs, starts and shares. Players, whitelist and plugins, all on your phone.</p>
+            <h3>Android app</h3>
+            <p>Run a server on your phone: one Play button installs, starts and shares it. Players, whitelist and plugins, all on your phone.</p>
             <div className="v2d-dual-media is-phone"><Showcase className="v2d-phone" src="/showcase/android.mp4" poster="/showcase/android.gif" /></div>
           </div>
         </div>
@@ -115,19 +139,19 @@ export default function Landing() {
       {/* DOWNLOAD */}
       <section className="v2d-wrap v2d-sec" id="download" style={{ paddingTop: 0 }}>
         <div className="v2d-head">
-          <p className="v2d-eyebrow"><i />Pick your platform.</p>
-          <h2>Your next session starts here.</h2>
-          <p>One download for the host. Just Minecraft for everyone else.</p>
+          <p className="v2d-eyebrow"><i />Supported platforms.</p>
+          <h2>Download VoxelPort.</h2>
+          <p>Windows 10 and 11, and Android. Only the person running the server needs the app; everyone else just needs Minecraft.</p>
         </div>
         <div className="v2d-plats">
           <a href={DL_WIN} className={`v2d-plat ${os === 'windows' ? 'rec' : ''}`}>
             <div className="v2d-plat-ico"><Icon kind="window" size={30} /></div>
-            <h3>Windows</h3><p>The new app: small, fast, and where every new feature goes.</p>
+            <h3>Windows</h3><p>The desktop app: a small download, and where every new feature goes.</p>
             <span className="go">Download .exe ↓</span>
           </a>
           <a href={DL_ANDROID} onClick={go(DL_ANDROID)} className={`v2d-plat ${os === 'android' ? 'rec' : ''}`}>
             <div className="v2d-plat-ico"><Icon kind="phone" size={30} /></div>
-            <h3>Android</h3><p>A whole Minecraft server in your pocket.</p>
+            <h3>Android</h3><p>Run and manage a server from your phone. Sideloaded APK.</p>
             <span className="go">Get the install guide ↗</span>
           </a>
         </div>
@@ -169,8 +193,8 @@ export default function Landing() {
 
       {/* FINAL */}
       <div className="v2d-wrap v2d-final">
-        <p>The best part of Minecraft is who you share it with.</p>
-        <a className="v2d-btn v2d-btn-solid" href="/download" onClick={go('/download')}>Let us get you connected <Arrow /></a>
+        <p>Run the server on your own hardware. Let the relay do the connecting.</p>
+        <a className="v2d-btn v2d-btn-solid" href="/download" onClick={go('/download')}>Download VoxelPort <Arrow /></a>
       </div>
     </main>
 

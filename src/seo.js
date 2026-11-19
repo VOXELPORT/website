@@ -16,11 +16,11 @@ export const PAGES = {
   },
   home: {
     path: '/',
-    title: 'VoxelPort: Free Minecraft Server Hosting, No Port Forwarding',
-    description: 'Free Minecraft server hosting from your PC or Android phone: no sleep, no queue, no RAM cap, no port forwarding. Relays in India, Europe and Los Angeles. Java + Bedrock.',
-    heading: 'Host a Minecraft server from your PC or Android phone — no port forwarding',
+    title: 'VoxelPort: Minecraft Server Manager & Proxy, No Port Forwarding',
+    description: 'Free Minecraft server manager and proxy for Windows and Android. Run the server on your own device and let friends join without port forwarding. Java + Bedrock.',
+    heading: 'Minecraft server manager and proxy: run your own server, no port forwarding',
     summary: [
-      'VoxelPort is a free, open-source app for Windows and Android. It creates or imports a Minecraft: Java Edition server, installs the right Java for you, and puts it online through the VoxelPort relay — your router stays shut and your home IP stays private.',
+      'VoxelPort is a free, open-source Minecraft server manager for Windows and Android. It creates or imports a Minecraft: Java Edition server that runs on your own device, installs the right Java for you, and connects it to a VoxelPort relay (a proxy), so friends can join without port forwarding and your home IP stays private. VoxelPort is not a hosting service: the relay carries connections only and provides no compute, storage or RAM.',
       'Friends join with plain Minecraft using a free address like play.voxelport.in:26137; supporters can claim a custom address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
     ],
     points: [
@@ -30,17 +30,17 @@ export const PAGES = {
       'Vanilla, Paper, Fabric and modpacks',
       'Automatic Java install (Java 25 for Minecraft 26.1+)',
       'Live CPU, RAM and TPS, plus plain-English crash help',
-      'Host from a Windows PC or an Android phone',
-      'Free and MIT-licensed; hosts join our Discord server',
+      'Runs on your own Windows PC or Android phone',
+      'Free and MIT-licensed; you join our Discord server once to use the app',
       'A friendly Discord for help, servers and release news',
     ],
   },
   features: {
     path: '/features',
-    title: 'VoxelPort Features: Relay, Custom Address, Bedrock',
-    description: 'What VoxelPort does: instant relay with no port forwarding, a free public address, Java + Bedrock crossplay, automatic Java and plain-English crash help.',
+    title: 'VoxelPort Features: Server Manager, Relay, Bedrock',
+    description: 'What VoxelPort does: create and manage a Minecraft server on your own device, connect it through a relay with no port forwarding, Java + Bedrock crossplay, automatic Java and plain-English crash help.',
     heading: 'VoxelPort features',
-    summary: ['What the VoxelPort app does for the host, and why nobody who joins has to install anything: create a new server or bring your own, get a public address in seconds, and keep your router shut.'],
+    summary: ['What the VoxelPort app does for the person running the server, and why nobody who joins has to install anything: create a new server or bring your own, manage it on your own device, get a public address through the relay in seconds, and keep your router shut.'],
   },
   compare: {
     path: '/compare',
@@ -65,10 +65,10 @@ export const PAGES = {
   },
   support: {
     path: '/support',
-    title: 'Support VoxelPort: Keep Free Minecraft Hosting Running',
+    title: 'Support VoxelPort: Keep the Free Relay Running',
     description: 'VoxelPort is free and has no ads. A small UPI tip keeps the relay online, and supporters get a badge, a pinned server and a short address.',
     heading: 'Support VoxelPort',
-    summary: ['VoxelPort has no ads and hosting is free. If it saved you a fight with your router, a small tip helps keep the relay online.'],
+    summary: ['VoxelPort has no ads, and the app and the relay are free. If it saved you a fight with your router, a small tip helps keep the relay online.'],
   },
   newapp: {
     path: '/new-app',
@@ -86,7 +86,7 @@ export const PAGES = {
   community: {
     path: '/community',
     title: 'VoxelPort Discord: Help, Servers and Release News',
-    description: 'Join the VoxelPort Discord for help hosting a Minecraft server, to show your server, find players, suggest features and get release news first.',
+    description: 'Join the VoxelPort Discord for help running a Minecraft server with VoxelPort, to show your server, find players, suggest features and get release news first.',
     heading: 'The VoxelPort Discord',
     summary: ['The VoxelPort Discord is where people ask for help, show their servers and hear about every release first. You do not need it to use VoxelPort.'],
     points: [
@@ -131,16 +131,16 @@ export const PAGES = {
   servers: {
     path: '/servers',
     title: 'Minecraft Server List — Public VoxelPort Servers Online Now',
-    description: 'Browse public Minecraft servers hosted with VoxelPort: survival, creative, hardcore and modded, Java and Bedrock. Copy the address and join. Updated live.',
+    description: 'Browse public Minecraft servers that their owners run with VoxelPort: survival, creative, hardcore and modded, Java and Bedrock. Copy the address and join. Updated live.',
     heading: 'Minecraft server list',
-    summary: ['Public Minecraft servers hosted with VoxelPort that are online right now — survival, creative, hardcore and modded, many with Bedrock crossplay. Copy an address and join with vanilla Minecraft.'],
+    summary: ['Public Minecraft servers that their owners run with VoxelPort and that are online right now — survival, creative, hardcore and modded, many with Bedrock crossplay. Copy an address and join with vanilla Minecraft.'],
   },
   status: {
     path: '/status',
     title: 'VoxelPort Relay Status — Live Uptime and Ping',
     description: 'Live status of the VoxelPort relay: servers online, players connected, and ping for the direct and Cloudflare routes, measured from your browser.',
     heading: 'VoxelPort relay status',
-    summary: ['Live uptime and ping for the VoxelPort relay that connects players to hosted Minecraft servers, on both the direct route and the Cloudflare route.'],
+    summary: ['Live uptime and ping for the VoxelPort relay that connects players to Minecraft servers that people run with VoxelPort, on both the direct route and the Cloudflare route.'],
   },
   uptime: {
     path: '/uptime',
@@ -160,12 +160,20 @@ export const PAGES = {
 
 export const FAQ = [
   {
+    q: 'Is VoxelPort a Minecraft hosting service?',
+    a: 'No. VoxelPort is a Minecraft server manager and proxy app. Your server runs on your own PC or Android phone, using your own CPU, RAM, storage and internet connection. VoxelPort manages it (create or import, versions, console, backups, plugins) and connects it to a relay so friends can join without port forwarding. If you need a server that runs while your device is off, you need a separate hosting provider.',
+  },
+  {
+    q: 'What does the VoxelPort relay do?',
+    a: 'The relay is a proxy that provides connectivity, not computing. Your server connects out to it, players connect to it, and it passes the traffic between them. It does not run your server, store your world or player data, or provide any CPU or RAM. That is why a free relay can work for everyone, and why your device has to stay on while people play.',
+  },
+  {
     q: 'Does the previous VoxelPort app have the Los Angeles relay and custom addresses on every relay?',
     a: 'The previous (Electron) app is not updated any more: it keeps the India and Europe relays, and custom addresses only on India. Los Angeles, custom addresses on every relay and Supporter+ voice chat on every relay are in the new app. In your current app press “Update to the new VoxelPort” and your servers, backups, ID and address come across.',
   },
   {
     q: 'Is there a VoxelPort relay in the USA?',
-    a: 'Yes. VoxelPort has a relay in Los Angeles, next to the ones in India and Europe, so players in the US and Canada get a nearby server. The Region setting in the app (Auto by default) measures all relays and uses the fastest, or you can choose Los Angeles by hand. Players join at play-la.voxelport.in with the port the app shows. Hosting is free with no port forwarding.',
+    a: 'Yes. VoxelPort has a relay in Los Angeles, next to the ones in India and Europe, so players in the US and Canada get a nearby relay. The Region setting in the app (Auto by default) measures all relays and uses the fastest, or you can choose Los Angeles by hand. Players join at play-la.voxelport.in with the port the app shows. Hosting is free with no port forwarding.',
   },
   {
     q: 'Is VoxelPort moving to a new app?',
@@ -236,21 +244,22 @@ export function homeJsonLd() {
       image: OG_IMAGE,
       description: PAGES.home.description,
       applicationCategory: 'UtilitiesApplication',
-      applicationSubCategory: 'Minecraft server hosting',
+      applicationSubCategory: 'Minecraft server manager and proxy',
       operatingSystem: 'Windows 10, Windows 11, Android',
-      softwareVersion: '1.5.0',
+      softwareVersion: '2.0.0',
       downloadUrl: ['https://github.com/VOXELPORT/VoxelPort-App/releases/latest'],
       featureList: [
-        'Host a Minecraft server on a Windows PC or an Android phone, without port forwarding',
+        'Create and manage a Minecraft server that runs on your own Windows PC or Android phone',
+        'Connect it through a relay so friends join without port forwarding',
         'Works behind CGNAT (Jio, Airtel, mobile data)',
-        'No sleep, no queue, no RAM cap',
+        'Runs on your own hardware: no start queue and no cloud resource limits',
         'Free address, custom names for supporters',
         'Java + Bedrock crossplay (Geyser + Floodgate)',
         'Vanilla, Paper, Fabric and modpacks',
         'Automatic Java install',
         'Live CPU, RAM and TPS, plain-English crash help',
       ],
-      keywords: 'free minecraft server hosting, minecraft server without port forwarding, aternos alternative, minecraft server india, java bedrock crossplay',
+      keywords: 'minecraft server manager, minecraft proxy, minecraft server without port forwarding, aternos alternative, minecraft server india, java bedrock crossplay',
       isAccessibleForFree: true,
       license: 'https://opensource.org/licenses/MIT',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

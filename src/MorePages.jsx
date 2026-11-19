@@ -108,7 +108,7 @@ export function FeaturesPage({ onBack }) {
   return (
     <SubPage onBack={onBack}>
       <PageHero kicker="The powers" a="ALL THE" b="FEATURES"
-        lede="Everything the host needs, and nothing the player has to install. One app, any Minecraft Java server, on your PC or your Android phone." />
+        lede="Everything the person running the server needs, and nothing the player has to install. One app that manages any Minecraft Java server on your PC or your Android phone, and connects it through a relay." />
 
       <section className="page-section" id="paths">
         <SectionHead kicker="One app, any server">NEW SERVER OR YOUR OWN.</SectionHead>
@@ -183,7 +183,7 @@ export function FeaturesPage({ onBack }) {
         <div className="how-demo" style={{ marginTop: 0 }}>
           <div>
             <div className="bubble tail-b" style={{ maxWidth: 440 }}>
-              <span className="kicker">What hosting looks like</span>
+              <span className="kicker">What running a server looks like</span>
               <p style={{ marginTop: 8, fontSize: 17, lineHeight: 1.6 }}>
                 One address to share, a live player count, and the relay ping — right in the app.
               </p>
@@ -414,7 +414,7 @@ export function DownloadPage({ onBack }) {
     <SubPage onBack={onBack}>
       <MoveStrip />
       <PageHero kicker="Free · join our Discord" a="GET" b="VOXELPORT"
-        lede="One app, on your PC or your Android phone, hosts any Minecraft Java server. Players always join with vanilla Minecraft." />
+        lede="One app, on your PC or your Android phone, manages any Minecraft Java server and connects it through a relay. The server runs on your device. Players always join with vanilla Minecraft." />
 
       <div className="panel tilt-l1" style={{ padding: '24px 24px 26px', marginTop: 50, maxWidth: 720 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
@@ -424,7 +424,7 @@ export function DownloadPage({ onBack }) {
           </span>
           <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{`New app 2.0${rel.app ? ` · previous app ${rel.app}` : ''}`}</span>
         </div>
-        <h2 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>HOST ANY SERVER</h2>
+        <h2 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>MANAGE ANY SERVER</h2>
         <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
           <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_WIN}>WINDOWS · NEW APP</a>
@@ -482,7 +482,7 @@ export function SupportPage({ onBack }) {
         <div className="support">
           <div className="support-copy">
             <p className="lede">
-              VoxelPort has no ads. Hosting, the free address and the server list are free for everyone, and hosts join our Discord server to use the app. A custom name is a supporter perk.
+              VoxelPort has no ads. The app, the relay, the free address and the server list are free for everyone, and you join our Discord server to use the app. A custom name is a supporter perk.
               The relay runs on a server I pay for myself. If it saved you a fight with your router, a small tip helps keep it online,
               and <a href="#supporters">supporters get a badge and a few extras</a> as a thank-you.
             </p>
