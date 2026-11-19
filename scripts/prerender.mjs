@@ -16,6 +16,13 @@ import { SUPPORT } from '../src/support.js';
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 
+// Only the production deployment may be indexed. Vercel sets VERCEL_ENV to 'production', 'preview' or 'development'; a build
+// outside Vercel (VERCEL_ENV unset) counts as production, so a local build can be checked as it will really ship.
+// Preview URLs (*.vercel.app) therefore get noindex pages and a robots.txt that blocks everything. Canonical URLs always
+// point at https://voxelport.in either way, so a leaked preview link never competes with the real page.
+const INDEXABLE = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production';
+const ROBOTS_META = /<meta name="robots" content="[^"]*" \/>/;
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function replaceOnce(html, re, value) {
@@ -151,6 +158,7 @@ function guidesIndexBody() {
 }
 
 function write(p, html) {
+  if (!INDEXABLE) html = replaceOnce(html, ROBOTS_META, '<meta name="robots" content="noindex, nofollow" />');
   const out = p === '/' ? path.join(dist, 'index.html') : path.join(dist, ...p.slice(1).split('/'), 'index.html');
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);
@@ -179,7 +187,23 @@ fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
 ].join('\n'));
 // support.json: what the desktop and Android apps read for the Support screen (supporter perks, hosting links).
 fs.writeFileSync(path.join(dist, 'support.json'), JSON.stringify(SUPPORT, null, 2) + '\n');
-fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.writeFileSync(path.join(dist, 'robots.txt'), INDEXABLE
+  ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`
+  : 'User-agent: *\nDisallow: /\n');
+
+// 404.html: Vercel serves this file, with a real 404 status, for any address that is not a page or a file. It is the app
+// shell (so the "page not found" screen with its links shows), but never indexable and with no canonical address.
+{
+  let html = template;
+  html = replaceOnce(html, /<title>[^<]*<\/title>/, '<title>Page not found | VoxelPort</title>');
+  html = replaceOnce(html, /<meta name="description" content="[^"]*" \/>/, '<meta name="description" content="This address does not lead anywhere on VoxelPort. Go back to the home page, the downloads or the guides." />');
+  html = replaceOnce(html, ROBOTS_META, '<meta name="robots" content="noindex, nofollow" />');
+  html = replaceOnce(html, /\s*<link rel="canonical" href="[^"]*" \/>/, '');
+  html = replaceOnce(html, /\s*<meta property="og:url" content="[^"]*" \/>/, '');
+  const body = '<main class="prerender"><h1>Page not found</h1><p>That address does not lead anywhere on VoxelPort.</p>' + navHtml() + '</main>';
+  html = replaceOnce(html, /<div id="root"><\/div>/, `<div id="root">${body}</div>`);
+  fs.writeFileSync(path.join(dist, '404.html'), html);
+}
 
 // llms.txt (llmstxt.org): a plain-Markdown summary for AI assistants and
 // answer engines, built from the same data as the pages.

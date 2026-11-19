@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# LEGACY once the site lives on Vercel (see VERCEL_DEPLOYMENT.md): the old home-server host is only the /dl/ origin now; this script is no longer how the site is published.
 # Build the site + static server locally and push them to the home server.
 # Usage (from the website/ folder, Git Bash):  bash deploy/deploy.sh
 set -euo pipefail

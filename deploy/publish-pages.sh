@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# LEGACY once the site lives on Vercel (see VERCEL_DEPLOYMENT.md): do not run this after the cutover, it would overwrite the redirect stub on GitHub Pages.
 # Publish the built site to GitHub Pages: https://voxelport.github.io (the main website).
 # Usage (from the website/ folder, Git Bash):  bash deploy/publish-pages.sh
 #
