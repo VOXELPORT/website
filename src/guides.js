@@ -1014,6 +1014,92 @@ ${GET_APP}
 
   // ─────────────────────────────────────────────────────────────────
   {
+    slug: 'free-minecraft-server-hosting-usa',
+    title: 'Free Minecraft Server Hosting in the USA (Los Angeles Relay)',
+    short: 'Hosting in the USA',
+    description: 'Free Minecraft server hosting for players in the USA and Canada: a relay in Los Angeles, no port forwarding, no queue. Java and Bedrock on one address.',
+    kicker: 'USA · Free',
+    blurb: 'A relay in Los Angeles, free and with no port forwarding: how to host a Minecraft server from your own PC for friends in the US and Canada.',
+    faq: [
+      { q: 'Is there a VoxelPort relay in the USA?', a: 'Yes. VoxelPort has a relay in Los Angeles next to the ones in India and Europe. The Region setting (Auto by default) measures all of them when you click Make public and uses the fastest, or you can pick Los Angeles by hand.' },
+      { q: 'Is it good for the whole US, or only the west coast?', a: 'Ping is lowest when you and your friends are close to the relay, so the west coast benefits most. Players on the east coast, in Canada or in Mexico can use it too; the status page shows the live ping from your own browser, and the app chooses for you.' },
+      { q: 'Is it really free?', a: 'Yes. The app, the relay and the address are free, with no queue (hosts join our Discord server once). Custom names like yourname.voxelport.in are a supporter perk and are only available on the India relay for now.' },
+      { q: 'Do my friends need VoxelPort or an account?', a: 'No. They join with normal Minecraft using the address you share. Java players use Multiplayer, Add Server. Bedrock players need the Bedrock option switched on in the server settings.' },
+      { q: 'Is this 24/7 hosting?', a: 'No. Your PC runs the server, so it has to stay on while people play. VoxelPort only gives it a public address without port forwarding. For a server that runs while your PC is off you need a paid host or an always-on machine.' },
+    ],
+    html: `
+<p>If you live in the United States or Canada, you can host a Minecraft Java server from your own PC for free, without opening a single port on your router. VoxelPort has a relay in Los Angeles, so the traffic between you and your friends does not have to travel to another continent.</p>
+
+<h2 id="why">Why the relay location matters</h2>
+<p>A relay sits between you and your players: your PC connects out to it, and your friends connect to it. Every packet takes that detour, so ping depends on how far you and your friends are from the relay. A relay in Los Angeles adds little for players on the US west coast; players further away add the distance to it. The <a href="/status">status page</a> shows the live ping from your own browser to each relay, so you can see what to expect before you set anything up.</p>
+
+<h2 id="region">How the app picks a region</h2>
+<p>In the current VoxelPort app, the <b>Region</b> setting on the server screen has these options: <b>Auto (fastest)</b>, <b>India</b>, <b>Europe</b> and <b>Los Angeles</b>. Auto measures the relays when you click <b>Make public</b> and uses the fastest one. You can also choose Los Angeles by hand. Your public address then uses the Los Angeles address, for example <code>play-la.voxelport.in:26000</code>.</p>
+
+<h2 id="steps">Set it up in five steps</h2>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>, pick Vanilla, Paper or Fabric and a version, and click <b>Install &amp; start</b>. Java is installed for you.</li>
+  <li>When the server shows <b>Online</b>, check that <b>Region</b> is on <b>Auto</b> (or <b>Los Angeles</b>) and click <b>Make public</b>.</li>
+  <li>Copy the address the app shows.</li>
+  <li>Friends open Minecraft, go to <b>Multiplayer → Add Server</b>, paste the address and join. They need nothing installed.</li>
+  <li>For Bedrock players on phones and tablets, switch on <b>Let Bedrock players join</b> in the server settings.</li>
+</ol>
+
+<h2 id="good">Good to know</h2>
+<ul>
+  <li><b>Your PC must stay on</b> while people play. VoxelPort is not 24/7 hosting.</li>
+  <li><b>The Los Angeles relay is new</b> and run by one student, so there is no uptime guarantee. If it is down, switch the Region to another relay and your server keeps working.</li>
+  <li><b>Custom addresses</b> (a supporter perk) are only on the India relay for now. An address stays on the relay where it was claimed.</li>
+  <li><b>Starlink, T-Mobile Home Internet or another 5G home connection?</b> Port forwarding often does not work there. A relay works anyway: see <a href="/guides/minecraft-server-starlink-tmobile-5g-cgnat-usa">the Starlink and 5G home internet guide</a>.</li>
+  <li><b>Playing with friends in another country?</b> <a href="/guides/play-minecraft-with-friends-different-wifi">The different-Wi-Fi guide</a> explains how the relay connects everyone.</li>
+</ul>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
+    slug: 'minecraft-server-starlink-tmobile-5g-cgnat-usa',
+    title: 'Minecraft Server on Starlink, T-Mobile Home Internet or 5G Home Internet',
+    short: 'Starlink, T-Mobile, 5G home internet',
+    description: 'Port forwarding often fails on Starlink, T-Mobile Home Internet and 5G home internet. Host a Minecraft server anyway: VoxelPort connects out to a relay, nothing to open.',
+    kicker: 'USA · Any ISP',
+    blurb: 'Why port forwarding often fails on Starlink and 5G home internet, how to check, and a free way to host a Minecraft server anyway.',
+    faq: [
+      { q: 'Why can my friends not join even though I opened port 25565?', a: 'Many satellite and 5G home internet connections share one public IPv4 address between many customers (CGNAT), so connections from the internet never reach your router, whatever you forward. Some plans can opt out or pay for a public address; check with your provider.' },
+      { q: 'How can I check whether I am behind CGNAT?', a: 'Compare the WAN or Internet IP address shown in your router with the address a site like whatismyip shows. If they differ, or the router address starts with 100.64 to 100.127 or is a private range such as 10 or 192.168, you are behind CGNAT. The exact router screens differ by device.' },
+      { q: 'Does VoxelPort work behind CGNAT?', a: 'Yes. Your PC connects out to the relay, which is allowed on any connection, and your friends connect to the relay. Nothing needs to be opened or forwarded.' },
+      { q: 'Will ping be worse on Starlink or 5G?', a: 'The connection itself adds its own delay, and the relay adds the distance to it. The app picks the closest relay on its own, and the status page shows the live ping from your browser.' },
+    ],
+    html: `
+<p>You open port 25565 on your router and your friends still cannot join. On satellite and 5G home internet that is very common: these services often share one public IPv4 address between many customers, so connections from the internet never reach your router. VoxelPort gets around that without any router settings.</p>
+
+<h2 id="why">Why port forwarding fails</h2>
+<p>With carrier-grade NAT (CGNAT) your provider owns the public address and hands you a private one. An incoming connection arrives at the provider, not at your home, so forwarding a port on your own router changes nothing. Starlink, T-Mobile Home Internet and other 5G or fixed-wireless home plans commonly work this way. Some providers offer an option for a public address; ask yours, and do not assume it is free.</p>
+
+<h2 id="check">How to check</h2>
+<p>Open your router's status page and find the WAN or Internet IP address. Compare it with the address a site like whatismyip shows. If they are different, or the router address begins with 100.64 to 100.127 or is a private range (10.x or 192.168.x), you are behind CGNAT. Screens differ by router, so look for a status or WAN page.</p>
+
+<h2 id="fix">The fix: a relay</h2>
+<p>VoxelPort connects out from your PC to a relay, and that is allowed on any connection. Your friends connect to the relay, which passes the traffic along. For players in the US the relay in Los Angeles is often the closest; the app measures all relays and picks the fastest, and you can choose Los Angeles by hand in the Region setting.</p>
+${GET_APP}
+<ol>
+  <li>Click <b>+ Add Server</b>, pick a type and a version, and click <b>Install &amp; start</b>.</li>
+  <li>When it shows <b>Online</b>, click <b>Make public</b> and copy the address.</li>
+  <li>Friends open Minecraft, go to <b>Multiplayer → Add Server</b>, paste the address and join.</li>
+</ol>
+
+<div class="tip">There is no need to change anything in your router, and you do not need to ask your provider for a public IP address. See the <a href="/guides/free-minecraft-server-hosting-usa">USA hosting guide</a> for how regions work.</div>
+
+<h2 id="good">Good to know</h2>
+<ul>
+  <li><b>Satellite and 5G add their own delay</b> to every packet. A relay cannot remove that, but it works where port forwarding cannot.</li>
+  <li><b>Your PC must stay on</b> while people play.</li>
+  <li><b>Data caps:</b> some home plans limit data. Each player uses roughly 0.1 to 0.5 Mbps of upload, so a few friends use little, but check your plan.</li>
+</ul>`,
+  },
+
+  // ─────────────────────────────────────────────────────────────────
+  {
     slug: 'minecraft-server-dslite-cgnat-europe',
     title: 'Minecraft Server Behind DS-Lite or CGNAT: Host It Anyway',
     short: 'DS-Lite and CGNAT',
