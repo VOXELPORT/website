@@ -12,6 +12,8 @@ import { ABOUT, DEV, LOCALMINER, FRIEND, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from
 import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
 import { SUPPORT } from '../src/support.js';
+import { RELEASES, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_HOW } from '../src/release.js';
+import { COMPARE } from '../src/content.js';
 
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
@@ -30,7 +32,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', 'https://github.com/VOXELPORT/VoxelPort-Android/releases/latest/download/VoxelPort.apk'], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', RELEASES.android.downloadUrl], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
@@ -43,14 +45,18 @@ const EXTRA = {
   ],
   features: () => ['<h2>Features</h2>' + FEATURES.map((f) => `<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p>`).join('')],
   compare: () => [
+    `<h2>How we compared</h2><p>Last verified ${fmtDate(COMPARE.verifiedOn)}. ${COMPARE.definitions.map(([t, d]) => esc(t + ': ' + d)).join(' ')}</p><ul>${COMPARE.sources.map(([n, u, d]) => `<li><a href="${u}">${esc(n)}</a>: ${esc(d)}</li>`).join('')}</ul>`,
     RIVALS.map((r) => `<h2>${esc(r.name)}</h2><p>${esc(r.note)}</p>`).join(''),
     '<table><thead><tr><th>Feature</th><th>VoxelPort</th><th>playit.gg</th><th>ngrok</th><th>Port forwarding</th></tr></thead><tbody>' +
       TABLE.map(([feat, ...cells]) => `<tr><td>${esc(feat)}</td>${cells.map((c) => `<td>${esc(cell(c))}</td>`).join('')}</tr>`).join('') + '</tbody></table>',
   ],
   faq: () => FAQ.map((f) => `<h2>${esc(f.q)}</h2><p>${esc(f.a)}</p>`),
   download: () => [
+    `<h2>Release information (checked ${fmtDate(RELEASES.verifiedOn)})</h2><ul><li>Windows app: stable ${RELEASES.windows.version}, released ${fmtDate(RELEASES.windows.releasedOn)}, ${esc(RELEASES.windows.installer)} (${fmtMB(RELEASES.windows.sizeBytes)}), SHA-256 ${RELEASES.windows.sha256}. ${RELEASES.windows.requirements[0]}.</li><li>Android app: stable ${RELEASES.android.version}, ${fmtMB(RELEASES.android.sizeBytes)}, SHA-256 ${RELEASES.android.sha256}. ${RELEASES.android.requirements[0]}.</li><li>No beta is current. Not available for macOS or Linux.</li></ul>`,
+    '<h2>Before you run the installer</h2><p>' + esc(WIN_SMARTSCREEN) + '</p><p>' + esc(WIN_SMART_APP_CONTROL) + '</p><p>' + esc(WIN_VERIFY_HOW) + '</p>',
     '<ul>' + [
       ['Windows installer (direct, the new app 2.0)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'],
+      ['Android (APK, direct download)', RELEASES.android.downloadUrl],
       ['Android (install guide)', '/guides/host-minecraft-server-android-phone'],
     ].map(([l, h]) => `<li><a href="${h}">${esc(l)}</a></li>`).join('') + '</ul>',
   ],
@@ -68,7 +74,7 @@ const EXTRA = {
   ],
   newapp: () => [
     '<h2>Move in one minute</h2><ol><li>Update your current VoxelPort to 1.18.0 or newer (Restart &amp; Update).</li><li>Press <b>Update to the new VoxelPort</b> on the banner. It installs the new app, brings over your servers, backups, VoxelPort ID, address and settings, then removes the old app.</li><li>Sign in with Discord once in the new app.</li></ol>',
-    '<h2>Other ways</h2><p>No button? Download the new app and it offers to bring your data over. Microsoft Store users: the Store cannot install another app, so download it, bring your data over and remove the Store version. Windows may say it protected your PC: click More info, then Run anyway. With Windows 11 Smart App Control on, the installer is blocked; you can switch it off (Windows cannot turn it back on without reinstalling), or keep using your current VoxelPort, which keeps working.</p>',
+    '<h2>Other ways</h2><p>No button? Download the new app and it offers to bring your data over. Microsoft Store users: the Store cannot install another app, so download it, bring your data over and remove the Store version. ' + esc(WIN_SMARTSCREEN) + ' ' + esc(WIN_SMART_APP_CONTROL) + '</p>',
     `<p><a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe">Download the new app</a> · <a href="${DISCORD}">Ask on Discord</a></p>`,
   ],
   community: () => [
@@ -219,7 +225,7 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '- Players join at play.voxelport.in (India), play-eu.voxelport.in (Europe) or play-la.voxelport.in (Los Angeles); VoxelPort has a relay in each region.',
   '- Unlike hosting services (Aternos, Minehut, Falix), VoxelPort does not run your server: it runs on your own hardware, so there is no start queue or sleep timer and it can use as much RAM as your device can spare. Trade-off: your device must stay on while people play.',
   '- Java + Bedrock crossplay with one switch (Geyser + Floodgate). Vanilla, Paper, Fabric and modpacks. Installs the right Java automatically.',
-  '- Download: the Windows installer, the new app (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe). Android app (run a server on a phone): https://github.com/VOXELPORT/VoxelPort-Android/releases/latest',
+  '- Download: the Windows installer, the new app (https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe). Android app (run a server on a phone): ' + RELEASES.android.downloadUrl + ' (v' + RELEASES.android.version + ').',
   '',
   '## Guides',
   '',

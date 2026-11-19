@@ -9,7 +9,7 @@
   --line-2: #2b3a46;
   --ink: #f3f7f5;
   --muted: #9fb0ac;
-  --faint: #6b7b78;
+  --faint: #8a9a97;
   --green: #3ddc84;
   --green-2: #2fb26a;
   --green-ink: #04140b;
@@ -162,4 +162,41 @@
 @media (prefers-reduced-motion: reduce) {
   .v2d-show-frame { transition: none; }
   .v2d *, .v2d *::before, .v2d *::after { animation: none !important; }
+}
+
+/* ── Workflow with real screenshots, connection diagram, release details (final website fixes) ── */
+.v2d-note { margin: -4px 0 22px; max-width: 560px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.v2d-fine { margin: 18px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; max-width: 760px; }
+.v2d-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; counter-reset: none; }
+.v2d-flow-step { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.v2d-flow-n { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font-weight: 800; font-size: 14px; color: var(--green-ink); background: var(--green); }
+.v2d-flow-step h3 { margin: 4px 0 0; font-size: 16px; letter-spacing: -.01em; }
+.v2d-flow-step p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+.v2d-flow-step img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; margin-top: auto; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--bg-2); object-fit: cover; }
+.v2d-flow-step .v2d-underlink { margin-top: auto; }
+.v2d-arch-wrap { margin: 0; max-width: 640px; }
+.v2d-arch { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.v2d-arch-node { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 16px 18px 16px; margin-bottom: 34px; }
+.v2d-arch-node:last-child { margin-bottom: 0; }
+.v2d-arch-node.is-relay { border-color: color-mix(in srgb, var(--green) 55%, var(--line)); background: color-mix(in srgb, var(--green) 7%, var(--panel)); }
+.v2d-arch-side { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.v2d-arch-node.is-relay .v2d-arch-side { color: var(--green); }
+.v2d-arch-node h3 { margin: 0 0 4px; font-size: 17px; }
+.v2d-arch-node p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.v2d-arch-arrow { position: absolute; left: 50%; bottom: -29px; transform: translateX(-50%); color: var(--green); font-size: 20px; line-height: 1; }
+.v2d-arch-wrap figcaption { margin-top: 18px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.v2d-hero h1 { text-wrap: balance; }
+@media (max-width: 1100px) { .v2d-flow { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 920px) { .v2d-flow { grid-template-columns: 1fr; } .v2d-flow-step img { max-width: 360px; } }
+@media (prefers-reduced-motion: reduce) { .v2d-flow-step, .v2d-arch-node { transition: none; } }
+/* Touch targets: footer and inline text links are at least 44px tall on small screens. */
+@media (max-width: 920px) {
+  .v2d footer a, .v2d-underlink, .v2d-dlnote a { display: inline-flex; align-items: center; min-height: 44px; }
+  .v2d-dlnote a { display: inline; min-height: 0; padding-block: 12px; }
+}
+
+/* Mobile menu: the header must stay above the page (the rule above this file's `.v2d .v2d-top { z-index: 1 }` let the hero paint over the open menu). */
+.v2d .v2d-top { position: sticky; top: 0; z-index: 60; }
+@media (max-width: 920px) {
+  .v2d-nav.open { z-index: 61; max-height: calc(100vh - 110px); overflow-y: auto; box-shadow: 0 18px 40px rgba(0, 0, 0, .55); background: var(--bg-2); }
 }

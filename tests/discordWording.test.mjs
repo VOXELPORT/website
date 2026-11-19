@@ -17,9 +17,9 @@ test('the privacy notice explains the Discord sign-in and what is kept', () => {
   for (const phrase of ['Discord sign-in', 'permanent Discord ID', 'does not receive or keep your email address', 'Players who', 'Discord session']) assert.ok(legal.includes(phrase), phrase);
 });
 
-test('the main pages say Discord membership is part of hosting', () => {
+test('the main pages say Discord membership is part of using the app', () => {
   assert.match(read('content.js'), /join our Discord/i);
-  assert.match(read('seo.js'), /hosts join our Discord server/i);
+  assert.match(read('seo.js'), /join our Discord server/i);
 });
 
 test('the legal page describes Discord membership, supporter ranks and tip data, and no longer says there are no accounts or refunds', () => {

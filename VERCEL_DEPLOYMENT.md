@@ -4,7 +4,9 @@ The site is a static React + Vite build (`npm run build` = `vite build` + `scrip
 public page, `sitemap.xml`, `robots.txt`, `llms.txt`, `support.json` and `404.html`). There are **no Vercel Functions and no Edge Middleware**; everything is
 static files plus the rules in `vercel.json`. It runs on the free Hobby plan.
 
-Nothing has been deployed, no DNS record has been touched and GitHub Pages is still live. This file is the checklist for doing that yourself.
+**Status (2026-11-20):** the site is deployed on Vercel and `voxelport.in` is attached to it (apex record set by the owner). `dl-origin.voxelport.in` exists and works. Still open: the `www.voxelport.in` DNS record (it does not resolve yet) and Search Console. The old `voxelport.github.io` address now answers 404 for every page, so GitHub Pages is no longer serving the site. The rest of this file is the checklist and reference.
+
+**To preview and deploy the `website-final-fixes` branch:** push the branch (`git push -u origin website-final-fixes`); Vercel builds it as a preview (noindex). Open the preview URL, check it, then merge to `main` (`git checkout main && git merge website-final-fixes && git push`) to deploy to production. Roll back with section 9.
 
 ---
 
@@ -126,6 +128,8 @@ In a browser: open a few pages directly and refresh them; open the browser conso
 * If the **domain** is the problem (wrong DNS, certificate not issuing): restore the previous apex and `www` records at your DNS provider. The old setup keeps working because GitHub Pages and the old server were not touched.
 
 ## 10. The old `voxelport.github.io` address
+
+**Current state (checked 2026-11-20):** every path on `voxelport.github.io` (home, `/download/`, `/features`) returns 404, so the old copy is gone and nothing there can be redirected or deindexed by this project. Search engines will drop those URLs over time; the new pages declare `https://voxelport.in/...` as canonical. One consequence: the Android APK mirror that lived under `voxelport.github.io/dl/` is gone too. The app updates from `voxelport.in/dl`, which works. If you want the old address to redirect people, the only tool is a stub page in the `voxelport.github.io` repository (read the caution below first).
 
 Vercel cannot control a GitHub Pages site, and GitHub Pages cannot send an HTTP 301. What this repository already does: every page now declares `https://voxelport.in/...` as its **canonical** address, so search engines treat any copy still on `voxelport.github.io` as a duplicate of the new one. To finish the job, after the Vercel site is verified:
 

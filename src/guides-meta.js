@@ -5,7 +5,7 @@ export const GUIDES_UPDATED = '2026-10-28';
 
 export const GUIDES_INDEX = {
   path: '/guides',
-  title: 'Minecraft Server Guides: Setup, Crossplay, Fixes',
+  title: 'Minecraft Server Setup & Proxy Guides | VoxelPort',
   description: 'Free guides for running a Minecraft server from home: no port forwarding, India, Europe and the US, Jio and Airtel, CGNAT, Bedrock crossplay and crash fixes.',
 };
 

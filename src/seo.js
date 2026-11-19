@@ -2,6 +2,7 @@
 // scripts/prerender.mjs (static HTML for each route, sitemap). Plain ESM, no JSX.
 
 import { GUIDES_INDEX, findGuideMeta, guidePath } from './guides-meta.js';
+import { WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_HOW } from './release.js';
 import { DISCORD } from './community.js';
 
 export const SITE = 'https://voxelport.in';
@@ -16,9 +17,9 @@ export const PAGES = {
   },
   home: {
     path: '/',
-    title: 'VoxelPort: Minecraft Server Manager & Proxy, No Port Forwarding',
-    description: 'Free Minecraft server manager and proxy for Windows and Android. Run the server on your own device and let friends join without port forwarding. Java + Bedrock.',
-    heading: 'Minecraft server manager and proxy: run your own server, no port forwarding',
+    title: 'VoxelPort — Minecraft Server Manager & Proxy App',
+    description: 'Manage Minecraft servers on your own device and connect players through VoxelPort\u2019s relay network without complicated port forwarding.',
+    heading: 'Your Minecraft Server. Your Control.',
     summary: [
       'VoxelPort is a free, open-source Minecraft server manager for Windows and Android. It creates or imports a Minecraft: Java Edition server that runs on your own device, installs the right Java for you, and connects it to a VoxelPort relay (a proxy), so friends can join without port forwarding and your home IP stays private. VoxelPort is not a hosting service: the relay carries connections only and provides no compute, storage or RAM.',
       'Friends join with plain Minecraft using a free address like play.voxelport.in:26137; supporters can claim a custom address like yourname.voxelport.in. Bedrock players on phones and consoles can join too, via one-click Geyser + Floodgate.',
@@ -37,7 +38,7 @@ export const PAGES = {
   },
   features: {
     path: '/features',
-    title: 'VoxelPort Features: Server Manager, Relay, Bedrock',
+    title: 'Minecraft Server Manager & Proxy Features | VoxelPort',
     description: 'What VoxelPort does: create and manage a Minecraft server on your own device, connect it through a relay with no port forwarding, Java + Bedrock crossplay, automatic Java and plain-English crash help.',
     heading: 'VoxelPort features',
     summary: ['What the VoxelPort app does for the person running the server, and why nobody who joins has to install anything: create a new server or bring your own, manage it on your own device, get a public address through the relay in seconds, and keep your router shut.'],
@@ -45,9 +46,9 @@ export const PAGES = {
   compare: {
     path: '/compare',
     title: 'VoxelPort vs playit.gg, ngrok and Port Forwarding',
-    description: 'How VoxelPort compares with playit.gg, ngrok and port forwarding for Minecraft: signup, vanilla clients, open source, hiding your home IP and setup.',
+    description: 'VoxelPort next to playit.gg, ngrok and port forwarding for Minecraft: what each one does (server management or connectivity), pricing basics, with sources and a verification date.',
     heading: 'VoxelPort compared with playit.gg, ngrok and port forwarding',
-    summary: ['Generic tunnels work, until they don’t. VoxelPort does one job, Minecraft servers, and sets up the server and Java for you.'],
+    summary: ['VoxelPort manages a Minecraft server and connects it through a relay. playit.gg and ngrok are tunnelling services that only connect a server you already run. This page compares what each states about itself, with sources.'],
   },
   faq: {
     path: '/faq',
@@ -58,8 +59,8 @@ export const PAGES = {
   },
   download: {
     path: '/download',
-    title: 'Download VoxelPort: Windows and Android (Free)',
-    description: 'Download VoxelPort free for Windows and Android. No ads, and hosts join our Discord server once. SmartScreen and Android APK install notes.',
+    title: 'Download VoxelPort — Minecraft Server Manager',
+    description: 'Download VoxelPort for Windows or Android: version, release date, size, requirements and SHA-256 checksum, plus what to do if Windows shows a warning.',
     heading: 'Download VoxelPort',
     summary: ['VoxelPort is free for Windows and Android. Get the Windows installer or the Android APK.'],
   },
@@ -98,7 +99,7 @@ export const PAGES = {
   },
   about: {
     path: '/about',
-    title: 'Who Made VoxelPort: The Developer, the Story and the Stack',
+    title: 'About VoxelPort — Minecraft Server Management Software',
     description: 'VoxelPort is made by Garv Verma, a student in India. How it started (Jio/Airtel CGNAT), how it is built (open source, Electron + Go) and Local Miner.',
     heading: 'Who made VoxelPort',
     summary: [
@@ -180,8 +181,8 @@ export const FAQ = [
     a: 'Yes. VoxelPort was rebuilt on newer technology: the new app (2.0, Windows) is about 3 MB instead of over 100 MB and does the same things, and new features only come to it. In your current app (1.18.0) press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong the old app and your data stay as they are. You sign in with Discord once in the new app. Microsoft Store users: the Store cannot install another app, so download the new one from the download page, open it and use its banner to bring your data over, then remove the Store version.',
   },
   {
-    q: 'Windows 11 says Smart App Control blocked the installer. What do I do?',
-    a: 'The new app is not code-signed yet, so with Smart App Control on, Windows blocks its installer and there is no “Run anyway” button. To install it, switch Smart App Control off: Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings › Off. Windows cannot turn it back on later without reinstalling Windows, so if you would rather not, keep using your current VoxelPort, which keeps working.',
+    q: 'Windows shows a warning or Smart App Control blocks the installer. What do I do?',
+    a: [WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_HOW].join(' '),
   },
   {
     q: 'How do I host a Minecraft server without port forwarding?',

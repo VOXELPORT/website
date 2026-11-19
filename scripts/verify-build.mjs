@@ -57,6 +57,7 @@ for (const url of urls) {
   const title = attr(html, /<title>([^<]*)<\/title>/);
   const desc = attr(html, /<meta name="description" content="([^"]*)"/);
   const canonical = attr(html, /<link rel="canonical" href="([^"]*)"/);
+  if (title && /free minecraft (server )?hosting/i.test(title)) fail(`${p}: the title promises free hosting: ${title}`);
   if (!title) fail(`${p}: no <title>`);
   else if (titles.has(title)) fail(`${p}: same title as ${titles.get(title)}`);
   else titles.set(title, p);
@@ -126,6 +127,23 @@ for (const f of walk(dist)) {
   if (text.includes('voxelport.github.io')) fail(`${rel}: still mentions voxelport.github.io`);
   for (const [re, what] of secretPatterns) if (re.test(text)) fail(`${rel}: looks like it contains ${what}`);
 }
+
+// 5b. wording and links that must not come back
+const banned = [
+  [/switch (?:Smart App Control|it) off|turn (?:Smart App Control|it) off|Smart App Control settings/i, 'advice to switch off Smart App Control'],
+  [/VoxelPort-Android\/releases/, 'a GitHub Android release link (that repository has no public releases)'],
+  [/We host your|free cloud (?:Minecraft )?hosting/i, 'hosting-provider wording'],
+];
+for (const f of walk(dist)) {
+  if (!/\.(html|txt|json)$/.test(f)) continue;
+  const text = fs.readFileSync(f, 'utf8');
+  for (const [re, what] of banned) if (re.test(text)) fail(`${path.relative(dist, f)}: contains ${what}`);
+}
+{
+  const dl = read('download/index.html');
+  for (const needed of ['SHA-256', 'Get-FileHash', 'No beta is current']) if (!dl.includes(needed)) fail(`download page: static HTML lacks ${needed}`);
+}
+if (!read('index.html').includes('Your Minecraft Server. Your Control.')) fail('home page: static HTML lacks the headline');
 
 // 6. static files that must survive the move
 for (const f of ['support.json', 'llms.txt', 'og-image.png', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'theme-init.js', 'ec3e6f769f880b4a8b58696044bcf8e9.txt', 'googlec669d8304b2be68c.html']) {

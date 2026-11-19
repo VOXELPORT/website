@@ -46,25 +46,42 @@ export const STEPS = [
   { n: '4', title: 'FRIENDS JOIN', desc: 'They paste it into Multiplayer → Add Server. That’s it.', sprite: 'heart' },
 ];
 
+// Last checked against the sources below. Only what those pages state is claimed; "Not checked" means we did not verify it.
+export const COMPARE = {
+  verifiedOn: '2026-11-20',
+  sources: [
+    ['playit.gg', 'https://playit.gg/', 'Home page: free tier, "no port forwarding", Premium from $3/month, supported games'],
+    ['playit.gg agent', 'https://github.com/playit-cloud/playit-agent', 'Source repository of the agent (BSD-2-Clause license)'],
+    ['ngrok pricing', 'https://ngrok.com/pricing', 'Plans: Free, Hobbyist and pay-as-you-go; TCP on the free plan needs credit-card verification'],
+    ['VoxelPort', 'https://github.com/VOXELPORT/VoxelPort-App', 'This project: MIT-licensed app and relay'],
+  ],
+  definitions: [
+    ['Server management', 'Creating, installing, starting and configuring the Minecraft server itself (versions, Java, console, backups, plugins).'],
+    ['Connectivity', 'Giving a server on your own device an address players can reach without opening a port on your router. This is what a tunnel or relay does.'],
+    ['Hosting', 'Running the server on the provider’s computers. None of the tools here do that: the server stays on your hardware.'],
+  ],
+};
+
 export const RIVALS = [
-  { name: 'VoxelPort', tag: 'Made for MC', note: 'Built for Minecraft only. Vanilla clients, no signup for friends, one simple app, fully open source.', verdict: '✓ The right tool', us: true },
-  { name: 'playit.gg', tag: 'General tunnel', note: 'Works for lots of games, but it’s a generic agent with freemium limits and no Minecraft tuning.', verdict: '~ Freemium' },
-  { name: 'ngrok', tag: 'Dev tunnel', note: 'Great for webhooks and HTTP. Clunky for game servers, and TCP sits behind paid tiers.', verdict: '~ Not for games' },
-  { name: 'Port forwarding', tag: 'The old way', note: 'Needs router access, exposes your real IP and invites scans. Many ISPs block it anyway (CGNAT).', verdict: '✕ Risky' },
+  { name: 'VoxelPort', tag: 'Server manager + relay', note: 'Manages a Minecraft server on your own device and connects it through its relay. Made for Minecraft only; free and open source (MIT). Your device must stay on.', verdict: 'Management and connectivity', us: true },
+  { name: 'playit.gg', tag: 'Game tunnel', note: 'A tunnel for game servers, with Minecraft Java and Bedrock among 21 listed games and custom TCP/UDP tunnels for others. It connects a server you run yourself; it does not create or manage the Minecraft server. Free tier, with Premium from $3 a month.', verdict: 'Connectivity' },
+  { name: 'ngrok', tag: 'General tunnel', note: 'A general-purpose tunnelling service, strongest for HTTP and development. Has a free plan; TCP endpoints on it need credit-card verification, and Hobbyist and pay-as-you-go plans are metered. Does not manage a Minecraft server.', verdict: 'Connectivity' },
+  { name: 'Port forwarding', tag: 'Router setting', note: 'Free and direct, but needs access to your router, exposes your home IP to players, and does not work where the ISP shares one public address between customers (CGNAT).', verdict: 'Connectivity, by hand' },
 ];
 
 const Y = { k: 'yes', t: 'YES' };
 const N = { k: 'no', t: 'NO' };
 const P = (t) => ({ k: 'part', t });
-/** Feature, then VoxelPort, playit.gg, ngrok, port forwarding. */
+/** Feature, then VoxelPort, playit.gg, ngrok, port forwarding. Each cell is what the sources above state. */
 export const TABLE = [
-  ['No port forwarding', Y, Y, Y, N],
-  ['Vanilla clients', Y, Y, P('TCP only'), Y],
-  ['No signup for players', Y, P('Freemium'), P('Account'), Y],
-  ['Open source', Y, N, N, P('—')],
-  ['Hides your home IP', Y, Y, Y, N],
-  ['Sets up Java & server', Y, N, N, N],
-  ['Minecraft-specific', Y, N, N, P('Manual')],
+  ['Creates and manages the Minecraft server', Y, N, N, N],
+  ['No router port forwarding needed', Y, Y, Y, N],
+  ['Players join with plain Minecraft', Y, P('Not checked'), P('Not checked'), Y],
+  ['Free to use', Y, P('Free tier; Premium $3/mo+'), P('Free plan; paid tiers'), P('Your ISP')],
+  ['Open source', P('App and relay (MIT)'), P('Agent (BSD-2-Clause)'), P('Not checked'), P('n/a')],
+  ['Players connect to a provider address, not your home IP', Y, Y, P('Not checked'), N],
+  ['Works for games other than Minecraft', N, Y, Y, Y],
+  ['Runs the server on its own computers (hosting)', N, N, N, N],
 ];
 
 /** Where each page of the site is, for the "explore" tiles on the home page. */

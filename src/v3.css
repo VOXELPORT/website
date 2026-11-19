@@ -325,3 +325,7 @@ body { background: var(--paper); }
 }
 @media (max-width: 360px) { .v3-hero h1 { font-size: 38px; } .v3-hero .v3-actions { gap: 12px; } .v3-hero .hb-btn { font-size: 11px; } .v3-free { gap: 5px; font-size: 9px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+/* Release table: long checksums wrap instead of stretching the page. */
+.hash { word-break: break-all; font-size: 12px; }
+.table th[scope="row"] { text-align: left; font-weight: 700; white-space: nowrap; }

@@ -6,7 +6,7 @@
 export const GUIDES_UPDATED = '2026-10-28';
 
 
-const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe">Windows installer</a> (the new app, 2.0; Windows 10 and 11; if Windows warns, click More info → Run anyway; if Windows 11 Smart App Control blocks it, see <a href="/download">the download page</a>). It's free and open source; to host, join our Discord server once.</p>`;
+const GET_APP = `<p>Download the <a href="https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe">Windows installer</a> (the new app, 2.0; Windows 10 and 11; if Windows shows a warning, or Smart App Control blocks it, read <a href="/download#verify">how to check the download</a> first). It's free and open source; to use the app you join our Discord server once.</p>`;
 
 export const GUIDES = [
   // ───────────────────────────────────────────────────────────────────────────
@@ -1188,7 +1188,7 @@ ${GET_APP}
 
 export const GUIDES_INDEX = {
   path: '/guides',
-  title: 'Minecraft Server Guides: Setup, Crossplay, Fixes',
+  title: 'Minecraft Server Setup & Proxy Guides | VoxelPort',
   description: 'Free guides for running a Minecraft server from home: no port forwarding, India, Europe and the US, Jio and Airtel, CGNAT, Bedrock crossplay and crash fixes.',
 };
 

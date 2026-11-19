@@ -1,5 +1,6 @@
 // Shared links, live-data hooks and pixel-art data for the site.
 import { useEffect, useState } from 'react';
+import { RELEASES } from './release.js';
 
 // ─── Links ────────────────────────────────────────────────────────────────────
 export const GITHUB_APP = 'https://github.com/VOXELPORT/VoxelPort-App';
@@ -8,9 +9,9 @@ export const GITHUB_ORG = 'https://github.com/VOXELPORT';
 export { DISCORD } from './community.js';
 // Direct Windows installer from GitHub: the NEW app (2.0). Not code-signed yet, so SmartScreen warns once and Smart App Control blocks it.
 export const DL_WIN = 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe';
-// Android app (host a server from the phone). Points to the install guide,
-// which links the sideload APK on GitHub Releases (sideloading needs the steps).
-export const DL_ANDROID = '/guides/host-minecraft-server-android-phone';
+// Android app: the APK itself, from the update feed's host (voxelport.in/dl). Install steps are in GUIDE_ANDROID.
+export const DL_ANDROID = RELEASES.android.downloadUrl;
+export const GUIDE_ANDROID = RELEASES.android.guideUrl;
 
 // One relay per region; the app picks the closest. Counts and the server
 // list combine all of them.
@@ -78,6 +79,25 @@ export function useLatestReleases() {
     return () => { alive = false; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return v;
+}
+
+/** The Android release as the live update feed states it (same origin: /dl/android.json); the checked values in release.js until it loads. */
+export function useAndroidFeed() {
+  const a = RELEASES.android;
+  const [f, setF] = useState({ channel: a.channel, version: a.version, sizeBytes: a.sizeBytes, sha256: a.sha256 });
+  useEffect(() => {
+    let alive = true;
+    fetch(a.feedUrl, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (alive && j && typeof j.versionName === 'string' && /^[0-9a-f]{64}$/.test(j.sha256) && Number.isInteger(j.size)) {
+          setF({ channel: a.channel, version: j.versionName, sizeBytes: j.size, sha256: j.sha256 });
+        }
+      })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [a.feedUrl, a.channel]);
+  return f;
 }
 
 /** Detects visitor OS ('windows' | 'android' | 'macos') for primary download CTAs. */

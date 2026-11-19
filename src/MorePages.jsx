@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Nav, Footer, Pixels, DiscordButton } from './ui.jsx';
 import {
-  SPRITES, useLatestReleases, useDetectedOS,
-  DL_WIN, DL_ANDROID, GITHUB_APP, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
+  SPRITES, useAndroidFeed, useDetectedOS,
+  DL_WIN, GITHUB_APP, GITHUB_ORG, EXAMPLE_ADDR, UPI_ID, UPI_LINK,
 } from './data.js';
 import { navigate, isModifiedClick, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE, EXPLORE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
 import { SUPPORTER } from './support.js';
+import { RELEASES, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_COMMAND } from './release.js';
+import { COMPARE } from './content.js';
 import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
 
 // The pages that used to be sections of one very long home page. Each is short and has its own address
@@ -206,7 +208,7 @@ export function ComparePage({ onBack }) {
   return (
     <SubPage onBack={onBack}>
       <PageHero kicker="Rivals" a="THE" b="RIVALS"
-        lede="Generic tunnels work — until they don’t. VoxelPort does one job: Minecraft servers." />
+        lede="VoxelPort manages a Minecraft server and connects it. playit.gg and ngrok only do the connecting. Here is what each one states about itself, with sources." />
 
       <div className="grid-4" style={{ marginTop: 56 }}>
         {RIVALS.map((r, i) => (
@@ -235,11 +237,33 @@ export function ComparePage({ onBack }) {
         </table>
       </div>
 
+      <section className="page-section" id="sources">
+        <SectionHead kicker={`Last verified ${fmtDate(COMPARE.verifiedOn)}`}>HOW WE COMPARED.</SectionHead>
+        <div className="note-list">
+          <div className="panel">
+            <h3>WHAT THE ROWS MEAN</h3>
+            <dl style={{ margin: 0 }}>
+              {COMPARE.definitions.map(([t, d]) => <div key={t} style={{ marginBottom: 8 }}><dt style={{ fontWeight: 700 }}>{t}</dt><dd style={{ margin: 0 }}>{d}</dd></div>)}
+            </dl>
+          </div>
+          <div className="panel">
+            <h3>SOURCES</h3>
+            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.7 }}>
+              {COMPARE.sources.map(([n, u, d]) => <li key={u}><a href={u} target="_blank" rel="noreferrer">{n}</a>: {d}</li>)}
+            </ul>
+          </div>
+          <div className="panel">
+            <h3>LIMITS</h3>
+            <p>“Not checked” means we did not confirm it, so we claim nothing. Prices and plans change: the sources above are the authority, not this page. We are the maker of VoxelPort, so read our column with that in mind, and tell us in the Discord if something here is out of date.</p>
+          </div>
+        </div>
+      </section>
+
       <div className="bubble tail-b" style={{ marginTop: 56, maxWidth: 760 }}>
         <span className="kicker">Fair warning</span>
         <p style={{ marginTop: 8, lineHeight: 1.65 }}>
           VoxelPort only does Minecraft: Java servers, with Bedrock players welcome through Geyser. If you need to put a website
-          or a different game online, a general tunnel is the better tool. For a Minecraft server it’s the one that sets everything up for you.
+          or a different game online, a general tunnel is the better tool. playit.gg also supports Minecraft and many other games. If you already run your own Minecraft server and only need an address for it, a tunnel can be enough; VoxelPort also installs and manages the server for you.
         </p>
       </div>
       <div className="page-cta">
@@ -330,7 +354,7 @@ export function FaqPage({ onBack }) {
 // ─── /new-app ─────────────────────────────────────────────────────────────────
 
 const NEWAPP_STEPS = [{"title":"1 · UPDATE YOUR CURRENT APP","body":"Open VoxelPort. If it offers an update, press Restart & Update. You need version 1.18.0 or newer, which is the one with the move button."},{"title":"2 · PRESS THE BIG BUTTON","body":"You will see “VoxelPort has moved to a new app”. Press Update to the new VoxelPort. It downloads and checks the new app, installs it, brings over your servers, backups, VoxelPort ID, address and settings, then removes the old app. It takes about a minute."},{"title":"3 · SIGN IN AND PLAY","body":"Sign in with Discord once in the new app. Then Start and Make public, as always. Your server folders and worlds were never touched."}];
-const NEWAPP_OTHER = [{"title":"NO BUTTON? INSTALL IT DIRECTLY","body":"Download the new app below and run it. The first time it opens, it finds your old VoxelPort and offers to bring your data over."},{"title":"MICROSOFT STORE VERSION","body":"The Store cannot install another app for you. Download the new one below, open it, use its banner to bring your data over, then remove the Store version in Windows Settings › Apps."},{"title":"WINDOWS SAYS “PROTECTED YOUR PC”","body":"The new app is not code-signed yet. Click More info, then Run anyway. If Windows 11 Smart App Control is on, it blocks the installer with no Run anyway button. You can switch Smart App Control off (Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings), but Windows cannot turn it back on later without reinstalling Windows. If you would rather not, keep using your current VoxelPort: it keeps working."},{"title":"ANDROID","body":"Nothing to do. The Android app updates itself from inside the app."}];
+const NEWAPP_OTHER = [{"title":"NO BUTTON? INSTALL IT DIRECTLY","body":"Download the new app below and run it. The first time it opens, it finds your old VoxelPort and offers to bring your data over."},{"title":"MICROSOFT STORE VERSION","body":"The Store cannot install another app for you. Download the new one below, open it, use its banner to bring your data over, then remove the Store version in Windows Settings › Apps."},{"title":"WINDOWS SAYS “PROTECTED YOUR PC”","body":"The installer is not code-signed yet, so Windows may warn about an unknown publisher. Check the download first: get it only from the official release page and compare its SHA-256 checksum (steps on the download page). Smart App Control blocks unsigned installers with no override, and we do not recommend turning it off: keep using your current VoxelPort, which keeps working."},{"title":"ANDROID","body":"Nothing to do. The Android app updates itself from inside the app."}];
 const NEWAPP_WHY = [{"title":"MUCH SMALLER","body":"About 3 MB to download instead of over 100 MB."},{"title":"WHERE NEW THINGS GO","body":"New features come only to the new app. The old one keeps working, but it stops getting them."},{"title":"SAFE UPDATES","body":"Updates are checked against a key built into the app before they are installed."},{"title":"NOTHING LOST","body":"Your servers, worlds, backups, VoxelPort ID and custom address come with you, and if anything goes wrong your old app and data stay exactly as they are."}];
 
 export function NewAppPage({ onBack }) {
@@ -400,16 +424,17 @@ export function MoveStrip() {
 
 const INSTALL_NOTES = [
   { title: 'THE NEW APP · 2.0', body: 'VoxelPort has moved to a new app, rebuilt on newer technology: about 3 MB instead of over 100 MB, and where every new feature goes. Already using VoxelPort? Update your current app to 1.18.0 and press “Update to the new VoxelPort”: it downloads and checks the new app, installs it, brings your servers, backups, VoxelPort ID, address and settings across, then removes the old app. Your server folders and worlds are never touched, and if anything goes wrong your old app and data stay as they are. You sign in with Discord once in the new app. The previous (Electron) app is not updated any more: it keeps the India and Europe relays, and custom addresses only on India. Los Angeles, custom addresses on every relay and Supporter+ voice chat on every relay are in the new app. Microsoft Store copy: the Store can’t install another app, so download the new one here, open it and use its banner to bring your data over, then remove the Store version in Windows Settings › Apps.' },
-  { title: 'WINDOWS', body: 'The new app, straight from GitHub. It isn’t code-signed yet, so Windows may say “Windows protected your PC”: click More info, then Run anyway. It updates itself after that.' },
-  { title: 'WINDOWS 11 · SMART APP CONTROL', body: 'If Smart App Control is on, Windows blocks the installer and there is no “Run anyway” button. To install it, switch Smart App Control off: Settings › Privacy & security › Windows Security › App & browser control › Smart App Control settings › Off. Windows can’t turn it back on later without reinstalling Windows, so if you’d rather not, keep using your current VoxelPort: it keeps working.' },
-  { title: 'ANDROID', body: 'Host a server from your phone. A phone has limits: Android can close apps in the background, and mobile data or a phone with little RAM is the hardest case. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is sideloaded: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
-  { title: 'WHAT YOU NEED', body: 'A Windows 10/11 PC with at least 8 GB of RAM (16 GB is comfortable), or a recent Android phone. A free Discord account to join our server, and no router settings.' },
-  { title: 'MACOS', body: 'Not yet. Follow the Discord or GitHub to hear when it lands.' },
+  { title: 'WINDOWS WARNINGS', body: WIN_SMARTSCREEN },
+  { title: 'WINDOWS 11 · SMART APP CONTROL', body: WIN_SMART_APP_CONTROL },
+  { title: 'ANDROID', body: 'Run a server from your phone. A phone has limits: Android can close apps in the background, and mobile data or a phone with little RAM is the hardest case. Use Wi‑Fi, and use the PC app for a server that has to stay up. The APK is installed from outside Google Play: open it, allow installs from your browser, and tap through the Play Protect prompt.', link: ['Read the Android guide →', '/guides/host-minecraft-server-android-phone'] },
+  { title: 'WHAT YOU NEED', body: 'Windows 10 or 11 (64-bit), or Android 8.0 or newer. To run a Minecraft server comfortably, 8 GB of RAM or more is a good guide (16 GB is comfortable); the server uses your own memory. A free Discord account to join our server, and no router settings.' },
+  { title: 'MACOS AND LINUX', body: 'VoxelPort is not available for macOS or Linux. It is Windows and Android only.' },
 ];
 
 export function DownloadPage({ onBack }) {
-  const rel = useLatestReleases();
   const os = useDetectedOS();
+  const android = useAndroidFeed();
+  const win = RELEASES.windows;
   return (
     <SubPage onBack={onBack}>
       <MoveStrip />
@@ -422,23 +447,56 @@ export function DownloadPage({ onBack }) {
           <span className="sticker gold" style={{ transform: 'rotate(-2deg)' }}>
             {os === 'android' ? 'DETECTED: ANDROID' : 'FREE DOWNLOAD'}
           </span>
-          <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{`New app 2.0${rel.app ? ` · previous app ${rel.app}` : ''}`}</span>
+          <span className="sticker" style={{ transform: 'rotate(3deg)' }}>{`Stable ${win.version}`}</span>
         </div>
         <h2 className="h-display" style={{ fontSize: 42, marginTop: 10 }}>MANAGE ANY SERVER</h2>
         <p style={{ marginTop: 6, color: 'var(--ink-2)' }}>Creates, imports or tunnels your server — and installs the Java it needs.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 20 }}>
-          <a className={`btn ${os === 'windows' || os === 'macos' ? 'green' : 'cream'} sm`} href={DL_WIN}>WINDOWS · NEW APP</a>
-          <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={DL_ANDROID} onClick={go(DL_ANDROID)}>ANDROID · APK</a>
+          <a className={`btn ${os === 'android' ? 'cream' : 'green'} sm`} href={win.downloadUrl}>DOWNLOAD VOXELPORT FOR WINDOWS</a>
+          <a className={`btn ${os === 'android' ? 'green' : 'gold'} sm`} href={RELEASES.android.downloadUrl}>DOWNLOAD FOR ANDROID (APK)</a>
           <a className="btn cream sm" href={GITHUB_APP} target="_blank" rel="noreferrer">SOURCE</a>
-          <span className="btn sm" aria-disabled="true">MACOS · SOON</span>
         </div>
       </div>
+
+      <section className="page-section" id="releases">
+        <SectionHead kicker={`Checked ${fmtDate(RELEASES.verifiedOn)}`}>RELEASE INFORMATION.</SectionHead>
+        <div className="table-scroll panel" style={{ padding: 0 }}>
+          <table className="table">
+            <thead><tr><th scope="col">&nbsp;</th><th scope="col">WINDOWS</th><th scope="col">ANDROID</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Release</th><td>{win.channel} {win.version}</td><td>{android.channel} {android.version}</td></tr>
+              <tr><th scope="row">Beta</th><td colSpan="2">None right now: both are stable releases.</td></tr>
+              <tr><th scope="row">Released</th><td>{fmtDate(win.releasedOn)}</td><td>See the update feed</td></tr>
+              <tr><th scope="row">File</th><td>{win.installer} ({fmtMB(win.sizeBytes)})</td><td>voxelport-android.apk ({fmtMB(android.sizeBytes)})</td></tr>
+              <tr><th scope="row">Needs</th><td>{win.requirements[0]}</td><td>{RELEASES.android.requirements[0]}</td></tr>
+              <tr><th scope="row">SHA-256</th><td><code className="hash">{win.sha256}</code></td><td><code className="hash">{android.sha256}</code></td></tr>
+              <tr><th scope="row">Links</th><td><a href={win.releaseUrl} target="_blank" rel="noreferrer">Release notes</a> · <a href={win.checksumsUrl} target="_blank" rel="noreferrer">SHA256SUMS.txt</a> · <a href={win.changelogUrl} target="_blank" rel="noreferrer">All releases</a></td><td><a href={RELEASES.android.feedUrl}>Update feed (JSON)</a> · <a href={RELEASES.android.guideUrl} onClick={go(RELEASES.android.guideUrl)}>Install guide</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ marginTop: 12, fontSize: 14, color: 'var(--ink-2)' }}>
+          The Windows values describe v{win.version} and the Android values come from the live update feed. A newer release has its own checksum on its release page.
+        </p>
+      </section>
+
+      <section className="page-section" id="verify">
+        <SectionHead kicker="Before you run it">CHECK THE DOWNLOAD.</SectionHead>
+        <div className="panel" style={{ padding: '20px 22px' }}>
+          <ol style={{ margin: 0, paddingLeft: 20, lineHeight: 1.7 }}>
+            <li>Get the installer only from this page or the official <a href={win.releaseUrl} target="_blank" rel="noreferrer">GitHub release</a>.</li>
+            <li>Open PowerShell in the download folder and run <code>{WIN_VERIFY_COMMAND}</code>.</li>
+            <li>The hash it prints must match the <code>VoxelPort-Setup.exe</code> line in <a href={win.checksumsUrl} target="_blank" rel="noreferrer">SHA256SUMS.txt</a> (v{win.version}: <code className="hash">{win.sha256.slice(0, 16)}…</code>).</li>
+            <li>If they match and you trust the source, continue. If not, delete the file and ask in <b>#help</b> on the Discord.</li>
+          </ol>
+          <p style={{ marginTop: 12 }}>The installer is not code-signed yet, so Windows shows an unknown publisher. That is expected, and it is why this check matters.</p>
+        </div>
+      </section>
 
 
       <div className="panel gold tilt-l1" style={{ padding: '18px 22px', marginTop: 24, maxWidth: 720 }}>
         <span className="kicker" style={{ color: 'var(--ink-2)' }}>Good to know · Android</span>
         <p style={{ marginTop: 8, fontWeight: 600, lineHeight: 1.6 }}>
-          Hosting from a phone has limits. Android can close apps in the background, and mobile data or a phone with little memory is the hardest case.
+          Running a server on a phone has limits. Android can close apps in the background, and mobile data or a phone with little memory is the hardest case.
           Use Wi‑Fi, keep the app open, and use the <b>PC app</b> for a server that has to stay up.
         </p>
       </div>
