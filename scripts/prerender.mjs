@@ -37,7 +37,6 @@ const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
 const EXTRA = {
-  motd: () => ['<p>Create two-line MOTDs with 16 Minecraft colors, custom hex colors, gradients, bold, italic, underline, strikethrough and obfuscated text. Use the live preview, then copy or download a server.properties snippet. The editor runs in your browser.</p>'],
   home: () => [
     '<h2>How it works</h2><ol>' + STEPS.map((x) => `<li><b>${esc(x.title)}</b>: ${esc(x.desc)}</li>`).join('') + '</ol>',
     '<p><a href="/features">All features</a> · <a href="/faq">FAQ</a> · <a href="/compare">Compare</a> · <a href="/download">Download</a></p>',
@@ -184,8 +183,8 @@ for (const g of GUIDES) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', motd: '0.7', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', uptime: '0.5', legal: '0.3' };
-const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', motd: 'monthly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', uptime: 'daily', legal: 'monthly' };
+const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', uptime: '0.5', legal: '0.3' };
+const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', uptime: 'daily', legal: 'monthly' };
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

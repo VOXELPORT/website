@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { V2Nav, V2Footer } from './V2Shell.jsx';
+import { V2Nav, V2Footer, V2Directory } from './V2Shell.jsx';
 import { PAL, DL_WIN, DL_ANDROID, GITHUB_APP, GITHUB_ORG, INSTAGRAM, DISCORD, useRelayStatus } from './data.js';
 import { DISCORD_LINE } from './community.js';
 import { navigate, isModifiedClick } from './seo.js';
@@ -105,7 +105,9 @@ export function DiscordBand() {
 
 // ─── Nav ───────────────────────────────────────────────────────────────────
 
-export function Nav({ onLogo }) { return <V2Nav onLogo={onLogo} />; }
+export function Nav({ onLogo }) {
+  return <><V2Nav onLogo={onLogo} /><V2Directory /></>;
+}
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 

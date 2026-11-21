@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Landing from './Landing.jsx';
 import { Nav, Footer } from './ui.jsx';
-import { V2Bg } from './V2Shell.jsx';
 import { SITE_NAV } from './content.js';
 import { applyPageMeta, navigate } from './seo.js';
 import './index.css';
@@ -10,13 +9,13 @@ import './v3.css';
 import './theme.css';
 import './v2dark.css';
 import './v2inner.css';
+import './landing.css';
 
 const LegalPage = lazy(() => import('./LegalPage.jsx'));
 const StatusPage = lazy(() => import('./StatusPage.jsx'));
 const UptimePage = lazy(() => import('./UptimePage.jsx'));
 const ServersPage = lazy(() => import('./ServersPage.jsx'));
 const GuidesPage = lazy(() => import('./GuidesPage.jsx'));
-const MotdPage = lazy(() => import('./MotdPage.jsx'));
 
 const FeaturesPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.FeaturesPage })));
 const ComparePage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.ComparePage })));
@@ -62,7 +61,6 @@ if (typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, ''
 }
 
 const SIMPLE_ROUTES = {
-  '/motd': 'motd',
   '/legal': 'legal', '/status': 'status', '/uptime': 'uptime', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
   '/support': 'support', '/community': 'community', '/new-app': 'newapp', '/about': 'about', '/team': 'team',
@@ -82,7 +80,7 @@ function PageFallback({ onBack }) {
   return (
     <div className="zine hb">
       <Nav links={SITE_NAV} onLogo={onBack} />
-      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 120, minHeight: '60vh' }} />
+      <main lang="en" id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 120, minHeight: '60vh' }} />
       <Footer />
     </div>
   );
@@ -119,9 +117,8 @@ export default function App() {
   if (page === 'home') return <Landing />;
 
   return (
-    <div className="v2d v2d-inner"><V2Bg />
+    <div className="v2d v2d-inner">
     <Suspense fallback={<PageFallback onBack={goHome} />}>
-      {page === 'motd' && <MotdPage onBack={goHome} />}
       {page === 'features' && <FeaturesPage onBack={goHome} />}
       {page === 'compare' && <ComparePage onBack={goHome} />}
       {page === 'faq' && <FaqPage onBack={goHome} />}

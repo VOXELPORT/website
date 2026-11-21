@@ -9,12 +9,6 @@ export const SITE = 'https://voxelport.in';
 export const OG_IMAGE = `${SITE}/og-image.png`;
 
 export const PAGES = {
-  motd: {
-    path: '/motd', title: 'Minecraft MOTD Editor: Colors, Gradients, Preview',
-    description: 'Create a two-line Minecraft Java server MOTD with colors, gradients, formatting and a live preview. Copy or download a server.properties snippet for free.',
-    heading: 'Minecraft MOTD editor',
-    summary: ['Customize your Minecraft server greeting with standard colors, hex colors, gradients and text styles. Preview it and export a ready-to-use motd property.'],
-  },
   home: {
     path: '/',
     title: 'VoxelPort — Minecraft Server Manager & Proxy App',

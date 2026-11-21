@@ -3,12 +3,46 @@ import { EXAMPLE_ADDR } from './data.js';
 
 /** The links every page's nav shares. (The Discord button is added by Nav itself.) */
 export const SITE_NAV = [
-  ['MOTD Editor', '/motd'],
   ['Features', '/features'],
   ['Guides', '/guides'],
   ['Servers', '/servers'],
   ['Download', '/download'],
   ['Support', '/support'],
+];
+
+export const HOME_COPY = {
+  category: ["Open-source Minecraft server manager", "Gestor de servidores de Minecraft de código abierto"],
+  tagline: ["Your world. Your hardware.", "Tu mundo. Tu equipo."],
+  intro: ["Run a Minecraft server on your Windows PC or Android phone. Give friends an address they can join without port forwarding.", "Ejecuta un servidor de Minecraft en tu PC con Windows o en tu teléfono Android. Comparte una dirección con tus amigos sin abrir puertos en el router."],
+  crossplay: ["Java + Bedrock crossplay", "Juego cruzado Java + Bedrock"],
+  openSource: ["Free and open source", "Gratis y de código abierto"],
+  playerAccounts: ["Players need no account", "Los jugadores no necesitan cuenta"],
+  seeApp: ["See the app", "Ver la aplicación"],
+  download: ["Download", "Descargar"],
+  releaseLabel: ["Latest desktop release", "Última versión para PC"],
+  releaseIntro: ["Create or import a server, manage it from the live console, and make it public from the same app.", "Crea o importa un servidor, adminístralo desde la consola en vivo y hazlo público desde la aplicación."],
+  releaseLink: ["What's new", "Novedades"],
+  walkthroughLabel: ["Product walkthrough", "Demostración"],
+  walkthroughTitle: ["VoxelPort in action", "VoxelPort en acción"],
+  walkthroughIntro: ["Start a server, make it public, and share the address. Your world and files stay on your device.", "Inicia un servidor, hazlo público y comparte la dirección. Tu mundo y tus archivos se quedan en tu dispositivo."],
+  videoLabel: ['Silent walkthrough of the VoxelPort Windows app', 'Demostración sin audio de VoxelPort para Windows'],
+  platforms: ["Windows and Android", "Windows y Android"],
+  managementTitle: ["Manage and share your server", "Administra y comparte tu servidor"],
+  managementIntro: ["Create a Vanilla, Paper, or Fabric server, or import one you already run. Manage backups, plugins, and players from VoxelPort.", "Crea un servidor Vanilla, Paper o Fabric, o importa uno que ya tengas. Gestiona las copias de seguridad, los complementos y los jugadores desde VoxelPort."],
+  downloadFor: ['Download for', 'Descargar para'],
+  allDownloads: ["All downloads", "Todas las descargas"],
+  discordRequirement: ["Server operators sign in with Discord and join the VoxelPort Discord server.", "Los administradores inician sesión con Discord y se unen al servidor de VoxelPort."],
+  connection: ["Your device runs the server. VoxelPort's relay connects players to it, even behind CGNAT.", "Tu dispositivo ejecuta el servidor. El relé de VoxelPort conecta a los jugadores, incluso detrás de CGNAT."],
+  exploreTitle: ["Explore VoxelPort", "Explora VoxelPort"],
+  socialTitle: ["Find us online", "Encuéntranos en línea"],
+};
+
+export const HOME_EXPLORE = [
+  ['Features', 'Server management, relays and crossplay', 'Gestión de servidores, relés y juego cruzado', '/features'],
+  ['Guides', 'Set up and share a server', 'Configura y comparte un servidor', '/guides'],
+  ['Server list', 'Find a public Minecraft server', 'Encuentra un servidor público de Minecraft', '/servers'],
+  ['Community', 'Meet other VoxelPort users', 'Conoce a otros usuarios de VoxelPort', '/community'],
+  ['Help & FAQ', 'Answers to common questions', 'Respuestas a las preguntas más comunes', '/faq'],
 ];
 
 export const TICKER = ['No port forwarding', 'A free .voxelport.in address', 'Bedrock players too', 'Java set up for you', 'Players need no account', 'Open source', 'Free to use'];

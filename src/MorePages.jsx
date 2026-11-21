@@ -33,7 +33,7 @@ function SubPage({ onBack, children, band = true }) {
   return (
     <div className="zine hb">
       <Nav links={SITE_NAV} onLogo={back} />
-      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>{children}</main>
+      <main lang="en" id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 50, paddingBottom: 100 }}>{children}</main>
       <Footer band={band} />
     </div>
   );

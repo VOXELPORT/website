@@ -39,7 +39,7 @@ try {
   await page.waitForURL('**/guides');
   await page.locator('main h1').waitFor();
   assert.equal(await page.getByRole('button', { name: 'Menu', exact: true }).getAttribute('aria-expanded'), 'false');
-  for (const route of ['/features', '/download', '/motd', '/faq', '/compare', '/about', '/support', '/community', '/team', '/legal', '/status', '/servers']) {
+  for (const route of ['/features', '/download', '/faq', '/compare', '/about', '/support', '/community', '/team', '/legal', '/status', '/servers']) {
     await page.goto(base + route, { waitUntil: 'domcontentloaded' });
     await page.locator('main').waitFor();
     await page.waitForTimeout(150);

@@ -112,7 +112,7 @@ export default function UptimePage({ onBack }) {
     <div className="zine hb">
       <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
-      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
+      <main lang="en" id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
         <span className="kicker">Checked every minute</span>
         <h1 style={{ fontSize: 'clamp(56px, 10vw, 120px)', fontWeight: 400, lineHeight: .95, marginTop: 10 }}>
           <span className="c-title" data-text="UPTIME">UPTIME</span><br />

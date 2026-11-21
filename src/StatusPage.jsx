@@ -109,7 +109,7 @@ export default function StatusPage({ onBack }) {
     <div className="zine hb">
       <Nav links={SITE_NAV} relay={null} onLogo={back} />
 
-      <main id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
+      <main lang="en" id="main-content" tabIndex={-1} className="wrap" style={{ paddingTop: 60, paddingBottom: 100, maxWidth: 1000 }}>
         <span className="kicker">Live monitoring · special edition</span>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 24, flexWrap: 'wrap', marginTop: 10 }}>
           <h1 style={{ fontSize: 'clamp(64px, 11vw, 132px)', fontWeight: 400, lineHeight: .95 }}>

@@ -1,41 +1,37 @@
 /* VoxelPort website v2 dark and bold. Scoped under .v2d so it never leaks into
    the other pages (they keep index.css / v3.css). The app showcase is the hero. */
 .v2d {
-  --bg: #07090c;
-  --bg-2: #0d1116;
-  --panel: #10151b;
-  --panel-2: #151c24;
-  --line: #1f2a33;
-  --line-2: #2b3a46;
-  --ink: #f3f7f5;
-  --muted: #9fb0ac;
-  --faint: #8a9a97;
-  --green: #3ddc84;
+  --bg: #090f0e;
+  --bg-2: #0c1513;
+  --panel: #101b17;
+  --panel-2: #16251e;
+  --surface-rule: #263831;
+  --line: var(--surface-rule);
+  --line-2: #3b564a;
+  --ink: #f1f5ed;
+  --muted: #b2c3b8;
+  --faint: #a3b8ac;
+  --green: #a4e78b;
   --green-2: #2fb26a;
   --green-ink: #04140b;
   --diamond: #4fd4e4;
   --gold: #f7c94b;
-  --r: 18px;
-  --r-sm: 12px;
-  --maxw: 1180px;
+  --r: 8px;
+  --r-sm: 6px;
+  --maxw: 1220px;
+  --site-display: 'Space Grotesk', system-ui, sans-serif;
+  --site-body: 'Instrument Sans', system-ui, sans-serif;
+  --site-mono: 'Courier Prime', monospace;
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+  font-family: var(--site-body);
   min-height: 100vh;
   overflow-x: clip;
 }
 .v2d ::selection { background: var(--green); color: var(--green-ink); }
 .v2d-wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
-.v2d-bgfx { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.v2d-bgfx::before, .v2d-bgfx::after { content: ''; position: absolute; width: 60vw; height: 60vw; border-radius: 50%; filter: blur(120px); opacity: .22; }
-.v2d-bgfx::before { background: var(--green); top: -22vw; left: -12vw; }
-.v2d-bgfx::after { background: var(--diamond); bottom: -26vw; right: -14vw; opacity: .14; }
-.v2d-grid { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 56px 56px; opacity: .25;
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 70%); }
 .v2d main, .v2d .v2d-top { position: relative; z-index: 1; }
 
 .v2d-top { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
@@ -46,7 +42,7 @@
 .v2d-cube { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(140deg, var(--green), var(--green-2));
   box-shadow: inset -5px -5px 0 rgba(0,0,0,.28), 0 0 18px color-mix(in srgb, var(--green) 55%, transparent); }
 .v2d-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-.v2d-nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 9px; }
+.v2d-nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 9px; }
 .v2d-nav a:hover { color: var(--ink); background: var(--panel); }
 .v2d-discord { display: inline-flex; align-items: center; gap: 8px; color: var(--ink) !important; border: 1px solid var(--line-2); background: var(--panel); }
 
