@@ -67,7 +67,7 @@ export const PAGES = {
   support: {
     path: '/support',
     title: 'Support VoxelPort: Keep the Free Relay Running',
-    description: 'VoxelPort is free and has no ads. A small UPI tip keeps the relay online, and supporters get a badge, a pinned server and a short address.',
+    description: 'VoxelPort is free and has no ads. A small tip (UPI in India, GitHub Sponsors anywhere else) keeps the relay online, and supporters get a badge, a pinned server and a short address.',
     heading: 'Support VoxelPort',
     summary: ['VoxelPort has no ads, and the app and the relay are free. If it saved you a fight with your router, a small tip helps keep the relay online.'],
   },

@@ -7,7 +7,7 @@ import {
 import { navigate, isModifiedClick, FAQ } from './seo.js';
 import { SITE_NAV, PATHS, FEATURES, RIVALS, TABLE, EXPLORE } from './content.js';
 import { DISCORD_PERKS } from './community.js';
-import { SUPPORTER } from './support.js';
+import { SUPPORTER, GITHUB_SPONSORS } from './support.js';
 import { RELEASES, LEGACY, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_COMMAND } from './release.js';
 import { COMPARE } from './content.js';
 import { DEV, ABOUT, ABOUT_NOTE, TEAM_INTRO, TEAM_ROLES, TEAM_HOW, TEAM_NOTE } from './about.js';
@@ -534,8 +534,15 @@ export function SupportPage({ onBack }) {
               <button className="btn sm cream" onClick={copy}>{copied ? 'COPIED!' : 'COPY'}</button>
             </div>
             <a className="btn green sm support-pay" href={UPI_LINK}>PAY WITH UPI</a>
-            <span className="support-note">“Pay with UPI” opens your UPI app on a phone.</span>
+            <span className="support-note">"Pay with UPI" opens your UPI app on a phone.</span>
           </div>
+        </div>
+        <div className="bubble tail-b" style={{ marginTop: 28, maxWidth: 720 }}>
+          <span className="kicker">Outside India?</span>
+          <p style={{ marginTop: 8, lineHeight: 1.65 }}>
+            UPI only works with Indian banks. From anywhere else, support VoxelPort through{' '}
+            <a href={GITHUB_SPONSORS} target="_blank" rel="noreferrer">GitHub Sponsors</a> instead — card or PayPal, any currency, one-time or monthly.
+          </p>
         </div>
       </section>
 

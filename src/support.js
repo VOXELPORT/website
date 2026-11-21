@@ -7,6 +7,12 @@
 
 export const CONTACT = 'traz@voxelport.in';
 
+// International tips (outside India, where UPI doesn't work): GitHub Sponsors. Website-only, like UPI_LINK in
+// data.js — not part of the SUPPORT object below, and so never written to support.json or read by the apps,
+// for the same reason UPI isn't: a donation target must be built into the app, not fetched from the website,
+// so the website can never silently redirect anyone's tip.
+export const GITHUB_SPONSORS = 'https://github.com/sponsors/VOXELPORT';
+
 // ─── Supporter perks ──────────────────────────────────────────────────────────────
 // Everything free stays free: supporters get recognition and a few conveniences, never more
 // capacity than anyone else, and nothing is taken away from free hosts.
@@ -33,7 +39,7 @@ export const SUPPORTER = {
     },
   ],
   how:
-    `Tip any amount (₹99 or more for Supporter, ₹299 or more for Supporter+) by UPI, then email ${CONTACT} with your UPI reference number, your server's address (like mysmp.voxelport.in) and, for Supporter+, your VoxelPort ID (copy it from the app's server settings). It's switched on by hand, usually within a day or two.`,
+    `By UPI: tip any amount (₹99 or more for Supporter, ₹299 or more for Supporter+), then email ${CONTACT} with your UPI reference number, your server's address (like mysmp.voxelport.in) and, for Supporter+, your VoxelPort ID (copy it from the app's server settings). By GitHub Sponsors (outside India): sponsor any amount, then say so in #help on the Discord with the same details. Either way it's switched on by hand, usually within a day or two.`,
   fine: 'Perks are a thank-you for a donation, not a purchase, and last as long as VoxelPort runs. If one is ever misused it can be taken back.',
 };
 
