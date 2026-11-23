@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DiscordIcon } from './ui.jsx';
 import { DISCORD, GITHUB_APP, useRelayStatus } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
@@ -19,13 +19,20 @@ export function V2Nav({ onLogo }) {
   const [open, setOpen] = useState(false);
   const relay = useRelayStatus();
   const path = typeof window !== 'undefined' ? (window.location.pathname.replace(/\/+$/, '') || '/') : '/';
+  const moreRef = useRef(null);
   useEffect(() => {
     if (!open) return;
     const k = (e) => { if (e.key === 'Escape') setOpen(false); };
     window.addEventListener('keydown', k);
     return () => window.removeEventListener('keydown', k);
   }, [open]);
+  useEffect(() => {
+    const onDocClick = (e) => { if (moreRef.current && !moreRef.current.contains(e.target)) moreRef.current.open = false; };
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
+  }, []);
   const close = () => setOpen(false);
+  const closeMore = () => { if (moreRef.current) moreRef.current.open = false; close(); };
   return <>
     <a className="v2d-skip" href="#main-content">{text('Skip to content', 'Ir al contenido')}</a>
     <a className="v2d-strip" href="/new-app" onClick={go('/new-app')}><b>{text('VoxelPort has a new app.', 'VoxelPort tiene una nueva aplicación.')}</b>{' '}{text('Keep your servers when you upgrade.', 'Conserva tus servidores al actualizar.')}</a>
@@ -37,8 +44,13 @@ export function V2Nav({ onLogo }) {
             const active = path === href || (href === '/guides' && path.startsWith('/guides/'));
             return <a key={href} href={href} className={active ? 'active' : undefined} aria-current={active ? 'page' : undefined} onClick={go(href, close)}>{text(label, ES_NAV[href])}</a>;
           })}
-          <a className="v2d-status" href="/status" onClick={go('/status', close)}><i className={relay.state} aria-hidden="true" />{relay.state === 'online' ? text('Relays online', 'Relés en línea') : relay.state === 'loading' ? text('Checking', 'Comprobando') : text('Status', 'Estado')}</a>
-          <a className="v2d-discord" href={DISCORD} target="_blank" rel="noopener noreferrer"><DiscordIcon size={18} />Discord</a>
+          <details className="v2d-more" ref={moreRef}>
+            <summary><i className={relay.state} aria-hidden="true" />{text('More', 'Más')}</summary>
+            <div className="v2d-more-menu" role="menu">
+              <a href="/status" onClick={go('/status', closeMore)} role="menuitem"><i className={relay.state} aria-hidden="true" />{relay.state === 'online' ? text('Relays online', 'Relés en línea') : relay.state === 'loading' ? text('Checking relays', 'Comprobando relés') : text('Relay status', 'Estado del relé')}</a>
+              <a href={DISCORD} target="_blank" rel="noopener noreferrer" role="menuitem" onClick={closeMore}><DiscordIcon size={18} />Discord</a>
+            </div>
+          </details>
         </nav>
         <select className="vp-language" aria-label={text('Language', 'Idioma')} value={locale} onChange={(event) => setLanguage(event.target.value)}>
           <option value="en" lang="en">English</option>

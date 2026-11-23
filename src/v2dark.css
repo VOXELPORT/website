@@ -46,6 +46,22 @@
 .v2d-nav a:hover { color: var(--ink); background: var(--panel); }
 .v2d-discord { display: inline-flex; align-items: center; gap: 8px; color: var(--ink) !important; border: 1px solid var(--line-2); background: var(--panel); }
 
+.v2d-more { position: relative; }
+.v2d-more summary { display: inline-flex; align-items: center; gap: 7px; list-style: none; cursor: pointer; color: var(--muted); font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 9px; }
+.v2d-more summary::-webkit-details-marker { display: none; }
+.v2d-more summary:hover { color: var(--ink); background: var(--panel); }
+.v2d-more summary i { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+.v2d-more summary i.online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.v2d-more summary i.offline, .v2d-more summary i.error { background: #ff6b6b; }
+.v2d-more[open] summary { color: var(--ink); background: var(--panel); }
+.v2d-more-menu { position: absolute; top: calc(100% + 8px); right: 0; min-width: 190px; padding: 6px; border-radius: 12px;
+  border: 1px solid var(--line-2); background: var(--bg-2); box-shadow: 0 18px 40px -14px rgba(0, 0, 0, .55); z-index: 70; }
+.v2d-more-menu a { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 8px; color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 500; }
+.v2d-more-menu a:hover { background: var(--panel); }
+.v2d-more-menu i { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); flex: none; }
+.v2d-more-menu i.online { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.v2d-more-menu i.offline, .v2d-more-menu i.error { background: #ff6b6b; }
+
 .v2d-strip { display: block; text-align: center; font-size: 13.5px; color: var(--ink); text-decoration: none; padding: 9px 16px;
   background: linear-gradient(90deg, color-mix(in srgb, var(--green) 16%, transparent), color-mix(in srgb, var(--diamond) 12%, transparent));
   border-bottom: 1px solid var(--line); }
