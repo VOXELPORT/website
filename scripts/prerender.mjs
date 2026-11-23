@@ -11,6 +11,8 @@ import { DISCORD, DISCORD_PERKS } from '../src/community.js';
 import { ABOUT, DEV, LOCALMINER, FRIEND, TEAM_ROLES, TEAM_HOW, TEAM_INTRO } from '../src/about.js';
 import { FEATURES, RIVALS, TABLE, STEPS } from '../src/content.js';
 import { GUIDES, GUIDES_INDEX, GUIDES_UPDATED, guidePath, guideJsonLd } from '../src/guides.js';
+import { BLOG, blogPath, blogJsonLd } from '../src/blog.js';
+import { BLOG_INDEX } from '../src/blog-meta.js';
 import { SUPPORT } from '../src/support.js';
 import { RELEASES, fmtDate, fmtMB, WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_HOW } from '../src/release.js';
 import { COMPARE } from '../src/content.js';
@@ -32,7 +34,7 @@ function replaceOnce(html, re, value) {
   return html.replace(re, () => value);
 }
 
-const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', RELEASES.android.downloadUrl], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
+const NAV = [['Home', '/'], ['The new VoxelPort (move in one minute)', '/new-app'], ['Features', '/features'], ['Compare', '/compare'], ['FAQ', '/faq'], ['Download', '/download'], ['Guides', '/guides'], ['Blog', '/blog'], ['Server list', '/servers'], ['Relay status', '/status'], ['Support', '/support'], ['Discord community', '/community'], ['About the developer', '/about'], ['Join the team', '/team'], ['Join the Discord', DISCORD], ['Legal & privacy', '/legal'], ['Windows installer (direct, the new app 2.0)', 'https://github.com/VOXELPORT/VoxelPort-App/releases/latest/download/VoxelPort-Setup.exe'], ['Android APK', RELEASES.android.downloadUrl], ['Instagram', 'https://www.instagram.com/voxelport.in/']];
 
 const cell = (c) => c.t;
 /** The text of the sections that live on a page of their own, for crawlers that do not run JavaScript. */
@@ -165,6 +167,15 @@ function guidesIndexBody() {
   return `<main class="prerender"><h1>Minecraft server guides</h1><p>${esc(GUIDES_INDEX.description)}</p><ul>${GUIDES.map((g) => `<li><a href="${guidePath(g)}">${esc(g.title)}</a> — ${esc(g.blurb)}</li>`).join('')}</ul>${navHtml()}</main>`;
 }
 
+function postBody(p) {
+  return `<main class="prerender"><p><a href="/">Home</a> / <a href="/blog">Blog</a> / ${esc(p.short)}</p><h1>${esc(p.title)}</h1><p>${esc(p.date)}</p><p>${esc(p.description)}</p>${p.html}<h2>More posts</h2><ul>${BLOG.filter((x) => x !== p).map((x) => `<li><a href="${blogPath(x)}">${esc(x.title)}</a></li>`).join('')}</ul>${navHtml()}</main>`;
+}
+
+function blogIndexBody() {
+  const sorted = [...BLOG].sort((a, b) => b.date.localeCompare(a.date));
+  return `<main class="prerender"><h1>VoxelPort blog</h1><p>${esc(BLOG_INDEX.description)}</p><ul>${sorted.map((p) => `<li><a href="${blogPath(p)}">${esc(p.title)}</a> (${esc(p.date)}) — ${esc(p.blurb)}</li>`).join('')}</ul>${navHtml()}</main>`;
+}
+
 function write(p, html) {
   if (!INDEXABLE) html = replaceOnce(html, ROBOTS_META, '<meta name="robots" content="noindex, nofollow" />');
   const out = p === '/' ? path.join(dist, 'index.html') : path.join(dist, ...p.slice(1).split('/'), 'index.html');
@@ -182,6 +193,15 @@ for (const g of GUIDES) {
   write(guidePath(g), renderPage({ path: guidePath(g), title: g.title, description: g.description, lang: g.lang },guideJsonLd(g, SITE), guideBody(g)));
 }
 
+const blogIndexLd = [{
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'VoxelPort blog', url: SITE + BLOG_INDEX.path,
+  hasPart: BLOG.map((p) => ({ '@type': 'BlogPosting', headline: p.title, url: SITE + blogPath(p), datePublished: p.date })),
+}];
+write(BLOG_INDEX.path, renderPage(BLOG_INDEX, blogIndexLd, blogIndexBody()));
+for (const p of BLOG) {
+  write(blogPath(p), renderPage({ path: blogPath(p), title: p.title, description: p.description }, blogJsonLd(p, SITE), postBody(p)));
+}
+
 const today = new Date().toISOString().slice(0, 10);
 const priority = { home: '1.0', newapp: '0.9', features: '0.8', download: '0.8', servers: '0.8', faq: '0.7', compare: '0.7', community: '0.6', about: '0.6', team: '0.5', support: '0.5', status: '0.5', uptime: '0.5', legal: '0.3' };
 const freq = { home: 'weekly', newapp: 'weekly', features: 'monthly', download: 'weekly', servers: 'hourly', faq: 'monthly', compare: 'monthly', community: 'monthly', about: 'monthly', team: 'monthly', support: 'monthly', status: 'daily', uptime: 'daily', legal: 'monthly' };
@@ -191,6 +211,8 @@ fs.writeFileSync(path.join(dist, 'sitemap.xml'), [
   ...Object.entries(PAGES).map(([k, p]) => `  <url><loc>${SITE}${p.path}</loc><lastmod>${today}</lastmod><changefreq>${freq[k] || 'monthly'}</changefreq><priority>${priority[k] || '0.5'}</priority></url>`),
   `  <url><loc>${SITE}${GUIDES_INDEX.path}</loc><lastmod>${GUIDES_UPDATED}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`,
   ...GUIDES.map((g) => `  <url><loc>${SITE}${guidePath(g)}</loc><lastmod>${GUIDES_UPDATED}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
+  `  <url><loc>${SITE}${BLOG_INDEX.path}</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>`,
+  ...BLOG.map((p) => `  <url><loc>${SITE}${blogPath(p)}</loc><lastmod>${p.date}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`),
   '</urlset>', '',
 ].join('\n'));
 // support.json: what the desktop and Android apps read for the Support screen (supporter perks, hosting links).
@@ -233,6 +255,10 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '',
   ...GUIDES.map((g) => `- [${g.title}](${SITE}${guidePath(g)}): ${g.description}`),
   '',
+  '## Blog',
+  '',
+  ...[...BLOG].sort((a, b) => b.date.localeCompare(a.date)).map((p) => `- [${p.title}](${SITE}${blogPath(p)}) (${p.date}): ${p.description}`),
+  '',
   '## FAQ',
   '',
   ...FAQ.flatMap(({ q, a }) => [`### ${q}`, '', a, '']),
@@ -254,4 +280,4 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), [
   '',
 ].join('\n'));
 
-console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages, sitemap.xml, robots.txt, llms.txt, support.json`);
+console.log(`prerendered ${Object.keys(PAGES).length} pages + ${GUIDES.length + 1} guide pages + ${BLOG.length + 1} blog pages, sitemap.xml, robots.txt, llms.txt, support.json`);

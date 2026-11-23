@@ -2,6 +2,7 @@
 // scripts/prerender.mjs (static HTML for each route, sitemap). Plain ESM, no JSX.
 
 import { GUIDES_INDEX, findGuideMeta, guidePath } from './guides-meta.js';
+import { BLOG_INDEX, findBlogMeta, blogPath } from './blog-meta.js';
 import { WIN_SMARTSCREEN, WIN_SMART_APP_CONTROL, WIN_VERIFY_HOW } from './release.js';
 import { DISCORD } from './community.js';
 
@@ -298,6 +299,16 @@ export function pageMeta(page) {
       path: typeof window !== 'undefined' ? window.location.pathname : '/guides',
       title: 'Guide Not Found — VoxelPort',
       description: GUIDES_INDEX.description,
+    };
+  }
+  if (page === 'blog') return BLOG_INDEX;
+  if (page.startsWith('post:')) {
+    const p = findBlogMeta(page.slice(5));
+    if (p) return { path: blogPath(p), title: p.title, description: p.description };
+    return {
+      path: typeof window !== 'undefined' ? window.location.pathname : '/blog',
+      title: 'Post Not Found — VoxelPort',
+      description: BLOG_INDEX.description,
     };
   }
   return PAGES[page] || PAGES.home;

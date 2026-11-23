@@ -16,6 +16,7 @@ const StatusPage = lazy(() => import('./StatusPage.jsx'));
 const UptimePage = lazy(() => import('./UptimePage.jsx'));
 const ServersPage = lazy(() => import('./ServersPage.jsx'));
 const GuidesPage = lazy(() => import('./GuidesPage.jsx'));
+const BlogPage = lazy(() => import('./BlogPage.jsx'));
 
 const FeaturesPage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.FeaturesPage })));
 const ComparePage = lazy(() => import('./MorePages.jsx').then((m) => ({ default: m.ComparePage })));
@@ -64,6 +65,7 @@ const SIMPLE_ROUTES = {
   '/legal': 'legal', '/status': 'status', '/uptime': 'uptime', '/servers': 'servers', '/guides': 'guides',
   '/features': 'features', '/compare': 'compare', '/faq': 'faq', '/download': 'download',
   '/support': 'support', '/community': 'community', '/new-app': 'newapp', '/about': 'about', '/team': 'team',
+  '/blog': 'blog',
 };
 
 function routeFromPath() {
@@ -71,8 +73,10 @@ function routeFromPath() {
   const p = window.location.pathname.replace(/\/+$/, '');
   if (p === '') return 'home';
   if (SIMPLE_ROUTES[p]) return SIMPLE_ROUTES[p];
-  const m = p.match(/^\/guides\/([\w-]+)$/);
-  if (m) return 'guide:' + m[1];
+  const g = p.match(/^\/guides\/([\w-]+)$/);
+  if (g) return 'guide:' + g[1];
+  const b = p.match(/^\/blog\/([\w-]+)$/);
+  if (b) return 'post:' + b[1];
   return 'notfound';
 }
 
@@ -134,6 +138,9 @@ export default function App() {
       {page === 'servers' && <ServersPage onBack={goHome} />}
       {(page === 'guides' || page.startsWith('guide:')) && (
         <GuidesPage slug={page.startsWith('guide:') ? page.slice(6) : null} onBack={goHome} />
+      )}
+      {(page === 'blog' || page.startsWith('post:')) && (
+        <BlogPage slug={page.startsWith('post:') ? page.slice(5) : null} onBack={goHome} />
       )}
       {page === 'notfound' && <NotFoundPage onBack={goHome} />}
     </Suspense>

@@ -29,7 +29,7 @@ export function useLanguage() {
 }
 
 export const ES_NAV = {
-  '/features': 'Funciones', '/guides': 'Guías',
+  '/features': 'Funciones', '/guides': 'Guías', '/blog': 'Blog',
   '/servers': 'Servidores', '/download': 'Descargas', '/support': 'Apoyo',
   '/compare': 'Comparar', '/about': 'Acerca de', '/legal': 'Aviso legal',
   '/community': 'Comunidad', '/new-app': 'Nueva aplicación', '/faq': 'Preguntas frecuentes',

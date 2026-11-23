@@ -5,6 +5,7 @@ import { EXAMPLE_ADDR } from './data.js';
 export const SITE_NAV = [
   ['Features', '/features'],
   ['Guides', '/guides'],
+  ['Blog', '/blog'],
   ['Servers', '/servers'],
   ['Download', '/download'],
   ['Support', '/support'],
