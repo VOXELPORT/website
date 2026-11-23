@@ -73,6 +73,13 @@ button { font-family: inherit; }
 .typewriter { font-family: var(--type); }
 .pixel { font-family: var(--pixel); }
 
+/* ─── Ad slot ──────────────────────────────────────────────────────────── */
+.ad-slot { min-height: 50px; }
+.ad-slot-label {
+  display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, var(--ink-2)); margin-bottom: 8px; opacity: .7;
+}
+
 /* Outlined comic title with an inked red drop-layer behind it.
    Use: <span class="c-title" data-text="WORD">WORD</span> */
 .c-title {

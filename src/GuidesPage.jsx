@@ -5,6 +5,7 @@ import { SPRITES, DL_WIN } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
 import { GUIDES_META, GUIDE_CATEGORIES, guidePath } from './guides-meta.js';
 import { findGuide, guideToc } from './guides.js';
+import { AdSlot } from './ads.jsx';
 
 const SPRITE_FOR = ['grass', 'diamond', 'heart', 'bolt', 'tower', 'grass'];
 
@@ -146,6 +147,7 @@ function GuideArticle({ g }) {
             <p style={{ flex: '1 1 260px', fontSize: 16, lineHeight: 1.55, color: 'var(--ink-2)' }}><b>Still stuck?</b> Ask in <b>#help</b> on the VoxelPort Discord and tell us what you see.</p>
             <DiscordButton small>ASK ON DISCORD</DiscordButton>
           </div>
+          <AdSlot slot={import.meta.env.VITE_ADSENSE_SLOT_GUIDE} />
         </div>
       </div>
 

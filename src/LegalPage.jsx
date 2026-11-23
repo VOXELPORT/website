@@ -10,7 +10,7 @@ const SECTIONS = [
   ['trademarks', 'Trademarks', 'var(--diamond)'],
 ];
 
-const UPDATED = 'October 2026';
+const UPDATED = 'November 2026';
 
 /** Scroll to a section id without changing the hash route. */
 function jump(id) {
@@ -166,13 +166,28 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">This website</Sub>
           <p>
-            No cookies and no ad trackers. The site counts page loads per day: which page, the site you came from, and your
-            country as reported by Cloudflare, so we can see which guides help. Your IP address is never stored. To count unique
-            visitors it is mixed with a random key that changes every day, and that result stays in memory only until the day
-            ends. Fonts are served from this site. Your browser fetches the relay’s public
-            status and the latest release numbers from GitHub’s public API to show them on the page. The site itself is delivered
-            through Cloudflare. Links to Discord, Instagram and GitHub leave this site: once you click one, that service’s own
-            privacy policy applies, and VoxelPort does not see who clicked.
+            The site counts page loads per day: which page, the site you came from, and your country as reported by
+            Cloudflare, so we can see which guides help. Your IP address is never stored. To count unique visitors it is
+            mixed with a random key that changes every day, and that result stays in memory only until the day ends. Fonts are
+            served from this site. Your browser fetches the relay’s public status and the latest release numbers from GitHub’s
+            public API to show them on the page. The site itself is delivered through Cloudflare. Links to Discord, Instagram
+            and GitHub leave this site: once you click one, that service’s own privacy policy applies, and VoxelPort does not
+            see who clicked.
+          </p>
+
+          <Sub color="var(--red)">Ads</Sub>
+          <p>
+            Some pages (mainly the guides) show ads served by Google AdSense, which is how we cover the relay's hosting bill.
+            Google sets cookies and may use information about your visits to this and other sites to choose which ad to show
+            and to measure how it performed; it may also use identifiers tied to your Google account if you are signed in. This
+            happens under Google's own privacy policy and ad settings, not VoxelPort's: see{' '}
+            <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noreferrer">
+              How Google uses information from sites that use its services
+            </a>{' '}
+            and manage personalization at{' '}
+            <a href="https://adssettings.google.com/" target="_blank" rel="noreferrer">adssettings.google.com</a>. VoxelPort
+            itself never sells or hands your data to advertisers; Google is the only ad partner, and it collects this directly
+            in your browser, not through us.
           </p>
 
           <Sub color="var(--red)">Where the relay is</Sub>
@@ -201,8 +216,10 @@ export default function LegalPage({ onBack }) {
 
           <Sub color="var(--red)">Sharing &amp; deleting</Sub>
           <p>
-            Your data is never sold or shared with advertisers. To delete everything, uninstall the app and remove its user-data
-            folder, or delete <Code>config/voxelport/</Code> from your Minecraft folder. A new token is created next time you host.
+            VoxelPort never sells or hands any of the data above to advertisers or anyone else. The only third party involved
+            with ads is Google AdSense on the website, described above, which collects directly in your browser rather than
+            through data VoxelPort gives it. To delete everything, uninstall the app and remove its user-data folder, or delete{' '}
+            <Code>config/voxelport/</Code> from your Minecraft folder. A new token is created next time you host.
           </p>
 
           <Callout color="var(--red)">Questions about data? Email <Code>traz@voxelport.in</Code>.</Callout>
