@@ -46,6 +46,26 @@ export const BLOG_META = [
     kicker: 'Hosting · 2026',
     blurb: 'What free hosting actually costs you in sleep, queues and RAM — and when paying is worth it.',
   },
+  {
+    slug: 'java-bedrock-crossplay-minecraft-server',
+    category: 'hosting',
+    date: '2026-11-27',
+    title: 'Java and Bedrock Crossplay on the Same Minecraft Server (2026 Guide)',
+    short: 'Java + Bedrock crossplay',
+    description: 'How to let Java and Bedrock (phone, console, Windows) players join the same Minecraft server: Geyser and Floodgate explained, what breaks, and how to fix skins, inventory and commands.',
+    kicker: 'Crossplay',
+    blurb: 'How Geyser and Floodgate let phone, console and PC players share one world — and what actually breaks.',
+  },
+  {
+    slug: 'which-minecraft-version-for-new-server',
+    category: 'hosting',
+    date: '2026-11-27',
+    title: 'Which Minecraft Version Should You Pick for a New Server?',
+    short: 'Picking a version',
+    description: 'Latest vs an older stable Minecraft version for a new server: plugin and mod support, player compatibility, and which version actually makes sense for Vanilla, Paper and Fabric servers in 2026.',
+    kicker: 'Getting started',
+    blurb: 'Newest isn’t always best — how to actually choose a version for Vanilla, Paper or Fabric.',
+  },
 ];
 
 export const blogPath = (p) => `/blog/${p.slug}`;

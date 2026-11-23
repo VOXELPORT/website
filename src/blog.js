@@ -136,6 +136,89 @@ export const BLOG = [
 <div class="tip">See the full breakdown in our guide on <a href="/guides/free-minecraft-server-hosting">free Minecraft server options</a>, which compares the exact limits of Aternos, Minehut and Falix side by side.</div>
 `,
   },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'java-bedrock-crossplay-minecraft-server',
+    date: '2026-11-27',
+    title: 'Java and Bedrock Crossplay on the Same Minecraft Server (2026 Guide)',
+    short: 'Java + Bedrock crossplay',
+    description: 'How to let Java and Bedrock (phone, console, Windows) players join the same Minecraft server: Geyser and Floodgate explained, what breaks, and how to fix skins, inventory and commands.',
+    kicker: 'Crossplay',
+    blurb: 'How Geyser and Floodgate let phone, console and PC players share one world — and what actually breaks.',
+    html: `
+<p>Java and Bedrock are different games under the hood — different networking, different block IDs, different everything — so crossplay on a single server is a translation layer, not a native feature. Here's how that translation actually works, and the handful of things it can't quite paper over.</p>
+
+<h2 id="how-it-works">How Geyser and Floodgate work</h2>
+<p><b>Geyser</b> sits in front of a Java server (Paper, Spigot, or vanilla with a proxy) and translates Bedrock's protocol into Java's in real time, so a Bedrock client — phone, console, or Windows Bedrock edition — can connect to a server that was never built to understand it. <b>Floodgate</b> is the companion plugin that lets those Bedrock players join without needing a paid Java account, since Bedrock and Java use completely separate account systems.</p>
+<p>Install Geyser first, then Floodgate on top of it — Floodgate on its own does nothing, and installing them in the wrong order is the most common cause of "Bedrock players can't connect" reports in Geyser's own support channels.</p>
+
+<h2 id="setup">Setting it up</h2>
+<p>On a self-managed Paper server, both are plugins dropped into the <code>plugins</code> folder, configured through <code>config.yml</code> (Geyser) and restarted. The two settings that trip people up most: the Geyser port (defaults to <b>19132/UDP</b>, separate from Java's 25565/TCP — both need to be reachable) and <code>auth-type: floodgate</code>, which has to be set correctly or Bedrock players get rejected at the login screen with a confusing error.</p>
+<div class="tip"><b>Hosting with VoxelPort?</b> Turning on the Bedrock switch in the app installs and configures Geyser and Floodgate for you, including the port — there's nothing to edit by hand.</div>
+
+<h2 id="what-breaks">What doesn't translate perfectly</h2>
+<p>The translation is very good, not perfect. These are the real, recurring gaps:</p>
+<ul>
+  <li><b>Skins</b> — Bedrock players sometimes appear as a default Steve/Alex skin to Java players, or vice versa, depending on which skin service each side is using. This is cosmetic only and doesn't affect play.</li>
+  <li><b>Inventory and crafting UI</b> — Bedrock's inventory layout differs from Java's, so some plugin GUIs (shop menus, kits) designed only for Java's interface render oddly or are unusable on Bedrock unless the plugin explicitly supports Geyser (check the plugin's page before assuming).</li>
+  <li><b>Commands and chat formatting</b> — color codes and some command syntax that Java plugins send can appear as raw text or broken formatting on Bedrock clients.</li>
+  <li><b>Redstone and block-state edge cases</b> — a small number of blocks behave slightly differently between editions; rare in practice, but a known source of "my farm doesn't work for Bedrock players" reports.</li>
+</ul>
+
+<h2 id="plugin-compat">Plugin and mod compatibility</h2>
+<p>Most Paper plugins work fine with Bedrock players by default since Geyser handles the protocol translation transparently — the plugin never knows the difference. The exceptions are plugins that build custom GUIs or rely on Java-only client features (resource packs with custom models, certain HUD overlays); those need explicit Geyser support from the plugin author, which is usually noted on the plugin's download page.</p>
+
+<h2 id="checklist">Quick crossplay checklist</h2>
+<ol>
+  <li>Install Geyser, then Floodgate, in that order.</li>
+  <li>Confirm the Geyser UDP port is reachable, separately from your Java TCP port.</li>
+  <li>Set <code>auth-type: floodgate</code> so Bedrock players aren't asked for a Java login.</li>
+  <li>Test-join from an actual Bedrock device before announcing crossplay to players — emulators and some Bedrock betas behave slightly differently from retail clients.</li>
+</ol>
+`,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'which-minecraft-version-for-new-server',
+    date: '2026-11-27',
+    title: 'Which Minecraft Version Should You Pick for a New Server?',
+    short: 'Picking a version',
+    description: 'Latest vs an older stable Minecraft version for a new server: plugin and mod support, player compatibility, and which version actually makes sense for Vanilla, Paper and Fabric servers in 2026.',
+    kicker: 'Getting started',
+    blurb: 'Newest isn’t always best — how to actually choose a version for Vanilla, Paper or Fabric.',
+    html: `
+<p>"Just use the latest version" is right more often than not, but not always — and getting it wrong means either missing features your players expect, or fighting broken plugins and mods for months. Here's how to actually decide.</p>
+
+<h2 id="vanilla">Vanilla: almost always latest</h2>
+<p>If you're not running any plugins or mods, there's very little reason not to run the newest stable release. Vanilla has no compatibility layer to break, and new versions bring content most players want to see (new blocks, mobs, structures). The only exception is a server built around a specific older-version experience on purpose — a 1.8 PvP server, for instance, where the point is the old combat mechanics, not new content.</p>
+
+<h2 id="paper">Paper (plugins): one version behind is often safer</h2>
+<p>Plugin authors need time to update after a Minecraft release, and some popular plugins lag weeks or months behind a major version. Running the very latest version the day it drops means a real chance that a plugin you depend on — an essentials suite, an anti-grief plugin, a core economy plugin — simply isn't compatible yet.</p>
+<p>The safer pattern: check your must-have plugins' update pages first, then pick the newest version those plugins already fully support, rather than the newest version Minecraft has shipped. For a brand-new server with no plugins chosen yet, latest is fine; for one built around a specific plugin stack, work backward from the plugins.</p>
+
+<h2 id="fabric">Fabric (mods): compatibility is tighter and slower</h2>
+<p>Mods are more version-sensitive than plugins — a mod built for one Minecraft version frequently won't load at all on the next, let alone work correctly, because mods hook much deeper into the game's internals than plugins do. This is especially true for modpacks, where every single mod in the pack has to support the same version simultaneously.</p>
+<p>For Fabric, decide the version by looking at <b>Fabric API</b> and your core mods' supported versions first — never the newest Minecraft release in isolation. A modpack built for 1.21.x will often not have a 1.22.x counterpart for weeks or months after release.</p>
+
+<h2 id="player-compat">Will your players even notice?</h2>
+<p>Minecraft clients can usually connect to a server one or two major versions behind their own without issue (the client just reports which versions are supported), so running a slightly older stable version rarely locks out players — it's your plugins and mods version-locking the server, not the players' ability to connect.</p>
+
+<h2 id="deciding">A simple way to decide</h2>
+<table>
+<thead><tr><th>Server type</th><th>Pick</th></tr></thead>
+<tbody>
+<tr><td>Vanilla, no plugins</td><td>Latest stable release</td></tr>
+<tr><td>Paper with a plugin stack already chosen</td><td>Newest version all your must-have plugins fully support</td></tr>
+<tr><td>Fabric with a modpack</td><td>Whatever version the modpack (and Fabric API) targets — not Minecraft's latest</td></tr>
+<tr><td>New server, plugins/mods not decided yet</td><td>Latest stable — you can always pin a version once you know what you're installing</td></tr>
+</tbody>
+</table>
+
+<div class="tip"><b>Changing version later is usually fine for worlds</b>, moving forward — Minecraft reliably upgrades old world saves to newer versions. Going backward to an older version after upgrading is the move that risks world corruption, so always back up before changing versions either direction.</div>
+`,
+  },
 ];
 
 export const blogPath = (p) => `/blog/${p.slug}`;
