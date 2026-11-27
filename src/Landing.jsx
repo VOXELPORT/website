@@ -63,7 +63,7 @@ function UptimeStrip() {
     <div className="h4-uptime-top">
       <span className="h4-uptime-state"><i aria-hidden="true" />{headline}</span>
       <span className="h4-uptime-pct">
-        <b>{fmtPct(u.relayPct)}</b>{text('relay uptime', 'disponibilidad del relé')} · {covered}
+        <b>{fmtPct(u.relayPct)}</b><span>{text('relay uptime', 'disponibilidad del relé')} · {covered}</span>
       </span>
     </div>
     <div className="h4-uptime-bars" aria-label={text('Daily uptime, last 30 days', 'Disponibilidad diaria, últimos 30 días')}>
@@ -263,11 +263,11 @@ export default function Landing() {
                 <path className="h4-pulse c" d="M210 80 C 270 80, 290 150, 350 150" />
                 <path className="h4-pulse d" d="M210 80 C 270 80, 290 240, 350 240" />
               </svg>
-              <span className="h4-node pc" style={{ left: '16.7%', top: '73%' }}><Pixels rows={SPRITES.house} size={3} />{text('Your device', 'Tu dispositivo')}</span>
-              <span className="h4-node relay" style={{ left: '50%', top: '26.7%' }}><Pixels rows={SPRITES.diamond} size={3} />{text('Relay', 'Relé')}</span>
-              <span className="h4-node f" style={{ left: '83.3%', top: '20%' }}><Pixels rows={SPRITES.head1} size={2.4} /></span>
-              <span className="h4-node f" style={{ left: '83.3%', top: '50%' }}><Pixels rows={SPRITES.head1} size={2.4} /></span>
-              <span className="h4-node f" style={{ left: '83.3%', top: '80%' }}><Pixels rows={SPRITES.head1} size={2.4} /></span>
+              <span className="h4-node pc"><Pixels rows={SPRITES.house} size={3} />{text('Your device', 'Tu dispositivo')}</span>
+              <span className="h4-node relay"><Pixels rows={SPRITES.diamond} size={3} />{text('Relay', 'Relé')}</span>
+              <span className="h4-node f f1"><Pixels rows={SPRITES.head1} size={2.4} /></span>
+              <span className="h4-node f f2"><Pixels rows={SPRITES.head1} size={2.4} /></span>
+              <span className="h4-node f f3"><Pixels rows={SPRITES.head1} size={2.4} /></span>
               <span className="h4-lock"><Pixels rows={SPRITES.lock} size={2.6} />{text('no open ports', 'sin puertos abiertos')}</span>
             </div>
             <UptimeStrip />

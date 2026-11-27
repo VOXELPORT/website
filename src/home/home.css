@@ -234,6 +234,12 @@
 }
 .h4-node.relay { border-color: color-mix(in srgb, var(--diamond) 60%, transparent); box-shadow: 0 0 30px -6px color-mix(in srgb, var(--diamond) 60%, transparent); color: #bff8ff; }
 .h4-node.f { padding: 7px; }
+/* positions match the wire endpoints in the 420×300 diagram */
+.h4-node.pc { left: 16.7%; top: 73.3%; }
+.h4-node.relay { left: 50%; top: 26.7%; }
+.h4-node.f1 { left: 83.3%; top: 20%; }
+.h4-node.f2 { left: 83.3%; top: 50%; }
+.h4-node.f3 { left: 83.3%; top: 80%; }
 .h4-lock {
   position: absolute; left: 16.7%; top: 36%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 7px;
   padding: 6px 10px; border-radius: 99px; border: 1px dashed var(--line-2); background: rgba(5, 10, 9, .7);
@@ -251,7 +257,8 @@
 .h4-uptime-state i { width: 10px; height: 10px; border-radius: 50%; background: var(--green); animation: h4-ping 2s infinite; }
 .h4-uptime.down .h4-uptime-state i { background: #ff6b6b; }
 .h4-uptime.stale .h4-uptime-state i { background: var(--gold); animation: none; }
-.h4-uptime-pct { color: var(--faint); font-size: 14px; }
+.h4-uptime-pct { display: inline-flex; flex-wrap: wrap; align-items: baseline; color: var(--faint); font-size: 14px; }
+.h4-uptime-pct span { white-space: nowrap; }
 .h4-uptime-pct b { margin-right: 8px; color: var(--green); font: 700 1.5rem/1 var(--site-display); font-variant-numeric: tabular-nums; }
 .h4-uptime-bars { display: flex; gap: 3px; height: 34px; }
 .h4-uptime-bars span { flex: 1; border-radius: 3px; background: var(--line); transition: transform .15s; }
@@ -315,6 +322,16 @@
   .h4-stats div { padding: 10px; }
   .h4-stats dd { font-size: 1.4rem; }
   .h4-release p:not(.h4-kicker) { display: none; }
+  /* the diagram: compact nodes, and the lock tag sits under it instead of on top of the wires */
+  .h4-net-art { margin-bottom: 44px; }
+  .h4-node { padding: 7px 8px; gap: 4px; font-size: 9px; border-radius: 10px; }
+  .h4-node svg { width: 22px; height: auto; }
+  .h4-node.f { padding: 5px; }
+  .h4-node.f svg { width: 16px; }
+  .h4-lock { left: 50%; top: calc(100% + 24px); font-size: 9.5px; }
+  .h4-lock svg { width: 14px; height: auto; }
+  .h4-uptime { padding: 16px; }
+  .h4-uptime-bars { gap: 2px; height: 28px; }
   .h4-release { padding: 16px 18px; }
   .h4-final-blocks span { transform: scale(.6); }
   .h4-btn { flex: 1 1 auto; }
