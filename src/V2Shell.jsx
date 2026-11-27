@@ -65,16 +65,23 @@ export function V2Nav({ onLogo }) {
 export function V2Footer() {
   const { text } = useLanguage();
   return <footer className="v2d-foot">
-    <div className="v2d-wrap v2d-foot-in">
-      <a className="v2d-brand" href="/" onClick={go('/')} style={{ fontSize: 17 }}><img className="v2d-logo" src="/favicon.svg" width="24" height="24" alt="" /><span>Voxel<b>Port</b></span></a>
-      <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 24px' }} aria-label={text('Footer', 'Pie de página')}>
-        {SITE_NAV.map(([label, href]) => <a key={href} href={href} onClick={go(href)}>{text(label, ES_NAV[href])}</a>)}
-        <a href="/compare" onClick={go('/compare')}>{text('Compare', 'Comparar')}</a>
-        <a href="/about" onClick={go('/about')}>{text('About', 'Acerca de')}</a>
-        <a href="/legal" onClick={go('/legal')}>{text('Legal', 'Aviso legal')}</a>
-        <a href={GITHUB_APP} target="_blank" rel="noreferrer">GitHub</a>
-        <a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>
+    <div className="v2d-wrap v2d-foot-grid">
+      <div className="v2d-foot-brand">
+        <a className="v2d-brand" href="/" onClick={go('/')}><img className="v2d-logo" src="/favicon.svg" width="30" height="30" alt="" /><span>Voxel<b>Port</b></span></a>
+        <p>{text('Your world. Your hardware.', 'Tu mundo. Tu equipo.')}</p>
+        <div className="v2d-foot-social">
+          <a href={DISCORD} target="_blank" rel="noopener noreferrer"><DiscordIcon size={16} />Discord</a>
+          <a href={GITHUB_APP} target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+      <nav className="v2d-foot-cols" aria-label={text('Footer', 'Pie de página')}>
+        {DIRECTORY.map(([name, spanish, links]) => <div key={name}>
+          <h2>{text(name, spanish)}</h2>
+          <ul>{links.map(([label, href]) => <li key={href}><a href={href} onClick={go(href)}>{text(label, ES_NAV[href])}</a></li>)}</ul>
+        </div>)}
       </nav>
+    </div>
+    <div className="v2d-wrap v2d-foot-base">
       <small>© {new Date().getFullYear()} VoxelPort · built by trazhub · MIT licensed · Not affiliated with Mojang or Microsoft</small>
     </div>
   </footer>;
@@ -82,7 +89,7 @@ export function V2Footer() {
 
 const DIRECTORY = [
   ['Product', 'Producto', [['Download', '/download'], ['Features', '/features'], ['Compare', '/compare'], ["What's new", '/new-app']]],
-  ['Resources', 'Recursos', [['Guides', '/guides'], ['Server list', '/servers'], ['FAQ', '/faq']]],
+  ['Resources', 'Recursos', [['Guides', '/guides'], ['Blog', '/blog'], ['Server list', '/servers'], ['FAQ', '/faq']]],
   ['Project', 'Proyecto', [['Community', '/community'], ['About', '/about'], ['Team', '/team'], ['Support', '/support'], ['Relay status', '/status'], ['Uptime', '/uptime'], ['Legal', '/legal']]],
 ];
 

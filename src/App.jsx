@@ -9,7 +9,7 @@ import './v3.css';
 import './theme.css';
 import './v2dark.css';
 import './v2inner.css';
-import './landing.css';
+import './v4.css';
 
 const LegalPage = lazy(() => import('./LegalPage.jsx'));
 const StatusPage = lazy(() => import('./StatusPage.jsx'));
