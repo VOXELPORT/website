@@ -7,6 +7,7 @@ import { navigate, isModifiedClick } from './seo.js';
 import { V2Nav, V2Footer } from './V2Shell.jsx';
 import { Pixels, DiscordIcon } from './ui.jsx';
 import HeroWorld from './home/HeroWorld.jsx';
+import { useUptime, fmtPct } from './uptime.js';
 import './home/home.css';
 
 function PageLink({ href, children, ...props }) {
@@ -47,6 +48,37 @@ const MARQUEE = [
   ['Java set up for you', 'Java configurado por ti'], ['Players need no account', 'Los jugadores no necesitan cuenta'], ['Open source, MIT', 'Código abierto, MIT'],
   ['Windows + Android', 'Windows + Android'], ['Works behind CGNAT', 'Funciona detrás de CGNAT'],
 ];
+
+/** The last 30 days of the uptime monitor, all services together, right on the home page. */
+function UptimeStrip() {
+  const { locale, text } = useLanguage();
+  const u = useUptime();
+  if (u.status === 'loading' || u.status === 'error') return null;
+  const sinceDate = new Date(u.since).toLocaleDateString(locale === 'es' ? 'es' : 'en', { month: 'short', day: 'numeric' });
+  const covered = u.windowDays >= 29.5 ? text('last 30 days', 'últimos 30 días') : text(`since ${sinceDate}`, `desde el ${sinceDate}`);
+  const headline = u.status === 'ok' ? text('All systems operational', 'Todos los sistemas funcionan')
+    : u.status === 'down' ? text(`${u.down.length} of ${u.total} services down`, `${u.down.length} de ${u.total} servicios con fallos`)
+    : text('Monitor not reporting right now', 'El monitor no informa ahora mismo');
+  return <PageLink href="/uptime" className={`h4-uptime ${u.status}`}>
+    <div className="h4-uptime-top">
+      <span className="h4-uptime-state"><i aria-hidden="true" />{headline}</span>
+      <span className="h4-uptime-pct">
+        <b>{fmtPct(u.relayPct)}</b>{text('relay uptime', 'disponibilidad del relé')} · {covered}
+      </span>
+    </div>
+    <div className="h4-uptime-bars" aria-label={text('Daily uptime, last 30 days', 'Disponibilidad diaria, últimos 30 días')}>
+      {u.days.map((d) => {
+        const p = d.t ? (d.u / d.t) * 100 : null;
+        const tone = p === null ? 'none' : p >= 99.9 ? 'good' : p >= 98 ? 'warn' : 'bad';
+        return <span key={d.key} className={tone} title={p === null ? `${d.key}: ${text('no data yet', 'sin datos')}` : `${d.key}: ${fmtPct(Math.round(p * 100) / 100)}`} />;
+      })}
+    </div>
+    <div className="h4-uptime-foot">
+      <span>{text(`${u.up}/${u.total} services up now · checked every minute`, `${u.up}/${u.total} servicios activos · se comprueba cada minuto`)}</span>
+      <span className="h4-arrow-link">{text('Full uptime report', 'Informe completo')} <span aria-hidden="true">→</span></span>
+    </div>
+  </PageLink>;
+}
 
 function CopyAddress() {
   const { text } = useLanguage();
@@ -238,6 +270,7 @@ export default function Landing() {
               <span className="h4-node f" style={{ left: '83.3%', top: '80%' }}><Pixels rows={SPRITES.head1} size={2.4} /></span>
               <span className="h4-lock"><Pixels rows={SPRITES.lock} size={2.6} />{text('no open ports', 'sin puertos abiertos')}</span>
             </div>
+            <UptimeStrip />
           </div>
         </div>
       </section>

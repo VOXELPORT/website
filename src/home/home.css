@@ -240,6 +240,28 @@
   color: var(--faint); font: 400 10px/1 var(--site-pixel); text-transform: uppercase; white-space: nowrap;
 }
 
+/* uptime, inside the connection panel */
+.h4-uptime {
+  grid-column: 1 / -1; display: grid; gap: 14px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px;
+  background: rgba(5, 10, 9, .55); color: var(--ink); text-decoration: none; transition: border-color .2s;
+}
+.h4-uptime:hover { border-color: color-mix(in srgb, var(--green) 45%, var(--line-2)); }
+.h4-uptime-top, .h4-uptime-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+.h4-uptime-state { display: inline-flex; align-items: center; gap: 10px; font: 700 1.15rem/1.2 var(--site-display); }
+.h4-uptime-state i { width: 10px; height: 10px; border-radius: 50%; background: var(--green); animation: h4-ping 2s infinite; }
+.h4-uptime.down .h4-uptime-state i { background: #ff6b6b; }
+.h4-uptime.stale .h4-uptime-state i { background: var(--gold); animation: none; }
+.h4-uptime-pct { color: var(--faint); font-size: 14px; }
+.h4-uptime-pct b { margin-right: 8px; color: var(--green); font: 700 1.5rem/1 var(--site-display); font-variant-numeric: tabular-nums; }
+.h4-uptime-bars { display: flex; gap: 3px; height: 34px; }
+.h4-uptime-bars span { flex: 1; border-radius: 3px; background: var(--line); transition: transform .15s; }
+.h4-uptime-bars span.good { background: linear-gradient(180deg, #b8f39e, var(--green-2)); }
+.h4-uptime-bars span.warn { background: var(--gold); }
+.h4-uptime-bars span.bad { background: #ff6b6b; }
+.h4-uptime-bars span.none { opacity: .45; }
+.h4-uptime:hover .h4-uptime-bars span:not(.none) { transform: scaleY(1.08); }
+.h4-uptime-foot { color: var(--faint); font-size: 13.5px; }
+
 /* explore */
 .h4-explore { padding-top: 0; }
 .h4-directory { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }

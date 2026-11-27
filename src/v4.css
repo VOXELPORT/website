@@ -44,6 +44,27 @@ html { scrollbar-color: #2f4a3f #070d0c; }
 .v2d-nav a.active { color: var(--ink); background: color-mix(in srgb, var(--green) 12%, transparent); }
 .v2d-nav a.active::after { content: ''; position: absolute; left: 50%; bottom: 3px; width: 4px; height: 4px; transform: translateX(-50%); background: var(--green); box-shadow: 0 0 8px var(--green); }
 .v2d-more-menu { background: color-mix(in srgb, var(--bg-2) 92%, transparent); backdrop-filter: blur(14px); border-radius: 14px; }
+.v2d-uptime {
+  display: inline-flex; align-items: center; gap: 8px; flex: none; height: 40px; padding: 0 13px 0 11px;
+  border: 1px solid var(--line-2); border-radius: 99px; background: color-mix(in srgb, var(--panel) 85%, transparent);
+  color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.v2d-uptime:hover { color: var(--ink); border-color: var(--green); }
+.v2d-uptime b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.v2d-uptime i { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); flex: none; }
+.v2d-uptime.ok { border-color: color-mix(in srgb, var(--green) 40%, var(--line-2)); background: color-mix(in srgb, var(--green) 8%, var(--panel)); }
+.v2d-uptime.ok i { background: var(--green); animation: h4-ping 2s infinite; }
+.v2d-uptime.down { border-color: color-mix(in srgb, #ff6b6b 55%, var(--line-2)); background: color-mix(in srgb, #ff6b6b 10%, var(--panel)); }
+.v2d-uptime.down i { background: #ff6b6b; animation: h4-ping-red 1.4s infinite; }
+.v2d-uptime.stale i { background: var(--gold); }
+.v2d-nav + .v2d-uptime { margin-left: 6px; }
+@keyframes h4-ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 70%, transparent); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
+@keyframes h4-ping-red { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, .7); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
+@media (max-width: 1080px) { .v2d-uptime { margin-left: auto; } .v2d-top-in .vp-language { margin-left: 0; } }
+@media (max-width: 560px) { .v2d-uptime-label { display: none; } .v2d-uptime { padding: 0 11px; font-size: 12.5px; } .vp-language { max-width: 92px; } }
+@media (max-width: 440px) { .v2d-top .v2d-brand span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .v2d-uptime i { animation: none !important; } }
 .vp-language { border-radius: 10px; background: var(--panel); cursor: pointer; }
 .v2d-burger { border-radius: 10px; }
 
@@ -103,7 +124,9 @@ html { scrollbar-color: #2f4a3f #070d0c; }
 .v2d-inner .page-hero { padding-bottom: 12px; }
 
 /* ───────────── inner pages: surfaces ───────────── */
-.v2d-inner main .panel, .v2d-inner .guide-card, .v2d-inner .page-cta, .v2d-inner .faq-item, .v2d-inner .table, .v2d-inner .guide-body table {
+/* Panels that paint their own colour (the uptime banner, status badges) keep it; only the shape changes. */
+.v2d-inner main .panel[style*="background"] { border: 1px solid var(--line) !important; border-radius: 18px !important; box-shadow: none !important; }
+.v2d-inner main .panel:not([style*="background"]), .v2d-inner .guide-card, .v2d-inner .page-cta, .v2d-inner .faq-item, .v2d-inner .table, .v2d-inner .guide-body table {
   border: 1px solid var(--line) !important; border-radius: 18px !important;
   background:
     radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgba(164, 231, 139, .09), transparent 45%),

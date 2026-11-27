@@ -4,6 +4,25 @@ import { DISCORD, GITHUB_APP, useRelayStatus } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
 import { SITE_NAV } from './content.js';
 import { ES_NAV, setLanguage, useLanguage } from './language.js';
+import { useUptime, fmtPct } from './uptime.js';
+
+/** Live uptime, always in the header: green when every service answered its last check. */
+function UptimePill({ onNavigate }) {
+  const { text } = useLanguage();
+  const u = useUptime();
+  const label = u.status === 'ok' ? text('All systems up', 'Todo funcionando')
+    : u.status === 'down' ? text(`${u.down.length} down`, `${u.down.length} con fallos`)
+    : u.status === 'stale' ? text('Monitor paused', 'Monitor en pausa')
+    : text('Uptime', 'Disponibilidad');
+  const title = u.status === 'ok' ? text(`${u.up} of ${u.total} services answered their last check`, `${u.up} de ${u.total} servicios respondieron`)
+    : u.status === 'down' ? u.down.map((t) => t.label).join(', ')
+    : text('Uptime report', 'Informe de disponibilidad');
+  return <a className={`v2d-uptime ${u.status}`} href="/uptime" onClick={go('/uptime', onNavigate)} title={title}>
+    <i aria-hidden="true" />
+    <span className="v2d-uptime-label">{label}</span>
+    {u.relayPct != null && <b>{fmtPct(u.relayPct)}</b>}
+  </a>;
+}
 
 const go = (href, after) => (e) => {
   if (isModifiedClick(e)) return;
@@ -48,10 +67,12 @@ export function V2Nav({ onLogo }) {
             <summary><i className={relay.state} aria-hidden="true" />{text('More', 'Más')}</summary>
             <div className="v2d-more-menu" role="menu">
               <a href="/status" onClick={go('/status', closeMore)} role="menuitem"><i className={relay.state} aria-hidden="true" />{relay.state === 'online' ? text('Relays online', 'Relés en línea') : relay.state === 'loading' ? text('Checking relays', 'Comprobando relés') : text('Relay status', 'Estado del relé')}</a>
+              <a href="/uptime" onClick={(e) => go('/uptime', closeMore)(e)} role="menuitem"><i aria-hidden="true" />{text('Uptime report', 'Informe de disponibilidad')}</a>
               <a href={DISCORD} target="_blank" rel="noopener noreferrer" role="menuitem" onClick={closeMore}><DiscordIcon size={18} />Discord</a>
             </div>
           </details>
         </nav>
+        <UptimePill onNavigate={close} />
         <select className="vp-language" aria-label={text('Language', 'Idioma')} value={locale} onChange={(event) => setLanguage(event.target.value)}>
           <option value="en" lang="en">English</option>
           <option value="es" lang="es">Español</option>

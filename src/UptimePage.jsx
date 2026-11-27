@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Nav, Footer } from './ui.jsx';
 import { SITE_NAV } from './content.js';
 import { DISCORD } from './data.js';
+import { STALE_MS, fmtPct, useUptimeReport } from './uptime.js';
 
 // The uptime report: a monitor on our web server probes every public VoxelPort service once a minute and keeps the history
-// (see deploy/uptime in the website repo). This page only reads that file.
-const UPTIME_URL = 'https://voxelport.in/dl/uptime.json';
-const STALE_MS = 5 * 60 * 1000;
-
-const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v.toFixed(v === 100 ? 0 : 2)}%`);
+// (see deploy/uptime in the website repo). This page only reads that file, through the same shared fetch as the header pill.
 const barColor = (u, t) => {
   if (!t) return 'var(--paper-2)';
   const p = (u / t) * 100;
@@ -75,28 +72,9 @@ function Row({ t, now }) {
 }
 
 export default function UptimePage({ onBack }) {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState('');
-  const [now, setNow] = useState(0);
+  const { data, error, now } = useUptimeReport();
 
-  const load = useCallback(async () => {
-    try {
-      const res = await fetch(UPTIME_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setData(await res.json());
-      setNow(Date.now());
-      setError('');
-    } catch (e) {
-      setError(String(e.message || e));
-    }
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const first = setTimeout(load, 0);
-    const timer = setInterval(load, 60000);
-    return () => { clearTimeout(first); clearInterval(timer); };
-  }, [load]);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const back = (e) => { e?.preventDefault(); onBack(e); };
   const stale = data && now - data.updated > STALE_MS;
