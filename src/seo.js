@@ -319,7 +319,9 @@ export function applyPageMeta(page) {
   const p = pageMeta(page);
   const url = SITE + p.path;
   document.title = p.title;
-  document.documentElement.lang = p.lang || 'en';
+  // A guide written in another language says so; otherwise the page follows the visitor's chosen site language
+  // (recorded by language.js; pages whose body is English-only mark their <main lang="en">).
+  document.documentElement.lang = p.lang || document.documentElement.dataset.siteLang || 'en';
   setMeta('meta[name="description"]', 'content', p.description);
   setMeta('link[rel="canonical"]', 'href', url);
   setMeta('meta[property="og:url"]', 'content', url);

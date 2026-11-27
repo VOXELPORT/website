@@ -1,0 +1,153 @@
+// Português (Brasil) — keyed by the English text (see src/language.js). Missing keys fall back to English.
+export default {
+  // shell
+  'Skip to content': 'Pular para o conteúdo',
+  'VoxelPort has a new app.': 'O VoxelPort tem um app novo.',
+  'Keep your servers when you upgrade.': 'Seus servidores continuam com você ao atualizar.',
+  Main: 'Principal',
+  More: 'Mais',
+  'Relays online': 'Relays online',
+  'Checking relays': 'Verificando relays',
+  'Relay status': 'Status do relay',
+  Language: 'Idioma',
+  Close: 'Fechar',
+  Menu: 'Menu',
+  Footer: 'Rodapé',
+  'Site directory': 'Mapa do site',
+  'Your world. Your hardware.': 'Seu mundo. Seu hardware.',
+  Features: 'Recursos',
+  Guides: 'Guias',
+  Servers: 'Servidores',
+  Download: 'Baixar',
+  Support: 'Apoiar',
+  Compare: 'Comparar',
+  "What's new": 'Novidades',
+  'Server list': 'Lista de servidores',
+  FAQ: 'Perguntas frequentes',
+  Community: 'Comunidade',
+  About: 'Sobre',
+  Team: 'Equipe',
+  Legal: 'Aviso legal',
+  Product: 'Produto',
+  Resources: 'Recursos',
+  Project: 'Projeto',
+  Uptime: 'Disponibilidade',
+  'Uptime report': 'Relatório de disponibilidade',
+  'All systems up': 'Tudo funcionando',
+  '{n} down': '{n} fora do ar',
+  'Monitor paused': 'Monitor pausado',
+  '{up} of {total} services answered their last check': '{up} de {total} serviços responderam à última verificação',
+
+  // hero
+  'Open-source Minecraft server manager': 'Gerenciador de servidores de Minecraft de código aberto',
+  'Run a Minecraft server on your Windows PC or Android phone. Give friends an address they can join without port forwarding.':
+    'Rode um servidor de Minecraft no seu PC com Windows ou no seu celular Android. Passe para os amigos um endereço para entrar, sem abrir portas no roteador.',
+  'servers live': 'servidores no ar',
+  'See the app': 'Ver o app',
+  'Java + Bedrock crossplay': 'Crossplay Java + Bedrock',
+  'Free and open source': 'Grátis e de código aberto',
+  'Players need no account': 'Jogadores não precisam de conta',
+  'Latest desktop release': 'Versão mais recente para PC',
+  'Create or import a server, manage it from the live console, and make it public from the same app.':
+    'Crie ou importe um servidor, gerencie pelo console ao vivo e deixe público no mesmo app.',
+  'Your PC': 'Seu PC',
+  'VoxelPort relay': 'Relay do VoxelPort',
+  'Your friends': 'Seus amigos',
+  'Drag to look around · click the beacon or a friend': 'Arraste para olhar em volta · clique no sinalizador ou num amigo',
+  Highlights: 'Destaques',
+
+  // marquee
+  'No port forwarding': 'Sem abrir portas',
+  'A free .voxelport.in address': 'Um endereço .voxelport.in grátis',
+  'Bedrock players too': 'Jogadores de Bedrock também',
+  'Java set up for you': 'Java configurado para você',
+  'Open source, MIT': 'Código aberto, MIT',
+  'Windows + Android': 'Windows + Android',
+  'Works behind CGNAT': 'Funciona atrás de CGNAT',
+
+  // how it works
+  'How it works': 'Como funciona',
+  'From your PC to your friends in four steps.': 'Do seu PC para os seus amigos em quatro passos.',
+  Install: 'Instale',
+  'Grab the app for Windows or Android. It’s free, and you join our Discord once.':
+    'Baixe o app para Windows ou Android. É grátis, e você entra no nosso Discord uma vez.',
+  'Hit Start': 'Clique em Iniciar',
+  'Create or import a server and press Start. Java is handled for you.': 'Crie ou importe um servidor e clique em Iniciar. O Java fica por nossa conta.',
+  'Copy the address': 'Copie o endereço',
+  'VoxelPort hands you an address like this one. Tap it to copy.': 'O VoxelPort te dá um endereço como este. Toque para copiar.',
+  'Friends join': 'Os amigos entram',
+  'They paste it into Multiplayer → Add Server. That’s it.': 'Eles colam em Multijogador → Adicionar servidor. Pronto.',
+  Copy: 'Copiar',
+  'Copied!': 'Copiado!',
+
+  // the app
+  'Product walkthrough': 'Demonstração',
+  'VoxelPort in action': 'O VoxelPort em ação',
+  'Start a server, make it public, and share the address. Your world and files stay on your device.':
+    'Inicie um servidor, deixe público e compartilhe o endereço. Seu mundo e seus arquivos ficam no seu dispositivo.',
+  'Silent walkthrough of the VoxelPort Windows app': 'Demonstração sem áudio do app VoxelPort para Windows',
+  'Windows and Android': 'Windows e Android',
+  'Manage and share your server': 'Gerencie e compartilhe seu servidor',
+  'Create a Vanilla, Paper, or Fabric server, or import one you already run. Manage backups, plugins, and players from VoxelPort.':
+    'Crie um servidor Vanilla, Paper ou Fabric, ou importe um que você já tem. Gerencie backups, plugins e jogadores pelo VoxelPort.',
+  'Download for {os}': 'Baixar para {os}',
+  'All downloads': 'Todos os downloads',
+  'Server operators sign in with Discord and join the VoxelPort Discord server.':
+    'Quem hospeda entra com o Discord e participa do servidor do VoxelPort no Discord.',
+
+  // features
+  'Why VoxelPort': 'Por que o VoxelPort',
+  'Everything the host needs. Nothing the player has to install.': 'Tudo o que quem hospeda precisa. Nada para o jogador instalar.',
+  'All features': 'Todos os recursos',
+  'Instant relay': 'Relay instantâneo',
+  'Your server dials out to the relay and gets a public address, usually within seconds of pressing Make public. No DNS, no static IP, no router changes.':
+    'Seu servidor se conecta ao relay e recebe um endereço público, normalmente segundos depois de você clicar em Tornar público. Sem DNS, sem IP fixo, sem mexer no roteador.',
+  'Vanilla clients': 'Minecraft original',
+  'Friends join with plain Minecraft. No client mods, no launchers, no patches.': 'Os amigos entram com o Minecraft normal. Sem mods, sem launchers, sem patches.',
+  'Bedrock too': 'Bedrock também',
+  'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.':
+    'Um botão instala Geyser + Floodgate, para que jogadores de celular, console e PC dividam o mesmo mundo.',
+  'Your address': 'Seu endereço',
+  'Every server gets a free address like play.voxelport.in:26137. Supporters can claim yourname.voxelport.in, with no port number.':
+    'Todo servidor ganha um endereço grátis como play.voxelport.in:26137. Apoiadores podem pegar seunome.voxelport.in, sem número de porta.',
+  'Crash help': 'Ajuda com travamentos',
+  'If your server stops, VoxelPort says why in plain words and offers the fix. Plus live CPU, RAM and TPS.':
+    'Se o servidor parar, o VoxelPort explica o motivo em palavras simples e oferece a solução. E ainda mostra CPU, RAM e TPS ao vivo.',
+  'Free & open': 'Grátis e aberto',
+  'MIT-licensed app and relay. Read the code, fork it, or run your own relay.': 'App e relay com licença MIT. Leia o código, faça um fork ou rode seu próprio relay.',
+
+  // connection + uptime
+  'Under the hood': 'Por dentro',
+  'Your router stays shut.': 'Seu roteador continua fechado.',
+  "Your device runs the server. VoxelPort's relay connects players to it, even behind CGNAT.":
+    'Seu dispositivo roda o servidor. O relay do VoxelPort conecta os jogadores a ele, até atrás de CGNAT.',
+  'servers online now': 'servidores online agora',
+  'players connected': 'jogadores conectados',
+  'relay regions': 'regiões de relay',
+  'Live relay status': 'Status do relay ao vivo',
+  'Your device': 'Seu dispositivo',
+  Relay: 'Relay',
+  'no open ports': 'nenhuma porta aberta',
+  'All systems operational': 'Todos os sistemas funcionando',
+  '{n} of {total} services down': '{n} de {total} serviços fora do ar',
+  'Monitor not reporting right now': 'O monitor não está informando agora',
+  'relay uptime': 'disponibilidade do relay',
+  'last 30 days': 'últimos 30 dias',
+  'since {date}': 'desde {date}',
+  'Daily uptime, last 30 days': 'Disponibilidade diária, últimos 30 dias',
+  'no data yet': 'sem dados ainda',
+  '{up}/{total} services up now · checked every minute': '{up}/{total} serviços no ar agora · verificado a cada minuto',
+  'Full uptime report': 'Relatório completo',
+
+  // explore + closing
+  'Keep going': 'Continue explorando',
+  'Explore VoxelPort': 'Explore o VoxelPort',
+  'Server management, relays and crossplay': 'Gerenciamento de servidores, relays e crossplay',
+  'Set up and share a server': 'Configure e compartilhe um servidor',
+  'Find a public Minecraft server': 'Encontre um servidor público de Minecraft',
+  'Meet other VoxelPort users': 'Conheça outros usuários do VoxelPort',
+  'Help & FAQ': 'Ajuda e perguntas frequentes',
+  'Answers to common questions': 'Respostas para as dúvidas mais comuns',
+  'Free, open source, and ready in a few clicks.': 'Grátis, de código aberto e pronto em poucos cliques.',
+  'Find us online': 'Encontre a gente on-line',
+};

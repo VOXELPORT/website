@@ -51,13 +51,13 @@ const MARQUEE = [
 
 /** The last 30 days of the uptime monitor, all services together, right on the home page. */
 function UptimeStrip() {
-  const { locale, text } = useLanguage();
+  const { intl, text } = useLanguage();
   const u = useUptime();
   if (u.status === 'loading' || u.status === 'error') return null;
-  const sinceDate = new Date(u.since).toLocaleDateString(locale === 'es' ? 'es' : 'en', { month: 'short', day: 'numeric' });
-  const covered = u.windowDays >= 29.5 ? text('last 30 days', 'últimos 30 días') : text(`since ${sinceDate}`, `desde el ${sinceDate}`);
+  const date = new Date(u.since).toLocaleDateString(intl, { month: 'short', day: 'numeric' });
+  const covered = u.windowDays >= 29.5 ? text('last 30 days', 'últimos 30 días') : text('since {date}', 'desde el {date}', { date });
   const headline = u.status === 'ok' ? text('All systems operational', 'Todos los sistemas funcionan')
-    : u.status === 'down' ? text(`${u.down.length} of ${u.total} services down`, `${u.down.length} de ${u.total} servicios con fallos`)
+    : u.status === 'down' ? text('{n} of {total} services down', '{n} de {total} servicios con fallos', { n: u.down.length, total: u.total })
     : text('Monitor not reporting right now', 'El monitor no informa ahora mismo');
   return <PageLink href="/uptime" className={`h4-uptime ${u.status}`}>
     <div className="h4-uptime-top">
@@ -74,7 +74,7 @@ function UptimeStrip() {
       })}
     </div>
     <div className="h4-uptime-foot">
-      <span>{text(`${u.up}/${u.total} services up now · checked every minute`, `${u.up}/${u.total} servicios activos · se comprueba cada minuto`)}</span>
+      <span>{text('{up}/{total} services up now · checked every minute', '{up}/{total} servicios activos · se comprueba cada minuto', { up: u.up, total: u.total })}</span>
       <span className="h4-arrow-link">{text('Full uptime report', 'Informe completo')} <span aria-hidden="true">→</span></span>
     </div>
   </PageLink>;
@@ -97,18 +97,18 @@ function CopyAddress() {
 }
 
 export default function Landing() {
-  const { locale, text } = useLanguage();
+  const { intl, text } = useLanguage();
   const os = useDetectedOS();
   const relay = useRelayStatus();
   const download = os === 'android' ? DL_ANDROID : DL_WIN;
-  const labels = useMemo(() => ({
-    pc: text('Your PC', 'Tu PC'),
-    relay: text('VoxelPort relay', 'Relé de VoxelPort'),
-    friends: text('Your friends', 'Tus amigos'),
-  }), [locale]); // eslint-disable-line react-hooks/exhaustive-deps
+  // labels inside the 3D world: a new object only when the words change
+  const pcLabel = text('Your PC', 'Tu PC');
+  const relayLabel = text('VoxelPort relay', 'Relé de VoxelPort');
+  const friendsLabel = text('Your friends', 'Tus amigos');
+  const labels = useMemo(() => ({ pc: pcLabel, relay: relayLabel, friends: friendsLabel }), [pcLabel, relayLabel, friendsLabel]);
 
   const live = relay.state === 'online';
-  const fmt = (n) => (n == null ? '—' : n.toLocaleString(locale === 'es' ? 'es' : 'en'));
+  const fmt = (n) => (n == null ? '—' : n.toLocaleString(intl));
 
   return <div className="v2d vp-home h4" id="top">
     <V2Nav />
@@ -196,7 +196,7 @@ export default function Landing() {
               <h3>{text(...HOME_COPY.managementTitle)}</h3>
               <p>{text(...HOME_COPY.managementIntro)}</p>
               <div className="h4-actions" id="download">
-                <a href={download} className="h4-btn h4-btn-primary">{text(...HOME_COPY.downloadFor)} {os === 'android' ? 'Android' : 'Windows'}</a>
+                <a href={download} className="h4-btn h4-btn-primary">{text(...HOME_COPY.downloadFor, { os: os === 'android' ? 'Android' : 'Windows' })}</a>
                 <PageLink href="/download" className="h4-btn">{text(...HOME_COPY.allDownloads)}</PageLink>
               </div>
               <p className="h4-note">{text(...HOME_COPY.discordRequirement)}</p>
@@ -303,7 +303,7 @@ export default function Landing() {
           <h2 id="h4-final-title">{text(...HOME_COPY.tagline)}</h2>
           <p>{text('Free, open source, and ready in a few clicks.', 'Gratis, de código abierto y listo en unos clics.')}</p>
           <div className="h4-actions">
-            <a href={download} className="h4-btn h4-btn-primary h4-btn-lg">{text(...HOME_COPY.downloadFor)} {os === 'android' ? 'Android' : 'Windows'}</a>
+            <a href={download} className="h4-btn h4-btn-primary h4-btn-lg">{text(...HOME_COPY.downloadFor, { os: os === 'android' ? 'Android' : 'Windows' })}</a>
             <a href={DISCORD} className="h4-btn h4-btn-lg h4-btn-discord" target="_blank" rel="noopener noreferrer"><DiscordIcon size={20} />Discord</a>
           </div>
           <div className="h4-social">

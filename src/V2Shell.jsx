@@ -3,7 +3,7 @@ import { DiscordIcon } from './ui.jsx';
 import { DISCORD, GITHUB_APP, useRelayStatus } from './data.js';
 import { navigate, isModifiedClick } from './seo.js';
 import { SITE_NAV } from './content.js';
-import { ES_NAV, setLanguage, useLanguage } from './language.js';
+import { ES_NAV, LANGUAGES, setLanguage, useLanguage } from './language.js';
 import { useUptime, fmtPct } from './uptime.js';
 
 /** Live uptime, always in the header: green when every service answered its last check. */
@@ -11,10 +11,10 @@ function UptimePill({ onNavigate }) {
   const { text } = useLanguage();
   const u = useUptime();
   const label = u.status === 'ok' ? text('All systems up', 'Todo funcionando')
-    : u.status === 'down' ? text(`${u.down.length} down`, `${u.down.length} con fallos`)
+    : u.status === 'down' ? text('{n} down', '{n} con fallos', { n: u.down.length })
     : u.status === 'stale' ? text('Monitor paused', 'Monitor en pausa')
     : text('Uptime', 'Disponibilidad');
-  const title = u.status === 'ok' ? text(`${u.up} of ${u.total} services answered their last check`, `${u.up} de ${u.total} servicios respondieron`)
+  const title = u.status === 'ok' ? text('{up} of {total} services answered their last check', '{up} de {total} servicios respondieron', { up: u.up, total: u.total })
     : u.status === 'down' ? u.down.map((t) => t.label).join(', ')
     : text('Uptime report', 'Informe de disponibilidad');
   return <a className={`v2d-uptime ${u.status}`} href="/uptime" onClick={go('/uptime', onNavigate)} title={title}>
@@ -74,8 +74,7 @@ export function V2Nav({ onLogo }) {
         </nav>
         <UptimePill onNavigate={close} />
         <select className="vp-language" aria-label={text('Language', 'Idioma')} value={locale} onChange={(event) => setLanguage(event.target.value)}>
-          <option value="en" lang="en">English</option>
-          <option value="es" lang="es">Español</option>
+          {LANGUAGES.map((l) => <option key={l.code} value={l.code} lang={l.intl}>{l.label}</option>)}
         </select>
         <button className="v2d-burger" aria-expanded={open} aria-controls="v2d-nav" onClick={() => setOpen((v) => !v)}>{open ? text('Close', 'Cerrar') : text('Menu', 'Menú')}</button>
       </div>

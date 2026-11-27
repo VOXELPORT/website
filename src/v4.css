@@ -62,7 +62,7 @@ html { scrollbar-color: #2f4a3f #070d0c; }
 @keyframes h4-ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 70%, transparent); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
 @keyframes h4-ping-red { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, .7); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
 @media (max-width: 1080px) { .v2d-uptime { margin-left: auto; } .v2d-top-in .vp-language { margin-left: 0; } }
-@media (max-width: 560px) { .v2d-uptime-label { display: none; } .v2d-uptime { padding: 0 11px; font-size: 12.5px; } .vp-language { max-width: 92px; } }
+@media (max-width: 560px) { .v2d-uptime-label { display: none; } .v2d-uptime { padding: 0 11px; font-size: 12.5px; } .vp-language { max-width: 116px; font-size: 14px; } }
 @media (max-width: 440px) { .v2d-top .v2d-brand span { display: none; } }
 @media (prefers-reduced-motion: reduce) { .v2d-uptime i { animation: none !important; } }
 .vp-language { border-radius: 10px; background: var(--panel); cursor: pointer; }

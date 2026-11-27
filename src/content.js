@@ -30,7 +30,7 @@ export const HOME_COPY = {
   platforms: ["Windows and Android", "Windows y Android"],
   managementTitle: ["Manage and share your server", "Administra y comparte tu servidor"],
   managementIntro: ["Create a Vanilla, Paper, or Fabric server, or import one you already run. Manage backups, plugins, and players from VoxelPort.", "Crea un servidor Vanilla, Paper o Fabric, o importa uno que ya tengas. Gestiona las copias de seguridad, los complementos y los jugadores desde VoxelPort."],
-  downloadFor: ['Download for', 'Descargar para'],
+  downloadFor: ['Download for {os}', 'Descargar para {os}'],
   allDownloads: ["All downloads", "Todas las descargas"],
   discordRequirement: ["Server operators sign in with Discord and join the VoxelPort Discord server.", "Los administradores inician sesión con Discord y se unen al servidor de VoxelPort."],
   connection: ["Your device runs the server. VoxelPort's relay connects players to it, even behind CGNAT.", "Tu dispositivo ejecuta el servidor. El relé de VoxelPort conecta a los jugadores, incluso detrás de CGNAT."],

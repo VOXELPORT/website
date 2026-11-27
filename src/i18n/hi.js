@@ -1,0 +1,153 @@
+// हिन्दी — keyed by the English text (see src/language.js). Missing keys fall back to English.
+export default {
+  // shell
+  'Skip to content': 'मुख्य सामग्री पर जाएँ',
+  'VoxelPort has a new app.': 'VoxelPort का नया ऐप आ गया है।',
+  'Keep your servers when you upgrade.': 'अपग्रेड करने पर भी आपके सर्वर सुरक्षित रहते हैं।',
+  Main: 'मुख्य',
+  More: 'और',
+  'Relays online': 'रिले ऑनलाइन',
+  'Checking relays': 'रिले जाँचे जा रहे हैं',
+  'Relay status': 'रिले स्टेटस',
+  Language: 'भाषा',
+  Close: 'बंद करें',
+  Menu: 'मेन्यू',
+  Footer: 'फ़ुटर',
+  'Site directory': 'साइट डायरेक्टरी',
+  'Your world. Your hardware.': 'आपकी दुनिया। आपका हार्डवेयर।',
+  Features: 'फ़ीचर्स',
+  Guides: 'गाइड',
+  Servers: 'सर्वर',
+  Download: 'डाउनलोड',
+  Support: 'सपोर्ट',
+  Compare: 'तुलना',
+  "What's new": 'नया क्या है',
+  'Server list': 'सर्वर लिस्ट',
+  FAQ: 'सवाल-जवाब',
+  Community: 'कम्युनिटी',
+  About: 'हमारे बारे में',
+  Team: 'टीम',
+  Legal: 'कानूनी जानकारी',
+  Product: 'प्रोडक्ट',
+  Resources: 'संसाधन',
+  Project: 'प्रोजेक्ट',
+  Uptime: 'अपटाइम',
+  'Uptime report': 'अपटाइम रिपोर्ट',
+  'All systems up': 'सब कुछ चालू है',
+  '{n} down': '{n} बंद',
+  'Monitor paused': 'मॉनिटर रुका हुआ है',
+  '{up} of {total} services answered their last check': '{total} में से {up} सर्विस ने आख़िरी जाँच का जवाब दिया',
+
+  // hero
+  'Open-source Minecraft server manager': 'ओपन-सोर्स Minecraft सर्वर मैनेजर',
+  'Run a Minecraft server on your Windows PC or Android phone. Give friends an address they can join without port forwarding.':
+    'अपने Windows PC या Android फ़ोन पर Minecraft सर्वर चलाएँ। दोस्तों को एक एड्रेस दें, जिससे वे बिना पोर्ट फॉरवर्डिंग के जुड़ सकें।',
+  'servers live': 'सर्वर लाइव',
+  'See the app': 'ऐप देखें',
+  'Java + Bedrock crossplay': 'Java + Bedrock क्रॉसप्ले',
+  'Free and open source': 'मुफ़्त और ओपन सोर्स',
+  'Players need no account': 'खिलाड़ियों को अकाउंट नहीं चाहिए',
+  'Latest desktop release': 'नया डेस्कटॉप वर्ज़न',
+  'Create or import a server, manage it from the live console, and make it public from the same app.':
+    'सर्वर बनाएँ या इम्पोर्ट करें, लाइव कंसोल से उसे मैनेज करें और उसी ऐप से पब्लिक करें।',
+  'Your PC': 'आपका PC',
+  'VoxelPort relay': 'VoxelPort रिले',
+  'Your friends': 'आपके दोस्त',
+  'Drag to look around · click the beacon or a friend': 'घुमाने के लिए ड्रैग करें · बीकन या किसी दोस्त पर क्लिक करें',
+  Highlights: 'ख़ास बातें',
+
+  // marquee
+  'No port forwarding': 'पोर्ट फॉरवर्डिंग की ज़रूरत नहीं',
+  'A free .voxelport.in address': 'मुफ़्त .voxelport.in एड्रेस',
+  'Bedrock players too': 'Bedrock खिलाड़ी भी',
+  'Java set up for you': 'Java अपने आप सेट होता है',
+  'Open source, MIT': 'ओपन सोर्स, MIT',
+  'Windows + Android': 'Windows + Android',
+  'Works behind CGNAT': 'CGNAT के पीछे भी चलता है',
+
+  // how it works
+  'How it works': 'यह कैसे काम करता है',
+  'From your PC to your friends in four steps.': 'आपके PC से आपके दोस्तों तक, सिर्फ़ चार स्टेप में।',
+  Install: 'इंस्टॉल करें',
+  'Grab the app for Windows or Android. It’s free, and you join our Discord once.':
+    'Windows या Android के लिए ऐप लें। यह मुफ़्त है, बस एक बार हमारे Discord से जुड़ना होता है।',
+  'Hit Start': 'Start दबाएँ',
+  'Create or import a server and press Start. Java is handled for you.': 'सर्वर बनाएँ या इम्पोर्ट करें और Start दबाएँ। Java का काम हम संभाल लेते हैं।',
+  'Copy the address': 'एड्रेस कॉपी करें',
+  'VoxelPort hands you an address like this one. Tap it to copy.': 'VoxelPort आपको ऐसा एड्रेस देता है। कॉपी करने के लिए टैप करें।',
+  'Friends join': 'दोस्त जुड़ें',
+  'They paste it into Multiplayer → Add Server. That’s it.': 'वे इसे Multiplayer → Add Server में पेस्ट करें। बस इतना ही।',
+  Copy: 'कॉपी',
+  'Copied!': 'कॉपी हो गया!',
+
+  // the app
+  'Product walkthrough': 'प्रोडक्ट डेमो',
+  'VoxelPort in action': 'VoxelPort काम करते हुए',
+  'Start a server, make it public, and share the address. Your world and files stay on your device.':
+    'सर्वर शुरू करें, पब्लिक करें और एड्रेस शेयर करें। आपकी दुनिया और फ़ाइलें आपके डिवाइस पर ही रहती हैं।',
+  'Silent walkthrough of the VoxelPort Windows app': 'VoxelPort Windows ऐप का बिना आवाज़ वाला डेमो',
+  'Windows and Android': 'Windows और Android',
+  'Manage and share your server': 'अपना सर्वर मैनेज और शेयर करें',
+  'Create a Vanilla, Paper, or Fabric server, or import one you already run. Manage backups, plugins, and players from VoxelPort.':
+    'Vanilla, Paper या Fabric सर्वर बनाएँ, या पहले से चल रहा सर्वर इम्पोर्ट करें। बैकअप, प्लगइन और खिलाड़ी VoxelPort से मैनेज करें।',
+  'Download for {os}': '{os} के लिए डाउनलोड करें',
+  'All downloads': 'सभी डाउनलोड',
+  'Server operators sign in with Discord and join the VoxelPort Discord server.':
+    'सर्वर चलाने वाले Discord से साइन इन करते हैं और VoxelPort के Discord सर्वर से जुड़ते हैं।',
+
+  // features
+  'Why VoxelPort': 'VoxelPort क्यों',
+  'Everything the host needs. Nothing the player has to install.': 'होस्ट को जो चाहिए, सब कुछ। खिलाड़ी को कुछ भी इंस्टॉल नहीं करना।',
+  'All features': 'सभी फ़ीचर्स',
+  'Instant relay': 'तुरंत रिले',
+  'Your server dials out to the relay and gets a public address, usually within seconds of pressing Make public. No DNS, no static IP, no router changes.':
+    'Make public दबाते ही आपका सर्वर रिले से जुड़ता है और आमतौर पर कुछ ही सेकंड में पब्लिक एड्रेस मिल जाता है। न DNS, न स्टैटिक IP, न राउटर में बदलाव।',
+  'Vanilla clients': 'सादा Minecraft',
+  'Friends join with plain Minecraft. No client mods, no launchers, no patches.': 'दोस्त सादे Minecraft से जुड़ते हैं। न मॉड, न लॉन्चर, न पैच।',
+  'Bedrock too': 'Bedrock भी',
+  'One switch installs Geyser + Floodgate, so phone, console and PC players share one world.':
+    'एक स्विच से Geyser + Floodgate इंस्टॉल हो जाते हैं, ताकि फ़ोन, कंसोल और PC के खिलाड़ी एक ही दुनिया में खेलें।',
+  'Your address': 'आपका एड्रेस',
+  'Every server gets a free address like play.voxelport.in:26137. Supporters can claim yourname.voxelport.in, with no port number.':
+    'हर सर्वर को play.voxelport.in:26137 जैसा मुफ़्त एड्रेस मिलता है। सपोर्टर बिना पोर्ट नंबर वाला yourname.voxelport.in ले सकते हैं।',
+  'Crash help': 'क्रैश में मदद',
+  'If your server stops, VoxelPort says why in plain words and offers the fix. Plus live CPU, RAM and TPS.':
+    'सर्वर रुक जाए तो VoxelPort आसान शब्दों में वजह बताता है और हल भी देता है। साथ में लाइव CPU, RAM और TPS।',
+  'Free & open': 'मुफ़्त और ओपन',
+  'MIT-licensed app and relay. Read the code, fork it, or run your own relay.': 'MIT लाइसेंस वाला ऐप और रिले। कोड पढ़ें, फ़ोर्क करें या अपना रिले चलाएँ।',
+
+  // connection + uptime
+  'Under the hood': 'अंदर की बात',
+  'Your router stays shut.': 'आपका राउटर बंद ही रहता है।',
+  "Your device runs the server. VoxelPort's relay connects players to it, even behind CGNAT.":
+    'सर्वर आपके डिवाइस पर चलता है। VoxelPort का रिले खिलाड़ियों को उससे जोड़ता है, CGNAT के पीछे भी।',
+  'servers online now': 'अभी ऑनलाइन सर्वर',
+  'players connected': 'जुड़े हुए खिलाड़ी',
+  'relay regions': 'रिले रीजन',
+  'Live relay status': 'लाइव रिले स्टेटस',
+  'Your device': 'आपका डिवाइस',
+  Relay: 'रिले',
+  'no open ports': 'कोई पोर्ट खुला नहीं',
+  'All systems operational': 'सभी सिस्टम चालू हैं',
+  '{n} of {total} services down': '{total} में से {n} सर्विस बंद',
+  'Monitor not reporting right now': 'मॉनिटर अभी रिपोर्ट नहीं कर रहा',
+  'relay uptime': 'रिले अपटाइम',
+  'last 30 days': 'पिछले 30 दिन',
+  'since {date}': '{date} से',
+  'Daily uptime, last 30 days': 'रोज़ का अपटाइम, पिछले 30 दिन',
+  'no data yet': 'अभी डेटा नहीं',
+  '{up}/{total} services up now · checked every minute': '{up}/{total} सर्विस अभी चालू · हर मिनट जाँच',
+  'Full uptime report': 'पूरी अपटाइम रिपोर्ट',
+
+  // explore + closing
+  'Keep going': 'और देखें',
+  'Explore VoxelPort': 'VoxelPort को जानें',
+  'Server management, relays and crossplay': 'सर्वर मैनेजमेंट, रिले और क्रॉसप्ले',
+  'Set up and share a server': 'सर्वर सेट करें और शेयर करें',
+  'Find a public Minecraft server': 'पब्लिक Minecraft सर्वर खोजें',
+  'Meet other VoxelPort users': 'दूसरे VoxelPort यूज़र्स से मिलें',
+  'Help & FAQ': 'मदद और सवाल-जवाब',
+  'Answers to common questions': 'आम सवालों के जवाब',
+  'Free, open source, and ready in a few clicks.': 'मुफ़्त, ओपन सोर्स, और कुछ ही क्लिक में तैयार।',
+  'Find us online': 'हमें ऑनलाइन खोजें',
+};
